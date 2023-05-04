@@ -1,0 +1,57 @@
+@import "../../assets/scss/abstract/variables";
+
+.menu {
+    padding: 0;
+    box-shadow: 0 3px 6px $shadow;
+    background-color: $menuBgColor;
+    position: sticky;
+    top: 0;
+    left: 0;
+    z-index: 1;
+
+    .menu-navbar {
+        font-size: 1.6rem;
+        padding: 0;
+
+        .menu-link {
+            color: #414164;
+            transition: all 0.4s ease-out;
+        }
+
+        .menu-link:hover {
+            color:$orange
+        }
+
+        .actif {
+            color:$orange
+        }
+
+        i {
+            color: #414164;
+            font-size: 0.5rem;
+            margin: 0 5px;
+        }
+    }
+    
+    .btn-connect {
+        color: white;
+        background-color: #3e64c4;;
+        border: 1px solid #3e64c4;
+        border-radius: 20px;
+        padding: 0 10px;
+        margin: 3px 0;
+        font-size: 1.4rem;
+        cursor: pointer;
+        transition: all 0.2s ease-out;
+
+        i {
+            margin-right: 5px
+        }
+
+        &:hover {
+            color: #3e64c4;;
+            background-color: white;
+        }                    
+    }
+    
+}    
