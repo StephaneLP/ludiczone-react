@@ -1,5 +1,5 @@
-import Header from "../../components/layout/Header"
-import Menu from "../../components/layout/Menu"
+import Header from "../../layout/header/Header"
+import Menu from "../../layout/menu/Menu"
 
 const Home = () => {
     return (

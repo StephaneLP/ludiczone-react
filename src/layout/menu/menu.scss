@@ -1,4 +1,4 @@
-@import "../../assets/scss/abstract/variables";
+@import "../../styles/utils/variables";
 
 .menu {
     padding: 0;
@@ -19,11 +19,11 @@
         }
 
         .menu-link:hover {
-            color:$orange
+            color:$secondaryFontColor
         }
 
         .actif {
-            color:$orange
+            color:$secondaryFontColor
         }
 
         i {

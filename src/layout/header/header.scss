@@ -1,7 +1,7 @@
-@import "../../assets/scss/abstract/variables";
+@import "../../styles/utils/variables";
 
 header {
-    background: linear-gradient(to bottom, $blue, $lightblue);
+    background: linear-gradient(to bottom, $baseBgColor, $baseBgColorLight1);
 
     .header-bandeau {
         color: white;
@@ -19,7 +19,7 @@ header {
                 font-size: 3rem;
                 
                 span {
-                    color: $orange;
+                    color: $secondaryFontColor;
                 }
             }
         }
@@ -30,7 +30,7 @@ header {
             margin: 0;
 
             span {
-                color: $orange;
+                color: $secondaryFontColor;
             }
         }
     }

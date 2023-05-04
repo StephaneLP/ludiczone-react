@@ -1,5 +1,5 @@
 import "./header.scss"
-import logoMenu from "../../assets/img/logo/logo-menu.png"
+import logoMenu from "../../assets/images/logo/logo-menu.png"
 
 const Header = () => {
     return (
