@@ -1,0 +1,56 @@
+@import "../../styles/utils/utils";
+
+.home-type {
+    background-image: url("../../assets/images/background/bg.svg");
+    background-size: cover;
+    background-position: center;
+    padding-bottom: 50px;
+
+    h2 {
+        margin: 40px 0;
+        color: #e0650d;
+        font-size: 3rem;
+    }
+
+    .type-section {
+        padding: 20px;
+        margin-bottom: 10px;
+        transition: all 0.4s ease-out;
+        cursor: pointer;
+        
+        .section-all {
+            box-shadow: 5px 5px 10px $baseBgColor;
+
+            .type-section-left {
+                padding: 20px;
+                width: 50%;
+                background: linear-gradient(to right, $baseBgColor, $baseBgColorLight1);
+                transition: all 0.5s ease-out;
+                
+                h3 {
+                    color: white;
+                }
+            }
+
+            .type-section-right {
+                width: 50%;
+
+                img {
+                    width: 100%;
+                }
+            }
+        }
+
+        &:hover {
+            transform: scale(1.05);
+
+            .type-section-left {
+                background: linear-gradient(to left, $baseBgColor, $baseBgColorLight1);
+
+                h3 {
+                    // color: #e0650d;
+                }
+            }
+        }
+    }
+}

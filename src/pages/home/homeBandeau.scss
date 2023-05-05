@@ -1,0 +1,14 @@
+.home-bandeau {
+    padding: 0;
+
+    .home-bandeau-img {
+        background-attachment: fixed;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+
+        background-image: url("../../assets/images/bandeau/bandeau-vr.jpg");
+        width: 100%;
+        height: 400px;
+    }
+}
