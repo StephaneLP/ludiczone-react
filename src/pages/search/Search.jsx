@@ -1,21 +1,19 @@
 import Header from "../../layout/header/Header"
 import Menu from "../../layout/menu/Menu"
 import Footer from "../../layout/footer/Footer"
-import HomeBandeau from "./components/HomeBandeau"
-import HomeTypeSortie from "./components/HomeTypeSortie"
+import SearchResult from "./components/SearchResult"
 
-const Home = () => {
+const Search = () => {
     return (
         <>
             <Header />            
             <main>
                 <Menu />
-                <HomeBandeau />
-                <HomeTypeSortie />
+                <SearchResult />
                 <Footer />
             </main>
         </>
     )
 }
 
-export default Home
+export default Search

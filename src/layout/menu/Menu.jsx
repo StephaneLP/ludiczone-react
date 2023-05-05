@@ -1,6 +1,9 @@
 import "./menu.scss"
+import { Link, useLocation } from "react-router-dom"
 
 const Menu = () => {
+    const location = useLocation()
+
     return (
         <section className="container-fluid menu">
             <div className="container d-flex d-row justify-content-between align-items-center">
@@ -10,12 +13,12 @@ const Menu = () => {
                     </button>
                     <div className="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
                         <div className="navbar-nav d-flex align-items-center">
-                                <a className="nav-link menu-link actif" aria-current="page" href="index.html">ACCUEIL</a>
-                            <i className="fa-solid fa-circle"></i>
-                                <a className="nav-link menu-link" href="recherche.html">RECHERCHE AVANCÉE</a>
-                            <i className="fa-solid fa-circle"></i>
+                            <Link to="/" className={location.pathname === "/" ? "nav-link menu-link actif" : "nav-link menu-link"} aria-current="page" href="#">ACCUEIL</Link>
+                            <i className="fa-solid fa-circle" />
+                            <Link to="/search" className={location.pathname === "/search" ? "nav-link menu-link actif" : "nav-link menu-link"} aria-current="page" href="#">RECHERCHE AVANCÉE</Link>
+                            <i className="fa-solid fa-circle" />
                             <a className="nav-link menu-link" href="#">MON ESPACE</a>
-                            <i className="fa-solid fa-circle"></i>
+                            <i className="fa-solid fa-circle" />
                             <a className="nav-link menu-link" href="#">ADMIN</a>
                         </div>
                     </div>
