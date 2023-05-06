@@ -8,7 +8,7 @@
 
     h2 {
         margin: 40px 0;
-        color: #e0650d;
+        color: $secondaryFontColor;
         font-size: 3rem;
     }
 
@@ -42,7 +42,7 @@
         }
 
         &:hover {
-            transform: scale(1.05);
+            transform: scale(1.02);
 
             .type-section-left {
                 background: linear-gradient(to left, $baseBgColor, $baseBgColorLight1);

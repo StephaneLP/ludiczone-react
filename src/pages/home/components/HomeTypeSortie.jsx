@@ -1,4 +1,5 @@
 import "./homeTypeSortie.scss"
+import { useNavigate } from 'react-router-dom';
 import imgVrGames from "../../../assets/images/type-sortie/vr-games.jpg"
 import imgEscapeGames from "../../../assets/images/type-sortie/escape-games.jpg"
 import imgLaserGames from "../../../assets/images/type-sortie/laser-games.jpg"
@@ -7,12 +8,18 @@ import imgKarting from "../../../assets/images/type-sortie/karting.jpg"
 import imgBowling from "../../../assets/images/type-sortie/bowling.jpg"
 
 const HomeTypeSortie = () => {
+    const navigate = useNavigate();
+    
+    const handleClickNavigate = (id) => {
+        navigate('/search')
+    }
+
     return (
         <section className="container-fluid home-type">
             <h2>Recherche par type de loisir</h2>
             <div className="container">
                 <div className="row">
-                    <div className="col-12 col-md-6 type-section">
+                    <div className="col-12 col-md-6 type-section" onClick={() => handleClickNavigate(1)}>
                         <div className="col-12 d-flex flex-row section-all">
                             <div className="d-flex flex-column justify-content-center align-items-center type-section-left">
                                 <h3>Réalité Virtuelle</h3>
