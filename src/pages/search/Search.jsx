@@ -1,18 +1,17 @@
-import Header from "../../layout/header/Header"
 import Menu from "../../layout/menu/Menu"
-import Footer from "../../layout/footer/Footer"
 import SearchResult from "./components/SearchResult"
 
+import { useParams, useLocation } from 'react-router-dom'
+
 const Search = () => {
+    const location = useLocation()
+    const type = (location.state===null ? 0 : location.state.type)
+
     return (
-        <>
-            <Header />            
-            <main>
-                <Menu />
-                <SearchResult />
-                <Footer />
-            </main>
-        </>
+        <main>
+            <Menu />
+            <SearchResult type={type}/>
+        </main>
     )
 }
 

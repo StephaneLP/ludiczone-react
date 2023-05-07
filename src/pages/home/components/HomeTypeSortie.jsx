@@ -11,7 +11,11 @@ const HomeTypeSortie = () => {
     const navigate = useNavigate();
     
     const handleClickNavigate = (id) => {
-        navigate('/search')
+        navigate('/search',{
+            state: {
+                type: id,
+              }
+        })
     }
 
     return (
@@ -29,7 +33,7 @@ const HomeTypeSortie = () => {
                             </div>
                         </div>
                     </div>
-                    <div className="col-12 col-md-6 type-section">
+                    <div className="col-12 col-md-6 type-section" onClick={() => handleClickNavigate(2)}>
                         <div className="col-12 d-flex flex-row section-all">
                             <div className="d-flex flex-column justify-content-center align-items-center type-section-left">
                                 <h3>Escape Games</h3>
@@ -39,7 +43,7 @@ const HomeTypeSortie = () => {
                             </div>
                         </div>
                     </div>
-                    <div className="col-12 col-md-6 type-section">
+                    <div className="col-12 col-md-6 type-section" onClick={() => handleClickNavigate(3)}>
                         <div className="col-12 d-flex flex-row section-all">
                             <div className="d-flex flex-column justify-content-center align-items-center type-section-left">
                                 <h3>Laser Games</h3>
@@ -49,7 +53,7 @@ const HomeTypeSortie = () => {
                             </div>
                         </div>
                     </div>
-                    <div className="col-12 col-md-6 type-section">
+                    <div className="col-12 col-md-6 type-section" onClick={() => handleClickNavigate(4)}>
                         <div className="col-12 d-flex flex-row section-all">
                             <div className="d-flex flex-column justify-content-center align-items-center type-section-left">
                                 <h3>Jeux de société</h3>
@@ -59,7 +63,7 @@ const HomeTypeSortie = () => {
                             </div>
                         </div>
                     </div>
-                    <div className="col-12 col-md-6 type-section">
+                    <div className="col-12 col-md-6 type-section" onClick={() => handleClickNavigate(5)}>
                         <div className="col-12 d-flex flex-row section-all">
                             <div className="d-flex flex-column justify-content-center align-items-center type-section-left">
                                 <h3>Karting</h3>
@@ -69,7 +73,7 @@ const HomeTypeSortie = () => {
                             </div>
                         </div>
                     </div>
-                    <div className="col-12 col-md-6 type-section">
+                    <div className="col-12 col-md-6 type-section" onClick={() => handleClickNavigate(6)}>
                         <div className="col-12 d-flex flex-row section-all">
                             <div className="d-flex flex-column justify-content-center align-items-center type-section-left">
                                 <h3>Bowling</h3>
