@@ -3,13 +3,6 @@ import Loader from "../../../components/loader/Loader"
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from "react"
 
-import imgVrGames from "../../../assets/images/type-sortie/vr-games.jpg"
-import imgEscapeGames from "../../../assets/images/type-sortie/escape-games.jpg"
-import imgLaserGames from "../../../assets/images/type-sortie/laser-games.jpg"
-import imgSociete from "../../../assets/images/type-sortie/societe.jpg"
-import imgKarting from "../../../assets/images/type-sortie/karting.jpg"
-import imgBowling from "../../../assets/images/type-sortie/bowling.jpg"
-
 const HomeTypeSortie = () => {
     const navigate = useNavigate();
     const[getAreaType, setGetAreaType] = useState(null)
@@ -50,7 +43,7 @@ const HomeTypeSortie = () => {
                                                 <h3>{element.name}</h3>
                                             </div>
                                             <div className="type-section-right">
-                                                <img src={"./assets/images/type-sortie/" + element.picture} alt={element.name} />
+                                                <img src={require("../../../assets/images/type-sortie/" + element.picture)} alt={element.name} />
                                             </div>
                                         </div>
                                     </div>   
