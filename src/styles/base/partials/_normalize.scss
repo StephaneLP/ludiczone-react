@@ -2,14 +2,15 @@
 
 body {
     font-family: "Boogaloo", Arial, Helvetica, sans-serif;
-    background-color: white;
+    background-color: black;
     position: relative;
     min-height: 100vh;
 }
 
 main {
     padding-bottom: 100px;
-    animation: fadein 1s; 
+    animation: fadein 1s;
+    background-color: white;
 }
 
 @keyframes fadein {

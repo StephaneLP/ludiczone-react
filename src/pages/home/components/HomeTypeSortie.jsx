@@ -1,5 +1,8 @@
 import "./homeTypeSortie.scss"
+import Loader from "../../../components/loader/Loader"
 import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from "react"
+
 import imgVrGames from "../../../assets/images/type-sortie/vr-games.jpg"
 import imgEscapeGames from "../../../assets/images/type-sortie/escape-games.jpg"
 import imgLaserGames from "../../../assets/images/type-sortie/laser-games.jpg"
@@ -9,7 +12,18 @@ import imgBowling from "../../../assets/images/type-sortie/bowling.jpg"
 
 const HomeTypeSortie = () => {
     const navigate = useNavigate();
-    
+    const[getAreaType, setGetAreaType] = useState(null)
+  
+    useEffect(() => {
+        fetch("http://localhost:3001/api/areatype")
+            .then((res) => {
+                return res.json()
+            })
+            .then((res) => {
+                setGetAreaType(res.data)
+            })
+    },[])
+
     const handleClickNavigate = (id) => {
         navigate('/search',{
             state: {
@@ -23,66 +37,28 @@ const HomeTypeSortie = () => {
             <h2>Recherche par type de loisir</h2>
             <div className="container">
                 <div className="row">
-                    <div className="col-12 col-md-6 type-section" onClick={() => handleClickNavigate(1)}>
-                        <div className="col-12 d-flex flex-row section-all">
-                            <div className="d-flex flex-column justify-content-center align-items-center type-section-left">
-                                <h3>Réalité Virtuelle</h3>
-                            </div>
-                            <div className="type-section-right">
-                                <img src={imgVrGames} alt="Réalité virtuelle" />
-                            </div>
-                        </div>
-                    </div>
-                    <div className="col-12 col-md-6 type-section" onClick={() => handleClickNavigate(2)}>
-                        <div className="col-12 d-flex flex-row section-all">
-                            <div className="d-flex flex-column justify-content-center align-items-center type-section-left">
-                                <h3>Escape Games</h3>
-                            </div>
-                            <div className="type-section-right">
-                                <img src={imgEscapeGames} alt="Escape Games" />
-                            </div>
-                        </div>
-                    </div>
-                    <div className="col-12 col-md-6 type-section" onClick={() => handleClickNavigate(3)}>
-                        <div className="col-12 d-flex flex-row section-all">
-                            <div className="d-flex flex-column justify-content-center align-items-center type-section-left">
-                                <h3>Laser Games</h3>
-                            </div>
-                            <div className="type-section-right">
-                                <img src={imgLaserGames} alt="Laser Games" />
-                            </div>
-                        </div>
-                    </div>
-                    <div className="col-12 col-md-6 type-section" onClick={() => handleClickNavigate(4)}>
-                        <div className="col-12 d-flex flex-row section-all">
-                            <div className="d-flex flex-column justify-content-center align-items-center type-section-left">
-                                <h3>Jeux de société</h3>
-                            </div>
-                            <div className="type-section-right">
-                                <img src={imgSociete} alt="Jeux de société" />
-                            </div>
-                        </div>
-                    </div>
-                    <div className="col-12 col-md-6 type-section" onClick={() => handleClickNavigate(5)}>
-                        <div className="col-12 d-flex flex-row section-all">
-                            <div className="d-flex flex-column justify-content-center align-items-center type-section-left">
-                                <h3>Karting</h3>
-                            </div>
-                            <div className="type-section-right">
-                                <img src={imgKarting} alt="Karting" />
-                            </div>
-                        </div>
-                    </div>
-                    <div className="col-12 col-md-6 type-section" onClick={() => handleClickNavigate(6)}>
-                        <div className="col-12 d-flex flex-row section-all">
-                            <div className="d-flex flex-column justify-content-center align-items-center type-section-left">
-                                <h3>Bowling</h3>
-                            </div>
-                            <div className="type-section-right">
-                                <img src={imgBowling} alt="Bowling"/>
-                            </div>
-                        </div>
-                    </div>
+                    {getAreaType === null ?
+                        (<Loader />)
+                        :
+                        (
+                            <>
+                            {getAreaType.map((element) => {
+                                return (
+                                    <div className="col-12 col-lg-6 type-section" onClick={() => handleClickNavigate(element.id)} key={element.id}>
+                                        <div className="col-12 d-flex flex-row section-all">
+                                            <div className="d-flex flex-column justify-content-center align-items-center type-section-left">
+                                                <h3>{element.name}</h3>
+                                            </div>
+                                            <div className="type-section-right">
+                                                <img src={"./assets/images/type-sortie/" + element.picture} alt={element.name} />
+                                            </div>
+                                        </div>
+                                    </div>   
+                                )
+                            })}
+                            </>
+                        )
+                    }
                 </div>
             </div>            
         </section>        
