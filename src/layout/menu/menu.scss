@@ -1,7 +1,7 @@
 @import "../../styles/utils/utils";
 
 .menu {
-    padding: 0;
+    padding: 3px 0;
     box-shadow: 0 3px 6px $shadow;
     background-color: $menuBgColor;
     position: sticky;
@@ -10,7 +10,7 @@
     z-index: 1;
 
     .menu-navbar {
-        font-size: 1.6rem;
+        font-size: 1.5rem;
         padding: 0;
 
         .menu-link {
@@ -18,10 +18,14 @@
             transition: all 0.4s ease-out;
         }
 
+        .menu-link-dropdown {
+            font-size: 1.2rem;
+        }
+
         .menu-link:hover {
             color:$secondaryFontColor
         }
-
+        
         .actif {
             color:$secondaryFontColor
         }
