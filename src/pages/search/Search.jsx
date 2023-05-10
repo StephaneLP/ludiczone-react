@@ -2,10 +2,13 @@ import Menu from "../../layout/menu/Menu"
 import SearchResult from "./components/SearchResult"
 
 import { useParams, useLocation } from 'react-router-dom'
+import { useEffect, useState } from "react"
 
 const Search = () => {
     const location = useLocation()
     const type = (location.state===null ? 0 : location.state.type)
+
+    useEffect(() => window.scrollTo(0,0),[])
 
     return (
         <main>
