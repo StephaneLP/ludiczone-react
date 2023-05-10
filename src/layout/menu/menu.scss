@@ -16,10 +16,15 @@
         .menu-link {
             color: $baseFontColorLight1;
             transition: all 0.4s ease-out;
+            padding-right: 10px;
         }
 
         .menu-link-dropdown {
             font-size: 1.2rem;
+        }
+
+        .menu-link-button {
+            border: 0 solid grey;
         }
 
         .menu-link:hover {

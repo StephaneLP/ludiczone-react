@@ -1,0 +1,18 @@
+@import "../../styles/utils/utils";
+
+.admin {
+    p {
+        font-family: "Poppins", Arial, Helvetica, sans-serif;
+    }
+    
+    h3 {
+        font-family: "Poppins", Arial, Helvetica, sans-serif;
+    }
+    
+
+    h1 {
+        margin: 40px 0;
+        color: $secondaryFontColor;
+        font-size: 3rem;
+    }
+}

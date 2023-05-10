@@ -2,7 +2,8 @@
 
 body {
     font-family: "Boogaloo", Arial, Helvetica, sans-serif;
-    background-color: black;
+    background-color: $baseBgColor;
+    color: $baseFontColor;
     position: relative;
     min-height: 100vh;
 }
@@ -26,6 +27,7 @@ main {
 h1, h2, h3 {
     margin: 20px 0 20px;
     text-align: center;
+    font-family: "Boogaloo", Arial, Helvetica, sans-serif;
     // font-size: 3rem;
 }
 

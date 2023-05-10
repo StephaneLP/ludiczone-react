@@ -1,0 +1,20 @@
+@import "../../styles/utils/utils";
+
+.not-found {
+    margin: 50px auto;
+    text-align: center;
+
+    .parag {
+        font-size: 2rem;
+    }
+
+    h1 {
+        margin: 20px 0;
+        color: $secondaryFontColor;
+        font-size: 3rem;
+    }
+
+    img {
+        width: 30vw;
+    }
+}
