@@ -76,7 +76,6 @@ const Menu = () => {
                     </div>
                 </nav>
                 <button className="d-flex align-items-center btn-connect">
-                    <i className="fa-solid fa-user"></i>
                     <span>Connexion</span>
                 </button>
             </div>

@@ -1,6 +1,32 @@
 @import "../../styles/utils/utils";
 
 .admin {
+    h1 {
+        margin: 40px 0;
+        color: $secondaryFontColor;
+        font-size: 3rem;
+    }
+
+    .tab-row {
+        font-family: "Poppins", Arial, Helvetica, sans-serif;
+        font-size: 1.2rem;
+        color: $baseFontColorLight1;
+        padding: 10px;
+        margin-bottom: 10px;
+        background-color: #fdfdfd;
+        border: 1px solid $baseBgColorLight3;
+        border-radius: 10px;
+
+
+        div {
+            img {
+                width: 30px;
+            }
+        }
+    }
+
+
+
     p {
         font-family: "Poppins", Arial, Helvetica, sans-serif;
     }
@@ -8,11 +34,5 @@
     h3 {
         font-family: "Poppins", Arial, Helvetica, sans-serif;
     }
-    
 
-    h1 {
-        margin: 40px 0;
-        color: $secondaryFontColor;
-        font-size: 3rem;
-    }
 }
