@@ -49,8 +49,8 @@ const AdminAreaType = () => {
                                             Updated : {formatDate(element.updated_at,"short")}
                                         </div>
                                         <div className="col-12 col-lg-2">
-                                        <img src={imgUpdate} />
-                                        <img src={imgDelete} />
+                                            <img src={imgUpdate} />
+                                            <img src={imgDelete} />
 
                                             {/* <Link className="btn-logo" to={"/update-coworking/" + singleCoworking.id} href="#"><img src="/img/pencil3.png" /></Link>
                                             <Link className="btn-logo" onClick={handleShowModalClick}><img src="/img/garbage.png" /></Link> */}
