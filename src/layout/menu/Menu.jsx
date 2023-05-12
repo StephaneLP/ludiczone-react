@@ -41,7 +41,7 @@ const Menu = () => {
                     </div>
                 </nav>
                 <button className="btn-connect">
-                    <img src={imgLogin} />
+                    <img src={imgLogin} alt="Login" />
                 </button>
             </div>
         </section>
