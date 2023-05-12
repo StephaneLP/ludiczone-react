@@ -1,0 +1,54 @@
+@import "../../styles/utils/utils";
+
+.admin {
+    h1 {
+        margin: 40px 0;
+        color: $secondaryFontColor;
+        font-size: 3rem;
+    }
+
+    .admin-add {
+        text-align: center;
+        margin-bottom: 15px;
+    }
+
+
+
+    h2 {
+        font-family: "Poppins", Arial, Helvetica, sans-serif;
+        margin: 40px 0;
+        color: $baseFontColorLight1;
+        font-size: 2rem;
+    }
+
+    .filtre {
+        font-family: "Poppins", Arial, Helvetica, sans-serif;
+        font-size: 1rem;
+        color: $baseFontColorLight2;
+        background-color: #fcfcfc;
+        border: 1px solid #b5b5b5;
+        border-radius: 5px;
+        padding: 5px 15px;;
+
+    }
+
+    .admin-row {
+        font-family: "Poppins", Arial, Helvetica, sans-serif;
+        font-size: 1rem;
+        color: $baseFontColorLight2;
+        padding: 15px 0;
+        margin: 4px 0;
+        border-bottom: 1px solid $baseBgColorLight3;
+        // background-color: lightgrey;
+
+        div {
+            display: flex;
+            align-items: center;
+        }
+
+        .admin-row-title {
+            font-size: 1.2rem;
+            color: $baseFontColorLight1;
+        }
+    }
+}

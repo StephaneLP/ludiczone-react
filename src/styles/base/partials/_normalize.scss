@@ -1,5 +1,10 @@
 @import "../../../styles/utils/utils";
 
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 body {
     font-family: "Boogaloo", Arial, Helvetica, sans-serif;
     background-color: $baseBgColor;
@@ -31,6 +36,11 @@ h1, h2, h3 {
     // font-size: 3rem;
 }
 
+.navbar-toggler {
+    &:focus {
+        box-shadow: 0 0 0 transparent;
+    }
+}
 // h1 {
 //     color: #e0650d;
 // }

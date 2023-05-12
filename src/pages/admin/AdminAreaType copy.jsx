@@ -76,38 +76,39 @@ const AdminAreaType = () => {
                         :
                         (
                             <>
-                            <div className="admin-titre d-flex justify-content-between align-items-center">
-                                <h2>Table 'area_type'</h2>
+                            <h2>Table 'area_type'</h2>
+                            <div className="admin-add">
                                 <Link className="btn-admin-add" to={"/"} href="#">Ajouter un élément</Link>                                
                             </div>
-                            <div className="admin-filtre d-flex justify-content-between align-items-center">
-                                <div className="admin-filtre-nb">Nombre de résultats : <span>{getAreaType.length}</span></div>
+                            <div className="filtre d-flex justify-content-between align-items-center">
+                                <div className="tri">Nombre de résultats : <span>{getAreaType.length}</span></div>
 
-                                <nav className="navbar bg-body-tertiary">
-                                    <button className="navbar-toggler btn-admin" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
-                                        <img src={imgFilter} />
-                                    </button>
-                                    <div className="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
-                                        <div className="offcanvas-header">
-                                            <h5 className="offcanvas-title" id="offcanvasNavbarLabel">Offcanvas</h5>
-                                            <button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                                        </div>
-                                        <div className="offcanvas-body">
-                                            <ul className="navbar-nav justify-content-end flex-grow-1 pe-3">
-                                                <li className="nav-item">
-                                                    <a className="nav-link" aria-current="page" href="#">Home</a>
-                                                </li>
-                                                <li className="nav-item">
-                                                    <a className="nav-link" href="#">Link</a>
-                                                </li>
-                                            </ul>
-                                            <form className="d-flex mt-3" role="search">
-                                                <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-                                                <button className="btn btn-outline-success" type="submit">Search</button>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </nav>
+<nav className="navbar bg-body-tertiary">
+    <button className="navbar-toggler btn-admin" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+        <img src={imgFilter} />
+    </button>
+    <div className="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+        <div className="offcanvas-header">
+            <h5 className="offcanvas-title" id="offcanvasNavbarLabel">Offcanvas</h5>
+            <button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div className="offcanvas-body">
+            <ul className="navbar-nav justify-content-end flex-grow-1 pe-3">
+                <li className="nav-item">
+                    <a className="nav-link" aria-current="page" href="#">Home</a>
+                </li>
+                <li className="nav-item">
+                    <a className="nav-link" href="#">Link</a>
+                </li>
+            </ul>
+            <form className="d-flex mt-3" role="search">
+                <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
+                <button className="btn btn-outline-success" type="submit">Search</button>
+            </form>
+        </div>
+    </div>
+</nav>
+
                                 {/* <div className="tri">
                                     <span>Tri par nom : </span>
                                     <input type="radio" name="tri" value="asc" onChange={handleSortClick} checked={param.sort==="asc"} />
