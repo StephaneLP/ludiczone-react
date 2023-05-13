@@ -1,6 +1,6 @@
 import "./searchResult.scss"
 
-import { useEffect, useState } from "react"
+// import { useEffect, useState } from "react"
 
 const SearchResult = (props) => {
     const type = props.type
@@ -91,10 +91,10 @@ const SearchResult = (props) => {
     )
 }
 
-                                {/* <p>Virtual Room, 1ère salle de réalité virtuelle collaborative à Bordeaux, propose des expériences originales et accessibles à tous en équipe de 2 à 4 joueurs.</p>
-                                <p>À la croisée des chemins entre l’escape game et le cinéma, embarquez pour une aventure virtuelle unique en son genre alliant réflexion, communication et esprit d’équipe !</p>
-                                <p>+33 (0)5 57 13 11 60</p>
-                                <p>3 Sente de la Nancy
-                                <br />33300 Bordeaux</p> */}
+// <p>Virtual Room, 1ère salle de réalité virtuelle collaborative à Bordeaux, propose des expériences originales et accessibles à tous en équipe de 2 à 4 joueurs.</p>
+// <p>À la croisée des chemins entre l’escape game et le cinéma, embarquez pour une aventure virtuelle unique en son genre alliant réflexion, communication et esprit d’équipe !</p>
+// <p>+33 (0)5 57 13 11 60</p>
+// <p>3 Sente de la Nancy
+// <br />33300 Bordeaux</p>
 
 export default SearchResult

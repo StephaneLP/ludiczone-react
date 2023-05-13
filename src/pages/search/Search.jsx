@@ -1,8 +1,8 @@
 import Menu from "../../layout/menu/Menu"
 import SearchResult from "./components/SearchResult"
 
-import { useParams, useLocation } from 'react-router-dom'
-import { useEffect, useState } from "react"
+import { useLocation } from 'react-router-dom'
+import { useEffect } from "react"
 
 const Search = () => {
     const location = useLocation()

@@ -20,17 +20,24 @@
 
         h2 {
             font-family: "Poppins", Arial, Helvetica, sans-serif;
-            margin: 15px 0;
+            margin: 10px 0;
             color: $baseFontColorLight1;
             font-size: 2rem;
         }
     }
     
+    .admin-message {
+        height: 40px;
+        font-size: 0.9rem;
+        font-style: italic;
+        color: green;
+    }
+
     .admin-filtre {
         font-size: 1rem;
         color: $baseFontColorLight2;
         padding: 0 15px;
-        margin-top: 40px;
+        // margin-top: 40px;
         border-bottom: 2px solid $baseBgColorLight3;
 
         .admin-filtre-nb {
@@ -39,7 +46,7 @@
 
         .btn-admin {
             img {
-                height: 35px;;
+                height: 35px;
             }
         }
     }

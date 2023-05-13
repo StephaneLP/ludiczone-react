@@ -11,47 +11,25 @@ import { useEffect, useState } from "react"
 import { Link, useNavigate, useParams } from "react-router-dom"
 
 const AdminAreaType = () => {
-    const navigate = useNavigate()
-    const[confirmElement, setConfirmElement] = useState({id: "", name: ""})
-    const[displayModalConfirm, setDisplayModalConfirm] = useState(false)
-
-    //////////////////////////////////////////////////////////
-    // CHARGEMENT : APPEL DE L'API GET
-    // PARAMETRES : CHANGEMENT DANS LA ZONE DE FILTRE
-    //////////////////////////////////////////////////////////
-
-    const[getAreaType, setGetAreaType] = useState(null)
-
-    // const[param, setParam] = useState({
-    //     sort: "asc",
-    //     search: "",
-    // })
-    useEffect(() => {
-        fetch("http://localhost:3001/api/areatype")
-            .then((res) => {
-                return res.json()
-            })
-            .then((res) => {
-                setGetAreaType(res.data)
-            })
-    },[displayModalConfirm])
-
+    // const token = localStorage.getItem("jwt")
+    const[adminMessage, setAdminMessage] = useState({libelle: "", color: ""})
+    
     //////////////////////////////////////////////////////////
     // DELETE : CONFIRMATION A L'AIDE DE LA FENETRE MODALE CONFIRM
     // APPEL DE L'API DELETE
     //////////////////////////////////////////////////////////
 
-    const libelle = "Etes-vous sûr de vouloir supprimer le type ?"
+    const[displayConfirmDelete, setDisplayConfirmDelete] = useState(false)
+    const[dataDelete, setDataDelete] = useState({id: "", name: "", libelle: ""})
 
-    const handleShowModalClick = ((id, name) => {
-        setConfirmElement({id: id, name: name})       
-        setDisplayModalConfirm(true) 
+    const handleDeleteClick = ((id, name) => {
+        setDataDelete({id: id, name: name, libelle: "Voulez-vous supprimer le type ?"})       
+        setDisplayConfirmDelete(true) 
     })
 
-    // const token = localStorage.getItem("jwt")
-    const handleCancelledClick = (isValidated) => { 
+    const handleConfirmDeleteClick = (isValidated) => { 
         if (isValidated) {
-            fetch("http://localhost:3001/api/areatype/" + confirmElement.id,{
+            fetch("http://localhost:3001/api/areatype/" + dataDelete.id,{
                 method: "DELETE",
                 // headers: {
                 //     authorization: `Bearer ${token}`,
@@ -60,9 +38,48 @@ const AdminAreaType = () => {
             .then((res) => {
                 return res.json()          
             })
+            .then((res) => {
+                if(res.success) {
+                    setAdminMessage({libelle: res.message, color: "green"})
+                }
+                else {
+                    setAdminMessage({libelle: res.message, color: "brown"})
+                }
+            })
+            .catch((error) => {
+                setAdminMessage({libelle: error, color: "brown"})
+            })
         }
-        setDisplayModalConfirm(false)
+        setDisplayConfirmDelete(false)
     }
+
+    //////////////////////////////////////////////////////////
+    // CHARGEMENT : APPEL DE L'API GET
+    // PARAMETRES : CHANGEMENT DANS LA ZONE DE FILTRE
+    //////////////////////////////////////////////////////////
+
+    const[getAreaType, setGetAreaType] = useState(null)
+    // const[param, setParam] = useState({
+    //     sort: "asc",
+    //     search: "",
+    // })
+
+    useEffect(() => {
+        fetch("http://localhost:3001/api/areatype")
+            .then((res) => {
+                return res.json()
+            })
+            .then((res) => {
+                if(res.success) {
+                    setGetAreaType(res.data)
+                }
+                else {
+                    setGetAreaType([])
+                    setAdminMessage({libelle: res.message, color: "brown"})
+                }
+            })
+    },[displayConfirmDelete])
+
 
     //////////////////////////////////////////////////////////
     // 
@@ -87,11 +104,12 @@ const AdminAreaType = () => {
                         :
                         (
                             <>
-                            {displayModalConfirm && <ModalConfirm callFunction={handleCancelledClick} libelle={libelle} name={confirmElement.name}/>}
+                            {displayConfirmDelete && <ModalConfirm callFunction={handleConfirmDeleteClick} libelle={dataDelete.libelle} name={dataDelete.name}/>}
                             <div className="admin-titre d-flex justify-content-between align-items-center">
                                 <h2>Table 'area_type'</h2>
                                 <Link className="btn-admin-add" to={"/"} href="#">Ajouter un élément</Link>                                
                             </div>
+                            <div className="admin-message d-flex justify-content-center align-items-center" style={{color: adminMessage.color}}>{adminMessage.libelle}</div>
                             <div className="admin-filtre d-flex justify-content-between align-items-center">
                                 <div className="admin-filtre-nb">Nombre de résultats : <span>{getAreaType.length}</span></div>
 
@@ -153,7 +171,7 @@ const AdminAreaType = () => {
                                         </div>
                                         <div className="col-12 col-lg-2 justify-content-end">
                                             <Link className="btn-admin" to={"/" + element.id} href="#"><img src={imgUpdate} /></Link>
-                                            <Link className="btn-admin" onClick={() => handleShowModalClick(element.id, element.name)}><img src={imgDelete} /></Link>
+                                            <Link className="btn-admin" onClick={() => handleDeleteClick(element.id, element.name)}><img src={imgDelete} /></Link>
                                         </div>
                                     </div>
                                 )

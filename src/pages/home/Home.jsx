@@ -2,7 +2,7 @@ import Menu from "../../layout/menu/Menu"
 import HomeBandeau from "./components/HomeBandeau"
 import HomeTypeSortie from "./components/HomeTypeSortie"
 
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
 
 const Home = () => {
     useEffect(() => window.scrollTo(0,0),[])
