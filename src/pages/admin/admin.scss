@@ -33,22 +33,54 @@
         color: green;
     }
 
-    .admin-filtre {
+    .admin-filter {
         font-size: 1rem;
         color: $baseFontColorLight2;
         padding: 0 15px;
-        // margin-top: 40px;
         border-bottom: 2px solid $baseBgColorLight3;
 
-        .admin-filtre-nb {
+        .admin-filter-nb {
             font-size: 1.1rem;
         }
 
+        h5 {
+            font-size: 1.5rem;
+        }
         .btn-admin {
             img {
                 height: 35px;
             }
         }
+
+        .admin-filter-form {
+            margin-top: 20px;
+
+            label {
+                margin: 2px 0;
+
+                .label-libelle {
+                    display: inline-block;
+                    width: 25%;
+                }
+
+                select, input {
+                    width: 70%;
+                    // color: blue;
+                    font-size: 0.9rem;
+                }
+            }
+
+            .form-buttons {
+                margin-top: 20px;
+                text-align: center;
+            }
+        }
+    }
+    
+    .admin-no-result {
+        height: 300px;
+        color: $baseFontColorLight2;
+        font-size: 1.5rem;
     }
 
     .admin-row {
