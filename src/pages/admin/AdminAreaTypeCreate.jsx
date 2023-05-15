@@ -13,39 +13,34 @@ const AdminAreaTypeCreate = () => {
         <section className="container-fluid admin">
             <h1>Ajouter un type de loisir</h1>
             <div className="container">
-                <div className="row">
-                    <div className="col-12 col-md-4" style={{backgroundColor: "blue"}}></div>
-                    <div className="col-12 col-md-4">
                 <form onSubmit={handleSubmit}>
-                    <div style={{marginBottom: 5 + "px"}}>
-                        <label>
-                            <span className="sous-titre-create">Nom</span>
-                            <input type="text" name="name" />
-                        </label>                            
+                    <div className="row">
+                        <div className="col-12 col-md-2"></div>
+                        <div className="col-12 col-md-4" style={{backgroundColor: "blue"}}>
+                            <div>
+                                <label>
+                                    <span className="label-libelle">Nom</span>
+                                    <input type="text" name="name" />
+                                </label>                       
+                            </div>
+                            <div>
+                                <label>
+                                <span className="label-libelle">Description</span>
+                                    <input type="text" name="description" />
+                                </label>                            
+                            </div>
+                        </div>
+                        <div className="col-12 col-md-4" style={{backgroundColor: "green"}}>
+                            image
+                        </div>
+                        <div className="col-12 col-md-2"></div>
                     </div>
-                    <div style={{marginBottom: 5 + "px"}}>
-                        <label>
-                            <span className="sous-titre-create">Description</span>
-                            <input type="text" name="description" />
-                        </label>                            
+                    <div className="row">
+                        <div className="col-12">
+                            <input className="button" type="submit" value="Créer" />
+                        </div>
                     </div>
-                    <input className="button" type="submit" value="Créer" />
-                </form>                        
-                    </div>
-                    <div className="col-12 col-md-4" style={{backgroundColor: "blue"}}></div>
-
-
-                </div>
-
-
-
-
-
-
-
-
-
-
+                </form>
             </div>
         </section>
     </main>
