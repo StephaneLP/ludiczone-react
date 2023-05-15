@@ -6,8 +6,12 @@ const ModalConfirm = (props) => {
             <div className="validBox">
                 <p>{props.libelle}</p>
                 <h2>{props.name}</h2>
-                <button className="btn-confirm" onClick={() => props.callFunction(true)}>Oui</button>
-                <button className="btn-confirm" onClick={() => props.callFunction(false)}>Annuler</button>                        
+                <div className="validbox-buttons">
+                    <button className="btn-confirm" onClick={() => props.callFunction(true)}>Valider</button>
+                </div>
+                <div className="validbox-buttons">
+                    <button className="btn-confirm-no" onClick={() => props.callFunction(false)}>Annuler</button>                       
+                </div>
             </div>
         </div>
     )

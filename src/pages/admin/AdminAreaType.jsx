@@ -6,7 +6,6 @@ import imgFilter from "../../assets/images/button/filtre.png"
 import Loader from "../../components/loader/Loader"
 import Menu from "../../layout/menu/Menu"
 import ModalConfirm from "../../components/modalconfirm/ModalConfirm"
-import AdminAreaTypeCreate from "./AdminAreaType/AdminAreaTypeCreate"
 
 import { formatDate } from "../../js/utils.js"
 import { useEffect, useState } from "react"
@@ -55,16 +54,6 @@ const AdminAreaType = () => {
         }
         setDisplayConfirmDelete(false)
     }
-
-    //////////////////////////////////////////////////////////
-    // CREATE
-    //////////////////////////////////////////////////////////
-
-    const[displayCreate, setDisplayCreate] = useState(false)
-
-    const handleCreateClick = (() => {      
-        setDisplayCreate(true) 
-    })
 
     //////////////////////////////////////////////////////////
     // FILTRE
@@ -131,11 +120,9 @@ const AdminAreaType = () => {
                         (
                             <>
                             {displayConfirmDelete && <ModalConfirm callFunction={handleConfirmDeleteClick} libelle={dataDelete.libelle} name={dataDelete.name}/>}
-                            {displayCreate && <AdminAreaTypeCreate />}
                             <div className="admin-titre d-flex justify-content-between align-items-center">
                                 <h2>Table 'area_type'</h2>
-                                <button className="btn-admin-add" onClick={handleCreateClick}>Ajouter un élément</button>
-                                {/* <Link className="btn-admin-add" to={"/"} href="#">Ajouter un élément</Link>                                 */}
+                                <Link className="btn-admin-add" to={"/admin-area-type-create"} href="#">Ajouter un élément</Link>                                
                             </div>
                             <div className="admin-message d-flex justify-content-center align-items-center" style={{color: adminMessage.color}}>{adminMessage.libelle}</div>
                             <div className="admin-filter d-flex justify-content-between align-items-center">
@@ -164,8 +151,12 @@ const AdminAreaType = () => {
                                                     <input type="text" value={filterName} onChange={(e) => setFilterName(e.target.value)} />
                                                 </label>
                                                 <div className="form-buttons">
-                                                    <button className="btn-confirm" onClick={handleFilterRAZ} data-bs-dismiss="offcanvas">R.A.Z.</button>
-                                                    <input className="btn-confirm" type="submit" value="Valider" data-bs-dismiss="offcanvas" />
+                                                    <div>
+                                                        <input className="btn-confirm" type="submit" value="Valider" data-bs-dismiss="offcanvas" />
+                                                    </div>
+                                                    <div>
+                                                        <button className="btn-confirm-no" onClick={handleFilterRAZ} data-bs-dismiss="offcanvas">Réinitialiser</button>
+                                                    </div>
                                                 </div>
                                             </form>
                                         </div>

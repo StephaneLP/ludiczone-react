@@ -1,4 +1,4 @@
-.btn {
+m.btn {
     font-size: 1.8rem;
     padding: 5px 20px;
     margin: 20px 0;
@@ -64,8 +64,7 @@
 
 .btn-confirm {
     font-size: 1rem;
-    padding: 5px 15px;
-    margin: 20px 2px;
+    padding: 5px 20px;
     color: white;
     background-color: $secondaryBgColorLight1;
     border: 1px solid $secondaryBgColorLight1;
@@ -75,5 +74,16 @@
     &:hover {
         color: $secondaryBgColorLight1;
         background-color: white;
+    }
+}
+
+.btn-confirm-no {
+    font-size: 1rem;
+    color: $secondaryBgColorLight1;
+    background-color: white;
+    border: 0 solid $secondaryBgColorLight1;
+
+    &:hover {
+        text-decoration: underline;
     }
 }

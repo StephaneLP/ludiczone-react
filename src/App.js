@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom"
 import Home from "./pages/home/Home"
 import Search from "./pages/search/Search";
 import AdminAreaType from "./pages/admin/AdminAreaType";
+import AdminAreaTypeCreate from "./pages/admin/AdminAreaTypeCreate";
 import PageError from "./components/errors/PageError"
 import PageNotFound from "./components/errors/PageNotFound";
 
@@ -12,6 +13,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/search" element={<Search />} />
             <Route path="/admin-area-type" element={<AdminAreaType />} />
+            <Route path="/admin-area-type-create" element={<AdminAreaTypeCreate />} />
             <Route path="/erreur" element={<PageError />} />
             <Route path="*" element={<PageNotFound />} />
         </Routes>
