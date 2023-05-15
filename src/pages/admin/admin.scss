@@ -78,17 +78,31 @@
                 }
             }
         }
-
-        .admin-create-form {
-
-        }
-
-
-
-
-
     }
     
+    .admin-create {
+        margin-top: 50px;
+
+        label {
+            margin: 2px 0;
+            width: 100%;
+
+            .label-libelle {
+                display: inline-block;
+                width: 200px;
+            }
+
+            select, input, textarea {
+                width: 100%;
+                font-size: 0.9rem;
+            }
+
+            textarea {
+                height: 150px;
+            }
+        }
+    }
+        
     .admin-no-result {
         height: 300px;
         color: $baseFontColorLight2;
