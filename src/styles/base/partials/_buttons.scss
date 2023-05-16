@@ -82,8 +82,10 @@ m.btn {
     color: $secondaryBgColorLight1;
     background-color: white;
     border: 0 solid $secondaryBgColorLight1;
+    text-decoration: none;
 
     &:hover {
         text-decoration: underline;
+        color: $secondaryBgColorLight1;
     }
 }

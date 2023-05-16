@@ -124,7 +124,9 @@ const AdminAreaType = () => {
                                 <h2>Table 'area_type'</h2>
                                 <Link className="btn-admin-add" to={"/admin-area-type-create"} href="#">Ajouter un élément</Link>                                
                             </div>
-                            <div className="admin-message d-flex justify-content-center align-items-center" style={{color: adminMessage.color}}>{adminMessage.libelle}</div>
+                            <div className="admin-message d-flex justify-content-center align-items-center">
+                                <div style={{backgroundColor: adminMessage.color}}>{adminMessage.libelle}</div>
+                            </div>
                             <div className="admin-filter d-flex justify-content-between align-items-center">
                                 <div className="admin-filter-nb">Nombre de résultats : <span>{getAreaType.length}</span></div>
                                 <nav className="navbar bg-body-tertiary">
@@ -172,14 +174,16 @@ const AdminAreaType = () => {
                                 {getAreaType.map((element) => {
                                     return (
                                         <div className="row admin-row" key={element.id}>
-
+                                            <div className="col-12 col-lg-2">
+                                                <div className="admin-row-img" style={{backgroundImage: `url(${require("../../assets/images/type-sortie/" + element.picture)})`}}></div>
+                                            </div>
                                             <div className="col-12 col-lg-3 admin-row-title">
                                                 {element.name}
                                             </div>
-                                            <div className="col-12 col-lg-3 justify-content-center">
+                                            <div className="col-12 col-lg-2 justify-content-center">
                                                 Created : {formatDate(element.created_at,"short")}
                                             </div>
-                                            <div className="col-12 col-lg-3 justify-content-center">
+                                            <div className="col-12 col-lg-2 justify-content-center">
                                                 Updated : {formatDate(element.updated_at,"short")}
                                             </div>
                                             <div className="col-12 col-lg-1 justify-content-end">

@@ -28,9 +28,14 @@
     
     .admin-message {
         height: 40px;
-        font-size: 0.9rem;
-        font-style: italic;
-        color: green;
+
+        div {
+            padding: 4px 20px;
+            border-radius: 10px;;
+            font-size: 0.9rem;
+            font-style: italic;
+            color: white;
+        }
     }
 
     .admin-filter {
@@ -83,22 +88,57 @@
     .admin-create {
         margin-top: 50px;
 
-        label {
-            margin: 2px 0;
-            width: 100%;
+        .admin-create-separator-top {
+            margin: 0 0 0;
+            border-top: 1px solid $baseBgColorLight3;
+        }
+            
+        .admin-create-separator-bottom {
+            margin: 20px 0 40px;
+            border-bottom: 1px solid $baseBgColorLight3;
+        }
 
-            .label-libelle {
-                display: inline-block;
-                width: 200px;
-            }
+        .admin-create-cellule {
+            margin: 0 0 20px;
 
-            select, input, textarea {
+            label {
+                margin: 2px 0;
                 width: 100%;
-                font-size: 0.9rem;
-            }
 
-            textarea {
-                height: 150px;
+                .label-libelle {
+                    color: $baseFontColorLight2;
+                }
+
+                select, input, textarea {
+                    width: 100%;
+                    padding: 2px 4px;
+                    font-size: 0.9rem;
+                    color: $baseFontColorLight1;
+                    background-color: $baseBgColorLight5;
+                    border: 1px solid $baseBgColorLight3;
+                }
+
+                textarea {
+                    height: 200px;
+                }
+
+                .admin-create-img {
+                    width: 100%;
+                    height: 200px;
+                    border: 5px solid white;
+                    box-shadow: 5px 5px 10px #82829c;
+                    background-size: cover;
+                    background-position: center;
+                }
+            }            
+        }
+
+        .form-buttons {
+            margin-top: 20px;
+            text-align: center;
+
+            div {
+                margin: 10px 0;
             }
         }
     }
@@ -125,6 +165,15 @@
         .admin-row-title {
             font-size: 1.2rem;
             color: $baseFontColorLight1;
+        }
+
+        .admin-row-img {
+            width: 50%;
+            height: 100%;
+            border: 2px solid white;
+            box-shadow: 5px 5px 10px #82829c;
+            background-size: cover;
+            background-position: center;            
         }
     }
 }
