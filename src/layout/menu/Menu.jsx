@@ -6,9 +6,10 @@ const Menu = () => {
     const location = useLocation()
 
     const path = location.pathname
+
     const isArea = (path === "/admin-area" || path === "/admin-area-create" || path === "/admin-area-update")
-    const isAreaType = (path === "/admin-area-type" || path === "/admin-area-type-create" || path === "/admin-area-type-update")
-    const isAreaZone = (path === "/admin-area-zone" || path === "/admin-area-zone-create" || path === "/admin-area-zone-update")
+    const isAreaType = (path === "/admin-area-type" || path === "/admin-area-type-create" || path.includes("/admin-area-type-update"))
+    const isAreaZone = (path === "/admin-area-zone" || path === "/admin-area-zone-create" || path.includes("/admin-area-zone-update"))
     const isAdmin = (isArea || isAreaType || isAreaZone)
 
     return (

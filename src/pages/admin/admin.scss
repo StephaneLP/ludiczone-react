@@ -5,18 +5,19 @@
     margin-bottom: 40px;
 
     h1 {
-        margin: 40px 0;
+        margin: 40px 0 20px;
         color: $secondaryFontColor;
         font-size: 3rem;
     }
 
     .admin-titre {
-       font-size: 1rem;
+        font-size: 1rem;
         color: $baseFontColorLight2;
         background-color: $baseBgColorLight4;
         border: 1px solid $baseBgColorLight3;
         border-radius: 5px;
         padding: 5px 15px;
+        margin-top: 40px;
 
         h2 {
             font-family: "Poppins", Arial, Helvetica, sans-serif;
@@ -31,13 +32,17 @@
 
         div {
             padding: 4px 20px;
-            border-radius: 10px;;
+            border-radius: 5px;;
             font-size: 0.9rem;
             font-style: italic;
             color: white;
         }
     }
 
+    ////////////////////////////////
+    // ZONE DE FILTRE
+    ////////////////////////////////
+    
     .admin-filter {
         font-size: 1rem;
         color: $baseFontColorLight2;
@@ -84,25 +89,70 @@
             }
         }
     }
-    
-    .admin-create {
-        margin-top: 50px;
 
-        .admin-create-separator-top {
-            margin: 0 0 0;
+    ////////////////////////////////
+    // LISTE DES RESULATTS
+    ////////////////////////////////
+
+    .admin-no-result {
+        height: 300px;
+        color: $baseFontColorLight2;
+        font-size: 1.5rem;
+    }
+    
+    .admin-row {
+        font-size: 1rem;
+        color: $baseFontColorLight2;
+        padding: 15px 0;
+        margin: 4px 0;
+        border-bottom: 1px solid $baseBgColorLight3;
+
+        div {
+            display: flex;
+            align-items: center;
+        }
+
+        .admin-row-title {
+            font-size: 1.2rem;
+            color: $baseFontColorLight1;
+        }
+
+        .admin-row-img {
+            width: 40%;
+            height: 100%;
+            border: 2px solid white;
+            box-shadow: 5px 5px 10px #82829c;
+            background-size: cover;
+            background-position: center;            
+        }
+
+        // &:hover {
+        //     background-color: #efeff3;
+        // }
+    }
+
+    ////////////////////////////////
+    // CREATION & MODIFICATION
+    ////////////////////////////////
+    
+    .admin-alter {
+        margin-top: 0;
+
+        .admin-alter-separator-top {
+            margin: 0 0 10px;
             border-top: 1px solid $baseBgColorLight3;
         }
             
-        .admin-create-separator-bottom {
-            margin: 20px 0 40px;
+        .admin-alter-separator-bottom {
+            margin: 10px 0 40px;
             border-bottom: 1px solid $baseBgColorLight3;
         }
 
-        .admin-create-cellule {
-            margin: 0 0 20px;
+        .admin-alter-cellule {
+            margin: 10px 0;
 
             label {
-                margin: 2px 0;
+                // margin: 2px 0;
                 width: 100%;
 
                 .label-libelle {
@@ -122,7 +172,7 @@
                     height: 200px;
                 }
 
-                .admin-create-img {
+                .admin-alter-img {
                     width: 100%;
                     height: 200px;
                     border: 5px solid white;
@@ -140,40 +190,6 @@
             div {
                 margin: 10px 0;
             }
-        }
-    }
-        
-    .admin-no-result {
-        height: 300px;
-        color: $baseFontColorLight2;
-        font-size: 1.5rem;
-    }
-
-    .admin-row {
-        font-size: 1rem;
-        color: $baseFontColorLight2;
-        padding: 15px 0;
-        margin: 4px 0;
-        border-bottom: 1px solid $baseBgColorLight3;
-        // background-color: lightgrey;
-
-        div {
-            display: flex;
-            align-items: center;
-        }
-
-        .admin-row-title {
-            font-size: 1.2rem;
-            color: $baseFontColorLight1;
-        }
-
-        .admin-row-img {
-            width: 50%;
-            height: 100%;
-            border: 2px solid white;
-            box-shadow: 5px 5px 10px #82829c;
-            background-size: cover;
-            background-position: center;            
         }
     }
 }
