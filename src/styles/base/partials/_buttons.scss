@@ -46,17 +46,21 @@
 
 .btn-connect {
     font-family: "Poppins", Arial, Helvetica, sans-serif;
-    font-size: 1.1rem;
-    color: $baseFontColorLight2;
+    font-size: 1rem;
+    color: $menuFontColor;
+    border: 1px solid $menuBtnBorderColor;
+    padding: 2px 5px;
+    border-radius: 15px;;
     text-decoration: none;
     transition: all 0.2s ease-out;
 
     img {
-        height: 25px;
+        height: 22px;
     }
 
     &:hover {
-        color: $secondaryFontColor;
+        background-color: white;
+        color: $menuFontColor;
     }                    
 }
 

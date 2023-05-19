@@ -9,28 +9,61 @@
         font-size: 3rem;
     }
 
-    // .admin-login {
-    //     height: 40px;
-
-    //     div {
-    //         padding: 4px 20px;
-    //         border-radius: 5px;;
-    //         font-size: 0.9rem;
-    //         font-style: italic;
-    //         color: white;
-    //     }
-    // }
-
     .login-separator-top {
-        margin: 40px 0;
+        margin: 0 0 40px;
         border-top: 1px solid $baseBgColorLight3;
     }
         
     .login-separator-bottom {
-        margin: 40px 0 0;
+        margin: 40px 0;
         border-bottom: 1px solid $baseBgColorLight3;
     }
 
+    .login-message {
+        height: 40px;
 
+        div {
+            padding: 4px 20px;
+            border-radius: 5px;;
+            font-size: 0.9rem;
+            font-style: italic;
+            color: white;
+        }
+    }
 
+    .login-form {
+        border: 1px solid grey;
+    }
+
+    .login-cellule {
+        margin: 10px 0;
+
+        label {
+            // margin: 2px 0;
+            width: 100%;
+
+            .label-libelle {
+                color: $baseFontColorLight2;
+            }
+
+            select, input {
+                width: 100%;
+                padding: 5px 10px;
+                font-size: 0.9rem;
+                color: $baseFontColorLight1;
+                background-color: $baseBgColorLight5;
+                border: 1px solid $baseBgColorLight3;
+                border-radius: 5px;
+            }
+        }            
+    }
+
+    .form-buttons {
+        margin-top: 20px;
+        text-align: center;
+
+        div {
+            margin: 10px 0;
+        }
+    }
 }

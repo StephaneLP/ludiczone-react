@@ -27,7 +27,7 @@ const Menu = () => {
                                 <Link to="/search" className={location.pathname === "/search" ? "nav-link menu-link actif" : "nav-link menu-link"} aria-current="page" href="#">RECHERCHE AVANCÉE</Link>
                             </li>
                             <li className="nav-item">
-                                <Link to="/my-space" className={location.pathname === "/my-space" ? "nav-link menu-link actif" : "nav-link menu-link"} aria-current="page" href="#">MON ESPACE</Link>
+                                <Link to="/my-space" className={location.pathname === "/my-space" ? "nav-link menu-link actif" : "nav-link menu-link"} aria-current="page" href="#">MON COMPTE</Link>
                             </li>
                             <li className="nav-item dropdown">
                                 <button className={isAdmin ? "nav-link menu-link menu-link-button dropdown-toggle actif" : "nav-link menu-link menu-link-button dropdown-toggle"} data-bs-toggle="dropdown" aria-expanded="false">ADMIN</button>
@@ -47,7 +47,7 @@ const Menu = () => {
                     </div>
                 </nav>
                 <Link className="btn-connect d-flex align-items-center" to="/connect" aria-current="page" href="#">
-                    <img src={imgLogin} alt="Login" /> Me connecter / M'inscrire
+                    <img src={imgLogin} alt="Login" /> Connexion
                 </Link>
             </div>
         </section>
