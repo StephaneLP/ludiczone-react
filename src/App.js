@@ -1,11 +1,12 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import Home from "./pages/home/Home"
-import Search from "./pages/search/Search";
-import AdminAreaType from "./pages/admin/AdminAreaType";
-import AdminAreaTypeCreate from "./pages/admin/AdminAreaTypeCreate";
-import AdminAreaTypeUpdate from "./pages/admin/AdminAreaTypeUpdate";
+import Search from "./pages/search/Search"
+import AdminAreaType from "./pages/admin/AdminAreaType"
+import AdminAreaTypeCreate from "./pages/admin/AdminAreaTypeCreate"
+import AdminAreaTypeUpdate from "./pages/admin/AdminAreaTypeUpdate"
+import Connect from "./pages/login/Connect"
 import PageError from "./components/errors/PageError"
-import PageNotFound from "./components/errors/PageNotFound";
+import PageNotFound from "./components/errors/PageNotFound"
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
             <Route path="/admin-area-type" element={<AdminAreaType />} />
             <Route path="/admin-area-type-create" element={<AdminAreaTypeCreate />} />
             <Route path="/admin-area-type-update/:id" element={<AdminAreaTypeUpdate />} />
+            <Route path="/connect" element={<Connect />} />
             <Route path="/erreur" element={<PageError />} />
             <Route path="*" element={<PageNotFound />} />
         </Routes>

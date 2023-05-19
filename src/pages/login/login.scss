@@ -1,0 +1,36 @@
+@import "../../styles/utils/utils";
+
+.login {
+    font-family: "Poppins", Arial, Helvetica, sans-serif;
+
+    h1 {
+        margin: 40px 0 20px;
+        color: $secondaryFontColor;
+        font-size: 3rem;
+    }
+
+    // .admin-login {
+    //     height: 40px;
+
+    //     div {
+    //         padding: 4px 20px;
+    //         border-radius: 5px;;
+    //         font-size: 0.9rem;
+    //         font-style: italic;
+    //         color: white;
+    //     }
+    // }
+
+    .login-separator-top {
+        margin: 40px 0;
+        border-top: 1px solid $baseBgColorLight3;
+    }
+        
+    .login-separator-bottom {
+        margin: 40px 0 0;
+        border-bottom: 1px solid $baseBgColorLight3;
+    }
+
+
+
+}

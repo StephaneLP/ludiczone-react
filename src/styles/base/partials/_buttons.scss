@@ -1,4 +1,4 @@
-m.btn {
+.btn {
     font-size: 1.8rem;
     padding: 5px 20px;
     margin: 20px 0;
@@ -45,20 +45,18 @@ m.btn {
 }
 
 .btn-connect {
-    background-color: white;
-    border: 1px solid $menuBtnBorderColor;
-    border-radius: 50%;
-    margin: 3px;
-    padding: 5px;
-    cursor: pointer;
+    font-family: "Poppins", Arial, Helvetica, sans-serif;
+    font-size: 1.1rem;
+    color: $baseFontColorLight2;
+    text-decoration: none;
     transition: all 0.2s ease-out;
 
     img {
-        height: 30px;
+        height: 25px;
     }
 
     &:hover {
-        background-color: $menuBtnBgColorLight;
+        color: $secondaryFontColor;
     }                    
 }
 

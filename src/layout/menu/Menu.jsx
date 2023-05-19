@@ -6,7 +6,6 @@ const Menu = () => {
     const location = useLocation()
 
     const path = location.pathname
-
     const isArea = (path === "/admin-area" || path === "/admin-area-create" || path === "/admin-area-update")
     const isAreaType = (path === "/admin-area-type" || path === "/admin-area-type-create" || path.includes("/admin-area-type-update"))
     const isAreaZone = (path === "/admin-area-zone" || path === "/admin-area-zone-create" || path.includes("/admin-area-zone-update"))
@@ -47,9 +46,9 @@ const Menu = () => {
                         </ul>
                     </div>
                 </nav>
-                <button className="btn-connect">
-                    <img src={imgLogin} alt="Login" />
-                </button>
+                <Link className="btn-connect d-flex align-items-center" to="/connect" aria-current="page" href="#">
+                    <img src={imgLogin} alt="Login" /> Me connecter / M'inscrire
+                </Link>
             </div>
         </section>
     )

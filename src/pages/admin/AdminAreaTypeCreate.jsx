@@ -69,7 +69,6 @@ const AdminAreaTypeCreate = () => {
         <Menu />
         <section className="container-fluid admin">
             <h1>Ajouter un type de loisir</h1>
-
             <div className="container">
                 <div className="admin-message d-flex justify-content-center align-items-center">
                     <div style={{backgroundColor: adminMessage.color}}>{adminMessage.libelle}</div>
@@ -77,9 +76,7 @@ const AdminAreaTypeCreate = () => {
                 <form className="admin-alter" onSubmit={handleSubmit}>
                     <div className="row">
                         <div className="col-12 col-md-2"></div>
-                        <div className="col-12 col-md-8 admin-alter-separator-top">
-
-                        </div>
+                        <div className="col-12 col-md-8 admin-alter-separator-top"></div>
                         <div className="col-12 col-md-2"></div>
                     </div>
                     <div className="row">
