@@ -1,17 +1,26 @@
 import "./menu.scss"
 import imgLogin from "../../assets/images/button/login.png"
 import imgLogout from "../../assets/images/button/logout.png"
+
+import { useEffect, useState } from "react"
 import { Link, useLocation } from "react-router-dom"
 
 const Menu = () => {
     const location = useLocation()
-    const token = localStorage.getItem("jwt")
+    // const token = localStorage.getItem("jwt")
+    const pseudo = localStorage.getItem("pseudo")
+    const[token, setToken] = useState(localStorage.getItem("jwt"))
 
     const path = location.pathname
     const isArea = (path === "/admin-area" || path === "/admin-area-create" || path === "/admin-area-update")
     const isAreaType = (path === "/admin-area-type" || path === "/admin-area-type-create" || path.includes("/admin-area-type-update"))
     const isAreaZone = (path === "/admin-area-zone" || path === "/admin-area-zone-create" || path.includes("/admin-area-zone-update"))
     const isAdmin = (isArea || isAreaType || isAreaZone)
+
+    const handleLogoutClick = () => {
+        localStorage.clear()
+        setToken(localStorage.getItem("jwt"))
+    }
 
     return (
         <section className="container-fluid menu">
@@ -56,10 +65,9 @@ const Menu = () => {
                 )
                 :
                 (
-                    <div className="btn-connect d-flex align-items-center" >
-                    <span>Connecté</span>
-                    
-                    <img src={imgLogout} alt="Logout" />
+                    <div className="menu-logout d-flex align-items-center" >
+                        <span>{pseudo}</span>
+                        <button className="btn-logout" onClick={handleLogoutClick}><img src={imgLogout} alt="Logout" /></button>
                     </div>
                 )}
             </div>

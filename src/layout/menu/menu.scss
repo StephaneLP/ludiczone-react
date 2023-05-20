@@ -34,5 +34,15 @@
         .actif {
             color:$secondaryFontColor
         }
-    } 
+    }
+
+    .menu-logout {
+        font-family: "Poppins", Arial, Helvetica, sans-serif;
+        font-size: 1.1rem;
+        color: $baseFontColorLight2;
+        
+        .btn-connect {
+            border: 0 solid white;
+        }
+    }
 }    

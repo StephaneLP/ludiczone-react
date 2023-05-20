@@ -52,6 +52,7 @@
     padding: 2px 5px;
     border-radius: 15px;;
     text-decoration: none;
+    cursor: pointer;
     transition: all 0.2s ease-out;
 
     img {
@@ -61,6 +62,23 @@
     &:hover {
         background-color: white;
         color: $menuFontColor;
+    }                    
+}
+
+.btn-logout {
+    border: 0 solid $menuBtnBorderColor;
+    padding: 2px 5px;
+    margin-left: 6px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.2s ease-out;
+
+    img {
+        height: 25px;
+    }
+
+    &:hover {
+        background-color: $menuBtnBgColorLight;
     }                    
 }
 

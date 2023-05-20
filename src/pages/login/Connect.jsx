@@ -59,10 +59,8 @@ const Connect = () => {
         })
         .then((res) => {
             if(res.success) {
-                const jwt = res.token
-                // const name = res.el.username
-                // const id = res.el.id
-                localStorage.setItem("jwt",jwt)
+                localStorage.setItem("jwt",res.token)
+                localStorage.setItem("pseudo",res.data.nick_name)
                 // localStorage.setItem("name",name)
                 // localStorage.setItem("id",id)
                 navigate(-1)
