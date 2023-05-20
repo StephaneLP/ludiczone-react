@@ -1,12 +1,10 @@
-import "./login.scss"
-
-import Menu from "../../layout/menu/Menu"
+import "./modalLogin.scss"
 
 import { colorMsg, formatDate } from "../../js/utils.js"
 import { useEffect, useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 
-const Connect = () => {
+const ModalConfirm = (props) => {
     const navigate = useNavigate()
 
     const[adminMessage, setAdminMessage] = useState({libelle: "", color: ""})
@@ -33,14 +31,12 @@ const Connect = () => {
         if(login === "") {
             setAdminMessage({libelle: "Veuillez renseigner un identifiant S.V.P.", color: colorMsg.error})
             setFocusLogin(colorMsg.error)
-            // window.scrollTo(0,0)
             return
         }
 
         if(password === "") {
             setAdminMessage({libelle: "Veuillez renseigner un mot de passe S.V.P.", color: colorMsg.error})
             setFocusPassword(colorMsg.error)
-            // window.scrollTo(0,0)
             return
         }
 
@@ -61,7 +57,7 @@ const Connect = () => {
             if(res.success) {
                 localStorage.setItem("jwt",res.token)
                 localStorage.setItem("pseudo",res.data.nick_name)
-                navigate(-1)
+                navigate(0)
             }
             else {
                 setAdminMessage({libelle: res.message, color: colorMsg.error})
@@ -70,27 +66,21 @@ const Connect = () => {
     }
 
     const handleCancleClick = () => {
-        navigate(-1)
+        navigate("/")
     }
 
     return (
-    <main>
-        <Menu />
-        <section className="container-fluid login">
-            <h1>Connectez-vous à votre compte</h1>
-            <div className="container">
+        <div className="modalLogin">
+            <div className="validBox">
+
+                <h2>Votre session est expirée...</h2>
+                <h3>Veuillez vous identifier S.V.P.</h3>
                 <div className="login-message d-flex justify-content-center align-items-center">
                     <div style={{backgroundColor: adminMessage.color}}>{adminMessage.libelle}</div>
                 </div>
                 <form onSubmit={handleSubmit}>
-                    <div className="row">
-                        <div className="col-12 col-md-4"></div>
-                        <div className="col-12 col-md-4 login-separator-top"></div>
-                        <div className="col-12 col-md-4"></div>
-                    </div>
-                    <div className="row">
-                        <div className="col-12 col-md-4"></div>
-                        <div className="col-12 col-md-4">
+
+                        <div className="">
                             <div className="login-cellule">
                                 <label>
                                     <input type="text" placeholder="Pseudo ou Email" maxLength="50" value={login} onChange={(e) => handleLoginChange(e)} style={{borderColor: focusLogin}} />
@@ -102,15 +92,8 @@ const Connect = () => {
                                 </label>
                             </div>
                         </div>
-                        <div className="col-12 col-md-2"></div>
-                    </div>
-                    <div className="row">
-                        <div className="col-12 col-md-4"></div>
-                        <div className="col-12 col-md-4 login-separator-bottom"></div>
-                        <div className="col-12 col-md-4"></div>
-                    </div>
-                    <div className="row">
-                        <div className="col-12">
+
+                        <div className="">
                             <div className="form-buttons">
                                 <div>
                                     <input className="btn-confirm" type="submit" value="Valider" />
@@ -120,12 +103,13 @@ const Connect = () => {
                                 </div>
                             </div>
                         </div>
-                    </div>
                 </form>
+
+
+
             </div>
-        </section>
-    </main>
+        </div>
     )
 }
 
-export default Connect
+export default ModalConfirm

@@ -6,26 +6,26 @@ import imgFilter from "../../assets/images/button/filtre.png"
 import Loader from "../../components/loader/Loader"
 import Menu from "../../layout/menu/Menu"
 import ModalConfirm from "../../components/modalconfirm/ModalConfirm"
+import ModalLogin from "../../components/modallogin/ModalLogin"
 
 import { colorMsg, formatDate } from "../../js/utils.js"
 import { useEffect, useState } from "react"
 import { Link, useNavigate, useLocation } from "react-router-dom"
 
 const AdminAreaType = () => {
-    // const token = localStorage.getItem("jwt")
+    const token = localStorage.getItem("jwt")
     const navigate = useNavigate()
     const location = useLocation()
     const[adminMessage, setAdminMessage] = useState({libelle: "", color: ""})
     
     useEffect(() => {window.scrollTo(0,0)},[])
 
-
-
     //////////////////////////////////////////////////////////
     // DELETE : CONFIRMATION A L'AIDE DE LA FENETRE MODALE CONFIRM
     // APPEL DE L'API DELETE
     //////////////////////////////////////////////////////////
 
+    const[displayConfirmLogin, setDisplayConfirmLogin] = useState(false)
     const[displayConfirmDelete, setDisplayConfirmDelete] = useState(false)
     const[dataDelete, setDataDelete] = useState({id: "", name: "", libelle: ""})
 
@@ -34,16 +34,19 @@ const AdminAreaType = () => {
         setDisplayConfirmDelete(true) 
     })
 
-    const handleConfirmDeleteClick = (isValidated) => { 
+    const handleConfirmDeleteClick = (isValidated) => {
         if (isValidated) {
             fetch("http://localhost:3001/api/areatype/" + dataDelete.id,{
                 method: "DELETE",
-                // headers: {
-                //     authorization: `Bearer ${token}`,
-                // },
+                headers: {
+                    authorization: `Bearer ${token}`,
+                },
             })
             .then((res) => {
-                return res.json()          
+                if(res.status === 403) {
+                    setDisplayConfirmLogin(true) 
+                }
+                return res.json() 
             })
             .then((res) => {
                 if(res.success) {
@@ -131,6 +134,7 @@ const AdminAreaType = () => {
                 (
                     <>
                     {displayConfirmDelete && <ModalConfirm callFunction={handleConfirmDeleteClick} libelle={dataDelete.libelle} name={dataDelete.name}/>}
+                    {displayConfirmLogin && <ModalLogin />}
                     <div className="admin-titre d-flex justify-content-between align-items-center">
                         <h2>Table 'area_type'</h2>
                         <Link className="btn-admin-add" to={"/admin-area-type-create"} href="#">Ajouter un élément</Link>                                
