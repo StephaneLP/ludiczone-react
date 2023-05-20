@@ -58,14 +58,25 @@ const Connect = () => {
             return res.json()          
         })
         .then((res) => {
-            console.log(res)
-            // const jwt = res.token
-            // const name = res.el.username
-            // const id = res.el.id
-            // localStorage.setItem("jwt",jwt)
-            // localStorage.setItem("name",name)
-            // localStorage.setItem("id",id)
-            // navigate("/profile")
+            if(res.success) {
+                const jwt = res.token
+                // const name = res.el.username
+                // const id = res.el.id
+                localStorage.setItem("jwt",jwt)
+                // localStorage.setItem("name",name)
+                // localStorage.setItem("id",id)
+                navigate(-1)
+                // navigate("/profile")
+                    // navigate('/admin-area-type',{
+                    //     state: {
+                    //         success: true,
+                    //         message: res.message
+                    //     }
+                    // })
+            }
+            else {
+                setAdminMessage({libelle: res.message, color: colorMsg.error})
+            }
         })
     }
 
@@ -93,7 +104,7 @@ const Connect = () => {
                         <div className="col-12 col-md-4">
                             <div className="login-cellule">
                                 <label>
-                                    <input type="text" placeholder="Identifiant" maxLength="50" value={login} onChange={(e) => handleLoginChange(e)} style={{borderColor: focusLogin}} />
+                                    <input type="text" placeholder="Pseudo ou Email" maxLength="50" value={login} onChange={(e) => handleLoginChange(e)} style={{borderColor: focusLogin}} />
                                 </label>
                             </div>
                             <div className="login-cellule">

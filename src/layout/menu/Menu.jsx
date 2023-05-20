@@ -1,9 +1,11 @@
 import "./menu.scss"
 import imgLogin from "../../assets/images/button/login.png"
+import imgLogout from "../../assets/images/button/logout.png"
 import { Link, useLocation } from "react-router-dom"
 
 const Menu = () => {
     const location = useLocation()
+    const token = localStorage.getItem("jwt")
 
     const path = location.pathname
     const isArea = (path === "/admin-area" || path === "/admin-area-create" || path === "/admin-area-update")
@@ -46,9 +48,19 @@ const Menu = () => {
                         </ul>
                     </div>
                 </nav>
-                <Link className="btn-connect d-flex align-items-center" to="/connect" aria-current="page" href="#">
-                    <img src={imgLogin} alt="Login" /> Connexion
-                </Link>
+                {token === null ?
+                (
+                    <Link className="btn-connect d-flex align-items-center" to="/connect" aria-current="page" href="#">
+                        <img src={imgLogin} alt="Login" /> Connexion
+                    </Link>
+                )
+                :
+                (
+                    <div className="btn-connect d-flex align-items-center" >
+                    <span>Connecté</span>
+                    <img src={imgLogout} alt="Logout" />
+                    </div>
+                )}
             </div>
         </section>
     )
