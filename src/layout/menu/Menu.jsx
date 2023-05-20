@@ -58,6 +58,7 @@ const Menu = () => {
                 (
                     <div className="btn-connect d-flex align-items-center" >
                     <span>Connecté</span>
+                    
                     <img src={imgLogout} alt="Logout" />
                     </div>
                 )}
