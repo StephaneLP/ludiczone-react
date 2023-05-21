@@ -8,6 +8,7 @@ import { useEffect, useState } from "react"
 import { Link, useNavigate, useParams } from "react-router-dom"
 
 const AdminAreaTypeUpdate = () => {
+    const token = localStorage.getItem("jwt")
     const navigate = useNavigate()
     const { id } = useParams()
 
@@ -19,7 +20,11 @@ const AdminAreaTypeUpdate = () => {
     const[updatePicture, setUpdatePicture] = useState("default.jpg")
 
     useEffect(() => {
-        fetch("http://localhost:3001/api/areatype/" + id)
+        fetch("http://localhost:3001/api/areatype/" + id,{
+            headers: {
+                "Content-Type": "application/json",
+                authorization: `Bearer ${token}`,
+            }})
             .then((res) => {
                 return res.json()          
             })
@@ -51,6 +56,7 @@ const AdminAreaTypeUpdate = () => {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
+                authorization: `Bearer ${token}`,
             },
             body: JSON.stringify({
                 name: updateName,
@@ -59,14 +65,21 @@ const AdminAreaTypeUpdate = () => {
             })
         })
         .then((res) => {
+            if(res.status === 403) {
+                navigate('/connect',{
+                    state: true
+                })
+            }
             return res.json()          
         })
         .then((res) => {
             if(res.success) {
                 navigate('/admin-area-type',{
                     state: {
-                        success: true,
-                        message: res.message
+                        alter: {
+                            success: true,
+                            message: res.message                            
+                        }
                     }
                 })
             }

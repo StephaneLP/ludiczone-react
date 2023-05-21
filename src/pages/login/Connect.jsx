@@ -4,10 +4,13 @@ import Menu from "../../layout/menu/Menu"
 
 import { colorMsg, formatDate } from "../../js/utils.js"
 import { useEffect, useState } from "react"
-import { Link, useNavigate } from "react-router-dom"
+import { useLocation, useNavigate } from "react-router-dom"
 
 const Connect = () => {
     const navigate = useNavigate()
+
+    const location = useLocation()
+    const reconnect = (location.state !== null ? location.state : false)
 
     const[adminMessage, setAdminMessage] = useState({libelle: "", color: ""})
     const[focusLogin, setFocusLogin] = useState("")
@@ -70,14 +73,30 @@ const Connect = () => {
     }
 
     const handleCancleClick = () => {
-        navigate(-1)
+        localStorage.removeItem("jwt")
+        localStorage.removeItem("pseudo")
+        if(reconnect) {
+            navigate("/")
+        }
+        else {
+            navigate(-1)
+        }
     }
 
     return (
     <main>
         <Menu />
         <section className="container-fluid login">
-            <h1>Connectez-vous à votre compte</h1>
+            {!reconnect ?
+            (
+                <h1>Connectez-vous à votre compte</h1>
+            )
+            :
+            (<>
+                <h1>Votre session est expirée...</h1>
+                <h2>Veuillez vous identifier S.V.P.</h2>
+            </>)}
+            
             <div className="container">
                 <div className="login-message d-flex justify-content-center align-items-center">
                     <div style={{backgroundColor: adminMessage.color}}>{adminMessage.libelle}</div>

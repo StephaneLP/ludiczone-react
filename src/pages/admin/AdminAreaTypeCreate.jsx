@@ -7,6 +7,7 @@ import { useEffect, useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 
 const AdminAreaTypeCreate = () => {
+    const token = localStorage.getItem("jwt")
     const navigate = useNavigate()
     
     const[adminMessage, setAdminMessage] = useState({libelle: "", color: ""})
@@ -35,6 +36,7 @@ const AdminAreaTypeCreate = () => {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
+                authorization: `Bearer ${token}`,
             },
             body: JSON.stringify({
                 name: createName,
@@ -43,14 +45,21 @@ const AdminAreaTypeCreate = () => {
             })
         })
         .then((res) => {
+            if(res.status === 403) {
+                navigate('/connect',{
+                    state: true
+                })
+            }
             return res.json()          
         })
         .then((res) => {
             if(res.success) {
                 navigate('/admin-area-type',{
                     state: {
-                        success: true,
-                        message: res.message
+                        alter: {
+                            success: true,
+                            message: res.message                            
+                        }
                     }
                 })
             }

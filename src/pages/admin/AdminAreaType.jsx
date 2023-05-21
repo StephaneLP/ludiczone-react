@@ -6,9 +6,8 @@ import imgFilter from "../../assets/images/button/filtre.png"
 import Loader from "../../components/loader/Loader"
 import Menu from "../../layout/menu/Menu"
 import ModalConfirm from "../../components/modalconfirm/ModalConfirm"
-import ModalLogin from "../../components/modallogin/ModalLogin"
 
-import { colorMsg, formatDate } from "../../js/utils.js"
+import { colorMsg, formatDate, getRole } from "../../js/utils.js"
 import { useEffect, useState } from "react"
 import { Link, useNavigate, useLocation } from "react-router-dom"
 
@@ -20,12 +19,29 @@ const AdminAreaType = () => {
     
     useEffect(() => {window.scrollTo(0,0)},[])
 
+    useEffect(() => {
+        if(token !== null) {
+            getRole(token)
+                .then((res) => {
+                    if(res !== "admin") {
+                        navigate('/erreur',{
+                            state: {message: "Vous n'avez pas les droits requis pour accéder à cette page."}
+                        })
+                    }
+                })
+        }
+        else {
+            navigate('/erreur',{
+                state: {message: "Vous n'avez pas les droits requis pour accéder à cette page."}
+            })            
+        }
+    },[])
+
     //////////////////////////////////////////////////////////
     // DELETE : CONFIRMATION A L'AIDE DE LA FENETRE MODALE CONFIRM
     // APPEL DE L'API DELETE
     //////////////////////////////////////////////////////////
 
-    const[displayConfirmLogin, setDisplayConfirmLogin] = useState(false)
     const[displayConfirmDelete, setDisplayConfirmDelete] = useState(false)
     const[dataDelete, setDataDelete] = useState({id: "", name: "", libelle: ""})
 
@@ -44,7 +60,9 @@ const AdminAreaType = () => {
             })
             .then((res) => {
                 if(res.status === 403) {
-                    setDisplayConfirmLogin(true) 
+                    navigate('/connect',{
+                        state: true
+                    })
                 }
                 return res.json() 
             })
@@ -55,13 +73,18 @@ const AdminAreaType = () => {
                 else {
                     setAdminMessage({libelle: res.message, color: colorMsg.error})
                 }
+                setDisplayConfirmDelete(false)
             })
             .catch((error) => {
                 setAdminMessage({libelle: error, color: colorMsg.error})
+                setDisplayConfirmDelete(false)
             })
             window.scrollTo(0,0)
         }
-        setDisplayConfirmDelete(false)
+        else {
+            setAdminMessage({libelle: "", color: ""})
+            setDisplayConfirmDelete(false)
+        }
     }
 
     //////////////////////////////////////////////////////////
@@ -81,6 +104,7 @@ const AdminAreaType = () => {
         newParam.sort = filterSort
         newParam.search = filterName.trim()
         setFilterParam(newParam)
+        setAdminMessage({libelle: "", color: ""})
     }
 
     const handleFilterRAZ = () => {
@@ -96,7 +120,6 @@ const AdminAreaType = () => {
     const[getAreaType, setGetAreaType] = useState(null)
 
     useEffect(() => {
-        setAdminMessage({libelle: "", color: ""})
         fetch("http://localhost:3001/api/areatype?sort=" + filterParam.sort + "&search=" + filterParam.search)
             .then((res) => {
                 return res.json()
@@ -105,8 +128,10 @@ const AdminAreaType = () => {
                 if(res.success) {
                     setGetAreaType(res.data)
                     if(location.state !== null) {
-                        if(location.state.success) {setAdminMessage({libelle: location.state.message, color: colorMsg.success})}
-                        location.state = null
+                        if(location.state.alter !== null) {
+                            if(location.state.alter.success) {setAdminMessage({libelle: location.state.alter.message, color: colorMsg.success})}
+                            location.state = null
+                        }
                     }
                 }
                 else {
@@ -134,7 +159,6 @@ const AdminAreaType = () => {
                 (
                     <>
                     {displayConfirmDelete && <ModalConfirm callFunction={handleConfirmDeleteClick} libelle={dataDelete.libelle} name={dataDelete.name}/>}
-                    {displayConfirmLogin && <ModalLogin />}
                     <div className="admin-titre d-flex justify-content-between align-items-center">
                         <h2>Table 'area_type'</h2>
                         <Link className="btn-admin-add" to={"/admin-area-type-create"} href="#">Ajouter un élément</Link>                                

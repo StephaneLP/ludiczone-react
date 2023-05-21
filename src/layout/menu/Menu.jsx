@@ -2,14 +2,25 @@ import "./menu.scss"
 import imgLogin from "../../assets/images/button/login.png"
 import imgLogout from "../../assets/images/button/logout.png"
 
+import { getRole } from "../../js/utils.js"
 import { useEffect, useState } from "react"
-import { Link, useLocation } from "react-router-dom"
+import { Link, useLocation, useNavigate } from "react-router-dom"
 
 const Menu = () => {
     const location = useLocation()
-    // const token = localStorage.getItem("jwt")
+    const navigate = useNavigate()
     const pseudo = localStorage.getItem("pseudo")
     const[token, setToken] = useState(localStorage.getItem("jwt"))
+    const[role, setRole] = useState("")
+
+    useEffect(() => {
+        if(token !== null) {
+            getRole(token)
+                .then((res) => {
+                    setRole(res)
+                })
+        }
+    },[])
 
     const path = location.pathname
     const isArea = (path === "/admin-area" || path === "/admin-area-create" || path === "/admin-area-update")
@@ -18,8 +29,11 @@ const Menu = () => {
     const isAdmin = (isArea || isAreaType || isAreaZone)
 
     const handleLogoutClick = () => {
-        localStorage.clear()
+        localStorage.removeItem("jwt")
+        localStorage.removeItem("pseudo")
         setToken(localStorage.getItem("jwt"))
+        navigate(0)
+        // setRole("")
     }
 
     return (
@@ -37,23 +51,27 @@ const Menu = () => {
                             <li className="nav-item">
                                 <Link to="/search" className={location.pathname === "/search" ? "nav-link menu-link actif" : "nav-link menu-link"} aria-current="page" href="#">RECHERCHE AVANCÉE</Link>
                             </li>
-                            <li className="nav-item">
-                                <Link to="/my-space" className={location.pathname === "/my-space" ? "nav-link menu-link actif" : "nav-link menu-link"} aria-current="page" href="#">MON COMPTE</Link>
-                            </li>
-                            <li className="nav-item dropdown">
-                                <button className={isAdmin ? "nav-link menu-link menu-link-button dropdown-toggle actif" : "nav-link menu-link menu-link-button dropdown-toggle"} data-bs-toggle="dropdown" aria-expanded="false">ADMIN</button>
-                                <ul className="dropdown-menu">
-                                    <li>
-                                        <Link to="/admin-area-type" className={isAreaType ? "nav-link menu-link actif" : "nav-link menu-link"} aria-current="page" href="#">AREA TYPE</Link>
-                                    </li>
-                                    <li>
-                                        <Link to="/admin-area-zone" className={isAreaZone ? "nav-link menu-link actif" : "nav-link menu-link"} aria-current="page" href="#">AREA ZONE</Link>
-                                    </li>
-                                    <li>
-                                        <Link to="/admin-area" className={isArea ? "nav-link menu-link actif" : "nav-link menu-link"} aria-current="page" href="#">AREA</Link>
-                                    </li>
-                                </ul>
-                            </li>
+                            {role === "user" &&
+                                <li className="nav-item">
+                                    <Link to="/my-space" className={location.pathname === "/my-space" ? "nav-link menu-link actif" : "nav-link menu-link"} aria-current="page" href="#">MON COMPTE</Link>
+                                </li>
+                            }
+                            {role === "admin" &&
+                                <li className="nav-item dropdown">
+                                    <button className={isAdmin ? "nav-link menu-link menu-link-button dropdown-toggle actif" : "nav-link menu-link menu-link-button dropdown-toggle"} data-bs-toggle="dropdown" aria-expanded="false">ADMIN</button>
+                                    <ul className="dropdown-menu">
+                                        <li>
+                                            <Link to="/admin-area-type" className={isAreaType ? "nav-link menu-link actif" : "nav-link menu-link"} aria-current="page" href="#">AREA TYPE</Link>
+                                        </li>
+                                        <li>
+                                            <Link to="/admin-area-zone" className={isAreaZone ? "nav-link menu-link actif" : "nav-link menu-link"} aria-current="page" href="#">AREA ZONE</Link>
+                                        </li>
+                                        <li>
+                                            <Link to="/admin-area" className={isArea ? "nav-link menu-link actif" : "nav-link menu-link"} aria-current="page" href="#">AREA</Link>
+                                        </li>
+                                    </ul>
+                                </li>                            
+                            }
                         </ul>
                     </div>
                 </nav>

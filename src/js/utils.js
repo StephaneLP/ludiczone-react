@@ -10,4 +10,27 @@ const formatDate = (dateString, mode) => {
     return new Date(dateString).toLocaleDateString("fr-FR", (mode === "short" ? optionsShort : optionsLong))
 }
 
-export { colorMsg, formatDate }
+const getRole = (token) => {
+    return(
+        fetch("http://localhost:3001/api/user/role",{
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                authorization: `Bearer ${token}`,
+            },
+        })
+        .then((res) => {
+            return res.json()          
+        })
+        .then((res) => {
+            if(res.success) {
+                return res.data
+            }
+            else {
+                return ""
+            }
+        })
+    )   
+}
+
+export { colorMsg, formatDate, getRole }
