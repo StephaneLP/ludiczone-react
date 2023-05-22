@@ -6,6 +6,7 @@ import AdminAreaTypeCreate from "./pages/admin/AdminAreaTypeCreate"
 import AdminAreaTypeUpdate from "./pages/admin/AdminAreaTypeUpdate"
 import Connect from "./pages/login/Connect"
 import PageError from "./components/errors/PageError"
+import PageForbiden from "./components/errors/PageForbiden"
 import PageNotFound from "./components/errors/PageNotFound"
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
             <Route path="/admin-area-type-update/:id" element={<AdminAreaTypeUpdate />} />
             <Route path="/connect" element={<Connect />} />
             <Route path="/erreur" element={<PageError />} />
+            <Route path="/stop" element={<PageForbiden />} />
             <Route path="*" element={<PageNotFound />} />
         </Routes>
     </BrowserRouter> 

@@ -2,7 +2,7 @@ import "./admin.scss"
 
 import Menu from "../../layout/menu/Menu"
 
-import { colorMsg, formatDate } from "../../js/utils.js"
+import { colorMsg, formatDate, getRole } from "../../js/utils.js"
 import { useEffect, useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 
@@ -15,6 +15,38 @@ const AdminAreaTypeCreate = () => {
     const[createName, setCreateName] = useState("")
     const[createDescription, setCreateDescription] = useState("")
     const[createPicture, setCreatePicture] = useState("default.jpg")
+
+    //////////////////////////////////////////////////////////
+    // CONTROLE DE LA VALIDITE DU TOKEN ET DES DROITS
+    //////////////////////////////////////////////////////////
+
+    useEffect(() => {
+        if(token !== null) {
+            getRole(token)
+                .then((res) => {
+                    if(res.status === 401) {
+                        navigate('/connect',{
+                            state: {
+                                reconnect: true,
+                                route: "/admin-area-type-create"
+                            }
+                        })
+                    }
+                    else if(res.status === 403 || res.role !== "admin") {
+                        localStorage.removeItem("jwt")
+                        localStorage.removeItem("pseudo")
+                        navigate('/erreur',{
+                            state: {message: "Vous n'avez pas les droits requis. Veuillez vous reconnecter S.V.P."}
+                        })
+                    }
+                })
+        }
+        else {
+            navigate('/erreur',{
+                state: {message: "Vous n'avez pas les droits requis pour accéder à cette page."}
+            }) 
+        }
+    },[])
 
     const handleNameChange = (event) => {
         setCreateName(event.target.value);
@@ -45,9 +77,12 @@ const AdminAreaTypeCreate = () => {
             })
         })
         .then((res) => {
-            if(res.status === 403) {
+            if(res.status === 401) {
                 navigate('/connect',{
-                    state: true
+                    state: {
+                        reconnect: true,
+                        route: "/admin-area-type-create"
+                    }
                 })
             }
             return res.json()          

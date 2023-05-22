@@ -11,6 +11,7 @@ const formatDate = (dateString, mode) => {
 }
 
 const getRole = (token) => {
+    let status = 0
     return(
         fetch("http://localhost:3001/api/user/role",{
             method: "GET",
@@ -20,15 +21,19 @@ const getRole = (token) => {
             },
         })
         .then((res) => {
+            status = res.status
             return res.json()          
         })
         .then((res) => {
             if(res.success) {
-                return res.data
+                return {status: 200, role: res.data}
             }
             else {
-                return ""
+                return {status: status, role: ""}
             }
+        })
+        .catch(() => {
+            return {status: 401, role: ""}
         })
     )   
 }

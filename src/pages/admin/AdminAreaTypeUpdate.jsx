@@ -3,7 +3,7 @@ import "./admin.scss"
 import Loader from "../../components/loader/Loader"
 import Menu from "../../layout/menu/Menu"
 
-import { colorMsg, formatDate } from "../../js/utils.js"
+import { colorMsg, formatDate, getRole } from "../../js/utils.js"
 import { useEffect, useState } from "react"
 import { Link, useNavigate, useParams } from "react-router-dom"
 
@@ -18,6 +18,38 @@ const AdminAreaTypeUpdate = () => {
     const[updateName, setUpdateName] = useState("")
     const[updateDescription, setUpdateDescription] = useState("")
     const[updatePicture, setUpdatePicture] = useState("default.jpg")
+
+    //////////////////////////////////////////////////////////
+    // CONTROLE DE LA VALIDITE DU TOKEN ET DES DROITS
+    //////////////////////////////////////////////////////////
+
+    useEffect(() => {
+        if(token !== null) {
+            getRole(token)
+                .then((res) => {
+                    if(res.status === 401) {
+                        navigate('/connect',{
+                            state: {
+                                reconnect: true,
+                                route: "/admin-area-type-update/" + id
+                            }
+                        })
+                    }
+                    else if(res.status === 403 || res.role !== "admin") {
+                        localStorage.removeItem("jwt")
+                        localStorage.removeItem("pseudo")
+                        navigate('/erreur',{
+                            state: {message: "Vous n'avez pas les droits requis. Veuillez vous reconnecter S.V.P."}
+                        })
+                    }
+                })
+        }
+        else {
+            navigate('/erreur',{
+                state: {message: "Vous n'avez pas les droits requis pour accéder à cette page."}
+            }) 
+        }
+    },[])
 
     useEffect(() => {
         fetch("http://localhost:3001/api/areatype/" + id,{
@@ -65,9 +97,12 @@ const AdminAreaTypeUpdate = () => {
             })
         })
         .then((res) => {
-            if(res.status === 403) {
+            if(res.status === 401) {
                 navigate('/connect',{
-                    state: true
+                    state: {
+                        reconnect: true,
+                        route: "/admin-area-type-update/" + id
+                    }
                 })
             }
             return res.json()          

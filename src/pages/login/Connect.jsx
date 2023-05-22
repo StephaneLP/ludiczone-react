@@ -1,6 +1,6 @@
 import "./login.scss"
 
-import Menu from "../../layout/menu/Menu"
+import NoMenu from "../../layout/menu/NoMenu"
 
 import { colorMsg, formatDate } from "../../js/utils.js"
 import { useEffect, useState } from "react"
@@ -9,7 +9,12 @@ import { useLocation, useNavigate } from "react-router-dom"
 const Connect = () => {
     const navigate = useNavigate()
 
+    let isReconnect = false
     const location = useLocation()
+    if(location.state !== null) {
+        isReconnect = (location.state.reconnect !== null ? location.state.reconnect : false)
+    }
+
     const reconnect = (location.state !== null ? location.state : false)
 
     const[adminMessage, setAdminMessage] = useState({libelle: "", color: ""})
@@ -64,7 +69,12 @@ const Connect = () => {
             if(res.success) {
                 localStorage.setItem("jwt",res.token)
                 localStorage.setItem("pseudo",res.data.nick_name)
-                navigate(-1)
+                if(isReconnect) {
+                    navigate(location.state.route)
+                }
+                else {
+                    navigate("/")
+                }
             }
             else {
                 setAdminMessage({libelle: res.message, color: colorMsg.error})
@@ -75,17 +85,12 @@ const Connect = () => {
     const handleCancleClick = () => {
         localStorage.removeItem("jwt")
         localStorage.removeItem("pseudo")
-        if(reconnect) {
-            navigate("/")
-        }
-        else {
-            navigate(-1)
-        }
+        navigate("/")
     }
 
     return (
     <main>
-        <Menu />
+        <NoMenu />
         <section className="container-fluid login">
             {!reconnect ?
             (

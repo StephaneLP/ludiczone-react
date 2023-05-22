@@ -19,13 +19,27 @@ const AdminAreaType = () => {
     
     useEffect(() => {window.scrollTo(0,0)},[])
 
+    //////////////////////////////////////////////////////////
+    // CONTROLE DE LA VALIDITE DU TOKEN ET DES DROITS
+    //////////////////////////////////////////////////////////
+
     useEffect(() => {
         if(token !== null) {
             getRole(token)
                 .then((res) => {
-                    if(res !== "admin") {
+                    if(res.status === 401) {
+                        navigate('/connect',{
+                            state: {
+                                reconnect: true,
+                                route: "/admin-area-type"
+                            }
+                        })
+                    }
+                    else if(res.status === 403 || res.role !== "admin") {
+                        localStorage.removeItem("jwt")
+                        localStorage.removeItem("pseudo")
                         navigate('/erreur',{
-                            state: {message: "Vous n'avez pas les droits requis pour accéder à cette page."}
+                            state: {message: "Vous n'avez pas les droits requis. Veuillez vous reconnecter S.V.P."}
                         })
                     }
                 })
@@ -33,7 +47,7 @@ const AdminAreaType = () => {
         else {
             navigate('/erreur',{
                 state: {message: "Vous n'avez pas les droits requis pour accéder à cette page."}
-            })            
+            }) 
         }
     },[])
 
@@ -59,7 +73,7 @@ const AdminAreaType = () => {
                 },
             })
             .then((res) => {
-                if(res.status === 403) {
+                if(res.status === 401) {
                     navigate('/connect',{
                         state: true
                     })

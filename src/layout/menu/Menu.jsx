@@ -9,18 +9,34 @@ import { Link, useLocation, useNavigate } from "react-router-dom"
 const Menu = () => {
     const location = useLocation()
     const navigate = useNavigate()
+    const token = localStorage.getItem("jwt")
     const pseudo = localStorage.getItem("pseudo")
-    const[token, setToken] = useState(localStorage.getItem("jwt"))
     const[role, setRole] = useState("")
+
+    //////////////////////////////////////////////////////////
+    // CONTROLE DE LA VALIDITE DU TOKEN ET DES DROITS
+    //////////////////////////////////////////////////////////
 
     useEffect(() => {
         if(token !== null) {
             getRole(token)
                 .then((res) => {
-                    setRole(res)
+                    if(res.status !== 200) {
+                        localStorage.removeItem("jwt")
+                        localStorage.removeItem("pseudo")
+                        navigate('/erreur',{
+                            state: {message: "Votre session est terminée ou vos droits sont insuffisants. Veuillez vous reconnecter S.V.P."}
+                        })                        
+                    }
+                    else {
+                        setRole(res.role)
+                    }
                 })
         }
-    },[])
+        else {
+            setRole("")
+        }
+    },[token])
 
     const path = location.pathname
     const isArea = (path === "/admin-area" || path === "/admin-area-create" || path === "/admin-area-update")
@@ -31,13 +47,11 @@ const Menu = () => {
     const handleLogoutClick = () => {
         localStorage.removeItem("jwt")
         localStorage.removeItem("pseudo")
-        setToken(localStorage.getItem("jwt"))
-        navigate(0)
-        // setRole("")
+        navigate("/")
     }
 
     return (
-        <section className="container-fluid menu">
+        <section className="container-fluid d-flex align-items-center menu">
             <div className="container d-flex d-row justify-content-between align-items-center">
                 <nav className="navbar navbar-expand-lg menu-navbar">
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -75,7 +89,7 @@ const Menu = () => {
                         </ul>
                     </div>
                 </nav>
-                {token === null ?
+                {role === "" ?
                 (
                     <Link className="btn-connect d-flex align-items-center" to="/connect" aria-current="page" href="#">
                         <img src={imgLogin} alt="Login" /> Connexion
