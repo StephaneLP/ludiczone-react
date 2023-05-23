@@ -48,6 +48,29 @@ const AdminAreaTypeCreate = () => {
         }
     },[])
 
+    const[getAreaZone,setGetAreaZone] = useState(null)
+    useEffect(() => {
+        fetch("http://localhost:3001/api/areazone")
+            .then((res) => {
+                return res.json()
+            })
+            .then((res) => {
+                if(res.success) {
+                    setGetAreaZone(res.data)
+                }
+                else {
+                    navigate('/erreur',{
+                        state: {message: res.message}
+                    })
+                }
+            })
+            .catch((error) => {
+                navigate('/erreur',{
+                    state: {erreur: error}
+                })
+            })
+    },[])
+
     const handleNameChange = (event) => {
         setCreateName(event.target.value);
         setAdminMessage({libelle: "", color: ""})
@@ -136,6 +159,26 @@ const AdminAreaTypeCreate = () => {
                                 <label>
                                 <span className="label-libelle">Description</span>
                                     <textarea maxLength="200" value={createDescription} onChange={(e) => setCreateDescription(e.target.value)} />
+                                </label>                            
+                            </div>
+                            <div className="admin-alter-cellule">
+                                <label>
+                                <span className="label-libelle">Liste des zones</span>
+                                    <select>
+                                        <option value=""></option>
+                                        {getAreaZone === null ?
+                                        (
+                                            <option value="1">Val 1</option>
+                                        )
+                                        :
+                                        (<>
+                                            {getAreaZone.map((element) => {
+                                                return (
+                                                    <option value="a">{element.name}</option>
+                                                )})
+                                                }
+                                        </>)}
+                                    </select>
                                 </label>                            
                             </div>
                         </div>
