@@ -1,6 +1,7 @@
 import Menu from "../../layout/menu/Menu"
 import HomeBandeau from "./components/HomeBandeau"
 import HomeTypeSortie from "./components/HomeTypeSortie"
+import HomeZoneSortie from "./components/HomeZoneSortie"
 
 import { useEffect } from "react"
 
@@ -12,6 +13,7 @@ const Home = () => {
             <Menu />
             <HomeBandeau />
             <HomeTypeSortie />
+            <HomeZoneSortie />
         </main>
     )
 }

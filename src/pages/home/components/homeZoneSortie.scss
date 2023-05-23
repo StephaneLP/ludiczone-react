@@ -1,0 +1,52 @@
+@import "../../../styles/utils/utils";
+
+.home-zone {
+    background-color: #9191A8;
+    padding: 50px 0;
+
+    h2 {
+        margin: 0 0 40px;
+        color: white;
+        font-size: 3rem;
+    }
+
+    .zone-section {
+        padding: 10px;
+        margin-bottom: 10px;
+        transition: all 0.4s ease-out;
+        cursor: pointer;
+        
+        .section-all {
+            box-shadow: 5px 5px 10px $baseBgColor;
+            border: 3px solid $baseBgColorLight3;
+            background-size: cover;
+            background-position: center;
+            width: 100%;
+            height: 200px;
+            transition: all 0.5s ease-out;
+
+            .zone-section-title {
+                transition: all 0.5s ease-out;
+
+                h3 {
+                    color: white;
+                    margin: 0;
+                    padding: 6px 20px;
+                    -webkit-backdrop-filter: blur(30px); /* assure la compatibilité avec safari */
+                    backdrop-filter: blur(50px);
+                }
+            }
+
+            .img {
+                width: 100%;
+            }
+
+            &:hover {
+                filter: hue-rotate(50deg);
+                border-color: white;
+            }
+        }
+
+
+    }
+}
