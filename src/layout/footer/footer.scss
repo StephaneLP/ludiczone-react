@@ -40,3 +40,52 @@ footer {
         }
     }    
 }
+
+@media screen and (max-width: 992px){
+    footer {
+        .footer-bandeau {
+            .footer-logo {
+                img {
+                    height: 50px;
+                }
+    
+                .footer-logo-titre {
+                    font-size: 2.5rem;
+                }
+            }
+    
+            .footer-titre {
+                font-size: 1.4rem;
+            }
+        }    
+    }
+}
+
+@media screen and (max-width: 768px){
+    footer {
+        .footer-bandeau {
+            .footer-logo {
+                img {
+                    height: 40px;
+                }
+    
+                .footer-logo-titre {
+                    font-size: 2.2rem;
+                }
+            }
+    
+            .footer-titre {
+                font-size: 1.2rem;
+            }
+        }    
+    }  
+} 
+
+@media screen and (max-width: 576px){
+    footer {
+        padding: 10px 0;
+        .footer-bandeau {
+            flex-direction: column;
+        }
+    } 
+}

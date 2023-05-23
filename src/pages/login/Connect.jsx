@@ -2,8 +2,8 @@ import "./login.scss"
 
 import NoMenu from "../../layout/menu/NoMenu"
 
-import { colorMsg, formatDate } from "../../js/utils.js"
-import { useEffect, useState } from "react"
+import { colorMsg } from "../../js/utils.js"
+import { useState } from "react"
 import { useLocation, useNavigate } from "react-router-dom"
 
 const Connect = () => {

@@ -184,7 +184,7 @@ const AdminAreaType = () => {
                         <div className="admin-filter-nb">Nombre de résultats : <span>{getAreaType.length}</span></div>
                         <nav className="navbar bg-body-tertiary">
                             <button className="navbar-toggler btn-admin" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
-                                <img src={imgFilter} />
+                                <img src={imgFilter} alt="" />
                             </button>
                             <div className="offcanvas offcanvas-end" tabIndex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
                                 <div className="offcanvas-header">
@@ -243,8 +243,8 @@ const AdminAreaType = () => {
                                         Id : {element.id}
                                     </div>
                                     <div className="col-12 col-lg-2 justify-content-end">
-                                        <Link className="btn-admin" to={"/admin-area-type-update/" + element.id} href="#"><img src={imgUpdate} /></Link>
-                                        <Link className="btn-admin" onClick={() => handleDeleteClick(element.id, element.name)}><img src={imgDelete} /></Link>
+                                        <Link className="btn-admin" to={"/admin-area-type-update/" + element.id} href="#"><img src={imgUpdate} alt="" /></Link>
+                                        <Link className="btn-admin" onClick={() => handleDeleteClick(element.id, element.name)}><img src={imgDelete} alt="" /></Link>
                                     </div>
                                 </div>
                             )

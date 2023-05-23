@@ -3,7 +3,7 @@ import "./admin.scss"
 import Loader from "../../components/loader/Loader"
 import Menu from "../../layout/menu/Menu"
 
-import { colorMsg, formatDate, getRole } from "../../js/utils.js"
+import { colorMsg, getRole } from "../../js/utils.js"
 import { useEffect, useState } from "react"
 import { Link, useNavigate, useParams } from "react-router-dom"
 

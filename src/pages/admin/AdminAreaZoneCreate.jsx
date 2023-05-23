@@ -2,7 +2,7 @@ import "./admin.scss"
 
 import Menu from "../../layout/menu/Menu"
 
-import { colorMsg, formatDate, getRole } from "../../js/utils.js"
+import { colorMsg, getRole } from "../../js/utils.js"
 import { useEffect, useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 
