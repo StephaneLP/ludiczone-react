@@ -168,7 +168,7 @@ const AdminAreaTypeCreate = () => {
                                         <option value=""></option>
                                         {getAreaZone === null ?
                                         (
-                                            <option value="1">Val 1</option>
+                                            <option value=""></option>
                                         )
                                         :
                                         (<>
