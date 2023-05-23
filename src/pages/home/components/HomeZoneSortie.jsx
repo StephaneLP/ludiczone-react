@@ -21,7 +21,7 @@ const HomeZoneSortie = () => {
     const handleClickNavigate = (id) => {
         navigate('/search',{
             state: {
-                Zone: id,
+                params: {filter: "zone", id: id},
               }
         })
     }

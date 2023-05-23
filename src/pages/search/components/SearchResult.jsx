@@ -3,7 +3,7 @@ import "./searchResult.scss"
 // import { useEffect, useState } from "react"
 
 const SearchResult = (props) => {
-    const type = props.type
+    const params = props.params
 
     // Prévoir pour le responsive :
     //
@@ -19,7 +19,7 @@ const SearchResult = (props) => {
 
     return (
         <section className="container-fluid search">
-            <h2>Recherche Avancée : type={type}</h2>
+            <h2>Recherche Avancée : (filter = {params.filter} & id = {params.id})</h2>
             <div className="container">
                 <div className="row">
                     <div className="col-12 col-md-6 search-box">

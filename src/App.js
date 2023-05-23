@@ -5,6 +5,8 @@ import AdminAreaType from "./pages/admin/AdminAreaType"
 import AdminAreaTypeCreate from "./pages/admin/AdminAreaTypeCreate"
 import AdminAreaTypeUpdate from "./pages/admin/AdminAreaTypeUpdate"
 import AdminAreaZone from "./pages/admin/AdminAreaZone"
+import AdminAreaZoneCreate from "./pages/admin/AdminAreaZoneCreate"
+import AdminAreaZoneUpdate from "./pages/admin/AdminAreaZoneUpdate"
 import Connect from "./pages/login/Connect"
 import PageError from "./components/errors/PageError"
 import PageForbiden from "./components/errors/PageForbiden"
@@ -20,6 +22,8 @@ function App() {
             <Route path="/admin-area-type-create" element={<AdminAreaTypeCreate />} />
             <Route path="/admin-area-type-update/:id" element={<AdminAreaTypeUpdate />} />
             <Route path="/admin-area-zone" element={<AdminAreaZone />} />
+            <Route path="/admin-area-zone-create" element={<AdminAreaZoneCreate />} />
+            <Route path="/admin-area-zone-update/:id" element={<AdminAreaZoneUpdate />} />
             <Route path="/connect" element={<Connect />} />
             <Route path="/erreur" element={<PageError />} />
             <Route path="/stop" element={<PageForbiden />} />

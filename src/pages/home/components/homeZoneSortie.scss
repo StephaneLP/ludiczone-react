@@ -18,7 +18,7 @@
         
         .section-all {
             box-shadow: 5px 5px 10px $baseBgColor;
-            border: 3px solid $baseBgColorLight3;
+            border: 5px solid $baseBgColorLight1;
             background-size: cover;
             background-position: center;
             width: 100%;
@@ -42,8 +42,8 @@
             }
 
             &:hover {
-                filter: hue-rotate(50deg);
-                border-color: white;
+                // filter: hue-rotate(50deg);
+                border: 5px solid white;
             }
         }
 

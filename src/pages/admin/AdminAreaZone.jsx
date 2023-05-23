@@ -175,7 +175,7 @@ const AdminAreaZone = () => {
                      {displayConfirmDelete && <ModalConfirm callFunction={handleConfirmDeleteClick} libelle={dataDelete.libelle} name={dataDelete.name}/>}
                     <div className="admin-titre d-flex justify-content-between align-items-center">
                         <h2>Table 'area_zone'</h2>
-                        <Link className="btn-admin-add" to={"/admin-area-type-create"} href="#">Ajouter un élément</Link>                                
+                        <Link className="btn-admin-add" to={"/admin-area-zone-create"} href="#">Ajouter un élément</Link>                                
                     </div>
                     <div className="admin-message d-flex justify-content-center align-items-center">
                         <div style={{backgroundColor: adminMessage.color}}>{adminMessage.libelle}</div>
@@ -234,10 +234,10 @@ const AdminAreaZone = () => {
                                         {element.name}
                                     </div>
                                     <div className="col-12 col-lg-2 justify-content-center">
-                                        Created : {formatDate(element.createdAt,"short")}
+                                        Created : {formatDate(element.created_at,"short")}
                                     </div>
                                     <div className="col-12 col-lg-2 justify-content-center">
-                                        Updated : {formatDate(element.updatedAt,"short")}
+                                        Updated : {formatDate(element.updated_at,"short")}
                                     </div>
                                     <div className="col-12 col-lg-1 justify-content-end">
                                         Id : {element.id}

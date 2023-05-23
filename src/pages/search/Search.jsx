@@ -6,14 +6,18 @@ import { useEffect } from "react"
 
 const Search = () => {
     const location = useLocation()
-    const type = (location.state===null ? 0 : location.state.type)
+
+    let params = {filter: "", id: 0}
+    if(location.state !== null) {
+        params = location.state.params
+    } 
 
     useEffect(() => window.scrollTo(0,0),[])
 
     return (
         <main>
             <Menu />
-            <SearchResult type={type}/>
+            <SearchResult params={params}/>
         </main>
     )
 }

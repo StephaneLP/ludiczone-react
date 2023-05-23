@@ -20,7 +20,7 @@ const HomeTypeSortie = () => {
     const handleClickNavigate = (id) => {
         navigate('/search',{
             state: {
-                type: id,
+                params: {filter: "type", id: id},
               }
         })
     }
