@@ -54,11 +54,11 @@ const Menu = () => {
         <section className="container-fluid d-flex align-items-center menu">
             <div className="container d-flex d-row justify-content-between align-items-center">
                 <nav className="navbar navbar-expand-lg menu-navbar">
-                    <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                    <button className="navbar-toggler menu-navbar-togler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>
                     </button>
                     <div className="collapse navbar-collapse" id="navbarNavDropdown">
-                        <ul className="navbar-nav align-items-center">
+                        <ul className="navbar-nav align-items-start">
                             <li className="nav-item">
                                 <Link to="/" className={location.pathname === "/" ? "nav-link menu-link actif" : "nav-link menu-link"} aria-current="page" href="#">ACCUEIL</Link>
                             </li>

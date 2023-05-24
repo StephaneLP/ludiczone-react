@@ -38,4 +38,34 @@ const getRole = (token) => {
     )   
 }
 
+// const useCheckTokenValid = () => {
+//     useEffect(() => {
+//         if(token !== null) {
+//             getRole(token)
+//                 .then((res) => {
+//                     if(res.status === 401) {
+//                         navigate('/connect',{
+//                             state: {
+//                                 reconnect: true,
+//                                 route: "/admin-area-zone"
+//                             }
+//                         })
+//                     }
+//                     else if(res.status === 403 || res.role !== "admin") {
+//                         localStorage.removeItem("jwt")
+//                         localStorage.removeItem("pseudo")
+//                         navigate('/erreur',{
+//                             state: {message: "Vous n'avez pas les droits requis. Veuillez vous reconnecter S.V.P."}
+//                         })
+//                     }
+//                 })
+//         }
+//         else {
+//             navigate('/erreur',{
+//                 state: {message: "Vous n'avez pas les droits requis pour accéder à cette page."}
+//             }) 
+//         }
+//     },[token, navigate])
+// }
+
 export { colorMsg, formatDate, getRole }

@@ -23,6 +23,7 @@ const AdminAreaZone = () => {
     // CONTROLE DE LA VALIDITE DU TOKEN ET DES DROITS
     //////////////////////////////////////////////////////////
 
+    // useCheckTokenValid()
     useEffect(() => {
         if(token !== null) {
             getRole(token)
@@ -49,7 +50,7 @@ const AdminAreaZone = () => {
                 state: {message: "Vous n'avez pas les droits requis pour accéder à cette page."}
             }) 
         }
-    },[])
+    },[token, navigate])
 
     //////////////////////////////////////////////////////////
     // DELETE : CONFIRMATION A L'AIDE DE LA FENETRE MODALE CONFIRM
@@ -159,7 +160,7 @@ const AdminAreaZone = () => {
                     state: {erreur: error}
                 })
             })
-    },[displayConfirmDelete, filterParam])
+    },[displayConfirmDelete, filterParam, location, navigate])
 
     return (
     <main>

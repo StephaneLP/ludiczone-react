@@ -1,8 +1,6 @@
 @import "../../styles/utils/utils";
 
 .menu {
-    height: 60px;
-    padding: 3px 0;
     box-shadow: 0 3px 6px $shadow;
     background-color: $menuBgColor;
     position: sticky;
@@ -17,7 +15,7 @@
         .menu-link {
             color: $baseFontColorLight1;
             transition: all 0.4s ease-out;
-            padding-right: 10px;
+            padding: 10px;
         }
 
         .menu-link-dropdown {
@@ -49,11 +47,19 @@
 }    
 
 @media screen and (max-width: 992px){
-    .menu-navbar {
-        background-color: white;
-        padding: 20px;
-        position: absolute;
-        top: 0;
-        left: 0;
+    .menu {
+        .menu-navbar{
+            .menu-navbar-togler {
+                margin: 5px;
+            }
+
+             .menu-link {
+                padding: 5px 10px;
+            }
+
+            .dropdown-menu {
+                margin-bottom: 5px;
+            }
+        }
     }
 }
