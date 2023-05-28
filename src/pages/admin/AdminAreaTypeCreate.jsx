@@ -192,7 +192,7 @@ const AdminAreaTypeCreate = () => {
                             <div className="admin-alter-cellule">
                                 <label>
                                     <span className="label-libelle">Image</span>
-                                    <div className="admin-alter-img" style={{backgroundImage: `url(${require("../../assets/images/type-sortie/" + createPicture)})`}}></div>
+                                    <div className="admin-alter-img" style={{backgroundImage: `url(${require("../../assets/images/pages/area-type/" + createPicture)})`}}></div>
                                 </label>                            
                             </div>
                         </div>

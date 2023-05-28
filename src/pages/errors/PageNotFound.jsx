@@ -2,7 +2,7 @@ import "./errors.scss"
 import NoMenu from "../../layout/menu/NoMenu"
 import imgNotfound from "../../assets/images/errors/404-page-animation.gif"
 
-import { Link, useLocation, useNavigate } from "react-router-dom"
+import { Link } from "react-router-dom"
 
 const PageNotFound = () => {
     return (

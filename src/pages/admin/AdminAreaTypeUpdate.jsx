@@ -176,7 +176,7 @@ const AdminAreaTypeUpdate = () => {
                                 <div className="admin-alter-cellule">
                                     <label>
                                         <span className="label-libelle">Image</span>
-                                        <div className="admin-alter-img" style={{backgroundImage: `url(${require("../../assets/images/type-sortie/" + updatePicture)})`}}></div>
+                                        <div className="admin-alter-img" style={{backgroundImage: `url(${require("../../assets/images/pages/area-type/" + updatePicture)})`}}></div>
                                     </label>                            
                                 </div>
                             </div>

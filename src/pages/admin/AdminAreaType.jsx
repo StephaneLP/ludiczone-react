@@ -228,7 +228,7 @@ const AdminAreaType = () => {
                             return (
                                 <div className="row admin-row" key={element.id}>
                                     <div className="col-12 col-lg-2">
-                                        <div className="admin-row-img" style={{backgroundImage: `url(${require("../../assets/images/type-sortie/" + element.picture)})`}}></div>
+                                        <div className="admin-row-img" style={{backgroundImage: `url(${require("../../assets/images/pages/area-type/" + element.picture)})`}}></div>
                                     </div>
                                     <div className="col-12 col-lg-3 admin-row-title">
                                         {element.name}

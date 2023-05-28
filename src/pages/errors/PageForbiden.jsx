@@ -2,7 +2,7 @@ import "./errors.scss"
 import NoMenu from "../../layout/menu/NoMenu"
 import imgForbiden from "../../assets/images/errors/forbiden.gif"
 
-import { Link, useLocation, useNavigate } from "react-router-dom"
+import { Link } from "react-router-dom"
 
 const PageError = () => {
     return (

@@ -8,9 +8,9 @@ import AdminAreaZone from "./pages/admin/AdminAreaZone"
 import AdminAreaZoneCreate from "./pages/admin/AdminAreaZoneCreate"
 import AdminAreaZoneUpdate from "./pages/admin/AdminAreaZoneUpdate"
 import Connect from "./pages/login/Connect"
-import PageError from "./components/errors/PageError"
-import PageForbiden from "./components/errors/PageForbiden"
-import PageNotFound from "./components/errors/PageNotFound"
+import PageError from "./pages/errors/PageError"
+import PageForbiden from "./pages/errors/PageForbiden"
+import PageNotFound from "./pages/errors/PageNotFound"
 
 function App() {
   return (

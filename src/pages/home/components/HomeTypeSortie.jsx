@@ -42,7 +42,7 @@ const HomeTypeSortie = () => {
                                             <div className="d-flex flex-column justify-content-center align-items-center type-section-left">
                                                 <h3>{element.name}</h3>
                                             </div>
-                                            <div className="type-section-right" style={{backgroundImage: `url(${require("../../../assets/images/type-sortie/" + element.picture)})`}}>
+                                            <div className="type-section-right" style={{backgroundImage: `url(${require("../../../assets/images/pages/area-type/" + element.picture)})`}}>
                                             </div>
                                         </div>
                                     </div>   
