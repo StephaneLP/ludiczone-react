@@ -38,7 +38,7 @@ const HomeZoneSortie = () => {
                             <>
                             {getAreaZone.map((element) => {
                                 return (
-                                    <div className="col-12 col-lg-4 zone-section" onClick={() => handleClickNavigate(element.id)} key={element.id}>
+                                    <div className="col-12 col-md-6 col-lg-4 zone-section" onClick={() => handleClickNavigate(element.id)} key={element.id}>
                                         <div className="col-12 section-all" style={{backgroundImage: `url(${require("../../../assets/images/pages/area-zone/" + element.picture)})`}}>
                                             <div className="zone-section-title">
                                                 <h3>{element.name}</h3>
