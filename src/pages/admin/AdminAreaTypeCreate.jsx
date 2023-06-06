@@ -2,13 +2,15 @@ import "./admin.scss"
 
 import Menu from "../../layout/menu/Menu"
 
-import { colorMsg, getRole } from "../../js/utils.js"
-import { useEffect, useState } from "react"
-import { Link, useNavigate } from "react-router-dom"
+import { colorMsg } from "../../js/utils.js"
+import { useCheckTokenRole } from "../../js/hooks.js"
+import { useState } from "react"
+import { Link, useNavigate, useLocation } from "react-router-dom"
 
 const AdminAreaTypeCreate = () => {
     const token = localStorage.getItem("jwt")
     const navigate = useNavigate()
+    const location = useLocation()
     
     const[adminMessage, setAdminMessage] = useState({libelle: "", color: ""})
     const[focusName, setFocusName] = useState("")
@@ -20,62 +22,11 @@ const AdminAreaTypeCreate = () => {
     // CONTROLE DE LA VALIDITE DU TOKEN ET DES DROITS
     //////////////////////////////////////////////////////////
 
-    useEffect(() => {
-        if(token !== null) {
-            getRole(token)
-                .then((res) => {
-                    if(res.status === 401) {
-                        navigate('/connect',{
-                            state: {
-                                reconnect: true,
-                                route: "/admin-area-type-create"
-                            }
-                        })
-                    }
-                    else if(res.status === 403 || res.role !== "admin") {
-                        localStorage.removeItem("jwt")
-                        localStorage.removeItem("pseudo")
-                        navigate('/erreur',{
-                            state: {message: "Vous n'avez pas les droits requis. Veuillez vous reconnecter S.V.P."}
-                        })
-                    }
-                })
-        }
-        else {
-            navigate('/erreur',{
-                state: {message: "Vous n'avez pas les droits requis pour accéder à cette page."}
-            }) 
-        }
-    },[])
+    useCheckTokenRole(token, "admin", navigate, location.pathname)
 
-    // const[getAreaZone,setGetAreaZone] = useState(null)
-    // useEffect(() => {
-    //     fetch("http://localhost:3001/api/areazone")
-    //         .then((res) => {
-    //             return res.json()
-    //         })
-    //         .then((res) => {
-    //             if(res.success) {
-    //                 setGetAreaZone(res.data)
-    //             }
-    //             else {
-    //                 navigate('/erreur',{
-    //                     state: {message: res.message}
-    //                 })
-    //             }
-    //         })
-    //         .catch((error) => {
-    //             navigate('/erreur',{
-    //                 state: {erreur: error}
-    //             })
-    //         })
-    // },[])
-
-    const handleNameChange = (event) => {
-        setCreateName(event.target.value);
-        setAdminMessage({libelle: "", color: ""})
-        setFocusName("")
-    }
+    //////////////////////////////////////////////////////////
+    // CREATE
+    //////////////////////////////////////////////////////////
 
     const handleSubmit = (event) => {
         event.preventDefault()
@@ -108,6 +59,11 @@ const AdminAreaTypeCreate = () => {
                     }
                 })
             }
+            else if(res.status === 403) {
+                navigate('/erreur',{
+                    state: {message: "Vous n'avez pas les droits requis pour accéder à cette page."}
+                }) 
+            }
             return res.json()          
         })
         .then((res) => {
@@ -131,6 +87,10 @@ const AdminAreaTypeCreate = () => {
         window.scrollTo(0,0)
     }
 
+    //////////////////////////////////////////////////////////
+    // JSX
+    //////////////////////////////////////////////////////////
+
     return (
     <main>
         <Menu />
@@ -152,7 +112,7 @@ const AdminAreaTypeCreate = () => {
                             <div className="admin-alter-cellule">
                                 <label>
                                     <span className="label-libelle">Nom</span>
-                                    <input type="text" maxLength="50" value={createName} onChange={(e) => handleNameChange(e)} style={{borderColor: focusName}} />
+                                    <input type="text" maxLength="50" value={createName} onChange={(e) => {setCreateName(e.target.value); setAdminMessage({libelle: "", color: ""}); setFocusName("")}} style={{borderColor: focusName}} />
                                 </label>                       
                             </div>
                             <div className="admin-alter-cellule">
@@ -161,26 +121,6 @@ const AdminAreaTypeCreate = () => {
                                     <textarea maxLength="200" value={createDescription} onChange={(e) => setCreateDescription(e.target.value)} />
                                 </label>                            
                             </div>
-                            {/* <div className="admin-alter-cellule">
-                                <label>
-                                <span className="label-libelle">Liste des zones</span>
-                                    <select>
-                                        <option value=""></option>
-                                        {getAreaZone === null ?
-                                        (
-                                            <option value=""></option>
-                                        )
-                                        :
-                                        (<>
-                                            {getAreaZone.map((element) => {
-                                                return (
-                                                    <option value="a">{element.name}</option>
-                                                )})
-                                                }
-                                        </>)}
-                                    </select>
-                                </label>                            
-                            </div> */}
                         </div>
                         <div className="col-12 col-md-4">
                             <div className="admin-alter-cellule">

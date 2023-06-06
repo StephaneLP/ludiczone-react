@@ -2,13 +2,15 @@ import "./admin.scss"
 
 import Menu from "../../layout/menu/Menu"
 
-import { colorMsg, getRole } from "../../js/utils.js"
-import { useEffect, useState } from "react"
-import { Link, useNavigate } from "react-router-dom"
+import { colorMsg } from "../../js/utils.js"
+import { useCheckTokenRole } from "../../js/hooks.js"
+import { useState } from "react"
+import { Link, useNavigate, useLocation } from "react-router-dom"
 
 const AdminAreaZoneCreate = () => {
     const token = localStorage.getItem("jwt")
     const navigate = useNavigate()
+    const location = useLocation()
     
     const[adminMessage, setAdminMessage] = useState({libelle: "", color: ""})
     const[focusName, setFocusName] = useState("")
@@ -20,39 +22,11 @@ const AdminAreaZoneCreate = () => {
     // CONTROLE DE LA VALIDITE DU TOKEN ET DES DROITS
     //////////////////////////////////////////////////////////
 
-    useEffect(() => {
-        if(token !== null) {
-            getRole(token)
-                .then((res) => {
-                    if(res.status === 401) {
-                        navigate('/connect',{
-                            state: {
-                                reconnect: true,
-                                route: "/admin-area-zone-create"
-                            }
-                        })
-                    }
-                    else if(res.status === 403 || res.role !== "admin") {
-                        localStorage.removeItem("jwt")
-                        localStorage.removeItem("pseudo")
-                        navigate('/erreur',{
-                            state: {message: "Vous n'avez pas les droits requis. Veuillez vous reconnecter S.V.P."}
-                        })
-                    }
-                })
-        }
-        else {
-            navigate('/erreur',{
-                state: {message: "Vous n'avez pas les droits requis pour accéder à cette page."}
-            }) 
-        }
-    },[])
+    useCheckTokenRole(token, "admin", navigate, location.pathname)
 
-    const handleNameChange = (event) => {
-        setCreateName(event.target.value);
-        setAdminMessage({libelle: "", color: ""})
-        setFocusName("")
-    }
+    //////////////////////////////////////////////////////////
+    // CREATE
+    //////////////////////////////////////////////////////////
 
     const handleSubmit = (event) => {
         event.preventDefault()
@@ -85,6 +59,11 @@ const AdminAreaZoneCreate = () => {
                     }
                 })
             }
+            else if(res.status === 403) {
+                navigate('/erreur',{
+                    state: {message: "Vous n'avez pas les droits requis pour accéder à cette page."}
+                }) 
+            }
             return res.json()          
         })
         .then((res) => {
@@ -108,6 +87,10 @@ const AdminAreaZoneCreate = () => {
         window.scrollTo(0,0)
     }
 
+    //////////////////////////////////////////////////////////
+    // JSX
+    //////////////////////////////////////////////////////////
+
     return (
     <main>
         <Menu />
@@ -129,7 +112,7 @@ const AdminAreaZoneCreate = () => {
                             <div className="admin-alter-cellule">
                                 <label>
                                     <span className="label-libelle">Nom</span>
-                                    <input type="text" maxLength="50" value={createName} onChange={(e) => handleNameChange(e)} style={{borderColor: focusName}} />
+                                    <input type="text" maxLength="50" value={createName} onChange={(e) => {setCreateName(e.target.value); setAdminMessage({libelle: "", color: ""}); setFocusName("")}} style={{borderColor: focusName}} />
                                 </label>                       
                             </div>
                             <div className="admin-alter-cellule">

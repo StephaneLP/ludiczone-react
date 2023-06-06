@@ -7,7 +7,8 @@ import Loader from "../../components/loader/Loader"
 import Menu from "../../layout/menu/Menu"
 import ModalConfirm from "../../components/modalconfirm/ModalConfirm"
 
-import { colorMsg, formatDate, useCheckTokenValid } from "../../js/utils.js"
+import { colorMsg, formatDate } from "../../js/utils.js"
+import { useCheckTokenRole } from "../../js/hooks.js"
 import { useEffect, useState } from "react"
 import { Link, useNavigate, useLocation } from "react-router-dom"
 
@@ -23,11 +24,10 @@ const AdminAreaZone = () => {
     // CONTROLE DE LA VALIDITE DU TOKEN ET DES DROITS
     //////////////////////////////////////////////////////////
 
-    useCheckTokenValid(token, navigate)
+    useCheckTokenRole(token, "admin", navigate, location.pathname)
 
     //////////////////////////////////////////////////////////
-    // DELETE : CONFIRMATION A L'AIDE DE LA FENETRE MODALE CONFIRM
-    // APPEL DE L'API DELETE
+    // DELETE (confirmation avec le composant modalConfirm)
     //////////////////////////////////////////////////////////
 
     const[displayConfirmDelete, setDisplayConfirmDelete] = useState(false)
@@ -101,8 +101,7 @@ const AdminAreaZone = () => {
     }
 
     //////////////////////////////////////////////////////////
-    // CHARGEMENT : APPEL DE L'API GET
-    // PARAMETRES : CHANGEMENT DANS LA ZONE DE FILTRE
+    // GET (chargement de la page et modification du filtre)
     //////////////////////////////////////////////////////////
 
     const[getAreaZone, setGetAreaZone] = useState(null)
@@ -118,6 +117,7 @@ const AdminAreaZone = () => {
                     if(location.state !== null) {
                         if(location.state.alter !== null) {
                             if(location.state.alter.success) {setAdminMessage({libelle: location.state.alter.message, color: colorMsg.success})}
+                            else {setAdminMessage({libelle: location.state.alter.message, color: colorMsg.error})}
                             location.state = null
                         }
                     }
@@ -134,6 +134,10 @@ const AdminAreaZone = () => {
                 })
             })
     },[displayConfirmDelete, filterParam, location, navigate])
+
+    //////////////////////////////////////////////////////////
+    // JSX
+    //////////////////////////////////////////////////////////
 
     return (
     <main>

@@ -36,7 +36,7 @@ const Menu = () => {
         else {
             setRole("")
         }
-    },[token])
+    },[token, navigate])
 
     const path = location.pathname
     const isArea = (path === "/admin-area" || path === "/admin-area-create" || path === "/admin-area-update")
@@ -75,13 +75,24 @@ const Menu = () => {
                                     <button className={isAdmin ? "nav-link menu-link menu-link-button dropdown-toggle actif" : "nav-link menu-link menu-link-button dropdown-toggle"} data-bs-toggle="dropdown" aria-expanded="false">ADMIN</button>
                                     <ul className="dropdown-menu">
                                         <li>
+                                            <Link to="/admin-area" className={isArea ? "nav-link menu-link actif" : "nav-link menu-link"} aria-current="page" href="#">AREA</Link>
+                                        </li>
+                                        <li>
                                             <Link to="/admin-area-type" className={isAreaType ? "nav-link menu-link actif" : "nav-link menu-link"} aria-current="page" href="#">AREA TYPE</Link>
                                         </li>
                                         <li>
                                             <Link to="/admin-area-zone" className={isAreaZone ? "nav-link menu-link actif" : "nav-link menu-link"} aria-current="page" href="#">AREA ZONE</Link>
                                         </li>
+
+                                        <hr />
                                         <li>
-                                            <Link to="/admin-area" className={isArea ? "nav-link menu-link actif" : "nav-link menu-link"} aria-current="page" href="#">AREA</Link>
+                                            <Link to="/admin-user" className={isArea ? "nav-link menu-link actif" : "nav-link menu-link"} aria-current="page" href="#">USER</Link>
+                                        </li>
+                                        <li>
+                                            <Link to="/admin-user-favorite" className={isArea ? "nav-link menu-link actif" : "nav-link menu-link"} aria-current="page" href="#">USER FAVORITE</Link>
+                                        </li>
+                                        <li>
+                                            <Link to="/admin-user-rating" className={isArea ? "nav-link menu-link actif" : "nav-link menu-link"} aria-current="page" href="#">USER RATING</Link>
                                         </li>
                                     </ul>
                                 </li>                            

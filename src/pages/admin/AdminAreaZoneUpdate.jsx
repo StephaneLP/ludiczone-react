@@ -3,13 +3,15 @@ import "./admin.scss"
 import Loader from "../../components/loader/Loader"
 import Menu from "../../layout/menu/Menu"
 
-import { colorMsg, getRole } from "../../js/utils.js"
+import { colorMsg } from "../../js/utils.js"
+import { useCheckTokenRole } from "../../js/hooks.js"
 import { useEffect, useState } from "react"
-import { Link, useNavigate, useParams } from "react-router-dom"
+import { Link, useNavigate, useLocation, useParams } from "react-router-dom"
 
 const AdminAreaZoneUpdate = () => {
     const token = localStorage.getItem("jwt")
     const navigate = useNavigate()
+    const location = useLocation()
     const { id } = useParams()
 
     const[getAreaType, setGetAreaType] = useState(null)
@@ -23,33 +25,11 @@ const AdminAreaZoneUpdate = () => {
     // CONTROLE DE LA VALIDITE DU TOKEN ET DES DROITS
     //////////////////////////////////////////////////////////
 
-    useEffect(() => {
-        if(token !== null) {
-            getRole(token)
-                .then((res) => {
-                    if(res.status === 401) {
-                        navigate('/connect',{
-                            state: {
-                                reconnect: true,
-                                route: "/admin-area-zone-update/" + id
-                            }
-                        })
-                    }
-                    else if(res.status === 403 || res.role !== "admin") {
-                        localStorage.removeItem("jwt")
-                        localStorage.removeItem("pseudo")
-                        navigate('/erreur',{
-                            state: {message: "Vous n'avez pas les droits requis. Veuillez vous reconnecter S.V.P."}
-                        })
-                    }
-                })
-        }
-        else {
-            navigate('/erreur',{
-                state: {message: "Vous n'avez pas les droits requis pour accéder à cette page."}
-            }) 
-        }
-    },[])
+    useCheckTokenRole(token, "admin", navigate, location.pathname)
+
+    //////////////////////////////////////////////////////////
+    // GET (initialisation du formulaire)
+    //////////////////////////////////////////////////////////
 
     useEffect(() => {
         fetch("http://localhost:3001/api/areazone/" + id,{
@@ -61,18 +41,28 @@ const AdminAreaZoneUpdate = () => {
                 return res.json()          
             })
             .then((res) => {
-                setUpdateName(res.data.name)
-                setUpdateDescription(res.data.description)
-                setUpdatePicture(res.data.picture)
-                setGetAreaType(res.data)
+                if(res.success) {
+                    setUpdateName(res.data.name)
+                    setUpdateDescription(res.data.description)
+                    setUpdatePicture(res.data.picture)
+                    setGetAreaType(res.data)
+                }
+                else {
+                    navigate('/admin-area-zone',{
+                        state: {
+                            alter: {
+                                success: false,
+                                message: res.message                            
+                            }
+                        }
+                    })
+                }
             })
-    },[])
+    },[id, navigate, token])
 
-    const handleNameChange = (event) => {
-        setUpdateName(event.target.value);
-        setAdminMessage({libelle: "", color: ""})
-        setFocusName("")
-    }
+    //////////////////////////////////////////////////////////
+    // UPDATE
+    //////////////////////////////////////////////////////////
 
     const handleSubmit = (event) => {
         event.preventDefault()
@@ -105,6 +95,11 @@ const AdminAreaZoneUpdate = () => {
                     }
                 })
             }
+            else if(res.status === 403) {
+                navigate('/erreur',{
+                    state: {message: "Vous n'avez pas les droits requis pour accéder à cette page."}
+                }) 
+            }
             return res.json()          
         })
         .then((res) => {
@@ -128,11 +123,15 @@ const AdminAreaZoneUpdate = () => {
         window.scrollTo(0,0)
     }
 
+    //////////////////////////////////////////////////////////
+    // JSX
+    //////////////////////////////////////////////////////////
+
     return (
     <main>
         <Menu />
         <section className="container-fluid admin">
-            <h1>Modifier un type de loisir</h1>
+            <h1>Modifier une zone</h1>
             <div className="container">
                 {getAreaType === null ?
                 (<Loader />)
@@ -156,7 +155,7 @@ const AdminAreaZoneUpdate = () => {
                                 <div className="admin-alter-cellule">
                                     <label>
                                         <span className="label-libelle">Nom</span>
-                                        <input type="text" maxLength="50" value={updateName} onChange={(e) => handleNameChange(e)} style={{borderColor: focusName}} />
+                                        <input type="text" maxLength="50" value={updateName} onChange={(e) => {setUpdateName(e.target.value); setAdminMessage({libelle: "", color: ""}); setFocusName("")}} style={{borderColor: focusName}} />
                                     </label>                       
                                 </div>
                                 <div className="admin-alter-cellule">

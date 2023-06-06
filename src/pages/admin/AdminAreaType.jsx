@@ -7,7 +7,8 @@ import Loader from "../../components/loader/Loader"
 import Menu from "../../layout/menu/Menu"
 import ModalConfirm from "../../components/modalconfirm/ModalConfirm"
 
-import { colorMsg, formatDate, getRole } from "../../js/utils.js"
+import { colorMsg, formatDate } from "../../js/utils.js"
+import { useCheckTokenRole } from "../../js/hooks.js"
 import { useEffect, useState } from "react"
 import { Link, useNavigate, useLocation } from "react-router-dom"
 
@@ -23,37 +24,10 @@ const AdminAreaType = () => {
     // CONTROLE DE LA VALIDITE DU TOKEN ET DES DROITS
     //////////////////////////////////////////////////////////
 
-    useEffect(() => {
-        if(token !== null) {
-            getRole(token)
-                .then((res) => {
-                    if(res.status === 401) {
-                        navigate('/connect',{
-                            state: {
-                                reconnect: true,
-                                route: "/admin-area-type"
-                            }
-                        })
-                    }
-                    else if(res.status === 403 || res.role !== "admin") {
-                        localStorage.removeItem("jwt")
-                        localStorage.removeItem("pseudo")
-                        navigate('/erreur',{
-                            state: {message: "Vous n'avez pas les droits requis. Veuillez vous reconnecter S.V.P."}
-                        })
-                    }
-                })
-        }
-        else {
-            navigate('/erreur',{
-                state: {message: "Vous n'avez pas les droits requis pour accéder à cette page."}
-            }) 
-        }
-    },[])
+    useCheckTokenRole(token, "admin", navigate, location.pathname)
 
     //////////////////////////////////////////////////////////
-    // DELETE : CONFIRMATION A L'AIDE DE LA FENETRE MODALE CONFIRM
-    // APPEL DE L'API DELETE
+    // DELETE (confirmation avec le composant modalConfirm)
     //////////////////////////////////////////////////////////
 
     const[displayConfirmDelete, setDisplayConfirmDelete] = useState(false)
@@ -127,8 +101,7 @@ const AdminAreaType = () => {
     }
 
     //////////////////////////////////////////////////////////
-    // CHARGEMENT : APPEL DE L'API GET
-    // PARAMETRES : CHANGEMENT DANS LA ZONE DE FILTRE
+    // GET (chargement de la page et modification du filtre)
     //////////////////////////////////////////////////////////
 
     const[getAreaType, setGetAreaType] = useState(null)
@@ -159,7 +132,11 @@ const AdminAreaType = () => {
                     state: {erreur: error}
                 })
             })
-    },[displayConfirmDelete, filterParam])
+    },[displayConfirmDelete, filterParam, location, navigate])
+
+    //////////////////////////////////////////////////////////
+    // JSX
+    //////////////////////////////////////////////////////////
 
     return (
     <main>
