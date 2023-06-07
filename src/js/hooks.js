@@ -1,9 +1,11 @@
 import { useEffect } from "react"
+import { useNavigate } from "react-router-dom"
 
-const useCheckTokenRole = (token, role, navigate, url) => {
+const useCheckTokenRole = (token, role, url) => {
+    const navigate = useNavigate()
+
     useEffect(() => {
         if(token !== null) {
-
             fetch("http://localhost:3001/api/user/role",{
                 method: "GET",
                 headers: {
@@ -32,15 +34,17 @@ const useCheckTokenRole = (token, role, navigate, url) => {
                         state: {message: "Une erreur interne au serveur est survenue (Erreur 500)."}
                     })
                 }
-                return res.json()          
+                return res.json()       
             })
             .then((res) => {
-                if(res.data !== role) {
-                    localStorage.removeItem("jwt")
-                    localStorage.removeItem("pseudo")
-                    navigate('/erreur',{
-                        state: {message: "Vous n'avez pas les droits requis. Veuillez vous reconnecter S.V.P."}
-                    })                        
+                if(res.success) {  
+                    if(res.data !== role) {
+                        localStorage.removeItem("jwt")
+                        localStorage.removeItem("pseudo")
+                        navigate('/erreur',{
+                            state: {message: "Vous n'avez pas les droits requis. Veuillez vous reconnecter S.V.P."}
+                        })                        
+                    }
                 }
             })
             .catch(() => {

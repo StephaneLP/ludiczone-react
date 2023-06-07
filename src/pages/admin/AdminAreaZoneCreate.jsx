@@ -22,7 +22,7 @@ const AdminAreaZoneCreate = () => {
     // CONTROLE DE LA VALIDITE DU TOKEN ET DES DROITS
     //////////////////////////////////////////////////////////
 
-    useCheckTokenRole(token, "admin", navigate, location.pathname)
+    useCheckTokenRole(token, "admin", location.pathname)
 
     //////////////////////////////////////////////////////////
     // CREATE

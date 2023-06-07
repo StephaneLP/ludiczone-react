@@ -19,14 +19,16 @@
         }
 
         .menu-link-dropdown {
-            font-size: 1.2rem;
+            color: $baseFontColorLight1;
+            transition: all 0.4s ease-out;
+            padding: 4px 10px;
         }
 
         .menu-link-button {
             border: 0 solid grey;
         }
 
-        .menu-link:hover {
+        .menu-link:hover, .menu-link-dropdown:hover {
             color:$secondaryFontColor
         }
         

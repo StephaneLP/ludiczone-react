@@ -1,7 +1,6 @@
+
 import "./login.scss"
-
 import NoMenu from "../../layout/menu/NoMenu"
-
 import { colorMsg } from "../../js/utils.js"
 import { useState } from "react"
 import { useLocation, useNavigate } from "react-router-dom"
@@ -14,8 +13,6 @@ const Connect = () => {
     if(location.state !== null) {
         isReconnect = (location.state.reconnect !== null ? location.state.reconnect : false)
     }
-
-    const reconnect = (location.state !== null ? location.state : false)
 
     const[adminMessage, setAdminMessage] = useState({libelle: "", color: ""})
     const[focusLogin, setFocusLogin] = useState("")
@@ -41,14 +38,12 @@ const Connect = () => {
         if(login === "") {
             setAdminMessage({libelle: "Veuillez renseigner un identifiant S.V.P.", color: colorMsg.error})
             setFocusLogin(colorMsg.error)
-            // window.scrollTo(0,0)
             return
         }
 
         if(password === "") {
             setAdminMessage({libelle: "Veuillez renseigner un mot de passe S.V.P.", color: colorMsg.error})
             setFocusPassword(colorMsg.error)
-            // window.scrollTo(0,0)
             return
         }
 
@@ -92,14 +87,12 @@ const Connect = () => {
     <main>
         <NoMenu />
         <section className="container-fluid login">
-            {!reconnect ?
-            (
-                <h1>Connectez-vous à votre compte</h1>
-            )
+            {!isReconnect ?
+            (<h1>Connectez-vous à votre compte</h1>)
             :
             (<>
                 <h1>Votre session est expirée...</h1>
-                <h2>Veuillez vous identifier S.V.P.</h2>
+                <h2>Veuillez-vous identifier S.V.P.</h2>
             </>)}
             
             <div className="container">
