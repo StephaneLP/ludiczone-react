@@ -11,6 +11,7 @@ import Connect from "./pages/login/Connect"
 import PageError from "./pages/errors/PageError"
 import PageForbiden from "./pages/errors/PageForbiden"
 import PageNotFound from "./pages/errors/PageNotFound"
+import PageUnderConstruction from "./pages/errors/PageUnderConstruction"
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
             <Route path="/connect" element={<Connect />} />
             <Route path="/erreur" element={<PageError />} />
             <Route path="/stop" element={<PageForbiden />} />
+            <Route path="/en-construction" element={<PageUnderConstruction />} />
             <Route path="*" element={<PageNotFound />} />
         </Routes>
     </BrowserRouter> 

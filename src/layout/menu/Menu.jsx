@@ -88,7 +88,7 @@ const Menu = () => {
                                     <button className={isAdmin ? "nav-link menu-link menu-link-button dropdown-toggle actif" : "nav-link menu-link menu-link-button dropdown-toggle"} data-bs-toggle="dropdown" aria-expanded="false">ADMIN</button>
                                     <ul className="dropdown-menu">
                                         <li>
-                                            <Link to="/admin-area" className={isArea ? "nav-link menu-link-dropdown actif" : "nav-link menu-link-dropdown"} aria-current="page" href="#">AREA</Link>
+                                            <Link to="/en-construction" className={isArea ? "nav-link menu-link-dropdown actif" : "nav-link menu-link-dropdown"} aria-current="page" href="#">AREA</Link>
                                         </li>
                                         <li>
                                             <Link to="/admin-area-type" className={isAreaType ? "nav-link menu-link-dropdown actif" : "nav-link menu-link-dropdown"} aria-current="page" href="#">AREA TYPE</Link>
@@ -99,13 +99,13 @@ const Menu = () => {
 
                                         <hr />
                                         <li>
-                                            <Link to="/admin-user" className={isArea ? "nav-link menu-link-dropdown actif" : "nav-link menu-link-dropdown"} aria-current="page" href="#">USER</Link>
+                                            <Link to="/en-construction" className={isArea ? "nav-link menu-link-dropdown actif" : "nav-link menu-link-dropdown"} aria-current="page" href="#">USER</Link>
                                         </li>
                                         <li>
-                                            <Link to="/admin-user-favorite" className={isArea ? "nav-link menu-link-dropdown actif" : "nav-link menu-link-dropdown"} aria-current="page" href="#">USER FAVORITE</Link>
+                                            <Link to="/en-construction" className={isArea ? "nav-link menu-link-dropdown actif" : "nav-link menu-link-dropdown"} aria-current="page" href="#">USER FAVORITE</Link>
                                         </li>
                                         <li>
-                                            <Link to="/admin-user-rating" className={isArea ? "nav-link menu-link-dropdown actif" : "nav-link menu-link-dropdown"} aria-current="page" href="#">USER RATING</Link>
+                                            <Link to="/en-construction" className={isArea ? "nav-link menu-link-dropdown actif" : "nav-link menu-link-dropdown"} aria-current="page" href="#">USER RATING</Link>
                                         </li>
                                     </ul>
                                 </li>                            

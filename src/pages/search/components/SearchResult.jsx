@@ -1,91 +1,96 @@
 import "./searchResult.scss"
-
-// import { useEffect, useState } from "react"
+import Loader from "../../../components/loader/Loader"
+import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from "react"
 
 const SearchResult = (props) => {
-    const params = props.params
+    const [params, setParams] = useState(props.params)
+    const navigate = useNavigate();
+    const[getArea, setGetArea] = useState(null)
+    const[filterParam, setFilterParam] = useState({
+        sort: "asc",
+        search: "",
+        typeId: "",
+        zoneId: "",
+    })
 
-    // Prévoir pour le responsive :
-    //
-    // const goBoxVerso = (event) => {
-    //     event.currentTarget.classList.add("active")
-    // }
-    //
-    // const backBoxRecto = (event) => {
-    //     event.currentTarget.classList.remove("active")
-    // }
-    //
-    // Avec : onClick={() => goBoxVerso('1')} onMouseLeave={() => backBoxRecto('1')}
+    if(params) {
+        if(params.filter !== "") {
+            let newParam = {...filterParam}
+            newParam.typeId = (params.filter === "type" ? params.id : "")
+            newParam.zoneId = (params.filter === "zone" ? params.id : "")
+            setFilterParam(newParam)
+            setParams(null)
+        }
+    }
+
+    useEffect(() => {
+        fetch("http://localhost:3001/api/area?sort=" + filterParam.sort + "&search=" + filterParam.search  + "&typeId=" + filterParam.typeId + "&zoneId=" + filterParam.zoneId)
+            .then((res) => {
+                return res.json()
+            })
+            .then((res) => {
+                if(res.success) {
+                    setGetArea(res.data)
+                }
+                else {
+                    navigate('/erreur',{
+                        state: {message: res.message}
+                    })
+                }
+            })
+            .catch((error) => {
+                navigate('/erreur',{
+                    state: {erreur: error}
+                })
+            })
+    },[filterParam, navigate])
+
+    const handleFicheClick = () => {
+        navigate("/en-construction")
+    }
+
+    //////////////////////////////////////////////////////////
+    // JSX
+    //////////////////////////////////////////////////////////
 
     return (
         <section className="container-fluid search">
-            <h2>Recherche Avancée : (filter = {params.filter} & id = {params.id})</h2>
+            <h1>Recherche Avancée</h1>
             <div className="container">
-                <div className="row">
-                    <div className="col-12 col-md-6 search-box">
-                        <div className="col-12 search-box-inner">
-                            <div className="search-box-recto d-flex justify-content-center align-items-end" style={{backgroundImage: `url(${require("../../../assets/images/pages/area/virtual-room.jpg")})`}}>
-                                <h3>Virtual Room</h3>
-                            </div>                              
-                            <div className="search-box-verso" style={{backgroundImage: `url(${require("../../../assets/images/pages/area/virtual-room.jpg")})`}}>
-                                <div className="d-flex flex-column justify-content-center align-items-center search-box-verso-filter">
-                                    <h3>Virtual Room</h3>
-                                    <p>VR Games</p>
-                                    <p>Bordeaux Lac</p>
-                                    <button className="btn">Ouvrir la fiche</button>                                    
-                                </div>
-                            </div>                            
-                        </div>
+                {getArea === null ?
+                    (<Loader />)
+                    :
+                    (
+                    <div className="row">
+                        { getArea.length === 0 ?
+                        (
+                            <div className="d-flex justify-content-center align-items-center search-no-result">Aucun résultat...</div>
+                        )
+                        :
+                        (<>
+                            {getArea.map((element) => {
+                                return (
+                                    <div className="col-12 col-md-6 search-box" key={element.id}>
+                                        <div className="col-12 search-box-inner">
+                                            <div className="search-box-recto d-flex justify-content-center align-items-end" style={{backgroundImage: `url(${require("../../../assets/images/pages/area/" + element.picture)})`}}>
+                                                <h3>{element.name}</h3>
+                                            </div>                              
+                                            <div className="search-box-verso" style={{backgroundImage: `url(${require("../../../assets/images/pages/area/" + element.picture)})`}}>
+                                                <div className="d-flex flex-column justify-content-center align-items-center search-box-verso-filter">
+                                                    <h3>{element.name}</h3>
+                                                    <p>{element.AreaType.name}</p>
+                                                    <p>{element.AreaZone.name}</p>
+                                                    <button className="btn" onClick={handleFicheClick}>Ouvrir la fiche</button>                                    
+                                                </div>
+                                            </div>                            
+                                        </div>
+                                    </div>
+                                )
+                            })} 
+                        </>)}
                     </div>
-
-                    <div className="col-12 col-md-6 search-box">
-                    <div className="col-12 search-box-inner">
-                            <div className="search-box-recto d-flex justify-content-center align-items-end" style={{backgroundImage: `url(${require("../../../assets/images/pages/area/vortex-experience.jpg")}`}}>
-                                <h3>Vortex Experience</h3>
-                            </div>                              
-                            <div className="search-box-verso" style={{backgroundImage: `url(${require("../../../assets/images/pages/area/vortex-experience.jpg")}`}}>
-                                <div className="d-flex flex-column justify-content-center align-items-center search-box-verso-filter">
-                                    <h3>Vortex Experience</h3>
-                                    <p>VR Games</p>
-                                    <p>Bordeaux Lac</p>
-                                    <button className="btn">Ouvrir la fiche</button>
-                                </div>
-                            </div>                            
-                        </div>
-                    </div>
-
-                    <div className="col-12 col-md-6 search-box">
-                    <div className="col-12 search-box-inner">
-                            <div className="search-box-recto d-flex justify-content-center align-items-end" style={{backgroundImage: `url(${require("../../../assets/images/pages/area/eva.jpg")}`}}>
-                                <h3>E.V.A.</h3>
-                            </div>                              
-                            <div className="search-box-verso" style={{backgroundImage: `url(${require("../../../assets/images/pages/area/eva.jpg")}`}}>
-                                <div className="d-flex flex-column justify-content-center align-items-center search-box-verso-filter">
-                                    <h3>E.V.A.</h3>
-                                    <p>VR Games</p>
-                                    <p>Bordeaux Lac</p>
-                                    <button className="btn">Ouvrir la fiche</button>
-                                </div>
-                            </div>                            
-                        </div>
-                    </div>
-
-                    <div className="col-12 col-md-6 search-box">
-                        <div className="col-12 search-box-inner">
-                            <div className="search-box-recto d-flex justify-content-center align-items-end" style={{backgroundImage: `url(${require("../../../assets/images/pages/area/dreamaway.jpg")}`}}>
-                                <h3>Dream Away</h3>
-                            </div>                              
-                            <div className="search-box-verso" style={{backgroundImage: `url(${require("../../../assets/images/pages/area/dreamaway.jpg")}`}}>
-                                <div className="d-flex flex-column justify-content-center align-items-center search-box-verso-filter">
-                                    <h3>Dream Away</h3>
-                                    <p>VR Games</p>
-                                    <p>Bordeaux Lac</p>
-                                    <button className="btn">Ouvrir la fiche</button>
-                                </div>
-                            </div>                            
-                        </div>
-                    </div>
-                </div>
+                    )}
             </div>            
         </section>        
     )
@@ -96,5 +101,17 @@ const SearchResult = (props) => {
 // <p>+33 (0)5 57 13 11 60</p>
 // <p>3 Sente de la Nancy
 // <br />33300 Bordeaux</p>
+
+// Prévoir pour le responsive :
+//
+// const goBoxVerso = (event) => {
+//     event.currentTarget.classList.add("active")
+// }
+//
+// const backBoxRecto = (event) => {
+//     event.currentTarget.classList.remove("active")
+// }
+//
+// Avec : onClick={() => goBoxVerso('1')} onMouseLeave={() => backBoxRecto('1')}
 
 export default SearchResult

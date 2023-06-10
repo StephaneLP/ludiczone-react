@@ -3,7 +3,7 @@ import "./login.scss"
 import NoMenu from "../../layout/menu/NoMenu"
 import { colorMsg } from "../../js/utils.js"
 import { useState } from "react"
-import { useLocation, useNavigate } from "react-router-dom"
+import { Link, useLocation, useNavigate } from "react-router-dom"
 
 const Connect = () => {
     const navigate = useNavigate()
@@ -116,6 +116,7 @@ const Connect = () => {
                             <div className="login-cellule">
                                 <label>
                                     <input type="password" placeholder="Mot de passe" maxLength="50" value={password} onChange={(e) => handlePasswordChange(e)} style={{borderColor: focusPassword}} />
+                                    <Link className="btn-lien" to="/en-construction">Mot de passe oublié ?</Link>
                                 </label>
                             </div>
                         </div>
@@ -138,6 +139,15 @@ const Connect = () => {
                             </div>
                         </div>
                     </div>
+
+                    <div className="row">
+                        <div className="col-12 col-md-4"></div>
+                        <div className="col-12 col-md-4 login-separator">
+                            Vous n'avez toujours pas de compte ?
+                            <button className="btn-confirm-no" onClick={handleCancleClick}>Créer un compte</button>
+                        </div>
+                        <div className="col-12 col-md-4"></div>
+                    </div>                    
                 </form>
             </div>
         </section>

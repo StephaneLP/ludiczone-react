@@ -109,3 +109,16 @@
         color: $secondaryBgColorLight1;
     }
 }
+
+.btn-lien {
+    font-size: 0.8rem;
+    color: $baseFontColorLight3;
+    text-decoration: none;
+    font-style: italic;
+    margin-left:10px;
+
+    &:hover {
+        text-decoration: underline;
+        color: $secondaryBgColorLight1;
+    }
+}
