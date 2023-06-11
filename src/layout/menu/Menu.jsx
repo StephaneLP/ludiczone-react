@@ -80,7 +80,7 @@ const Menu = () => {
                             </li>
                             {role === "user" &&
                                 <li className="nav-item">
-                                    <Link to="/my-space" className={location.pathname === "/my-space" ? "nav-link menu-link actif" : "nav-link menu-link"} aria-current="page" href="#">MON COMPTE</Link>
+                                    <Link to="/en-construction" className={location.pathname === "/my-space" ? "nav-link menu-link actif" : "nav-link menu-link"} aria-current="page" href="#">MON COMPTE</Link>
                                 </li>
                             }
                             {role === "admin" &&

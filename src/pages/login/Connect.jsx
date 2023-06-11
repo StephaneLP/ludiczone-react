@@ -83,6 +83,10 @@ const Connect = () => {
         navigate("/")
     }
 
+    const handleRegisterClick = () => {
+        navigate("/en-construction")
+    }
+
     return (
     <main>
         <NoMenu />
@@ -127,6 +131,17 @@ const Connect = () => {
                         <div className="col-12 col-md-4 login-separator-bottom"></div>
                         <div className="col-12 col-md-4"></div>
                     </div>
+                    {!isReconnect &&
+                    (
+                        <div className="row">
+                            <div className="col-12 col-md-4"></div>
+                            <div className="col-12 col-md-4 login-separator">
+                                Vous n'avez toujours pas de compte ?
+                                <button className="btn-confirm-no" onClick={handleRegisterClick}>Créer un compte</button>
+                            </div>
+                            <div className="col-12 col-md-4"></div>
+                        </div>  
+                    )}
                     <div className="row">
                         <div className="col-12">
                             <div className="form-buttons">
@@ -140,14 +155,7 @@ const Connect = () => {
                         </div>
                     </div>
 
-                    <div className="row">
-                        <div className="col-12 col-md-4"></div>
-                        <div className="col-12 col-md-4 login-separator">
-                            Vous n'avez toujours pas de compte ?
-                            <button className="btn-confirm-no" onClick={handleCancleClick}>Créer un compte</button>
-                        </div>
-                        <div className="col-12 col-md-4"></div>
-                    </div>                    
+                  
                 </form>
             </div>
         </section>

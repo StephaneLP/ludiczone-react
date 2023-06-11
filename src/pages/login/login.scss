@@ -19,20 +19,20 @@
     }
         
     .login-separator-bottom {
-        margin: 40px 0;
+        margin: 40px 0 20px;
         border-bottom: 1px solid $baseBgColorLight3;
     }
 
     .login-separator {
         padding: 10px;
-        margin: 40px 0 40px;
+        margin: 0 0 40px;
         border: 1px solid $baseBgColorLight3;
-        background-color: $baseBgColorLight5;
+        background-color: $baseBgColorLight4;
         border-radius: 10px;
         text-align: center;
 
         .btn-confirm-no {
-            background-color: $baseBgColorLight5;
+            background-color: $baseBgColorLight4;
         }
     }
 
