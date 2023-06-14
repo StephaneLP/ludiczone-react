@@ -23,7 +23,7 @@ const AdminAreaType = () => {
     //////////////////////////////////////////////////////////
     // CONTROLE DE LA VALIDITE DU TOKEN ET DES DROITS
     //////////////////////////////////////////////////////////
-
+    console.log("PAGE LISTE")
     useCheckTokenRole(token, "admin", location.pathname)
 
     //////////////////////////////////////////////////////////
@@ -33,10 +33,10 @@ const AdminAreaType = () => {
     const[displayConfirmDelete, setDisplayConfirmDelete] = useState(false)
     const[dataDelete, setDataDelete] = useState({id: "", name: "", libelle: ""})
 
-    const handleDeleteClick = ((id, name) => {
+    const handleDeleteClick = (id, name) => {
         setDataDelete({id: id, name: name, libelle: "Voulez-vous supprimer le type ?"})       
         setDisplayConfirmDelete(true) 
-    })
+    }
 
     const handleConfirmDeleteClick = (isValidated) => {
         if (isValidated) {
@@ -134,6 +134,11 @@ const AdminAreaType = () => {
             })
     },[displayConfirmDelete, filterParam, location, navigate])
 
+    const handleUpdateClick = (id) => {
+        console.log("/admin-area-type-update/" + id)
+        navigate("/admin-area-type-update/" + id)
+    }
+
     //////////////////////////////////////////////////////////
     // JSX
     //////////////////////////////////////////////////////////
@@ -152,7 +157,7 @@ const AdminAreaType = () => {
                     {displayConfirmDelete && <ModalConfirm callFunction={handleConfirmDeleteClick} libelle={dataDelete.libelle} name={dataDelete.name}/>}
                     <div className="admin-titre d-flex justify-content-between align-items-center">
                         <h2>Table 'area_type'</h2>
-                        <Link className="btn-admin-add" to={"/admin-area-type-create"} href="#">Ajouter un élément</Link>                                
+                        <Link className="btn-admin-add" to={"/admin-area-type-create"} href="#">Ajouter un élément</Link>
                     </div>
                     <div className="admin-message d-flex justify-content-center align-items-center">
                         <div style={{backgroundColor: adminMessage.color}}>{adminMessage.libelle}</div>
@@ -220,6 +225,7 @@ const AdminAreaType = () => {
                                         Id : {element.id}
                                     </div>
                                     <div className="col-12 col-lg-2 justify-content-end">
+                                        <Link className="btn-admin" onClick={() => handleUpdateClick(element.id)} href="#"><img src={imgUpdate} alt="" /></Link>
                                         <Link className="btn-admin" to={"/admin-area-type-update/" + element.id} href="#"><img src={imgUpdate} alt="" /></Link>
                                         <Link className="btn-admin" onClick={() => handleDeleteClick(element.id, element.name)}><img src={imgDelete} alt="" /></Link>
                                     </div>

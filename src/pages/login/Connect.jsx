@@ -84,6 +84,7 @@ const Connect = () => {
     }
 
     const handleRegisterClick = () => {
+        console.log("toto")
         navigate("/en-construction")
     }
 
@@ -114,12 +115,12 @@ const Connect = () => {
                         <div className="col-12 col-md-4">
                             <div className="login-cellule">
                                 <label>
-                                    <input type="text" placeholder="Pseudo ou Email" maxLength="50" value={login} onChange={(e) => handleLoginChange(e)} style={{borderColor: focusLogin}} />
+                                    <input type="text" tabIndex="1" placeholder="Pseudo ou Email" maxLength="50" value={login} onChange={(e) => handleLoginChange(e)} style={{borderColor: focusLogin}} />
                                 </label>
                             </div>
                             <div className="login-cellule">
                                 <label>
-                                    <input type="password" placeholder="Mot de passe" maxLength="50" value={password} onChange={(e) => handlePasswordChange(e)} style={{borderColor: focusPassword}} />
+                                    <input type="password" tabIndex="2" placeholder="Mot de passe" maxLength="50" value={password} onChange={(e) => handlePasswordChange(e)} style={{borderColor: focusPassword}} />
                                     <Link className="btn-lien" to="/en-construction">Mot de passe oublié ?</Link>
                                 </label>
                             </div>
@@ -146,7 +147,7 @@ const Connect = () => {
                         <div className="col-12">
                             <div className="form-buttons">
                                 <div>
-                                    <input className="btn-confirm" type="submit" value="Valider" />
+                                    <input className="btn-confirm" tabIndex="3" type="submit" value="Valider" />
                                 </div>
                                 <div>
                                     <button className="btn-confirm-no" onClick={handleCancleClick}>Annuler</button>

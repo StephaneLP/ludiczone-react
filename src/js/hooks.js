@@ -1,8 +1,9 @@
 import { useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 
-const useCheckTokenRole = (token, role, url) => {
+const useCheckTokenRole = (token, role, route) => {
     const navigate = useNavigate()
+    console.log("useCheckTokenRole", route)
 
     useEffect(() => {
         if(token !== null) {
@@ -18,7 +19,7 @@ const useCheckTokenRole = (token, role, url) => {
                     navigate('/connect',{
                         state: {
                             reconnect: true,
-                            route: url
+                            route: route
                         }
                     })
                 }
@@ -60,7 +61,7 @@ const useCheckTokenRole = (token, role, url) => {
                 state: {message: "Vous n'avez pas les droits requis. Veuillez vous identifier S.V.P."}
             })
         }
-    },[token, role, navigate, url])
+    },[token, role, navigate, route])
 }
 
 export { useCheckTokenRole }
