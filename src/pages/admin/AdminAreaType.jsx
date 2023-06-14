@@ -23,7 +23,7 @@ const AdminAreaType = () => {
     //////////////////////////////////////////////////////////
     // CONTROLE DE LA VALIDITE DU TOKEN ET DES DROITS
     //////////////////////////////////////////////////////////
-    console.log("PAGE LISTE")
+
     useCheckTokenRole(token, "admin", location.pathname)
 
     //////////////////////////////////////////////////////////
@@ -134,11 +134,6 @@ const AdminAreaType = () => {
             })
     },[displayConfirmDelete, filterParam, location, navigate])
 
-    const handleUpdateClick = (id) => {
-        console.log("/admin-area-type-update/" + id)
-        navigate("/admin-area-type-update/" + id)
-    }
-
     //////////////////////////////////////////////////////////
     // JSX
     //////////////////////////////////////////////////////////
@@ -225,7 +220,6 @@ const AdminAreaType = () => {
                                         Id : {element.id}
                                     </div>
                                     <div className="col-12 col-lg-2 justify-content-end">
-                                        <Link className="btn-admin" onClick={() => handleUpdateClick(element.id)} href="#"><img src={imgUpdate} alt="" /></Link>
                                         <Link className="btn-admin" to={"/admin-area-type-update/" + element.id} href="#"><img src={imgUpdate} alt="" /></Link>
                                         <Link className="btn-admin" onClick={() => handleDeleteClick(element.id, element.name)}><img src={imgDelete} alt="" /></Link>
                                     </div>

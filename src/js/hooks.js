@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom"
 
 const useCheckTokenRole = (token, role, route) => {
     const navigate = useNavigate()
-    console.log("useCheckTokenRole", route)
 
     useEffect(() => {
         if(token !== null) {
