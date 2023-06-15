@@ -48,7 +48,6 @@ const AdminAreaTypeUpdate = () => {
                     setGetAreaType(res.data)
                 }
                 else {
-                    console.log("STOP")
                     navigate('/admin-area-type',{
                         state: {
                             alter: {

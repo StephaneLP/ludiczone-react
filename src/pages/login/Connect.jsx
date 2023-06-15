@@ -121,7 +121,7 @@ const Connect = () => {
                             <div className="login-cellule">
                                 <label>
                                     <input type="password" tabIndex="2" placeholder="Mot de passe" maxLength="50" value={password} onChange={(e) => handlePasswordChange(e)} style={{borderColor: focusPassword}} />
-                                    <Link className="btn-lien" to="/en-construction">Mot de passe oublié ?</Link>
+                                    <a className="btn-lien" href="/en-construction">Mot de passe oublié ?</a>
                                 </label>
                             </div>
                         </div>

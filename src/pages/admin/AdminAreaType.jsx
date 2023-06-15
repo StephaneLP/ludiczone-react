@@ -49,7 +49,10 @@ const AdminAreaType = () => {
             .then((res) => {
                 if(res.status === 401) {
                     navigate('/connect',{
-                        state: true
+                        state: {
+                            reconnect: true,
+                            route: location.pathname
+                        }
                     })
                 }
                 return res.json() 
