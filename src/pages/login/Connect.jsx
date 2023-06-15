@@ -80,12 +80,6 @@ const Connect = () => {
     const handleCancleClick = () => {
         localStorage.removeItem("jwt")
         localStorage.removeItem("pseudo")
-        navigate("/")
-    }
-
-    const handleRegisterClick = () => {
-        console.log("toto")
-        navigate("/en-construction")
     }
 
     return (
@@ -121,7 +115,7 @@ const Connect = () => {
                             <div className="login-cellule">
                                 <label>
                                     <input type="password" tabIndex="2" placeholder="Mot de passe" maxLength="50" value={password} onChange={(e) => handlePasswordChange(e)} style={{borderColor: focusPassword}} />
-                                    <Link className="btn-lien" to="/en-construction">Mot de passe oublié ?</Link>
+                                    <Link className="btn-lien-connect" to="/en-construction">Mot de passe oublié ?</Link>
                                 </label>
                             </div>
                         </div>
@@ -137,8 +131,8 @@ const Connect = () => {
                         <div className="row">
                             <div className="col-12 col-md-4"></div>
                             <div className="col-12 col-md-4 login-separator">
-                                Vous n'avez toujours pas de compte ?
-                                <button className="btn-confirm-no" onClick={handleRegisterClick}>Créer un compte</button>
+                                Vous n'avez toujours pas de compte ?<br />
+                                <Link to="/en-construction" className="btn-lien">Créer un compte</Link>
                             </div>
                             <div className="col-12 col-md-4"></div>
                         </div>  
@@ -150,7 +144,7 @@ const Connect = () => {
                                     <input className="btn-confirm" tabIndex="3" type="submit" value="Valider" />
                                 </div>
                                 <div>
-                                    <button className="btn-confirm-no" onClick={handleCancleClick}>Annuler</button>
+                                    <Link to="/" className="btn-lien" onClick={handleCancleClick}>Annuler</Link>
                                 </div>
                             </div>
                         </div>

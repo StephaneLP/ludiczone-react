@@ -38,7 +38,7 @@ const AdminAreaTypeCreate = () => {
             return
         }
 
-        fetch("http://localhost:3001/api/areatype",{
+        fetch("http://localhost:3001/api/areatype/admin",{
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

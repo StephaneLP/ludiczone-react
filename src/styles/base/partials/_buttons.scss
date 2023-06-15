@@ -110,7 +110,24 @@
     }
 }
 
+/////////////////////////////////////////////////////////////
+/// ASPECT LIEN
+/////////////////////////////////////////////////////////////
+
 .btn-lien {
+    font-size: 1rem;
+    color: $secondaryBgColorLight1;
+    background-color: transparent;
+    border: 0 solid $secondaryBgColorLight1;
+    text-decoration: none;
+
+    &:hover {
+        text-decoration: underline;
+        color: $secondaryBgColorLight1;
+    }
+}
+
+.btn-lien-connect {
     font-size: 0.8rem;
     color: $baseFontColorLight3;
     text-decoration: none;

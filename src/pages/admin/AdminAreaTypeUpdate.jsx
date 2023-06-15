@@ -4,7 +4,6 @@ import Loader from "../../components/loader/Loader"
 import Menu from "../../layout/menu/Menu"
 
 import { colorMsg } from "../../js/utils.js"
-import { useCheckTokenRole } from "../../js/hooks.js"
 import { useEffect, useState } from "react"
 import { Link, useNavigate, useLocation, useParams } from "react-router-dom"
 
@@ -22,22 +21,38 @@ const AdminAreaTypeUpdate = () => {
     const[updatePicture, setUpdatePicture] = useState("default.jpg")
 
     //////////////////////////////////////////////////////////
-    // CONTROLE DE LA VALIDITE DU TOKEN ET DES DROITS
-    //////////////////////////////////////////////////////////
-
-    useCheckTokenRole(token, "admin", location.pathname)
-    
-    //////////////////////////////////////////////////////////
     // GET (initialisation du formulaire)
     //////////////////////////////////////////////////////////
 
     useEffect(() => {
-        fetch("http://localhost:3001/api/areatype/" + id,{
+        fetch("http://localhost:3001/api/areatype/admin/" + id,{
             headers: {
                 "Content-Type": "application/json",
                 authorization: `Bearer ${token}`,
             }})
             .then((res) => {
+                switch(res.status ) {
+                    case 401:
+                        navigate('/connect',{
+                            state: {
+                                reconnect: true,
+                                route: location.pathname
+                            }
+                        })
+                        break
+                    case 403:
+                        localStorage.removeItem("jwt")
+                        localStorage.removeItem("pseudo")
+                        navigate('/erreur',{
+                            state: {message: "Vous n'avez pas les droits requis. Veuillez vous reconnecter S.V.P."}
+                        })
+                        break
+                    case 500:
+                    navigate('/erreur',{
+                        state: {message: "Une erreur interne au serveur est survenue (Erreur 500)."}
+                    })
+                    break
+                }
                 return res.json()          
             })
             .then((res) => {
@@ -46,17 +61,6 @@ const AdminAreaTypeUpdate = () => {
                     setUpdateDescription(res.data.description)
                     setUpdatePicture(res.data.picture)
                     setGetAreaType(res.data)
-                }
-                else {
-                    console.log("STOP")
-                    navigate('/admin-area-type',{
-                        state: {
-                            alter: {
-                                success: false,
-                                message: res.message                            
-                            }
-                        }
-                    })
                 }
             })
     },[id, navigate, token])
@@ -75,7 +79,7 @@ const AdminAreaTypeUpdate = () => {
             return
         }
 
-        fetch("http://localhost:3001/api/areatype/" + id,{
+        fetch("http://localhost:3001/api/areatype/admin/" + id,{
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",

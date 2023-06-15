@@ -8,7 +8,6 @@ import Menu from "../../layout/menu/Menu"
 import ModalConfirm from "../../components/modalconfirm/ModalConfirm"
 
 import { colorMsg, formatDate } from "../../js/utils.js"
-import { useCheckTokenRole } from "../../js/hooks.js"
 import { useEffect, useState } from "react"
 import { Link, useNavigate, useLocation } from "react-router-dom"
 
@@ -19,12 +18,6 @@ const AdminAreaType = () => {
     const[adminMessage, setAdminMessage] = useState({libelle: "", color: ""})
     
     useEffect(() => {window.scrollTo(0,0)},[])
-
-    //////////////////////////////////////////////////////////
-    // CONTROLE DE LA VALIDITE DU TOKEN ET DES DROITS
-    //////////////////////////////////////////////////////////
-
-    useCheckTokenRole(token, "admin", location.pathname)
 
     //////////////////////////////////////////////////////////
     // DELETE (confirmation avec le composant modalConfirm)
@@ -40,7 +33,7 @@ const AdminAreaType = () => {
 
     const handleConfirmDeleteClick = (isValidated) => {
         if (isValidated) {
-            fetch("http://localhost:3001/api/areatype/" + dataDelete.id,{
+            fetch("http://localhost:3001/api/areatype/admin/" + dataDelete.id,{
                 method: "DELETE",
                 headers: {
                     authorization: `Bearer ${token}`,
@@ -107,8 +100,34 @@ const AdminAreaType = () => {
     const[getAreaType, setGetAreaType] = useState(null)
 
     useEffect(() => {
-        fetch("http://localhost:3001/api/areatype?sort=" + filterParam.sort + "&search=" + filterParam.search)
+        fetch("http://localhost:3001/api/areatype/admin?sort=" + filterParam.sort + "&search=" + filterParam.search,{
+            headers: {
+                "Content-Type": "application/json",
+                authorization: `Bearer ${token}`,
+            }})
             .then((res) => {
+                switch(res.status ) {
+                    case 401:
+                        navigate('/connect',{
+                            state: {
+                                reconnect: true,
+                                route: location.pathname
+                            }
+                        })
+                        break
+                    case 403:
+                        localStorage.removeItem("jwt")
+                        localStorage.removeItem("pseudo")
+                        navigate('/erreur',{
+                            state: {message: "Vous n'avez pas les droits requis. Veuillez vous reconnecter S.V.P."}
+                        })
+                        break
+                    case 500:
+                    navigate('/erreur',{
+                        state: {message: "Une erreur interne au serveur est survenue (Erreur 500)."}
+                    })
+                    break
+                }
                 return res.json()
             })
             .then((res) => {
@@ -120,11 +139,6 @@ const AdminAreaType = () => {
                             location.state = null
                         }
                     }
-                }
-                else {
-                    navigate('/erreur',{
-                        state: {message: res.message}
-                    })
                 }
             })
             .catch((error) => {
