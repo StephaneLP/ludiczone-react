@@ -7,10 +7,15 @@ import { Link, useLocation } from 'react-router-dom'
 const PageError = () => {
     const location = useLocation()
     let message = ""
+    
     if(location.state !== null) {
         message = location.state.message
     }
 
+    //////////////////////////////////////////////////////////
+    // JSX
+    //////////////////////////////////////////////////////////
+    
     return (
         <main>
             <NoMenu />

@@ -149,8 +149,6 @@ const Connect = () => {
                             </div>
                         </div>
                     </div>
-
-                  
                 </form>
             </div>
         </section>
