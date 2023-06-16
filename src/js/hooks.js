@@ -6,7 +6,7 @@ const useCheckTokenRole = (token, role, route) => {
 
     useEffect(() => {
         if(token !== null) {
-            fetch("http://localhost:3001/api/user/role",{
+            fetch("http://localhost:3001/api/auth/role",{
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",

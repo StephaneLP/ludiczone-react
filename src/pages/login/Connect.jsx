@@ -47,7 +47,7 @@ const Connect = () => {
             return
         }
 
-        fetch("http://localhost:3001/api/user/login",{
+        fetch("http://localhost:3001/api/auth/login",{
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -81,6 +81,10 @@ const Connect = () => {
         localStorage.removeItem("jwt")
         localStorage.removeItem("pseudo")
     }
+
+    //////////////////////////////////////////////////////////
+    // JSX
+    //////////////////////////////////////////////////////////
 
     return (
     <main>
