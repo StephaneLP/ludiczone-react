@@ -38,17 +38,28 @@ const AdminAreaTypeCreate = () => {
             return
         }
 
+        const test = JSON.stringify({
+            name: createName,
+            description: createDescription,
+            picture: createPicture,
+        })
+
+        console.log(test)
         fetch("http://localhost:3001/api/areatype/admin",{
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
                 authorization: `Bearer ${token}`,
             },
-            body: JSON.stringify({
-                name: createName,
-                description: createDescription,
-                picture: createPicture,
+            body:  JSON.stringify({
+                element: test,
+                sort: "desc",
+                champs: ["a","b"]
             })
+            
+           
+
+
         })
         .then((res) => {
             if(res.status === 401) {
