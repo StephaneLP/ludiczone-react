@@ -25,7 +25,18 @@ const SearchResult = (props) => {
     }
 
     useEffect(() => {
-        fetch("http://localhost:3001/api/area?sort=" + filterParam.sort + "&search=" + filterParam.search  + "&typeId=" + filterParam.typeId + "&zoneId=" + filterParam.zoneId)
+        const requestUrl = "http://localhost:3001/api/area" +
+            "?sort=" + filterParam.sort +
+            "&search=" + filterParam.search +
+            "&typeId=" + filterParam.typeId +
+            "&zoneId=" + filterParam.zoneId
+
+        const requestOptions = {
+            method: "GET",
+            headers: { "Content-Type": "application/json" },
+        }
+
+        fetch(requestUrl, requestOptions)
             .then((res) => {
                 return res.json()
             })

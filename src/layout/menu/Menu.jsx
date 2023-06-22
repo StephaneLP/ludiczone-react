@@ -19,33 +19,21 @@ const Menu = () => {
 
     useEffect(() => {
         if(token !== null) {
-            // Le role de l'utilisateur est-il user ?
-            fetch("http://localhost:3001/api/auth/checkRole/user",{
+            const requestOptions = {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
                     authorization: `Bearer ${token}`,
                 },
-            })
+            }
+
+            fetch("http://localhost:3001/api/auth/checkRole", requestOptions)
             .then((res) => {
                 return res.json()          
             })
             .then((res) => {
-                setIsUser(res)
-            })
-            // Le role de l'utilisateur est-il admin ?
-            fetch("http://localhost:3001/api/auth/checkRole/admin",{
-                method: "GET",
-                headers: {
-                    "Content-Type": "application/json",
-                    authorization: `Bearer ${token}`,
-                },
-            })
-            .then((res) => {
-                return res.json()          
-            })
-            .then((res) => {
-                setIsAdmin(res)
+                setIsUser(res.roles.utilisateur)
+                setIsAdmin(res.roles.administrateur)
             })
         }
         else {

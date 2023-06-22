@@ -47,34 +47,34 @@ const Connect = () => {
             return
         }
 
-        fetch("http://localhost:3001/api/auth/login",{
+        const requestOptions = {
             method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
+            headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
                 username: login,
                 password: password,
             })
-        })
-        .then((res) => {
-            return res.json()          
-        })
-        .then((res) => {
-            if(res.success) {
-                localStorage.setItem("jwt",res.token)
-                localStorage.setItem("pseudo",res.data.nick_name)
-                if(isReconnect) {
-                    navigate(location.state.route)
+        }
+
+        fetch("http://localhost:3001/api/auth/login",requestOptions)
+            .then((res) => {
+                return res.json()          
+            })
+            .then((res) => {
+                if(res.success) {
+                    localStorage.setItem("jwt",res.token)
+                    localStorage.setItem("pseudo",res.data.nick_name)
+                    if(isReconnect) {
+                        navigate(location.state.route)
+                    }
+                    else {
+                        navigate("/")
+                    }
                 }
                 else {
-                    navigate("/")
+                    setAdminMessage({libelle: res.message, color: colorMsg.error})
                 }
-            }
-            else {
-                setAdminMessage({libelle: res.message, color: colorMsg.error})
-            }
-        })
+            })
     }
 
     const handleCancleClick = () => {

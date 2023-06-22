@@ -8,7 +8,12 @@ const HomeTypeSortie = () => {
     const[getAreaType, setGetAreaType] = useState(null)
   
     useEffect(() => {
-        fetch("http://localhost:3001/api/areatype")
+        const requestOptions = {
+            method: "GET",
+            headers: { "Content-Type": "application/json" },
+        }
+
+        fetch("http://localhost:3001/api/areatype", requestOptions)
             .then((res) => {
                 return res.json()
             })

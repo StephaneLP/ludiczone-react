@@ -1,54 +1,32 @@
 import { useEffect } from "react"
 import { useNavigate } from "react-router-dom"
+import { checkStatus } from "./utils.js"
 
 const useCheckIsAdmin = (token, route) => {
     const navigate = useNavigate()
+    let navParams = {}
 
     useEffect(() => {
         if(token !== null) {
-            fetch("http://localhost:3001/api/auth/checkisadmin",{
+            const requestOptions = {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
                     authorization: `Bearer ${token}`,
                 },
-            })
+            }
+
+            fetch("http://localhost:3001/api/auth/checkRole/admin", requestOptions)
             .then((res) => {
-                if(res.status === 401) {
-                    navigate('/connect',{
-                        state: {
-                            reconnect: true,
-                            route: route
-                        }
-                    })
-                }
-                else if(res.status === 403) {
-                    localStorage.removeItem("jwt")
-                    localStorage.removeItem("pseudo")
-                    navigate('/erreur',{
-                        state: {message: "Vous n'avez pas les droits requis. Veuillez vous reconnecter S.V.P."}
-                    })
-                }
-                else if(res.status === 500) {
-                    navigate('/erreur',{
-                        state: {message: "Une erreur interne au serveur est survenue (Erreur 500)."}
-                    })
-                }
-                // return res.json()       
+                navParams = {...checkStatus(res.status, route)}
+                if(navParams.route !== "") throw new Error("redirect")
             })
-            // .then((res) => {
-            //     if(!res.success) {  
-            //         localStorage.removeItem("jwt")
-            //         localStorage.removeItem("pseudo")
-            //         navigate('/erreur',{
-            //             state: {message: "Vous n'avez pas les droits requis. Veuillez vous reconnecter S.V.P."}
-            //         })  
-            //     }
-            // })
-            .catch(() => {
-                navigate('/erreur',{
-                    state: {message: "Une erreur est survenue lors de la vérification des autorisations."}
-                })
+            .catch((error) => {
+                if(error.message !== "redirect") {
+                    navParams.route = "/erreur"
+                    navParams.state =  {message: error.message}
+                }
+                navigate(navParams.route,{state: navParams.state})  
             })
         }
         else {

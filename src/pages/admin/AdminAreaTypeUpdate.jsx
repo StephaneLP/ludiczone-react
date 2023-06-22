@@ -26,11 +26,15 @@ const AdminAreaTypeUpdate = () => {
     //////////////////////////////////////////////////////////
 
     useEffect(() => {
-        fetch("http://localhost:3001/api/areatype/admin/" + id,{
+        const requestOptions = {
+            method: "GET",
             headers: {
                 "Content-Type": "application/json",
                 authorization: `Bearer ${token}`,
-            }})
+            },
+        }
+
+        fetch("http://localhost:3001/api/areatype/admin/" + id, requestOptions)
             .then((res) => {
                 switch(res.status ) {
                     case 401:
@@ -79,8 +83,8 @@ const AdminAreaTypeUpdate = () => {
             window.scrollTo(0,0)
             return
         }
-
-        fetch("http://localhost:3001/api/areatype/admin/" + id,{
+        
+        const requestOptions = {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
@@ -91,7 +95,9 @@ const AdminAreaTypeUpdate = () => {
                 description: updateDescription,
                 picture: updatePicture,
             })
-        })
+        }
+
+        fetch("http://localhost:3001/api/areatype/admin/" + id, requestOptions)
         .then((res) => {
             if(res.status === 401) {
                 navigate('/connect',{

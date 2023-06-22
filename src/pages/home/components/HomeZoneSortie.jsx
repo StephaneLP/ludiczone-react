@@ -9,7 +9,12 @@ const HomeZoneSortie = () => {
     const[getAreaZone, setGetAreaZone] = useState(null)
   
     useEffect(() => {
-        fetch("http://localhost:3001/api/areazone")
+        const requestOptions = {
+            method: "GET",
+            headers: { "Content-Type": "application/json" },
+        }
+
+        fetch("http://localhost:3001/api/areazone", requestOptions)
             .then((res) => {
                 return res.json()
             })

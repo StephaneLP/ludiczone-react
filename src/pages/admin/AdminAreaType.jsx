@@ -33,12 +33,15 @@ const AdminAreaType = () => {
 
     const handleConfirmDeleteClick = (isValidated) => {
         if (isValidated) {
-            fetch("http://localhost:3001/api/areatype/admin/" + dataDelete.id,{
+            const requestOptions = {
                 method: "DELETE",
                 headers: {
+                    "Content-Type": "application/json",
                     authorization: `Bearer ${token}`,
                 },
-            })
+            }
+
+            fetch("http://localhost:3001/api/areatype/admin/" + dataDelete.id, requestOptions)
             .then((res) => {
                 if(res.status === 401) {
                     navigate('/connect',{
@@ -104,11 +107,19 @@ const AdminAreaType = () => {
     useEffect(() => {
         let navParams = {}
 
-        fetch("http://localhost:3001/api/areatype/admin?sort=" + filterParam.sort + "&search=" + filterParam.search,{
+        const requestOptions = {
+            method: "GET",
             headers: {
                 "Content-Type": "application/json",
                 authorization: `Bearer ${token}`,
-            }})
+            },
+        }
+
+        const requestUrl = "http://localhost:3001/api/areatype/admin" +
+            "?sort=" + filterParam.sort +
+            "&search=" + filterParam.search
+
+        fetch(requestUrl, requestOptions)
             .then((res) => {
                 navParams = {...checkStatus(res.status, location.pathname)}
                 if(navParams.route !== "") throw new Error("redirect")
@@ -118,7 +129,9 @@ const AdminAreaType = () => {
                 setGetAreaType(res.data)
                 if(location.state !== null) {
                     if(location.state.alter !== null) {
-                        if(location.state.alter.success) {setAdminMessage({libelle: location.state.alter.message, color: colorMsg.success})}
+                        if(location.state.alter.success) {
+                            setAdminMessage({libelle: location.state.alter.message, color: colorMsg.success})
+                        }
                         location.state = null
                     }
                 }
