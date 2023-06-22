@@ -8,7 +8,7 @@ import Menu from "../../layout/menu/Menu"
 import ModalConfirm from "../../components/modalconfirm/ModalConfirm"
 
 import { colorMsg, formatDate } from "../../js/utils.js"
-import { useCheckTokenRole } from "../../js/hooks.js"
+// import { useCheckTokenRole } from "../../js/hooks.js"
 import { useEffect, useState } from "react"
 import { Link, useNavigate, useLocation } from "react-router-dom"
 
@@ -24,7 +24,7 @@ const AdminAreaZone = () => {
     // CONTROLE DE LA VALIDITE DU TOKEN ET DES DROITS
     //////////////////////////////////////////////////////////
 
-    useCheckTokenRole(token, "admin", location.pathname)
+    // useCheckTokenRole(token, "admin", location.pathname)
 
     //////////////////////////////////////////////////////////
     // DELETE (confirmation avec le composant modalConfirm)

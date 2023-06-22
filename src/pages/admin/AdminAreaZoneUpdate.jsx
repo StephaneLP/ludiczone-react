@@ -4,7 +4,7 @@ import Loader from "../../components/loader/Loader"
 import Menu from "../../layout/menu/Menu"
 
 import { colorMsg } from "../../js/utils.js"
-import { useCheckTokenRole } from "../../js/hooks.js"
+// import { useCheckTokenRole } from "../../js/hooks.js"
 import { useEffect, useState } from "react"
 import { Link, useNavigate, useLocation, useParams } from "react-router-dom"
 
@@ -25,7 +25,7 @@ const AdminAreaZoneUpdate = () => {
     // CONTROLE DE LA VALIDITE DU TOKEN ET DES DROITS
     //////////////////////////////////////////////////////////
 
-    useCheckTokenRole(token, "admin", location.pathname)
+    // useCheckTokenRole(token, "admin", location.pathname)
 
     //////////////////////////////////////////////////////////
     // GET (initialisation du formulaire)

@@ -1,12 +1,12 @@
 import { useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 
-const useCheckTokenRole = (token, role, route) => {
+const useCheckIsAdmin = (token, route) => {
     const navigate = useNavigate()
 
     useEffect(() => {
         if(token !== null) {
-            fetch("http://localhost:3001/api/auth/role",{
+            fetch("http://localhost:3001/api/auth/checkisadmin",{
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
@@ -34,19 +34,17 @@ const useCheckTokenRole = (token, role, route) => {
                         state: {message: "Une erreur interne au serveur est survenue (Erreur 500)."}
                     })
                 }
-                return res.json()       
+                // return res.json()       
             })
-            .then((res) => {
-                if(res.success) {  
-                    if(res.data !== role) {
-                        localStorage.removeItem("jwt")
-                        localStorage.removeItem("pseudo")
-                        navigate('/erreur',{
-                            state: {message: "Vous n'avez pas les droits requis. Veuillez vous reconnecter S.V.P."}
-                        })                        
-                    }
-                }
-            })
+            // .then((res) => {
+            //     if(!res.success) {  
+            //         localStorage.removeItem("jwt")
+            //         localStorage.removeItem("pseudo")
+            //         navigate('/erreur',{
+            //             state: {message: "Vous n'avez pas les droits requis. Veuillez vous reconnecter S.V.P."}
+            //         })  
+            //     }
+            // })
             .catch(() => {
                 navigate('/erreur',{
                     state: {message: "Une erreur est survenue lors de la vérification des autorisations."}
@@ -60,7 +58,7 @@ const useCheckTokenRole = (token, role, route) => {
                 state: {message: "Vous n'avez pas les droits requis. Veuillez vous identifier S.V.P."}
             })
         }
-    },[token, role, navigate, route])
+    },[token, navigate, route])
 }
 
-export { useCheckTokenRole }
+export { useCheckIsAdmin }

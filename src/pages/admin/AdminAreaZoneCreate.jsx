@@ -3,7 +3,7 @@ import "./admin.scss"
 import Menu from "../../layout/menu/Menu"
 
 import { colorMsg } from "../../js/utils.js"
-import { useCheckTokenRole } from "../../js/hooks.js"
+// import { useCheckTokenRole } from "../../js/hooks.js"
 import { useState } from "react"
 import { Link, useNavigate, useLocation } from "react-router-dom"
 
@@ -22,7 +22,7 @@ const AdminAreaZoneCreate = () => {
     // CONTROLE DE LA VALIDITE DU TOKEN ET DES DROITS
     //////////////////////////////////////////////////////////
 
-    useCheckTokenRole(token, "admin", location.pathname)
+    // useCheckTokenRole(token, "admin", location.pathname)
 
     //////////////////////////////////////////////////////////
     // CREATE

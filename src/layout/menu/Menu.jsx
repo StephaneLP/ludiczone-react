@@ -10,7 +10,8 @@ const Menu = () => {
     const navigate = useNavigate()
     const token = localStorage.getItem("jwt")
     const pseudo = localStorage.getItem("pseudo")
-    const [role, setRole] = useState("")
+    const [isUser, setIsUser] = useState(false)
+    const [isAdmin, setIsAdmin] = useState(false)
 
     //////////////////////////////////////////////////////////
     // IMPORT DU ROLE A PARTIR DU TOKEN
@@ -18,7 +19,8 @@ const Menu = () => {
 
     useEffect(() => {
         if(token !== null) {
-            fetch("http://localhost:3001/api/auth/role",{
+            // Le role de l'utilisateur est-il user ?
+            fetch("http://localhost:3001/api/auth/checkRole/user",{
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
@@ -29,13 +31,26 @@ const Menu = () => {
                 return res.json()          
             })
             .then((res) => {
-                if(res.success) {
-                    setRole(res.data)
-                }
+                setIsUser(res)
+            })
+            // Le role de l'utilisateur est-il admin ?
+            fetch("http://localhost:3001/api/auth/checkRole/admin",{
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    authorization: `Bearer ${token}`,
+                },
+            })
+            .then((res) => {
+                return res.json()          
+            })
+            .then((res) => {
+                setIsAdmin(res)
             })
         }
         else {
-            setRole("")
+            setIsUser(false)
+            setIsAdmin(false)
         }
     },[token])
 
@@ -44,10 +59,10 @@ const Menu = () => {
     //////////////////////////////////////////////////////////
 
     const path = location.pathname
-    const isArea = (path === "/admin-area" || path === "/admin-area-create" || path === "/admin-area-update")
-    const isAreaType = (path === "/admin-area-type" || path === "/admin-area-type-create" || path.includes("/admin-area-type-update"))
-    const isAreaZone = (path === "/admin-area-zone" || path === "/admin-area-zone-create" || path.includes("/admin-area-zone-update"))
-    const isAdmin = (isArea || isAreaType || isAreaZone)
+    const isRouteArea = (path === "/admin-area" || path === "/admin-area-create" || path === "/admin-area-update")
+    const isRouteAreaType = (path === "/admin-area-type" || path === "/admin-area-type-create" || path.includes("/admin-area-type-update"))
+    const isRouteAreaZone = (path === "/admin-area-zone" || path === "/admin-area-zone-create" || path.includes("/admin-area-zone-update"))
+    const isRouteAdmin = (isRouteArea || isRouteAreaType || isRouteAreaZone)
 
     //////////////////////////////////////////////////////////
     // DECONNEXION
@@ -78,34 +93,34 @@ const Menu = () => {
                             <li className="nav-item">
                                 <Link to="/search" className={location.pathname === "/search" ? "nav-link menu-link actif" : "nav-link menu-link"} aria-current="page" href="#">RECHERCHE AVANCÉE</Link>
                             </li>
-                            {role === "user" &&
+                            {isUser &&
                                 <li className="nav-item">
                                     <Link to="/en-construction" className={location.pathname === "/my-space" ? "nav-link menu-link actif" : "nav-link menu-link"} aria-current="page" href="#">MON COMPTE</Link>
                                 </li>
                             }
-                            {role === "admin" &&
+                            {isAdmin &&
                                 <li className="nav-item dropdown">
-                                    <button className={isAdmin ? "nav-link menu-link menu-link-button dropdown-toggle actif" : "nav-link menu-link menu-link-button dropdown-toggle"} data-bs-toggle="dropdown" aria-expanded="false">ADMIN</button>
+                                    <button className={isRouteAdmin ? "nav-link menu-link menu-link-button dropdown-toggle actif" : "nav-link menu-link menu-link-button dropdown-toggle"} data-bs-toggle="dropdown" aria-expanded="false">ADMIN</button>
                                     <ul className="dropdown-menu">
                                         <li>
-                                            <Link to="/en-construction" className={isArea ? "nav-link menu-link-dropdown actif" : "nav-link menu-link-dropdown"} aria-current="page" href="#">AREA</Link>
+                                            <Link to="/en-construction" className={isRouteArea ? "nav-link menu-link-dropdown actif" : "nav-link menu-link-dropdown"} aria-current="page" href="#">AREA</Link>
                                         </li>
                                         <li>
-                                            <Link to="/admin-area-type" className={isAreaType ? "nav-link menu-link-dropdown actif" : "nav-link menu-link-dropdown"} aria-current="page" href="#">AREA TYPE</Link>
+                                            <Link to="/admin-area-type" className={isRouteAreaType ? "nav-link menu-link-dropdown actif" : "nav-link menu-link-dropdown"} aria-current="page" href="#">AREA TYPE</Link>
                                         </li>
                                         <li>
-                                            <Link to="/admin-area-zone" className={isAreaZone ? "nav-link menu-link-dropdown actif" : "nav-link menu-link-dropdown"} aria-current="page" href="#">AREA ZONE</Link>
+                                            <Link to="/admin-area-zone" className={isRouteAreaZone ? "nav-link menu-link-dropdown actif" : "nav-link menu-link-dropdown"} aria-current="page" href="#">AREA ZONE</Link>
                                         </li>
 
                                         <hr />
                                         <li>
-                                            <Link to="/en-construction" className={isArea ? "nav-link menu-link-dropdown actif" : "nav-link menu-link-dropdown"} aria-current="page" href="#">USER</Link>
+                                            <Link to="/en-construction" className={isRouteArea ? "nav-link menu-link-dropdown actif" : "nav-link menu-link-dropdown"} aria-current="page" href="#">USER</Link>
                                         </li>
                                         <li>
-                                            <Link to="/en-construction" className={isArea ? "nav-link menu-link-dropdown actif" : "nav-link menu-link-dropdown"} aria-current="page" href="#">USER FAVORITE</Link>
+                                            <Link to="/en-construction" className={isRouteArea ? "nav-link menu-link-dropdown actif" : "nav-link menu-link-dropdown"} aria-current="page" href="#">USER FAVORITE</Link>
                                         </li>
                                         <li>
-                                            <Link to="/en-construction" className={isArea ? "nav-link menu-link-dropdown actif" : "nav-link menu-link-dropdown"} aria-current="page" href="#">USER RATING</Link>
+                                            <Link to="/en-construction" className={isRouteArea ? "nav-link menu-link-dropdown actif" : "nav-link menu-link-dropdown"} aria-current="page" href="#">USER RATING</Link>
                                         </li>
                                     </ul>
                                 </li>                            
@@ -113,7 +128,7 @@ const Menu = () => {
                         </ul>
                     </div>
                 </nav>
-                {role === "" ?
+                {!isUser && !isAdmin ?
                 (
                     <Link className="btn-connect d-flex align-items-center" to="/connect" aria-current="page" href="#">
                         <img src={imgLogin} alt="Login" /> Connexion
