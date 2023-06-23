@@ -1,7 +1,12 @@
 import "./errors.scss"
-import NoMenu from "../../layout/menu/NoMenu"
+
+/* Import des fonctions, variables & images */
 import imgUnderConstruction from "../../assets/images/errors/UnderConstruction.gif"
 
+/* Import des composants */
+import NoMenu from "../../layout/menu/NoMenu"
+
+/* Import des Hooks & composants react-rooter */
 import { Link } from 'react-router-dom'
 
 const PageUnderConstruction = () => {

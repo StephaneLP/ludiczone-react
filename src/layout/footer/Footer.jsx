@@ -1,4 +1,6 @@
 import "./footer.scss"
+
+/* Import des fonctions, variables & images */
 import logoFooter from "../../assets/images/logo/logo-footer.png"
 
 const Footer = () => {

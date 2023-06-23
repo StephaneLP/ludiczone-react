@@ -1,11 +1,15 @@
 import "./admin.scss"
 
+/* Import des fonctions, variables & images */
+import { colorMsg } from "../../js/utils.js"
+
+/* Import des composants */
 import Menu from "../../layout/menu/Menu"
 
-import { colorMsg } from "../../js/utils.js"
-import { useCheckIsAdmin } from "../../js/hooks.js"
+/* Import des Hooks & composants react-rooter */
 import { useState } from "react"
 import { Link, useNavigate, useLocation } from "react-router-dom"
+import { useCheckIsAdmin } from "../../js/hooks.js"
 
 const AdminAreaTypeCreate = () => {
     const token = localStorage.getItem("jwt")

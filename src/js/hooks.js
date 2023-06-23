@@ -1,6 +1,9 @@
+/* Import des fonctions, variables & images */
+import { checkStatus } from "./utils.js"
+
+/* Import des Hooks & composants react-rooter */
 import { useEffect } from "react"
 import { useNavigate } from "react-router-dom"
-import { checkStatus } from "./utils.js"
 
 const useCheckIsAdmin = (token, route) => {
     const navigate = useNavigate()

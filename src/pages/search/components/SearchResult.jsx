@@ -1,18 +1,27 @@
 import "./searchResult.scss"
+
+/* Import des composants */
 import Loader from "../../../components/loader/Loader"
-import { useNavigate } from 'react-router-dom';
+
+/* Import des Hooks & composants react-rooter */
 import { useEffect, useState } from "react"
+import { useNavigate } from 'react-router-dom';
 
 const SearchResult = (props) => {
-    const [params, setParams] = useState(props.params)
     const navigate = useNavigate();
-    const[getArea, setGetArea] = useState(null)
-    const[filterParam, setFilterParam] = useState({
+    const [getArea, setGetArea] = useState(null) // Liste des salles
+    const [filterParam, setFilterParam] = useState({
         sort: "asc",
         search: "",
         typeId: "",
         zoneId: "",
     })
+
+    /*********************************************************
+    Initialisation du filtre au 1er chargement du composant
+    *********************************************************/
+
+    const [params, setParams] = useState(props.params)
 
     if(params) {
         if(params.filter !== "") {
@@ -23,6 +32,10 @@ const SearchResult = (props) => {
             setParams(null)
         }
     }
+
+    /*********************************************************
+    Initialisation du filtre au 1er chargement du composant
+    *********************************************************/
 
     useEffect(() => {
         const requestUrl = "http://localhost:3001/api/area" +

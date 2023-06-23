@@ -1,15 +1,31 @@
+//////////////////////////////////////////////////////////
+//
+//    PARTIE : IMPORTS
+//
+//////////////////////////////////////////////////////////
+
 import "./admin.scss"
+
+/* Import des fonctions, variables & images */
+import { colorMsg, formatDate, checkStatus } from "../../js/utils.js"
 import imgDelete from "../../assets/images/button/garbage.png"
 import imgUpdate from "../../assets/images/button/pencil2.png"
 import imgFilter from "../../assets/images/button/filtre.png"
 
+/* Import des composants */
 import Loader from "../../components/loader/Loader"
 import Menu from "../../layout/menu/Menu"
 import ModalConfirm from "../../components/modalconfirm/ModalConfirm"
 
-import { colorMsg, formatDate, checkStatus } from "../../js/utils.js"
+/* Import des Hooks & composants react-rooter */
 import { useEffect, useState } from "react"
 import { Link, useNavigate, useLocation } from "react-router-dom"
+
+//////////////////////////////////////////////////////////
+//
+//    PARTIE : JAVASCRIPT
+//
+//////////////////////////////////////////////////////////
 
 const AdminAreaType = () => {
     const token = localStorage.getItem("jwt")
@@ -79,7 +95,7 @@ const AdminAreaType = () => {
 
     const[filterParam, setFilterParam] = useState({
         sort: "asc",
-        search: "",
+        name: "",
     })
     const[filterSort, setFilterSort] = useState("asc")
     const[filterName, setFilterName] = useState("")
@@ -88,7 +104,7 @@ const AdminAreaType = () => {
         event.preventDefault()
         let newParam = {...filterParam}
         newParam.sort = filterSort
-        newParam.search = filterName.trim()
+        newParam.name = filterName.trim()
         setFilterParam(newParam)
         setAdminMessage({libelle: "", color: ""})
     }
@@ -117,7 +133,7 @@ const AdminAreaType = () => {
 
         const requestUrl = "http://localhost:3001/api/areatype/admin" +
             "?sort=" + filterParam.sort +
-            "&search=" + filterParam.search
+            "&name=" + filterParam.name
 
         fetch(requestUrl, requestOptions)
             .then((res) => {
@@ -146,7 +162,9 @@ const AdminAreaType = () => {
     },[displayConfirmDelete, filterParam, token, location, navigate])
 
     //////////////////////////////////////////////////////////
-    // JSX
+    //
+    //    PARTIE : JSX
+    //
     //////////////////////////////////////////////////////////
 
     return (

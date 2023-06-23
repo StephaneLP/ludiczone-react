@@ -1,8 +1,11 @@
 import "./homeZoneSortie.scss"
+
+/* Import des composants */
 import Loader from "../../../components/loader/Loader"
 
-import { useNavigate } from 'react-router-dom';
+/* Import des Hooks & composants react-rooter */
 import { useEffect, useState } from "react"
+import { useNavigate } from 'react-router-dom';
 
 const HomeZoneSortie = () => {
     const navigate = useNavigate();
@@ -31,6 +34,10 @@ const HomeZoneSortie = () => {
         })
     }
 
+    //////////////////////////////////////////////////////////
+    // JSX                                                 
+    //////////////////////////////////////////////////////////
+    
     return (
         <section className="container-fluid home-zone">
             <h2>Recherche par Zone géographique</h2>

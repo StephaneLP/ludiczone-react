@@ -1,7 +1,10 @@
 import "./menu.scss"
+
+/* Import des fonctions, variables & images */
 import imgLogin from "../../assets/images/button/login.png"
 import imgLogout from "../../assets/images/button/logout.png"
 
+/* Import des Hooks & composants react-rooter */
 import { useEffect, useState } from "react"
 import { Link, useLocation, useNavigate } from "react-router-dom"
 

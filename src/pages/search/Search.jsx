@@ -1,19 +1,25 @@
+/* Import des composants */
 import Menu from "../../layout/menu/Menu"
 import SearchResult from "./components/SearchResult"
 
-import { useLocation } from 'react-router-dom'
+/* Import des Hooks & composants react-rooter */
 import { useEffect } from "react"
+import { useLocation } from 'react-router-dom'
 
 const Search = () => {
     const location = useLocation()
 
-    let params = {filter: "", id: 0}
+    useEffect(() => window.scrollTo(0,0),[])
+
+
+    let params = {filter: "", id: 0} // Filtre optionnel provenant de la page d'accueil (type de loisir ou zone)
     if(location.state !== null) {
         params = location.state.params
     } 
 
-    useEffect(() => window.scrollTo(0,0),[])
-
+    //////////////////////////////////////////////////////////
+    // JSX                                                 
+    //////////////////////////////////////////////////////////
     return (
         <main>
             <Menu />

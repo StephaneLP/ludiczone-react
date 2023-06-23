@@ -1,7 +1,12 @@
 import "./errors.scss"
-import NoMenu from "../../layout/menu/NoMenu"
+
+/* Import des fonctions, variables & images */
 import imgError from "../../assets/images/errors/error.gif"
 
+/* Import des composants */
+import NoMenu from "../../layout/menu/NoMenu"
+
+/* Import des Hooks & composants react-rooter */
 import { Link, useLocation } from 'react-router-dom'
 
 const PageError = () => {

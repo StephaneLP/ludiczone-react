@@ -1,7 +1,11 @@
 import "./homeTypeSortie.scss"
+
+/* Import des composants */
 import Loader from "../../../components/loader/Loader"
-import { useNavigate } from 'react-router-dom';
+
+/* Import des Hooks & composants react-rooter */
 import { useEffect, useState } from "react"
+import { useNavigate } from 'react-router-dom';
 
 const HomeTypeSortie = () => {
     const navigate = useNavigate();
@@ -30,6 +34,10 @@ const HomeTypeSortie = () => {
         })
     }
 
+    //////////////////////////////////////////////////////////
+    // JSX                                                 
+    //////////////////////////////////////////////////////////
+    
     return (
         <section className="container-fluid home-type">
             <h2>Recherche par type de loisir</h2>

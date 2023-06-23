@@ -1,4 +1,6 @@
 import "./header.scss"
+
+/* Import des fonctions, variables & images */
 import logoMenu from "../../assets/images/logo/logo-menu.png"
 
 const Header = () => {

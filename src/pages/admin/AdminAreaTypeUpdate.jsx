@@ -1,9 +1,13 @@
 import "./admin.scss"
 
+/* Import des fonctions, variables & images */
+import { colorMsg } from "../../js/utils.js"
+
+/* Import des composants */
 import Loader from "../../components/loader/Loader"
 import Menu from "../../layout/menu/Menu"
 
-import { colorMsg } from "../../js/utils.js"
+/* Import des Hooks & composants react-rooter */
 import { useEffect, useState } from "react"
 import { Link, useNavigate, useLocation, useParams } from "react-router-dom"
 
