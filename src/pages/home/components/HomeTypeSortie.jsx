@@ -1,3 +1,7 @@
+//////////////////////////////////////////////////////////
+// IMPORTS                                              //
+//////////////////////////////////////////////////////////
+
 import "./homeTypeSortie.scss"
 
 /* Import des composants */
@@ -6,6 +10,10 @@ import Loader from "../../../components/loader/Loader"
 /* Import des Hooks & composants react-rooter */
 import { useEffect, useState } from "react"
 import { useNavigate } from 'react-router-dom';
+
+//////////////////////////////////////////////////////////
+// PARTIE JAVASCRIPT                                    //
+//////////////////////////////////////////////////////////
 
 const HomeTypeSortie = () => {
     const navigate = useNavigate();
@@ -34,9 +42,9 @@ const HomeTypeSortie = () => {
         })
     }
 
-    //////////////////////////////////////////////////////////
-    // JSX                                                 
-    //////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////
+// JSX                                                 
+//////////////////////////////////////////////////////////
     
     return (
         <section className="container-fluid home-type">

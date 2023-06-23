@@ -1,3 +1,7 @@
+//////////////////////////////////////////////////////////
+// IMPORTS                                              //
+//////////////////////////////////////////////////////////
+
 import "./admin.scss"
 
 /* Import des fonctions, variables & images */
@@ -10,6 +14,10 @@ import Menu from "../../layout/menu/Menu"
 /* Import des Hooks & composants react-rooter */
 import { useEffect, useState } from "react"
 import { Link, useNavigate, useLocation, useParams } from "react-router-dom"
+
+//////////////////////////////////////////////////////////
+// PARTIE JAVASCRIPT                                    //
+//////////////////////////////////////////////////////////
 
 const AdminAreaTypeUpdate = () => {
     const token = localStorage.getItem("jwt")

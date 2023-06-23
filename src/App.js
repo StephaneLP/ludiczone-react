@@ -1,3 +1,7 @@
+//////////////////////////////////////////////////////////
+// IMPORTS                                              //
+//////////////////////////////////////////////////////////
+
 /* Import des composants : Accueil et Recherche avancée */
 import Home from "./pages/home/Home"
 import Search from "./pages/search/Search"
@@ -21,6 +25,10 @@ import PageUnderConstruction from "./pages/errors/PageUnderConstruction"
 
 /* Import des Hooks & composants react-rooter */
 import { BrowserRouter, Routes, Route } from "react-router-dom"
+
+//////////////////////////////////////////////////////////
+// JSX                                                  //
+//////////////////////////////////////////////////////////
 
 function App() {
   return (

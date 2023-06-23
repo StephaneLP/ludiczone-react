@@ -1,7 +1,5 @@
 //////////////////////////////////////////////////////////
-//
-//    PARTIE : IMPORTS
-//
+// IMPORTS                                              //
 //////////////////////////////////////////////////////////
 
 import "./admin.scss"
@@ -22,9 +20,7 @@ import { useEffect, useState } from "react"
 import { Link, useNavigate, useLocation } from "react-router-dom"
 
 //////////////////////////////////////////////////////////
-//
-//    PARTIE : JAVASCRIPT
-//
+// PARTIE JAVASCRIPT                                    //
 //////////////////////////////////////////////////////////
 
 const AdminAreaType = () => {
@@ -162,9 +158,7 @@ const AdminAreaType = () => {
     },[displayConfirmDelete, filterParam, token, location, navigate])
 
     //////////////////////////////////////////////////////////
-    //
-    //    PARTIE : JSX
-    //
+    // PARTIE JSX                                           //
     //////////////////////////////////////////////////////////
 
     return (

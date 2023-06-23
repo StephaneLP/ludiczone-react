@@ -1,3 +1,7 @@
+//////////////////////////////////////////////////////////
+// IMPORTS                                              //
+//////////////////////////////////////////////////////////
+
 import "./homeZoneSortie.scss"
 
 /* Import des composants */
@@ -6,6 +10,10 @@ import Loader from "../../../components/loader/Loader"
 /* Import des Hooks & composants react-rooter */
 import { useEffect, useState } from "react"
 import { useNavigate } from 'react-router-dom';
+
+//////////////////////////////////////////////////////////
+// PARTIE JAVASCRIPT                                    //
+//////////////////////////////////////////////////////////
 
 const HomeZoneSortie = () => {
     const navigate = useNavigate();

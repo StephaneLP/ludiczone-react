@@ -1,3 +1,6 @@
+//////////////////////////////////////////////////////////
+// IMPORTS                                              //
+//////////////////////////////////////////////////////////
 
 import "./login.scss"
 
@@ -10,6 +13,10 @@ import NoMenu from "../../layout/menu/NoMenu"
 /* Import des Hooks & composants react-rooter */
 import { useState } from "react"
 import { Link, useLocation, useNavigate } from "react-router-dom"
+
+//////////////////////////////////////////////////////////
+// PARTIE JAVASCRIPT                                    //
+//////////////////////////////////////////////////////////
 
 const Connect = () => {
     const navigate = useNavigate()

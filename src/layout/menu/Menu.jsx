@@ -1,3 +1,7 @@
+//////////////////////////////////////////////////////////
+// IMPORTS                                              //
+//////////////////////////////////////////////////////////
+
 import "./menu.scss"
 
 /* Import des fonctions, variables & images */
@@ -7,6 +11,10 @@ import imgLogout from "../../assets/images/button/logout.png"
 /* Import des Hooks & composants react-rooter */
 import { useEffect, useState } from "react"
 import { Link, useLocation, useNavigate } from "react-router-dom"
+
+//////////////////////////////////////////////////////////
+// PARTIE JAVASCRIPT                                    //
+//////////////////////////////////////////////////////////
 
 const Menu = () => {
     const location = useLocation()

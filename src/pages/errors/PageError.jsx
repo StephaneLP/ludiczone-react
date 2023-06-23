@@ -1,3 +1,7 @@
+//////////////////////////////////////////////////////////
+// IMPORTS                                              //
+//////////////////////////////////////////////////////////
+
 import "./errors.scss"
 
 /* Import des fonctions, variables & images */
@@ -8,6 +12,10 @@ import NoMenu from "../../layout/menu/NoMenu"
 
 /* Import des Hooks & composants react-rooter */
 import { Link, useLocation } from 'react-router-dom'
+
+//////////////////////////////////////////////////////////
+// PARTIE JAVASCRIPT                                    //
+//////////////////////////////////////////////////////////
 
 const PageError = () => {
     const location = useLocation()

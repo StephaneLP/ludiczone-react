@@ -1,9 +1,17 @@
+//////////////////////////////////////////////////////////
+// IMPORTS                                              //
+//////////////////////////////////////////////////////////
+
 /* Import des fonctions, variables & images */
 import { checkStatus } from "./utils.js"
 
 /* Import des Hooks & composants react-rooter */
 import { useEffect } from "react"
 import { useNavigate } from "react-router-dom"
+
+//////////////////////////////////////////////////////////
+// PARTIE JAVASCRIPT                                    //
+//////////////////////////////////////////////////////////
 
 const useCheckIsAdmin = (token, route) => {
     const navigate = useNavigate()
