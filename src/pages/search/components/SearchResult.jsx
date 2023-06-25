@@ -1,7 +1,4 @@
-//////////////////////////////////////////////////////////
-// IMPORTS                                              //
-//////////////////////////////////////////////////////////
-
+/* Import du style */
 import "./searchResult.scss"
 
 /* Import des composants */
@@ -11,14 +8,12 @@ import Loader from "../../../components/loader/Loader"
 import { useEffect, useState } from "react"
 import { useNavigate } from 'react-router-dom';
 
-//////////////////////////////////////////////////////////
-// PARTIE JAVASCRIPT                                    //
-//////////////////////////////////////////////////////////
+/* ------------------------------------- JAVASCRIPT ------------------------------------ */
 
 const SearchResult = (props) => {
     const navigate = useNavigate();
     const [getArea, setGetArea] = useState(null) // Liste des salles
-    const [filterParam, setFilterParam] = useState({
+    const [filterParam, setFilterParam] = useState({ // Tri & filtre
         sort: "asc",
         search: "",
         typeId: "",
@@ -26,9 +21,10 @@ const SearchResult = (props) => {
     })
 
     /*********************************************************
-    Initialisation du filtre au 1er chargement du composant
+    Initialisation du filtre au 1er chargement du composant :
+    - paramètre type_id ou zone_id appliqué 
+      si appel du composant à partir de la page d'accueil
     *********************************************************/
-
     const [params, setParams] = useState(props.params)
 
     if(params) {
@@ -42,34 +38,31 @@ const SearchResult = (props) => {
     }
 
     /*********************************************************
-    Initialisation du filtre au 1er chargement du composant
+    API GET
+    - Chargement de la liste des salles
     *********************************************************/
-
     useEffect(() => {
-        const requestUrl = "http://localhost:3001/api/area" +
-            "?sort=" + filterParam.sort +
+        const requestUrlParams =
+            "sort=" + filterParam.sort +
             "&search=" + filterParam.search +
             "&typeId=" + filterParam.typeId +
             "&zoneId=" + filterParam.zoneId
 
-        const requestOptions = {
+        fetch("http://localhost:3001/api/area?" + requestUrlParams, {
             method: "GET",
             headers: { "Content-Type": "application/json" },
-        }
-
-        fetch(requestUrl, requestOptions)
+        })
             .then((res) => {
                 return res.json()
             })
             .then((res) => {
-                if(res.success) {
-                    setGetArea(res.data)
-                }
-                else {
+                if(!res.success) {
                     navigate('/erreur',{
                         state: {message: res.message}
                     })
+                    return             
                 }
+                setGetArea(res.data)
             })
             .catch((error) => {
                 navigate('/erreur',{
@@ -78,13 +71,14 @@ const SearchResult = (props) => {
             })
     },[filterParam, navigate])
 
+    /*********************************************************
+    Ouverture de la fiche descriptive d'une salle
+    *********************************************************/
     const handleFicheClick = () => {
         navigate("/en-construction")
     }
 
-    //////////////////////////////////////////////////////////
-    // JSX
-    //////////////////////////////////////////////////////////
+/* ---------------------------------------- JSX ---------------------------------------- */
 
     return (
         <section className="container-fluid search">
@@ -127,12 +121,6 @@ const SearchResult = (props) => {
         </section>        
     )
 }
-
-// <p>Virtual Room, 1ère salle de réalité virtuelle collaborative à Bordeaux, propose des expériences originales et accessibles à tous en équipe de 2 à 4 joueurs.</p>
-// <p>À la croisée des chemins entre l’escape game et le cinéma, embarquez pour une aventure virtuelle unique en son genre alliant réflexion, communication et esprit d’équipe !</p>
-// <p>+33 (0)5 57 13 11 60</p>
-// <p>3 Sente de la Nancy
-// <br />33300 Bordeaux</p>
 
 // Prévoir pour le responsive :
 //

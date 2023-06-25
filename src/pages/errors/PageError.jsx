@@ -1,34 +1,17 @@
-//////////////////////////////////////////////////////////
-// IMPORTS                                              //
-//////////////////////////////////////////////////////////
-
 import "./errors.scss"
-
-/* Import des fonctions, variables & images */
 import imgError from "../../assets/images/errors/error.gif"
-
-/* Import des composants */
 import NoMenu from "../../layout/menu/NoMenu"
-
-/* Import des Hooks & composants react-rooter */
 import { Link, useLocation } from 'react-router-dom'
-
-//////////////////////////////////////////////////////////
-// PARTIE JAVASCRIPT                                    //
-//////////////////////////////////////////////////////////
 
 const PageError = () => {
     const location = useLocation()
     let message = ""
     
+    // Message d'erreur passé en paramètre
     if(location.state !== null) {
         message = location.state.message
     }
 
-    //////////////////////////////////////////////////////////
-    // JSX
-    //////////////////////////////////////////////////////////
-    
     return (
         <main>
             <NoMenu />

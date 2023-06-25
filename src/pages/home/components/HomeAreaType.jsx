@@ -1,8 +1,5 @@
-//////////////////////////////////////////////////////////
-// IMPORTS                                              //
-//////////////////////////////////////////////////////////
-
-import "./homeTypeSortie.scss"
+/* Import du style */
+import "./homeAreaType.scss"
 
 /* Import des composants */
 import Loader from "../../../components/loader/Loader"
@@ -11,14 +8,16 @@ import Loader from "../../../components/loader/Loader"
 import { useEffect, useState } from "react"
 import { useNavigate } from 'react-router-dom';
 
-//////////////////////////////////////////////////////////
-// PARTIE JAVASCRIPT                                    //
-//////////////////////////////////////////////////////////
+/* ------------------------------------- JAVASCRIPT ------------------------------------ */
 
 const HomeTypeSortie = () => {
     const navigate = useNavigate();
     const[getAreaType, setGetAreaType] = useState(null)
-  
+
+    /*********************************************************
+    API GET
+    - Chargement de la liste des types de loisir
+    *********************************************************/
     useEffect(() => {
         const requestOptions = {
             method: "GET",
@@ -34,6 +33,10 @@ const HomeTypeSortie = () => {
             })
     },[])
 
+    /*********************************************************
+    Ouverture de la page Recherche avancée
+    - id type passé en paramètre pour le filtre
+    *********************************************************/  
     const handleClickNavigate = (id) => {
         navigate('/search',{
             state: {
@@ -42,9 +45,7 @@ const HomeTypeSortie = () => {
         })
     }
 
-//////////////////////////////////////////////////////////
-// JSX                                                 
-//////////////////////////////////////////////////////////
+/* ---------------------------------------- JSX ---------------------------------------- */
     
     return (
         <section className="container-fluid home-type">

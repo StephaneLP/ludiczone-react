@@ -1,7 +1,4 @@
-//////////////////////////////////////////////////////////
-// IMPORTS                                              //
-//////////////////////////////////////////////////////////
-
+/* Import du style */
 import "./login.scss"
 
 /* Import des fonctions, variables & images */
@@ -14,90 +11,97 @@ import NoMenu from "../../layout/menu/NoMenu"
 import { useState } from "react"
 import { Link, useLocation, useNavigate } from "react-router-dom"
 
-//////////////////////////////////////////////////////////
-// PARTIE JAVASCRIPT                                    //
-//////////////////////////////////////////////////////////
+/* ------------------------------------- JAVASCRIPT ------------------------------------ */
 
 const Connect = () => {
     const navigate = useNavigate()
 
+    /*********************************************************
+    Le composant est-il appélé pour une première authentification
+    ou pour une reconnexion suite à expiration du token ?
+    *********************************************************/
     let isReconnect = false
     const location = useLocation()
     if(location.state !== null) {
         isReconnect = (location.state.reconnect !== null ? location.state.reconnect : false)
     }
 
-    const[adminMessage, setAdminMessage] = useState({libelle: "", color: ""})
+    // Messages et focus d'erreur
+    const[errorMessage, setErrorMessage] = useState({libelle: "", color: ""})
     const[focusLogin, setFocusLogin] = useState("")
     const[focusPassword, setFocusPassword] = useState("")
+
+    // Identifiant & Mot de passe
     const[login, setLogin] = useState("")
     const[password, setPassword] = useState("")
 
     const handleLoginChange = (event) => {
         setLogin(event.target.value);
-        setAdminMessage({libelle: "", color: ""})
+        setErrorMessage({libelle: "", color: ""})
         setFocusLogin("")
     }
 
     const handlePasswordChange = (event) => {
         setPassword(event.target.value);
-        setAdminMessage({libelle: "", color: ""})
+        setErrorMessage({libelle: "", color: ""})
         setFocusPassword("")
     }
 
+    /*********************************************************
+    API POST
+    - authentification avec identifiant et mot de passe
+    *********************************************************/
     const handleSubmit = (event) => {
         event.preventDefault()
 
         if(login === "") {
-            setAdminMessage({libelle: "Veuillez renseigner un identifiant S.V.P.", color: colorMsg.error})
+            setErrorMessage({libelle: "Veuillez renseigner un identifiant S.V.P.", color: colorMsg.error})
             setFocusLogin(colorMsg.error)
             return
         }
 
         if(password === "") {
-            setAdminMessage({libelle: "Veuillez renseigner un mot de passe S.V.P.", color: colorMsg.error})
+            setErrorMessage({libelle: "Veuillez renseigner un mot de passe S.V.P.", color: colorMsg.error})
             setFocusPassword(colorMsg.error)
             return
         }
 
-        const requestOptions = {
+        const requestBody = JSON.stringify({
+            username: login,
+            password: password,
+        })
+
+        fetch("http://localhost:3001/api/auth/login", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                username: login,
-                password: password,
-            })
-        }
-
-        fetch("http://localhost:3001/api/auth/login",requestOptions)
+            body: requestBody
+        })
             .then((res) => {
                 return res.json()          
             })
             .then((res) => {
-                if(res.success) {
-                    localStorage.setItem("jwt",res.token)
-                    localStorage.setItem("pseudo",res.data.nick_name)
-                    if(isReconnect) {
-                        navigate(location.state.route)
-                    }
-                    else {
-                        navigate("/")
-                    }
+                if(!res.success) {
+                    setErrorMessage({libelle: res.message, color: colorMsg.error})
+                    return
+                }
+                localStorage.setItem("jwt",res.token) // Token enregistré dans le localStorage
+                localStorage.setItem("pseudo",res.data.nick_name) // Pseudo enregistré dans le localStorage
+                if(isReconnect) {
+                    navigate(location.state.route) // Si reconnexion, retour au composant appelant
                 }
                 else {
-                    setAdminMessage({libelle: res.message, color: colorMsg.error})
+                    navigate("/")
                 }
             })
     }
 
+    /* Nettoyage du localStorage si annulation */
     const handleCancleClick = () => {
         localStorage.removeItem("jwt")
         localStorage.removeItem("pseudo")
     }
 
-    //////////////////////////////////////////////////////////
-    // JSX
-    //////////////////////////////////////////////////////////
+/* ---------------------------------------- JSX ---------------------------------------- */
 
     return (
     <main>
@@ -113,7 +117,7 @@ const Connect = () => {
             
             <div className="container">
                 <div className="login-message d-flex justify-content-center align-items-center">
-                    <div style={{backgroundColor: adminMessage.color}}>{adminMessage.libelle}</div>
+                    <div style={{backgroundColor: errorMessage.color}}>{errorMessage.libelle}</div>
                 </div>
                 <form onSubmit={handleSubmit}>
                     <div className="row">
@@ -143,7 +147,7 @@ const Connect = () => {
                         <div className="col-12 col-md-4 login-separator-bottom"></div>
                         <div className="col-12 col-md-4"></div>
                     </div>
-                    {!isReconnect &&
+                    {!isReconnect && // Lien de création de compte affiché si première authentification
                     (
                         <div className="row">
                             <div className="col-12 col-md-4"></div>

@@ -1,21 +1,7 @@
-//////////////////////////////////////////////////////////
-// IMPORTS                                              //
-//////////////////////////////////////////////////////////
-
 import "./errors.scss"
-
-/* Import des fonctions, variables & images */
 import imgNotfound from "../../assets/images/errors/404-page-animation.gif"
-
-/* Import des composants */
 import NoMenu from "../../layout/menu/NoMenu"
-
-/* Import des Hooks & composants react-rooter */
 import { Link } from "react-router-dom"
-
-//////////////////////////////////////////////////////////
-// JSX                                                  //
-//////////////////////////////////////////////////////////
 
 const PageNotFound = () => {
     return (

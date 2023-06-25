@@ -1,7 +1,3 @@
-//////////////////////////////////////////////////////////
-// IMPORTS                                              //
-//////////////////////////////////////////////////////////
-
 /* Import des composants */
 import Menu from "../../layout/menu/Menu"
 import SearchResult from "./components/SearchResult"
@@ -10,24 +6,20 @@ import SearchResult from "./components/SearchResult"
 import { useEffect } from "react"
 import { useLocation } from 'react-router-dom'
 
-//////////////////////////////////////////////////////////
-// PARTIE JAVASCRIPT                                    //
-//////////////////////////////////////////////////////////
-
 const Search = () => {
     const location = useLocation()
 
     useEffect(() => window.scrollTo(0,0),[])
 
-    /* Filtre optionnel : type de loisir ou zone */    
+    /*********************************************************
+    Si le composant est appelé depuis la page d'accueil,
+    un paramètre type_id ou zone_id est transmis au composant
+    SearchResult pour initialiser le filtre de la lsite des salles
+    *********************************************************/
     let params = {filter: "", id: 0}
     if(location.state !== null) {
         params = location.state.params
     } 
-
-    //////////////////////////////////////////////////////////
-    // PARTIE JSX                                           //
-    //////////////////////////////////////////////////////////
 
     return (
         <main>

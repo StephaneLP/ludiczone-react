@@ -1,7 +1,4 @@
-//////////////////////////////////////////////////////////
-// IMPORTS                                              //
-//////////////////////////////////////////////////////////
-
+/* Import du style */
 import "./admin.scss"
 
 /* Import des fonctions, variables & images */
@@ -19,9 +16,7 @@ import ModalConfirm from "../../components/modalconfirm/ModalConfirm"
 import { useEffect, useState } from "react"
 import { Link, useNavigate, useLocation } from "react-router-dom"
 
-//////////////////////////////////////////////////////////
-// PARTIE JAVASCRIPT                                    //
-//////////////////////////////////////////////////////////
+/* ------------------------------------- JAVASCRIPT ------------------------------------ */
 
 const AdminAreaType = () => {
     const token = localStorage.getItem("jwt")
@@ -157,9 +152,7 @@ const AdminAreaType = () => {
             })
     },[displayConfirmDelete, filterParam, token, location, navigate])
 
-    //////////////////////////////////////////////////////////
-    // PARTIE JSX                                           //
-    //////////////////////////////////////////////////////////
+/* ---------------------------------------- JSX ---------------------------------------- */
 
     return (
     <main>

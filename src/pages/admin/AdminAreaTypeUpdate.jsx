@@ -1,7 +1,4 @@
-//////////////////////////////////////////////////////////
-// IMPORTS                                              //
-//////////////////////////////////////////////////////////
-
+/* Import du style */
 import "./admin.scss"
 
 /* Import des fonctions, variables & images */
@@ -15,9 +12,7 @@ import Menu from "../../layout/menu/Menu"
 import { useEffect, useState } from "react"
 import { Link, useNavigate, useLocation, useParams } from "react-router-dom"
 
-//////////////////////////////////////////////////////////
-// PARTIE JAVASCRIPT                                    //
-//////////////////////////////////////////////////////////
+/* ------------------------------------- JAVASCRIPT ------------------------------------ */
 
 const AdminAreaTypeUpdate = () => {
     const token = localStorage.getItem("jwt")
@@ -147,9 +142,7 @@ const AdminAreaTypeUpdate = () => {
         window.scrollTo(0,0)
     }
 
-    //////////////////////////////////////////////////////////
-    // JSX
-    //////////////////////////////////////////////////////////
+/* ---------------------------------------- JSX ---------------------------------------- */
 
     return (
     <main>

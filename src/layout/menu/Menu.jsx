@@ -1,7 +1,4 @@
-//////////////////////////////////////////////////////////
-// IMPORTS                                              //
-//////////////////////////////////////////////////////////
-
+/* Import du style */
 import "./menu.scss"
 
 /* Import des fonctions, variables & images */
@@ -12,9 +9,7 @@ import imgLogout from "../../assets/images/button/logout.png"
 import { useEffect, useState } from "react"
 import { Link, useLocation, useNavigate } from "react-router-dom"
 
-//////////////////////////////////////////////////////////
-// PARTIE JAVASCRIPT                                    //
-//////////////////////////////////////////////////////////
+/* ------------------------------------- JAVASCRIPT ------------------------------------ */
 
 const Menu = () => {
     const location = useLocation()
@@ -24,21 +19,20 @@ const Menu = () => {
     const [isUser, setIsUser] = useState(false)
     const [isAdmin, setIsAdmin] = useState(false)
 
-    //////////////////////////////////////////////////////////
-    // IMPORT DU ROLE A PARTIR DU TOKEN
-    //////////////////////////////////////////////////////////
-
+    /*********************************************************
+    API GET
+    - Vérification des rôles utilisateur et administrateur 
+      à partir du token
+    *********************************************************/
     useEffect(() => {
         if(token !== null) {
-            const requestOptions = {
+            fetch("http://localhost:3001/api/auth/checkRole", {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
                     authorization: `Bearer ${token}`,
                 },
-            }
-
-            fetch("http://localhost:3001/api/auth/checkRole", requestOptions)
+            })
             .then((res) => {
                 return res.json()          
             })
@@ -53,29 +47,21 @@ const Menu = () => {
         }
     },[token])
 
-    //////////////////////////////////////////////////////////
-    // CIBLAGE DU MENU CORRESPONDANT A LA PAGE
-    //////////////////////////////////////////////////////////
-
+    /* Variables booléennes permettant de cibler le menu actif */
     const path = location.pathname
     const isRouteArea = (path === "/admin-area" || path === "/admin-area-create" || path === "/admin-area-update")
     const isRouteAreaType = (path === "/admin-area-type" || path === "/admin-area-type-create" || path.includes("/admin-area-type-update"))
     const isRouteAreaZone = (path === "/admin-area-zone" || path === "/admin-area-zone-create" || path.includes("/admin-area-zone-update"))
     const isRouteAdmin = (isRouteArea || isRouteAreaType || isRouteAreaZone)
 
-    //////////////////////////////////////////////////////////
-    // DECONNEXION
-    //////////////////////////////////////////////////////////
-
+    /* Déconnexion */
     const handleLogoutClick = () => {
         localStorage.removeItem("jwt")
         localStorage.removeItem("pseudo")
         navigate("/")
     }
 
-    //////////////////////////////////////////////////////////
-    // JSX
-    //////////////////////////////////////////////////////////
+/* ---------------------------------------- JSX ---------------------------------------- */
 
     return (
         <section className="container-fluid d-flex align-items-center menu">
@@ -128,13 +114,13 @@ const Menu = () => {
                     </div>
                 </nav>
                 {!isUser && !isAdmin ?
-                (
+                ( // L'utilisateur n'est pas authentifié
                     <Link className="btn-connect d-flex align-items-center" to="/connect" aria-current="page" href="#">
                         <img src={imgLogin} alt="Login" /> Connexion
                     </Link>
                 )
                 :
-                (
+                ( // L'utilisateur est authentifié
                     <div className="menu-logout d-flex align-items-center" >
                         <span>{pseudo}</span>
                         <button className="btn-logout" onClick={handleLogoutClick}><img src={imgLogout} alt="Logout" /></button>

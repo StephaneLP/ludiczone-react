@@ -1,8 +1,5 @@
-//////////////////////////////////////////////////////////
-// IMPORTS                                              //
-//////////////////////////////////////////////////////////
-
-import "./homeZoneSortie.scss"
+/* Import du style */
+import "./homeAreaZone.scss"
 
 /* Import des composants */
 import Loader from "../../../components/loader/Loader"
@@ -11,14 +8,16 @@ import Loader from "../../../components/loader/Loader"
 import { useEffect, useState } from "react"
 import { useNavigate } from 'react-router-dom';
 
-//////////////////////////////////////////////////////////
-// PARTIE JAVASCRIPT                                    //
-//////////////////////////////////////////////////////////
+/* ------------------------------------- JAVASCRIPT ------------------------------------ */
 
 const HomeZoneSortie = () => {
     const navigate = useNavigate();
     const[getAreaZone, setGetAreaZone] = useState(null)
-  
+ 
+    /*********************************************************
+    API GET
+    - Chargement de la liste des zones
+    *********************************************************/
     useEffect(() => {
         const requestOptions = {
             method: "GET",
@@ -34,6 +33,10 @@ const HomeZoneSortie = () => {
             })
     },[])
 
+    /*********************************************************
+    Ouverture de la page Recherche avancée
+    - id zone passé en paramètre pour le filtre
+    *********************************************************/    
     const handleClickNavigate = (id) => {
         navigate('/search',{
             state: {
@@ -42,10 +45,8 @@ const HomeZoneSortie = () => {
         })
     }
 
-    //////////////////////////////////////////////////////////
-    // JSX                                                 
-    //////////////////////////////////////////////////////////
-    
+/* ---------------------------------------- JSX ---------------------------------------- */
+
     return (
         <section className="container-fluid home-zone">
             <h2>Recherche par Zone géographique</h2>

@@ -1,7 +1,4 @@
-//////////////////////////////////////////////////////////
-// IMPORTS                                              //
-//////////////////////////////////////////////////////////
-
+/* Import du style */
 import 'bootstrap/dist/js/bootstrap.js';
 import "bootstrap/dist/css/bootstrap.css";
 import "./styles/base/index.scss";
@@ -14,10 +11,6 @@ import ReactDOM from 'react-dom/client';
 import App from './App';
 import Header from "./layout/header/Header";
 import Footer from "./layout/footer/Footer";
-
-//////////////////////////////////////////////////////////
-// JSX                                                  //
-//////////////////////////////////////////////////////////
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
