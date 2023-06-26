@@ -19,17 +19,22 @@ const cleanLocalStorage = () => {
 }
 
 /*********************************************************
-Fonction qui retourne une route et des paramètres selon le statut,
+Fonction pour le contrôle de l'authentification et des droits,
+qui retourne une route et des paramètres selon le statut,
 pour une éventuelle redirection si erreur :
-- 401 : authentification => page reconnexion
+- 400, 401 : authentification => page reconnexion
 - 403 : droits => page erreur
 - 500 : erreur interne serveur => page erreur
-- autre (200) : pas de redirection
+- default (200, 404, 409) : pas de redirection
 *********************************************************/
 const checkStatus = (status, route) => {
     let navParams = {}
 
     switch(status ) {
+        case 400:
+            navParams.route = "/connect"
+            navParams.state =  {reconnect: false, route: route}
+            break
         case 401:
             navParams.route = "/connect"
             navParams.state =  {reconnect: true, route: route}

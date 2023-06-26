@@ -15,32 +15,29 @@ const useCheckIsAdmin = (token, route) => {
     let navParams = {} // Paramètres pour la redirection en cas d'erreur
 
     useEffect(() => {
-        if(token !== null) {
-            fetch("http://localhost:3001/api/auth/checkRole/admin", {
-                method: "GET",
-                headers: {
-                    "Content-Type": "application/json",
-                    authorization: `Bearer ${token}`,
-                },
-            })
-            .then((res) => {
-                /* Vérification du statut de la réponse :
-                si status <> 200 alors redirection */
-                navParams = {...checkStatus(res.status, route)}
-                if(navParams.route !== "") {
-                    cleanLocalStorage()
-                    navigate(navParams.route,{state: navParams.state})
-                }
-            })
-            .catch((error) => {
+        fetch("http://localhost:3001/api/auth/checkRole/admin", {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                authorization: `Bearer ${token}`,
+            },
+        })
+        .then((res) => {
+            /*********************************************************
+            Vérification du statut de la réponse. Si status <> 200 :
+            - route de redirection renseignée
+            - nettoyage du localStorage et redirection
+            *********************************************************/
+            navParams = {...checkStatus(res.status, route)}
+            if(navParams.route !== "") {
                 cleanLocalStorage()
-                navigate('/erreur',{state: {message: error.message}})
-            })
-        }
-        else { // Aucun token n'est présent dans le localStorage
+                navigate(navParams.route,{state: navParams.state})
+            }
+        })
+        .catch((error) => {
             cleanLocalStorage()
-            navigate('/erreur',{state: {message: "Vous n'avez pas les droits requis. Veuillez vous identifier S.V.P."}})
-        }
+            navigate('/erreur',{state: {message: error.message}})
+        })
     },[token, navigate, route])
 }
 

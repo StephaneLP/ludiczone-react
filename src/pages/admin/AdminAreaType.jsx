@@ -2,7 +2,7 @@
 import "./admin.scss"
 
 /* Import des fonctions, variables & images */
-import { colorMsg, formatDate, checkStatus } from "../../js/utils.js"
+import { colorMsg, formatDate, cleanLocalStorage, checkStatus } from "../../js/utils.js"
 import imgDelete from "../../assets/images/button/garbage.png"
 import imgUpdate from "../../assets/images/button/pencil2.png"
 import imgFilter from "../../assets/images/button/filtre.png"
@@ -22,22 +22,24 @@ const AdminAreaType = () => {
     const token = localStorage.getItem("jwt")
     const navigate = useNavigate()
     const location = useLocation()
-    const[adminMessage, setAdminMessage] = useState({libelle: "", color: ""})
+    const[displayMessage, setDisplayMessage] = useState({libelle: "", color: ""})
     
     useEffect(() => {window.scrollTo(0,0)},[])
 
-    //////////////////////////////////////////////////////////
-    // DELETE (confirmation avec le composant modalConfirm)
-    //////////////////////////////////////////////////////////
+    /*********************************************************
+    API DELETE
+    - confirmation de l'utilisateur avec le composant modalConfirm
+    *********************************************************/
+    const[displayConfirmDelete, setDisplayConfirmDelete] = useState(false) // Affichage de la fenêtre modale
+    const[dataDelete, setDataDelete] = useState({id: "", name: "", libelle: ""}) // Paramètres de la fenêtre modale
 
-    const[displayConfirmDelete, setDisplayConfirmDelete] = useState(false)
-    const[dataDelete, setDataDelete] = useState({id: "", name: "", libelle: ""})
-
+    /* Bouton suppression : la fenêtre modale est affichée */
     const handleDeleteClick = (id, name) => {
         setDataDelete({id: id, name: name, libelle: "Voulez-vous supprimer le type ?"})       
         setDisplayConfirmDelete(true) 
     }
 
+    /* L'utilisateur a effectué son choix dans la fenêtre modale : true/false */
     const handleConfirmDeleteClick = (isValidated) => {
         if (isValidated) {
             const requestOptions = {
@@ -48,42 +50,48 @@ const AdminAreaType = () => {
                 },
             }
 
-            fetch("http://localhost:3001/api/areatype/admin/" + dataDelete.id, requestOptions)
-            .then((res) => {
-                if(res.status === 401) {
-                    navigate('/connect',{
-                        state: {
-                            reconnect: true,
-                            route: location.pathname
-                        }
-                    })
-                }
-                return res.json() 
-            })
-            .then((res) => {
-                if(res.success) {
-                    setAdminMessage({libelle: res.message, color: colorMsg.success})
-                }
-                else {
-                    setAdminMessage({libelle: res.message, color: colorMsg.error})
-                }
-            })
-            .catch((error) => {
-                setAdminMessage({libelle: error, color: colorMsg.error})
-            })
+            fetch("http://localhost:3001/api/areatype/admin/" + dataDelete.id, {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json",
+                    authorization: `Bearer ${token}`,
+            }})
+                .then((res) => {
+                    if(res.status === 401) { // Token non valide : reconnexion
+                        navigate('/connect',{
+                            state: {
+                                reconnect: true,
+                                route: location.pathname
+                            }
+                        })
+                    }
+                    return res.json() 
+                })
+                .then((res) => {
+                    if(res.success) {
+                        setDisplayMessage({libelle: res.message, color: colorMsg.success})
+                    }
+                    else {
+                        setDisplayMessage({libelle: res.message, color: colorMsg.error})
+                    }
+                })
+                .catch((error) => {
+                    setDisplayMessage({libelle: error, color: colorMsg.error})
+                })
+
             setDisplayConfirmDelete(false)
             window.scrollTo(0,0)
         }
         else {
-            setAdminMessage({libelle: "", color: ""})
+            setDisplayMessage({libelle: "", color: ""})
             setDisplayConfirmDelete(false)
         }
     }
 
-    //////////////////////////////////////////////////////////
-    // FILTRE
-    //////////////////////////////////////////////////////////
-
+    /*********************************************************
+    FILTRE
+    - confirmation avec le composant modalConfirm
+    *********************************************************/
     const[filterParam, setFilterParam] = useState({
         sort: "asc",
         name: "",
@@ -97,7 +105,7 @@ const AdminAreaType = () => {
         newParam.sort = filterSort
         newParam.name = filterName.trim()
         setFilterParam(newParam)
-        setAdminMessage({libelle: "", color: ""})
+        setDisplayMessage({libelle: "", color: ""})
     }
 
     const handleFilterRAZ = () => {
@@ -105,50 +113,55 @@ const AdminAreaType = () => {
         setFilterName("")
     }
 
-    //////////////////////////////////////////////////////////
-    // GET (chargement de la page et modification du filtre)
-    //////////////////////////////////////////////////////////
-
+    /*********************************************************
+    API GET
+    - Chargement de la liste des types de loisir
+     et modification du filtre
+    *********************************************************/
     const[getAreaType, setGetAreaType] = useState(null)
 
     useEffect(() => {
-        let navParams = {}
+        let navParams = {} // Paramètres pour la redirection en cas d'erreur
 
-        const requestOptions = {
+        const requestUrlParams = 
+            "sort=" + filterParam.sort +
+            "&name=" + filterParam.name
+
+        fetch("http://localhost:3001/api/areatype/admin?" + requestUrlParams, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
                 authorization: `Bearer ${token}`,
             },
-        }
-
-        const requestUrl = "http://localhost:3001/api/areatype/admin" +
-            "?sort=" + filterParam.sort +
-            "&name=" + filterParam.name
-
-        fetch(requestUrl, requestOptions)
+        })
             .then((res) => {
+                /*********************************************************
+                Vérification du statut de la réponse. Si status <> 200 :
+                - route de redirection renseignée
+                - nettoyage du localStorage et redirection
+                *********************************************************/
                 navParams = {...checkStatus(res.status, location.pathname)}
-                if(navParams.route !== "") throw new Error("redirect")
+                if(navParams.route !== "") {
+                    cleanLocalStorage()
+                    navigate(navParams.route,{state: navParams.state})
+                    throw new Error("error status")
+                }
                 return res.json()
             })
             .then((res) => {
                 setGetAreaType(res.data)
                 if(location.state !== null) {
-                    if(location.state.alter !== null) {
-                        if(location.state.alter.success) {
-                            setAdminMessage({libelle: location.state.alter.message, color: colorMsg.success})
-                        }
-                        location.state = null
+                    if(location.state.success) {
+                        setDisplayMessage({libelle: location.state.alter.message, color: colorMsg.success})
                     }
+                    location.state = null
                 }
             })
             .catch((error) => {
-                if(error.message !== "redirect") {
-                    navParams.route = "/erreur"
-                    navParams.state =  {message: error.message}
-                }
-                navigate(navParams.route,{state: navParams.state})                 
+                if(error.message !== "error status") {
+                    cleanLocalStorage()
+                    navigate('/erreur',{state: {message: error.message}})
+                }               
             })
     },[displayConfirmDelete, filterParam, token, location, navigate])
 
@@ -171,7 +184,7 @@ const AdminAreaType = () => {
                         <Link className="btn-admin-add" to={"/admin-area-type-create"} href="#">Ajouter un élément</Link>
                     </div>
                     <div className="admin-message d-flex justify-content-center align-items-center">
-                        <div style={{backgroundColor: adminMessage.color}}>{adminMessage.libelle}</div>
+                        <div style={{backgroundColor: displayMessage.color}}>{displayMessage.libelle}</div>
                     </div>
                     <div className="admin-filter d-flex justify-content-between align-items-center">
                         <div className="admin-filter-nb">Nombre de résultats : <span>{getAreaType.length}</span></div>

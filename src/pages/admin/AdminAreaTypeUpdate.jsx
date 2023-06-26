@@ -125,10 +125,8 @@ const AdminAreaTypeUpdate = () => {
             if(res.success) {
                 navigate('/admin-area-type',{
                     state: {
-                        alter: {
-                            success: true,
-                            message: res.message                            
-                        }
+                        success: true,
+                        message: res.message           
                     }
                 })
             }
