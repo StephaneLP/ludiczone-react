@@ -4,11 +4,12 @@ import SearchResult from "./components/SearchResult"
 
 /* Import des Hooks & composants react-rooter */
 import { useEffect } from "react"
-import { useLocation } from 'react-router-dom'
+import { useLocation, useSearchParams } from 'react-router-dom'
 
 const Search = () => {
     const location = useLocation()
-
+    const [queryParameters] = useSearchParams()
+console.log(queryParameters.get("filter"))
     useEffect(() => window.scrollTo(0,0),[])
 
     /*********************************************************

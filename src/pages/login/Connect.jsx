@@ -15,16 +15,19 @@ import { Link, useLocation, useNavigate } from "react-router-dom"
 
 const Connect = () => {
     const navigate = useNavigate()
+    const location = useLocation()
 
     /*********************************************************
     Le composant est-il appélé pour une première authentification
     ou pour une reconnexion suite à expiration du token ?
     *********************************************************/
-    let isReconnect = false
-    const location = useLocation()
-    if(location.state !== null) {
-        isReconnect = (location.state.reconnect !== null ? location.state.reconnect : false)
-    }
+    const isReconnect = location.state || false
+
+    // const[isReconnect,setIsReconnect] = useState(false)
+    // if(location.state !== null) {
+    //     setIsReconnect(location.state)
+    //     location.state = null
+    // }
 
     // Messages et focus d'erreur
     const[errorMessage, setErrorMessage] = useState({libelle: "", color: ""})
@@ -87,7 +90,7 @@ const Connect = () => {
                 localStorage.setItem("jwt",res.token) // Token enregistré dans le localStorage
                 localStorage.setItem("pseudo",res.data.nick_name) // Pseudo enregistré dans le localStorage
                 if(isReconnect) {
-                    navigate(location.state.route) // Si reconnexion, retour au composant appelant
+                    navigate(-1) // Si reconnexion, retour au composant appelant
                 }
                 else {
                     navigate("/")

@@ -27,31 +27,30 @@ pour une éventuelle redirection si erreur :
 - 500 : erreur interne serveur => page erreur
 - default (200, 404, 409) : pas de redirection
 *********************************************************/
-const checkStatus = (status, route) => {
+const checkStatus = (status) => {
     let navParams = {}
 
     switch(status ) {
         case 400:
             navParams.route = "/connect"
-            navParams.state =  {reconnect: false, route: route}
+            navParams.state =  false
             break
         case 401:
             navParams.route = "/connect"
-            navParams.state =  {reconnect: true, route: route}
+            navParams.state =  true
             break
         case 403:
             navParams.route = "/erreur"
-            navParams.state =  {message: "Vous n'avez pas les droits requis. Veuillez vous reconnecter S.V.P."}
+            navParams.state =  "Vous n'avez pas les droits requis. Veuillez vous reconnecter S.V.P."
             break
         case 500:
             navParams.route = "/erreur"
-            navParams.state =  {message: "Une erreur interne au serveur est survenue (Erreur 500)."}
+            navParams.state =  "Une erreur interne au serveur est survenue (Erreur 500)."
             break
         default:
             navParams.route = ""
             navParams.state =  ""
     }
-
     return navParams
 }
 
