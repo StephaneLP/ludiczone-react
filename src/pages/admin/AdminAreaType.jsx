@@ -27,6 +27,20 @@ const AdminAreaType = () => {
     useEffect(() => {window.scrollTo(0,0)},[])
 
     /*********************************************************
+    Le message de succès de création ou de modification, passé en paramètre,
+    est récupéré et placé dans la variable messageFromState
+    (méthode utilisée pour éviter d'utiliser location dans un useEffect)
+    *********************************************************/
+    const[messageFromState,setMessageFromState] = useState("")
+
+    if(location.state !== null) {
+        if(location.state.success) {
+            setMessageFromState(location.state.message)
+        }
+        location.state = null
+    }  
+
+    /*********************************************************
     API DELETE
     - confirmation de l'utilisateur avec le composant modalConfirm
     *********************************************************/
@@ -41,15 +55,9 @@ const AdminAreaType = () => {
 
     /* L'utilisateur a effectué son choix dans la fenêtre modale : true/false */
     const handleConfirmDeleteClick = (isValidated) => {
-        if (isValidated) {
-            const requestOptions = {
-                method: "DELETE",
-                headers: {
-                    "Content-Type": "application/json",
-                    authorization: `Bearer ${token}`,
-                },
-            }
+        let navParams = {} // Paramètres pour la redirection en cas d'erreur
 
+        if (isValidated) {
             fetch("http://localhost:3001/api/areatype/admin/" + dataDelete.id, {
                 method: "DELETE",
                 headers: {
@@ -57,13 +65,16 @@ const AdminAreaType = () => {
                     authorization: `Bearer ${token}`,
             }})
                 .then((res) => {
-                    if(res.status === 401) { // Token non valide : reconnexion
-                        navigate('/connect',{
-                            state: {
-                                reconnect: true,
-                                route: location.pathname
-                            }
-                        })
+                    /*********************************************************
+                    Vérification du statut de la réponse. Si status <> 200 :
+                    - route de redirection renseignée
+                    - nettoyage du localStorage et redirection
+                    *********************************************************/
+                    navParams = {...checkStatus(res.status, "/admin-area-type")}
+                    if(navParams.route !== "") {
+                        cleanLocalStorage()
+                        navigate(navParams.route,{state: navParams.state})
+                        throw new Error("status")
                     }
                     return res.json() 
                 })
@@ -76,7 +87,9 @@ const AdminAreaType = () => {
                     }
                 })
                 .catch((error) => {
-                    setDisplayMessage({libelle: error, color: colorMsg.error})
+                    if(error.message !== "status") {
+                        setDisplayMessage({libelle: error, color: colorMsg.error})
+                    }
                 })
 
             setDisplayConfirmDelete(false)
@@ -119,10 +132,10 @@ const AdminAreaType = () => {
      et modification du filtre
     *********************************************************/
     const[getAreaType, setGetAreaType] = useState(null)
-
+    
     useEffect(() => {
         let navParams = {} // Paramètres pour la redirection en cas d'erreur
-
+        
         const requestUrlParams = 
             "sort=" + filterParam.sort +
             "&name=" + filterParam.name
@@ -140,30 +153,30 @@ const AdminAreaType = () => {
                 - route de redirection renseignée
                 - nettoyage du localStorage et redirection
                 *********************************************************/
-                navParams = {...checkStatus(res.status, location.pathname)}
+                navParams = {...checkStatus(res.status, "/admin-area-type")}
                 if(navParams.route !== "") {
                     cleanLocalStorage()
                     navigate(navParams.route,{state: navParams.state})
-                    throw new Error("error status")
+                    throw new Error("status")
                 }
                 return res.json()
             })
             .then((res) => {
                 setGetAreaType(res.data)
-                if(location.state !== null) {
-                    if(location.state.success) {
-                        setDisplayMessage({libelle: location.state.alter.message, color: colorMsg.success})
-                    }
-                    location.state = null
+                /* Affichage du message confirmant la création ou la modification */
+                if(messageFromState !== ""){
+                    setDisplayMessage({libelle: messageFromState, color: colorMsg.success})
+                    setMessageFromState("")
                 }
+
             })
             .catch((error) => {
-                if(error.message !== "error status") {
+                if(error.message !== "status") {
                     cleanLocalStorage()
                     navigate('/erreur',{state: {message: error.message}})
                 }               
             })
-    },[displayConfirmDelete, filterParam, token, location, navigate])
+    },[displayConfirmDelete, filterParam, token, messageFromState, navigate])
 
 /* ---------------------------------------- JSX ---------------------------------------- */
 
@@ -186,6 +199,7 @@ const AdminAreaType = () => {
                     <div className="admin-message d-flex justify-content-center align-items-center">
                         <div style={{backgroundColor: displayMessage.color}}>{displayMessage.libelle}</div>
                     </div>
+                    {/* --------------- Début zone de filtre --------------- */}
                     <div className="admin-filter d-flex justify-content-between align-items-center">
                         <div className="admin-filter-nb">Nombre de résultats : <span>{getAreaType.length}</span></div>
                         <nav className="navbar bg-body-tertiary">
@@ -224,6 +238,7 @@ const AdminAreaType = () => {
                             </div>
                         </nav>
                     </div>
+                    {/* --------------- Fin zone de filtre --------------- */}
                     { getAreaType.length === 0 ?
                     (
                         <div className="d-flex justify-content-center align-items-center admin-no-result">Aucun résultat...</div>

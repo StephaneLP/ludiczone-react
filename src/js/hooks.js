@@ -12,7 +12,6 @@ Vérifie que l'utilisateur est bien administrateur :
 *********************************************************/
 const useCheckIsAdmin = (token, route) => {
     const navigate = useNavigate()
-    let navParams = {} // Paramètres pour la redirection en cas d'erreur
 
     useEffect(() => {
         fetch("http://localhost:3001/api/auth/checkRole/admin", {
@@ -28,7 +27,7 @@ const useCheckIsAdmin = (token, route) => {
             - route de redirection renseignée
             - nettoyage du localStorage et redirection
             *********************************************************/
-            navParams = {...checkStatus(res.status, route)}
+            let navParams = {...checkStatus(res.status, route)}
             if(navParams.route !== "") {
                 cleanLocalStorage()
                 navigate(navParams.route,{state: navParams.state})
