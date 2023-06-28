@@ -9,7 +9,7 @@ import { useLocation, useSearchParams } from 'react-router-dom'
 const Search = () => {
     const location = useLocation()
     const [queryParameters] = useSearchParams()
-console.log(queryParameters.get("filter"))
+
     useEffect(() => window.scrollTo(0,0),[])
 
     /*********************************************************

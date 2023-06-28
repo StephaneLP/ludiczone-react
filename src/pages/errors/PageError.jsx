@@ -9,7 +9,7 @@ const PageError = () => {
     
     // Message d'erreur passé en paramètre
     if(location.state !== null) {
-        message = location.state.message
+        message = location.state
     }
 
     return (

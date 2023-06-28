@@ -8,7 +8,7 @@ import { colorMsg, cleanLocalStorage } from "../../js/utils.js"
 import NoMenu from "../../layout/menu/NoMenu"
 
 /* Import des Hooks & composants react-rooter */
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { Link, useLocation, useNavigate } from "react-router-dom"
 
 /* ------------------------------------- JAVASCRIPT ------------------------------------ */
@@ -17,16 +17,8 @@ const Connect = () => {
     const navigate = useNavigate()
     const location = useLocation()
 
-    /*********************************************************
-    Connect est-il appélé pour une reconnexion (token expiré) ?
-    - location.state contient une valeur booléenne : true/false
-    *********************************************************/
-    // const isReconnect = location.state || false
-    const[isReconnect] = useState(location.state || false)
-    // const[isReconnect,setIsReconnect] = useState(false)
-    // useEffect(() => {
-    //     setIsReconnect(location.state || false)
-    // },[location.state])
+    // Le composant est-il appélé pour une reconnexion (token expiré) ?
+    const isReconnect = location.state || false
 
     // Messages et focus d'erreur
     const[errorMessage, setErrorMessage] = useState({libelle: "", color: ""})
