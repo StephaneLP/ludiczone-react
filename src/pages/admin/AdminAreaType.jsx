@@ -31,11 +31,13 @@ const AdminAreaType = () => {
     est récupéré et placé dans la variable messageFromState
     (méthode utilisée pour éviter d'utiliser location dans un useEffect)
     *********************************************************/
-    const[messageFromState,setMessageFromState] = useState("")
+    const[messageFromState, setMessageFromState] = useState("")
 
     if(location.state !== null) {
         if(location.state.success) {
+            console.log("stop 3")
             setMessageFromState(location.state.message)
+            console.log("3 : ", location.state.message, "/",messageFromState)
         }
         location.state = null
     }  
@@ -163,8 +165,10 @@ const AdminAreaType = () => {
             })
             .then((res) => {
                 setGetAreaType(res.data)
+                console.log("stop 1 : ", messageFromState)
                 /* Affichage du message confirmant la création ou la modification */
                 if(messageFromState !== ""){
+                    console.log("stop 2")
                     setDisplayMessage({libelle: messageFromState, color: colorMsg.success})
                     setMessageFromState("")
                 }
