@@ -22,8 +22,8 @@ const SearchResult = (props) => {
 
     /*********************************************************
     Initialisation du filtre au 1er chargement du composant :
-    - paramètre type_id ou zone_id appliqué 
-      si appel du composant à partir de la page d'accueil
+    - paramètre type_id ou zone_id appliqué si appel 
+      du composant à partir de la page d'accueil
     *********************************************************/
     const [params, setParams] = useState(props.params)
 
