@@ -2,13 +2,13 @@
 import "./login.scss"
 
 /* Import des fonctions, variables & images */
-import { colorMsg } from "../../js/utils.js"
+import { colorMsg, cleanLocalStorage } from "../../js/utils.js"
 
 /* Import des composants */
 import NoMenu from "../../layout/menu/NoMenu"
 
 /* Import des Hooks & composants react-rooter */
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Link, useLocation, useNavigate } from "react-router-dom"
 
 /* ------------------------------------- JAVASCRIPT ------------------------------------ */
@@ -18,16 +18,15 @@ const Connect = () => {
     const location = useLocation()
 
     /*********************************************************
-    Le composant est-il appélé pour une première authentification
-    ou pour une reconnexion suite à expiration du token ?
+    Connect est-il appélé pour une reconnexion (token expiré) ?
+    - location.state contient une valeur booléenne : true/false
     *********************************************************/
-    const isReconnect = location.state || false
-
+    // const isReconnect = location.state || false
+    const[isReconnect] = useState(location.state || false)
     // const[isReconnect,setIsReconnect] = useState(false)
-    // if(location.state !== null) {
-    //     setIsReconnect(location.state)
-    //     location.state = null
-    // }
+    // useEffect(() => {
+    //     setIsReconnect(location.state || false)
+    // },[location.state])
 
     // Messages et focus d'erreur
     const[errorMessage, setErrorMessage] = useState({libelle: "", color: ""})
@@ -90,18 +89,12 @@ const Connect = () => {
                 localStorage.setItem("jwt",res.token) // Token enregistré dans le localStorage
                 localStorage.setItem("pseudo",res.data.nick_name) // Pseudo enregistré dans le localStorage
                 if(isReconnect) {
-                    navigate(-1) // Si reconnexion, retour au composant appelant
+                    navigate(-2) // Si reconnexion, retour au composant appelant
                 }
                 else {
                     navigate("/")
                 }
             })
-    }
-
-    /* Nettoyage du localStorage si annulation */
-    const handleCancleClick = () => {
-        localStorage.removeItem("jwt")
-        localStorage.removeItem("pseudo")
     }
 
 /* ---------------------------------------- JSX ---------------------------------------- */
@@ -168,7 +161,7 @@ const Connect = () => {
                                     <input className="btn-confirm" tabIndex="3" type="submit" value="Valider" />
                                 </div>
                                 <div>
-                                    <Link to="/" className="btn-lien" onClick={handleCancleClick}>Annuler</Link>
+                                    <Link to="/" className="btn-lien" onClick={cleanLocalStorage}>Annuler</Link>
                                 </div>
                             </div>
                         </div>

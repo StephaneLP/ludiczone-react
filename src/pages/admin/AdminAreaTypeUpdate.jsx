@@ -27,7 +27,6 @@ const AdminAreaTypeUpdate = () => {
     const[updateDescription, setUpdateDescription] = useState("")
     const[updatePicture, setUpdatePicture] = useState("default.jpg")
 
-
     //////////////////////////////////////////////////////////
     // GET (initialisation du formulaire)
     //////////////////////////////////////////////////////////
