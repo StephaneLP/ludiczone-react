@@ -1,20 +1,14 @@
-/* Import du style */
-import "./admin.scss"
+import "../admin.scss"
 
-/* Import des fonctions, variables & images */
-import { colorMsg } from "../../js/utils.js"
+import Loader from "../../../components/loader/Loader"
+import Menu from "../../../layout/menu/Menu"
 
-/* Import des composants */
-import Loader from "../../components/loader/Loader"
-import Menu from "../../layout/menu/Menu"
-
-/* Import des Hooks & composants react-rooter */
+import { colorMsg } from "../../../js/utils.js"
+// import { useCheckTokenRole } from "../../js/hooks.js"
 import { useEffect, useState } from "react"
 import { Link, useNavigate, useLocation, useParams } from "react-router-dom"
 
-/* ------------------------------------- JAVASCRIPT ------------------------------------ */
-
-const AdminAreaTypeUpdate = () => {
+const AdminAreaZoneUpdate = () => {
     const token = localStorage.getItem("jwt")
     const navigate = useNavigate()
     const location = useLocation()
@@ -28,42 +22,22 @@ const AdminAreaTypeUpdate = () => {
     const[updatePicture, setUpdatePicture] = useState("default.jpg")
 
     //////////////////////////////////////////////////////////
+    // CONTROLE DE LA VALIDITE DU TOKEN ET DES DROITS
+    //////////////////////////////////////////////////////////
+
+    // useCheckTokenRole(token, "admin", location.pathname)
+
+    //////////////////////////////////////////////////////////
     // GET (initialisation du formulaire)
     //////////////////////////////////////////////////////////
 
     useEffect(() => {
-        const requestOptions = {
-            method: "GET",
+        fetch("http://localhost:3001/api/areazone/" + id,{
             headers: {
                 "Content-Type": "application/json",
                 authorization: `Bearer ${token}`,
-            },
-        }
-
-        fetch("http://localhost:3001/api/areatype/admin/" + id, requestOptions)
+            }})
             .then((res) => {
-                switch(res.status ) {
-                    case 401:
-                        navigate('/connect',{
-                            state: {
-                                reconnect: true,
-                                route: location.pathname
-                            }
-                        })
-                        break
-                    case 403:
-                        localStorage.removeItem("jwt")
-                        localStorage.removeItem("pseudo")
-                        navigate('/erreur',{
-                            state: {message: "Vous n'avez pas les droits requis. Veuillez vous reconnecter S.V.P."}
-                        })
-                        break
-                    case 500:
-                    navigate('/erreur',{
-                        state: {message: "Une erreur interne au serveur est survenue (Erreur 500)."}
-                    })
-                    break
-                }
                 return res.json()          
             })
             .then((res) => {
@@ -72,6 +46,16 @@ const AdminAreaTypeUpdate = () => {
                     setUpdateDescription(res.data.description)
                     setUpdatePicture(res.data.picture)
                     setGetAreaType(res.data)
+                }
+                else {
+                    navigate('/admin-area-zone',{
+                        state: {
+                            alter: {
+                                success: false,
+                                message: res.message                            
+                            }
+                        }
+                    })
                 }
             })
     },[id, navigate, token])
@@ -89,8 +73,8 @@ const AdminAreaTypeUpdate = () => {
             window.scrollTo(0,0)
             return
         }
-        
-        const requestOptions = {
+
+        fetch("http://localhost:3001/api/areazone/" + id,{
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
@@ -101,15 +85,13 @@ const AdminAreaTypeUpdate = () => {
                 description: updateDescription,
                 picture: updatePicture,
             })
-        }
-
-        fetch("http://localhost:3001/api/areatype/admin/" + id, requestOptions)
+        })
         .then((res) => {
             if(res.status === 401) {
                 navigate('/connect',{
                     state: {
                         reconnect: true,
-                        route: "/admin-area-type-update/" + id
+                        route: "/admin-area-zone-update/" + id
                     }
                 })
             }
@@ -122,10 +104,12 @@ const AdminAreaTypeUpdate = () => {
         })
         .then((res) => {
             if(res.success) {
-                navigate('/admin-area-type',{
+                navigate('/admin-area-zone',{
                     state: {
-                        success: true,
-                        message: res.message           
+                        alter: {
+                            success: true,
+                            message: res.message                            
+                        }
                     }
                 })
             }
@@ -139,13 +123,15 @@ const AdminAreaTypeUpdate = () => {
         window.scrollTo(0,0)
     }
 
-/* ---------------------------------------- JSX ---------------------------------------- */
+    //////////////////////////////////////////////////////////
+    // JSX
+    //////////////////////////////////////////////////////////
 
     return (
     <main>
         <Menu />
         <section className="container-fluid admin">
-            <h1>Modifier un type de loisir</h1>
+            <h1>Modifier une zone</h1>
             <div className="container">
                 {getAreaType === null ?
                 (<Loader />)
@@ -189,7 +175,7 @@ const AdminAreaTypeUpdate = () => {
                                 <div className="admin-alter-cellule">
                                     <label>
                                         <span className="label-libelle">Image</span>
-                                        <div className="admin-alter-img" style={{backgroundImage: `url(${require("../../assets/images/pages/area-type/" + updatePicture)})`}}></div>
+                                        <div className="admin-alter-img" style={{backgroundImage: `url(${require("../../../assets/images/pages/area-zone/" + updatePicture)})`}}></div>
                                     </label>                            
                                 </div>
                             </div>
@@ -207,7 +193,7 @@ const AdminAreaTypeUpdate = () => {
                                         <input className="btn-confirm" type="submit" value="Enregistrer" />
                                     </div>
                                     <div>
-                                        <Link className="btn-confirm-no" to="/admin-area-type" aria-current="page" href="#">Annuler</Link>
+                                        <Link className="btn-confirm-no" to="/admin-area-zone" aria-current="page" href="#">Annuler</Link>
                                     </div>
                                 </div>
                             </div>
@@ -221,4 +207,4 @@ const AdminAreaTypeUpdate = () => {
     )
 }
 
-export default AdminAreaTypeUpdate
+export default AdminAreaZoneUpdate

@@ -6,12 +6,12 @@ import Search from "./pages/search/Search"
 import Connect from "./pages/login/Connect"
 
 /* Import des composants : Administration */
-import AdminAreaType from "./pages/admin/AdminAreaType"
-import AdminAreaTypeCreate from "./pages/admin/AdminAreaTypeCreate"
-import AdminAreaTypeUpdate from "./pages/admin/AdminAreaTypeUpdate"
-import AdminAreaZone from "./pages/admin/AdminAreaZone"
-import AdminAreaZoneCreate from "./pages/admin/AdminAreaZoneCreate"
-import AdminAreaZoneUpdate from "./pages/admin/AdminAreaZoneUpdate"
+import AdminAreaType from "./pages/admin/area-type/AdminAreaType"
+import AdminAreaTypeCreate from "./pages/admin/area-type/AdminAreaTypeCreate"
+import AdminAreaTypeUpdate from "./pages/admin/area-type/AdminAreaTypeUpdate"
+import AdminAreaZone from "./pages/admin/area-zone/AdminAreaZone"
+import AdminAreaZoneCreate from "./pages/admin/area-zone/AdminAreaZoneCreate"
+import AdminAreaZoneUpdate from "./pages/admin/area-zone/AdminAreaZoneUpdate"
 
 /* Import des composants : Erreurs */
 import PageError from "./pages/errors/PageError"

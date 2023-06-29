@@ -1,16 +1,16 @@
 /* Import du style */
-import "./admin.scss"
+import "../admin.scss"
 
 /* Import des fonctions, variables & images */
-import { colorMsg, formatDate, cleanLocalStorage, checkStatus } from "../../js/utils.js"
-import imgDelete from "../../assets/images/button/garbage.png"
-import imgUpdate from "../../assets/images/button/pencil2.png"
-import imgFilter from "../../assets/images/button/filtre.png"
+import { colorMsg, formatDate, cleanLocalStorage, checkStatus } from "../../../js/utils.js"
+import imgDelete from "../../../assets/images/button/garbage.png"
+import imgUpdate from "../../../assets/images/button/pencil2.png"
+import imgFilter from "../../../assets/images/button/filtre.png"
 
 /* Import des composants */
-import Loader from "../../components/loader/Loader"
-import Menu from "../../layout/menu/Menu"
-import ModalConfirm from "../../components/modalconfirm/ModalConfirm"
+import Loader from "../../../components/loader/Loader"
+import Menu from "../../../layout/menu/Menu"
+import ModalConfirm from "../../../components/modalconfirm/ModalConfirm"
 
 /* Import des Hooks & composants react-rooter */
 import { useEffect, useState } from "react"
@@ -26,21 +26,8 @@ const AdminAreaType = () => {
     
     useEffect(() => {window.scrollTo(0,0)},[])
 
-    /*********************************************************
-    Le message de succès de création ou de modification, passé en paramètre,
-    est récupéré et placé dans la variable messageFromState
-    (méthode utilisée pour éviter d'utiliser location dans un useEffect)
-    *********************************************************/
-    const[messageFromState, setMessageFromState] = useState("")
-
-    if(location.state !== null) {
-        if(location.state.success) {
-            console.log("stop 3")
-            setMessageFromState(location.state.message)
-            console.log("3 : ", location.state.message, "/",messageFromState)
-        }
-        location.state = null
-    }  
+    /* Message optionnel de succès de création ou de modification d'une salle */
+    const[paramsFromState, setParamsFromState] = useState(location.state)
 
     /*********************************************************
     API DELETE
@@ -165,14 +152,13 @@ const AdminAreaType = () => {
             })
             .then((res) => {
                 setGetAreaType(res.data)
-                console.log("stop 1 : ", messageFromState)
                 /* Affichage du message confirmant la création ou la modification */
-                if(messageFromState !== ""){
-                    console.log("stop 2")
-                    setDisplayMessage({libelle: messageFromState, color: colorMsg.success})
-                    setMessageFromState("")
+                if(paramsFromState !== null){
+                    if(paramsFromState.success) {
+                        setDisplayMessage({libelle: paramsFromState.message, color: colorMsg.success})
+                        setParamsFromState(null)
+                    }
                 }
-
             })
             .catch((error) => {
                 if(error.message !== "status") {
@@ -180,7 +166,7 @@ const AdminAreaType = () => {
                     navigate('/erreur',{state: {message: error.message}})
                 }               
             })
-    },[displayConfirmDelete, filterParam, token, messageFromState, navigate])
+    },[displayConfirmDelete, filterParam, token, paramsFromState, navigate])
 
 /* ---------------------------------------- JSX ---------------------------------------- */
 
@@ -253,7 +239,7 @@ const AdminAreaType = () => {
                             return (
                                 <div className="row admin-row" key={element.id}>
                                     <div className="col-12 col-lg-2">
-                                        <div className="admin-row-img" style={{backgroundImage: `url(${require("../../assets/images/pages/area-type/" + element.picture)})`}}></div>
+                                        <div className="admin-row-img" style={{backgroundImage: `url(${require("../../../assets/images/pages/area-type/" + element.picture)})`}}></div>
                                     </div>
                                     <div className="col-12 col-lg-3 admin-row-title">
                                         {element.name}

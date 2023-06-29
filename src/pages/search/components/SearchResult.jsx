@@ -13,29 +13,13 @@ import { useNavigate } from 'react-router-dom';
 const SearchResult = (props) => {
     const navigate = useNavigate();
     const [getArea, setGetArea] = useState(null) // Liste des salles
+
     const [filterParam, setFilterParam] = useState({ // Tri & filtre
         sort: "asc",
         search: "",
-        typeId: "",
-        zoneId: "",
+        typeId: props.typeId,
+        zoneId: props.zoneId,
     })
-
-    /*********************************************************
-    Initialisation du filtre au 1er chargement du composant :
-    - paramètre type_id ou zone_id appliqué si appel 
-      du composant à partir de la page d'accueil
-    *********************************************************/
-    const [params, setParams] = useState(props.params)
-
-    if(params) {
-        if(params.filter !== "") {
-            let newParam = {...filterParam}
-            newParam.typeId = (params.filter === "type" ? params.id : "")
-            newParam.zoneId = (params.filter === "zone" ? params.id : "")
-            setFilterParam(newParam)
-            setParams(null)
-        }
-    }
 
     /*********************************************************
     API GET

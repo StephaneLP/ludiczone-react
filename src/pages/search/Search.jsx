@@ -4,28 +4,24 @@ import SearchResult from "./components/SearchResult"
 
 /* Import des Hooks & composants react-rooter */
 import { useEffect } from "react"
-import { useLocation, useSearchParams } from 'react-router-dom'
+import { useSearchParams } from 'react-router-dom'
 
 const Search = () => {
-    const location = useLocation()
-    const [queryParameters] = useSearchParams()
-
     useEffect(() => window.scrollTo(0,0),[])
 
     /*********************************************************
     Si le composant est appelé depuis la page d'accueil,
-    un paramètre type_id ou zone_id est transmis au composant
-    SearchResult pour initialiser le filtre de la lsite des salles
+    un paramètre typeId ou zoneId est transmis au composant
+    SearchResult pour initialiser le filtre de la liste des salles
     *********************************************************/
-    let params = {filter: "", id: 0}
-    if(location.state !== null) {
-        params = location.state.params
-    } 
+    const [queryParameters] = useSearchParams()
+    const typeId = (queryParameters.get("filter") === "type" ? queryParameters.get("id") : "")
+    const zoneId = (queryParameters.get("filter") === "zone" ? queryParameters.get("id") : "")
 
     return (
         <main>
             <Menu />
-            <SearchResult params={params}/>
+            <SearchResult typeId={typeId} zoneId={zoneId} />
         </main>
     )
 }

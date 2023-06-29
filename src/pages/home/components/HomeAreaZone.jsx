@@ -38,11 +38,7 @@ const HomeZoneSortie = () => {
     - id zone passé en paramètre pour le filtre
     *********************************************************/    
     const handleClickNavigate = (id) => {
-        navigate('/search',{
-            state: {
-                params: {filter: "zone", id: id},
-              }
-        })
+        navigate('/search?filter=zone&id=' + id)
     }
 
 /* ---------------------------------------- JSX ---------------------------------------- */

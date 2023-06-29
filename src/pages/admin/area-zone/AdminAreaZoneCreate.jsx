@@ -1,20 +1,13 @@
-/* Import du style */
-import "./admin.scss"
+import "../admin.scss"
 
-/* Import des fonctions, variables & images */
-import { colorMsg } from "../../js/utils.js"
+import Menu from "../../../layout/menu/Menu"
 
-/* Import des composants */
-import Menu from "../../layout/menu/Menu"
-
-/* Import des Hooks & composants react-rooter */
+import { colorMsg } from "../../../js/utils.js"
+// import { useCheckTokenRole } from "../../js/hooks.js"
 import { useState } from "react"
 import { Link, useNavigate, useLocation } from "react-router-dom"
-import { useCheckIsAdmin } from "../../js/hooks.js"
 
-/* ------------------------------------- JAVASCRIPT ------------------------------------ */
-
-const AdminAreaTypeCreate = () => {
+const AdminAreaZoneCreate = () => {
     const token = localStorage.getItem("jwt")
     const navigate = useNavigate()
     const location = useLocation()
@@ -29,7 +22,7 @@ const AdminAreaTypeCreate = () => {
     // CONTROLE DE LA VALIDITE DU TOKEN ET DES DROITS
     //////////////////////////////////////////////////////////
 
-    useCheckIsAdmin(token, location.pathname)
+    // useCheckTokenRole(token, "admin", location.pathname)
 
     //////////////////////////////////////////////////////////
     // CREATE
@@ -45,7 +38,7 @@ const AdminAreaTypeCreate = () => {
             return
         }
 
-        const requestOptions = {
+        fetch("http://localhost:3001/api/areazone",{
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -56,15 +49,13 @@ const AdminAreaTypeCreate = () => {
                 description: createDescription,
                 picture: createPicture,
             })
-        }
-
-        fetch("http://localhost:3001/api/areatype/admin", requestOptions)
+        })
         .then((res) => {
             if(res.status === 401) {
                 navigate('/connect',{
                     state: {
                         reconnect: true,
-                        route: "/admin-area-type-create"
+                        route: "/admin-area-zone-create"
                     }
                 })
             }
@@ -77,10 +68,12 @@ const AdminAreaTypeCreate = () => {
         })
         .then((res) => {
             if(res.success) {
-                navigate('/admin-area-type',{
+                navigate('/admin-area-zone',{
                     state: {
-                        success: true,
-                        message: res.message     
+                        alter: {
+                            success: true,
+                            message: res.message                            
+                        }
                     }
                 })
             }
@@ -94,13 +87,15 @@ const AdminAreaTypeCreate = () => {
         window.scrollTo(0,0)
     }
 
-/* ---------------------------------------- JSX ---------------------------------------- */
+    //////////////////////////////////////////////////////////
+    // JSX
+    //////////////////////////////////////////////////////////
 
     return (
     <main>
         <Menu />
         <section className="container-fluid admin">
-            <h1>Ajouter un type de loisir</h1>
+            <h1>Ajouter une zone</h1>
             <div className="container">
                 <div className="admin-message d-flex justify-content-center align-items-center">
                     <div style={{backgroundColor: adminMessage.color}}>{adminMessage.libelle}</div>
@@ -137,7 +132,7 @@ const AdminAreaTypeCreate = () => {
                             <div className="admin-alter-cellule">
                                 <label>
                                     <span className="label-libelle">Image</span>
-                                    <div className="admin-alter-img" style={{backgroundImage: `url(${require("../../assets/images/pages/area-type/" + createPicture)})`}}></div>
+                                    <div className="admin-alter-img" style={{backgroundImage: `url(${require("../../../assets/images/pages/area-zone/" + createPicture)})`}}></div>
                                 </label>                            
                             </div>
                         </div>
@@ -155,7 +150,7 @@ const AdminAreaTypeCreate = () => {
                                     <input className="btn-confirm" type="submit" value="Enregistrer" />
                                 </div>
                                 <div>
-                                    <Link className="btn-confirm-no" to="/admin-area-type" aria-current="page" href="#">Annuler</Link>
+                                    <Link className="btn-confirm-no" to="/admin-area-zone" aria-current="page" href="#">Annuler</Link>
                                 </div>
                             </div>
                         </div>
@@ -167,4 +162,4 @@ const AdminAreaTypeCreate = () => {
     )
 }
 
-export default AdminAreaTypeCreate
+export default AdminAreaZoneCreate

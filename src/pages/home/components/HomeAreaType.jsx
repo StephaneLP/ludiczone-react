@@ -38,11 +38,7 @@ const HomeTypeSortie = () => {
     - id type passé en paramètre pour le filtre
     *********************************************************/  
     const handleClickNavigate = (id) => {
-        navigate('/search?filter=type&id=' + id,{
-            state: {
-                params: {filter: "type", id: id},
-              }
-        })
+        navigate('/search?filter=type&id=' + id)
     }
 
 /* ---------------------------------------- JSX ---------------------------------------- */

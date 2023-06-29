@@ -1,13 +1,13 @@
-import "./admin.scss"
-import imgDelete from "../../assets/images/button/garbage.png"
-import imgUpdate from "../../assets/images/button/pencil2.png"
-import imgFilter from "../../assets/images/button/filtre.png"
+import "../admin.scss"
+import imgDelete from "../../../assets/images/button/garbage.png"
+import imgUpdate from "../../../assets/images/button/pencil2.png"
+import imgFilter from "../../../assets/images/button/filtre.png"
 
-import Loader from "../../components/loader/Loader"
-import Menu from "../../layout/menu/Menu"
-import ModalConfirm from "../../components/modalconfirm/ModalConfirm"
+import Loader from "../../../components/loader/Loader"
+import Menu from "../../../layout/menu/Menu"
+import ModalConfirm from "../../../components/modalconfirm/ModalConfirm"
 
-import { colorMsg, formatDate } from "../../js/utils.js"
+import { colorMsg, formatDate } from "../../../js/utils.js"
 // import { useCheckTokenRole } from "../../js/hooks.js"
 import { useEffect, useState } from "react"
 import { Link, useNavigate, useLocation } from "react-router-dom"
@@ -206,7 +206,7 @@ const AdminAreaZone = () => {
                             return (
                                 <div className="row admin-row" key={element.id}>
                                     <div className="col-12 col-lg-2">
-                                        <div className="admin-row-img" style={{backgroundImage: `url(${require("../../assets/images/pages/area-zone/" + element.picture)})`}}></div>
+                                        <div className="admin-row-img" style={{backgroundImage: `url(${require("../../../assets/images/pages/area-zone/" + element.picture)})`}}></div>
                                     </div>
                                     <div className="col-12 col-lg-3 admin-row-title">
                                         {element.name}
