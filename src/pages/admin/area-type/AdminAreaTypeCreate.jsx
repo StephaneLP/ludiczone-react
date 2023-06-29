@@ -79,8 +79,8 @@ const AdminAreaTypeCreate = () => {
             if(res.success) {
                 navigate('/admin-area-type',{
                     state: {
-                        success: true,
-                        message: res.message     
+                        libelle: res.message,
+                        color: colorMsg.success,
                     }
                 })
             }

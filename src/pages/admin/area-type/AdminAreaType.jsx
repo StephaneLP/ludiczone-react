@@ -22,12 +22,11 @@ const AdminAreaType = () => {
     const token = localStorage.getItem("jwt")
     const navigate = useNavigate()
     const location = useLocation()
-    const[displayMessage, setDisplayMessage] = useState({libelle: "", color: ""})
+
+    /* Message optionnel affiché au chargement de la page (location.state) */
+    const[displayMessage, setDisplayMessage] = useState(location.state ? location.state : {libelle: "", color: ""})
     
     useEffect(() => {window.scrollTo(0,0)},[])
-
-    /* Message optionnel de succès de création ou de modification d'une salle */
-    const[paramsFromState, setParamsFromState] = useState(location.state)
 
     /*********************************************************
     API DELETE
@@ -92,7 +91,6 @@ const AdminAreaType = () => {
 
     /*********************************************************
     FILTRE
-    - confirmation avec le composant modalConfirm
     *********************************************************/
     const[filterParam, setFilterParam] = useState({
         sort: "asc",
@@ -123,8 +121,6 @@ const AdminAreaType = () => {
     const[getAreaType, setGetAreaType] = useState(null)
     
     useEffect(() => {
-        let navParams = {} // Paramètres pour la redirection en cas d'erreur
-        
         const requestUrlParams = 
             "sort=" + filterParam.sort +
             "&name=" + filterParam.name
@@ -142,7 +138,7 @@ const AdminAreaType = () => {
                 - route de redirection renseignée
                 - nettoyage du localStorage et redirection
                 *********************************************************/
-                navParams = {...checkStatus(res.status, "/admin-area-type")}
+                const navParams = {...checkStatus(res.status)}
                 if(navParams.route !== "") {
                     cleanLocalStorage()
                     navigate(navParams.route,{state: navParams.state})
@@ -152,13 +148,6 @@ const AdminAreaType = () => {
             })
             .then((res) => {
                 setGetAreaType(res.data)
-                /* Affichage du message confirmant la création ou la modification */
-                if(paramsFromState !== null){
-                    if(paramsFromState.success) {
-                        setDisplayMessage({libelle: paramsFromState.message, color: colorMsg.success})
-                        setParamsFromState(null)
-                    }
-                }
             })
             .catch((error) => {
                 if(error.message !== "status") {
@@ -166,7 +155,7 @@ const AdminAreaType = () => {
                     navigate('/erreur',{state: {message: error.message}})
                 }               
             })
-    },[displayConfirmDelete, filterParam, token, paramsFromState, navigate])
+    },[displayConfirmDelete, filterParam, token, navigate])
 
 /* ---------------------------------------- JSX ---------------------------------------- */
 
