@@ -58,12 +58,17 @@ const AdminAreaType = () => {
                     - route de redirection renseignée
                     - nettoyage du localStorage et redirection
                     *********************************************************/
-                    navParams = {...checkStatus(res.status, "/admin-area-type")}
-                    if(navParams.route !== "") {
-                        cleanLocalStorage()
-                        navigate(navParams.route,{state: navParams.state})
-                        throw new Error("status")
+                    // navParams = {...checkStatus(res.status, "/admin-area-type")}
+                    // if(navParams.route !== "") {
+                    //     cleanLocalStorage()
+                    //     navigate(navParams.route,{state: navParams.state})
+                    //     throw new Error("status")
+                    // }
+
+                    if(res.status !== 200) {
+                        throw new Error("status : " + res, {cause: res.status})
                     }
+
                     return res.json() 
                 })
                 .then((res) => {
@@ -75,6 +80,12 @@ const AdminAreaType = () => {
                     }
                 })
                 .catch((error) => {
+                    console.log("NAME : " + error.name, " / MESSAGE : ",error.message, " / CAUSE : ",error.cause, " / STACK : ",error.stack)
+                    // if(error.message === "status") {
+                    //     console.log("ERREUR : ", error.cause)
+                    // }
+
+
                     if(error.message !== "status") {
                         setDisplayMessage({libelle: error, color: colorMsg.error})
                     }
@@ -133,16 +144,8 @@ const AdminAreaType = () => {
             },
         })
             .then((res) => {
-                /*********************************************************
-                Vérification du statut de la réponse. Si status <> 200 :
-                - route de redirection renseignée
-                - nettoyage du localStorage et redirection
-                *********************************************************/
-                const navParams = {...checkStatus(res.status)}
-                if(navParams.route !== "") {
-                    cleanLocalStorage()
-                    navigate(navParams.route,{state: navParams.state})
-                    throw new Error("status")
+                if(!res.ok) {
+                    throw new Error("status", {cause: res.status})
                 }
                 return res.json()
             })
@@ -150,6 +153,20 @@ const AdminAreaType = () => {
                 setGetAreaType(res.data)
             })
             .catch((error) => {
+
+                /*********************************************************
+                Vérification du statut de la réponse. Si status <> 200 :
+                - route de redirection renseignée
+                - nettoyage du localStorage et redirection
+                *********************************************************/
+
+                // const navParams = {...checkStatus(res.status)}
+                // if(navParams.route !== "") {
+                //     cleanLocalStorage()
+                //     navigate(navParams.route,{state: navParams.state})
+                //     throw new Error("status")
+                // }
+
                 if(error.message !== "status") {
                     cleanLocalStorage()
                     navigate('/erreur',{state: {message: error.message}})
