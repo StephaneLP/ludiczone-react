@@ -71,21 +71,27 @@ const Connect = () => {
             body: requestBody
         })
             .then((res) => {
-                return res.json()          
+                console.log("Res : ", res)
+                if(res.status === 500) throw new Error("Erreur interne au serveur (500).")
+                return res.json()
             })
             .then((res) => {
-                if(!res.success) {
+                if(!res.success) { // Identifiant et/ou mot de passe erronés
                     setErrorMessage({libelle: res.message, color: colorMsg.error})
                     return
                 }
-                localStorage.setItem("jwt",res.token) // Token enregistré dans le localStorage
-                localStorage.setItem("pseudo",res.data.nick_name) // Pseudo enregistré dans le localStorage
+                localStorage.setItem("jwt",res.data.jeton) // Token enregistré dans le localStorage
+                localStorage.setItem("pseudo",res.data.identifiant) // Pseudo enregistré dans le localStorage
                 if(isReconnect) {
                     navigate(-2) // Si reconnexion, retour au composant appelant
                 }
                 else {
                     navigate("/")
                 }
+            })
+            .catch((error) => {
+                cleanLocalStorage()
+                navigate('/erreur',{state: error.message})
             })
     }
 

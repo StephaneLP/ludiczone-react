@@ -5,13 +5,10 @@ import { Link, useLocation } from 'react-router-dom'
 
 const PageError = () => {
     const location = useLocation()
-    let message = ""
-    
-    // Message d'erreur passé en paramètre
-    if(location.state !== null) {
-        message = location.state
-    }
 
+    // Message d'erreur passé en paramètre
+    const message = location.state || null
+    
     return (
         <main>
             <NoMenu />
