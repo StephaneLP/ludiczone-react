@@ -71,7 +71,9 @@ const Connect = () => {
             body: requestBody
         })
             .then((res) => {
-                return res.json()          
+                console.log("Res : ", res)
+                if(res.status === 500) throw new Error("Erreur interne au serveur (500).")
+                return res.json()
             })
             .then((res) => {
                 if(["ERR_REQUEST","ERR_AUTHENTICATION"].includes(res.status)) {
@@ -91,6 +93,10 @@ const Connect = () => {
                 else {
                     navigate("/")
                 }
+            })
+            .catch((error) => {
+                cleanLocalStorage()
+                navigate('/erreur',{state: error.message})
             })
     }
 

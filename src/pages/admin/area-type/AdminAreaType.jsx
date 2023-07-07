@@ -65,9 +65,7 @@ const AdminAreaType = () => {
                     //     throw new Error("status")
                     // }
 
-                    if(res.status !== 200) {
-                        throw new Error("status : " + res, {cause: res.status})
-                    }
+                    if(res.status in [400,401,403,500]) throw new Error("status", {cause: res.status})
 
                     return res.json() 
                 })
@@ -87,7 +85,7 @@ const AdminAreaType = () => {
 
 
                     if(error.message !== "status") {
-                        setDisplayMessage({libelle: error, color: colorMsg.error})
+                        setDisplayMessage({libelle: error.message, color: colorMsg.error})
                     }
                 })
 
@@ -144,7 +142,8 @@ const AdminAreaType = () => {
             },
         })
             .then((res) => {
-                if(!res.ok) {
+                // Si erreur authentification, droits ou serveur : redirection
+                if([400,401,403,500].includes(res.status)) {
                     throw new Error("status", {cause: res.status})
                 }
                 return res.json()
@@ -153,7 +152,7 @@ const AdminAreaType = () => {
                 setGetAreaType(res.data)
             })
             .catch((error) => {
-
+console.log("ARRET : ", error.cause)
                 /*********************************************************
                 Vérification du statut de la réponse. Si status <> 200 :
                 - route de redirection renseignée

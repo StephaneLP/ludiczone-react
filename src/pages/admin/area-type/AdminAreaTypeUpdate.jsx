@@ -59,6 +59,10 @@ const AdminAreaTypeUpdate = () => {
                             state: {message: "Vous n'avez pas les droits requis. Veuillez vous reconnecter S.V.P."}
                         })
                         break
+                    case 404:
+                        console.log("OK")
+                        navigate("/admin-area-type")
+                        break
                     case 500:
                     navigate('/erreur',{
                         state: {message: "Une erreur interne au serveur est survenue (Erreur 500)."}
