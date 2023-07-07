@@ -22,6 +22,7 @@ const useCheckIsAdmin = (token, route) => {
             },
         })
         .then((res) => {
+            console.log(res)
             /*********************************************************
             Vérification du statut de la réponse. Si status <> 200 :
             - route de redirection renseignée

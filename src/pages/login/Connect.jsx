@@ -74,11 +74,16 @@ const Connect = () => {
                 return res.json()          
             })
             .then((res) => {
-                if(!res.success) {
+                if(["ERR_REQUEST","ERR_AUTHENTICATION"].includes(res.status)) {
                     setErrorMessage({libelle: res.message, color: colorMsg.error})
                     return
                 }
-                localStorage.setItem("jwt",res.token) // Token enregistré dans le localStorage
+                if(["ERR_SERVER"].includes(res.status)) {
+                    navigate("/erreur",{state: {message: res.message}})
+                    return
+                }
+
+                localStorage.setItem("jwt",res.data.token) // Token enregistré dans le localStorage
                 localStorage.setItem("pseudo",res.data.nick_name) // Pseudo enregistré dans le localStorage
                 if(isReconnect) {
                     navigate(-2) // Si reconnexion, retour au composant appelant
