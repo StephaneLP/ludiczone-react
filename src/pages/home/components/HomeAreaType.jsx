@@ -8,9 +8,12 @@ import Loader from "../../../components/loader/Loader"
 import { useEffect, useState } from "react"
 import { useNavigate } from 'react-router-dom';
 
-/* ------------------------------------- JAVASCRIPT ------------------------------------ */
-
 const HomeTypeSortie = () => {
+
+    /* ------------------------------------------------------------------------------------- */
+    /* ------------------------------------- JAVASCRIPT ------------------------------------ */
+    /* ------------------------------------------------------------------------------------- */
+
     const navigate = useNavigate();
     const[getAreaType, setGetAreaType] = useState(null)
 
@@ -19,19 +22,21 @@ const HomeTypeSortie = () => {
     - Chargement de la liste des types de loisir
     *********************************************************/
     useEffect(() => {
-        const requestOptions = {
+        fetch("http://localhost:3001/api/areatypes", {
             method: "GET",
             headers: { "Content-Type": "application/json" },
-        }
-
-        fetch("http://localhost:3001/api/areatype", requestOptions)
+        })
             .then((res) => {
                 return res.json()
             })
             .then((res) => {
+                if(["ERR_SERVER"].includes(res.status)) {
+                    navigate("/erreur", {state: res.message})
+                    return
+                }
                 setGetAreaType(res.data)
             })
-    },[])
+    },[navigate])
 
     /*********************************************************
     Ouverture de la page Recherche avancée
@@ -41,7 +46,9 @@ const HomeTypeSortie = () => {
         navigate('/search?filter=type&id=' + id)
     }
 
-/* ---------------------------------------- JSX ---------------------------------------- */
+    /* ------------------------------------------------------------------------------------- */
+    /* ---------------------------------------- JSX ---------------------------------------- */
+    /* ------------------------------------------------------------------------------------- */
     
     return (
         <section className="container-fluid home-type">

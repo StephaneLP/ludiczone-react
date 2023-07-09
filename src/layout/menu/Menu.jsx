@@ -9,9 +9,12 @@ import imgLogout from "../../assets/images/button/logout.png"
 import { useEffect, useState } from "react"
 import { Link, useLocation, useNavigate } from "react-router-dom"
 
-/* ------------------------------------- JAVASCRIPT ------------------------------------ */
-
 const Menu = () => {
+
+    /* ------------------------------------------------------------------------------------- */
+    /* ------------------------------------- JAVASCRIPT ------------------------------------ */
+    /* ------------------------------------------------------------------------------------- */
+
     const location = useLocation()
     const navigate = useNavigate()
     const token = localStorage.getItem("jwt")
@@ -25,26 +28,20 @@ const Menu = () => {
       à partir du token
     *********************************************************/
     useEffect(() => {
-        if(token !== null) {
-            fetch("http://localhost:3001/api/auth/checkRole", {
-                method: "GET",
-                headers: {
-                    "Content-Type": "application/json",
-                    authorization: `Bearer ${token}`,
-                },
-            })
-            .then((res) => {
-                return res.json()          
-            })
-            .then((res) => {
-                setIsUser(res.roles.utilisateur)
-                setIsAdmin(res.roles.administrateur)
-            })
-        }
-        else {
-            setIsUser(false)
-            setIsAdmin(false)
-        }
+        fetch("http://localhost:3001/api/auth/checkroles", {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                authorization: `Bearer ${token}`,
+            },
+        })
+        .then((res) => {
+            return res.json()          
+        })
+        .then((res) => {
+            setIsUser(res.isUser)
+            setIsAdmin(res.isAdmin)
+        })
     },[token])
 
     /* Variables booléennes permettant de cibler le menu actif */
@@ -61,7 +58,9 @@ const Menu = () => {
         navigate("/")
     }
 
-/* ---------------------------------------- JSX ---------------------------------------- */
+    /* ------------------------------------------------------------------------------------- */
+    /* ---------------------------------------- JSX ---------------------------------------- */
+    /* ------------------------------------------------------------------------------------- */
 
     return (
         <section className="container-fluid d-flex align-items-center menu">

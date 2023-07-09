@@ -15,7 +15,6 @@ import AdminAreaZoneUpdate from "./pages/admin/area-zone/AdminAreaZoneUpdate"
 
 /* Import des composants : Erreurs */
 import PageError from "./pages/errors/PageError"
-import PageForbiden from "./pages/errors/PageForbiden"
 import PageNotFound from "./pages/errors/PageNotFound"
 import PageUnderConstruction from "./pages/errors/PageUnderConstruction"
 
@@ -40,7 +39,6 @@ function App() {
             <Route path="/admin-area-zone-update/:id" element={<AdminAreaZoneUpdate />} />
             {/* Pages d'erreur */}
             <Route path="/erreur" element={<PageError />} />
-            <Route path="/stop" element={<PageForbiden />} />
             <Route path="/en-construction" element={<PageUnderConstruction />} />
             <Route path="*" element={<PageNotFound />} />
         </Routes>

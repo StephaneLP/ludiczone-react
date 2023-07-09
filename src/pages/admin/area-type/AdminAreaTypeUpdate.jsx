@@ -2,7 +2,7 @@
 import "../admin.scss"
 
 /* Import des fonctions, variables & images */
-import { colorMsg } from "../../../js/utils.js"
+import { colorMsg, cleanLocalStorage } from "../../../js/utils.js"
 
 /* Import des composants */
 import Loader from "../../../components/loader/Loader"
@@ -12,103 +12,95 @@ import Menu from "../../../layout/menu/Menu"
 import { useEffect, useState } from "react"
 import { Link, useNavigate, useLocation, useParams } from "react-router-dom"
 
-/* ------------------------------------- JAVASCRIPT ------------------------------------ */
-
 const AdminAreaTypeUpdate = () => {
+    /* ------------------------------------------------------------------------------------- */
+    /* ------------------------------------- JAVASCRIPT ------------------------------------ */
+    /* ------------------------------------------------------------------------------------- */
+
     const token = localStorage.getItem("jwt")
     const navigate = useNavigate()
     const location = useLocation()
     const { id } = useParams()
-    console.log(id)
 
-    const[getAreaType, setGetAreaType] = useState(null)
-    const[adminMessage, setAdminMessage] = useState({libelle: "", color: ""})
+    const[displayMessage, setDisplayMessage] = useState({libelle: "", color: ""})
     const[focusName, setFocusName] = useState("")
     const[updateName, setUpdateName] = useState("")
     const[updateDescription, setUpdateDescription] = useState("")
     const[updatePicture, setUpdatePicture] = useState("default.jpg")
+    const[getAreaType, setGetAreaType] = useState(null)
 
-    //////////////////////////////////////////////////////////
-    // GET (initialisation du formulaire)
-    //////////////////////////////////////////////////////////
-
+    /*********************************************************
+    API GET BY ID
+    - chargement de l'éélment et initialisation du formulaire
+    *********************************************************/
     useEffect(() => {
-        const requestOptions = {
+        fetch("http://localhost:3001/api/areatypes/admin/" + id, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
                 authorization: `Bearer ${token}`,
-            },
-        }
-
-        fetch("http://localhost:3001/api/areatype/admin/" + id, requestOptions)
+            }})
             .then((res) => {
-                switch(res.status ) {
-                    case 401:
-                        navigate('/connect',{
-                            state: {
-                                reconnect: true,
-                                route: location.pathname
-                            }
-                        })
-                        break
-                    case 403:
-                        localStorage.removeItem("jwt")
-                        localStorage.removeItem("pseudo")
-                        navigate('/erreur',{
-                            state: {message: "Vous n'avez pas les droits requis. Veuillez vous reconnecter S.V.P."}
-                        })
-                        break
-                    case 404:
-                        console.log("OK")
-                        navigate("/admin-area-type")
-                        break
-                    case 500:
-                    navigate('/erreur',{
-                        state: {message: "Une erreur interne au serveur est survenue (Erreur 500)."}
-                    })
-                    break
-                }
                 return res.json()          
             })
             .then((res) => {
-                if(res.success) {
-                    setUpdateName(res.data.name)
-                    setUpdateDescription(res.data.description)
-                    setUpdatePicture(res.data.picture)
-                    setGetAreaType(res.data)
+                // Token invalide
+                if(["ERR_AUTHENTICATION"].includes(res.status)) {
+                    cleanLocalStorage()
+                    navigate("/connect", {state: true})
+                    return
                 }
+                // Token absent - Droits insuffisants - Erreur serveur
+                if(["ERR_REQUEST","ERR_USER_RIGHTS","ERR_SERVER"].includes(res.status)) {
+                    cleanLocalStorage()
+                    navigate("/erreur", {state: res.message})
+                    return
+                }
+                // Erreur de contrainte (intégrité des données)
+                if(["ERR_NOT_FOUND"].includes(res.status)) {
+                    setDisplayMessage({libelle: res.message, color: colorMsg.error})
+                    return
+                }
+
+                setUpdateName(res.data.name)
+                setUpdateDescription(res.data.description)
+                setUpdatePicture(res.data.picture)
+                setGetAreaType(res.data)
+            })
+            .catch((error) => {
+                cleanLocalStorage()
+                navigate('/erreur', {state: error.message})             
             })
     },[id, navigate, token])
 
-    //////////////////////////////////////////////////////////
-    // UPDATE
-    //////////////////////////////////////////////////////////
-
+    /*********************************************************
+    API UPDATE
+    - modification du type de loisir
+    *********************************************************/
     const handleSubmit = (event) => {
         event.preventDefault()
 
         if(updateName === "") {
-            setAdminMessage({libelle: "Veuillez renseigner un nom S.V.P.", color: colorMsg.error})
+            setDisplayMessage({libelle: "Veuillez renseigner un nom S.V.P.", color: colorMsg.error})
             setFocusName(colorMsg.error)
             window.scrollTo(0,0)
             return
         }
-        
-        const requestOptions = {
+
+        const requestBody = JSON.stringify({
+            name: updateName,
+            description: updateDescription,
+            picture: updatePicture,
+        })
+
+        fetch("http://localhost:3001/api/areatype/admin/" + id, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
                 authorization: `Bearer ${token}`,
             },
-            body: JSON.stringify({
-                name: updateName,
-                description: updateDescription,
-                picture: updatePicture,
-            })
-        }
-
-        fetch("http://localhost:3001/api/areatype/admin/" + id, requestOptions)
+            body: requestBody
+        })
         .then((res) => {
             if(res.status === 401) {
                 navigate('/connect',{
@@ -135,11 +127,11 @@ const AdminAreaTypeUpdate = () => {
                 })
             }
             else {
-                setAdminMessage({libelle: res.message, color: colorMsg.error})
+                setDisplayMessage({libelle: res.message, color: colorMsg.error})
             }
         })
         .catch((error) => {
-            setAdminMessage({libelle: error, color: colorMsg.error})
+            setDisplayMessage({libelle: error, color: colorMsg.error})
         })
         window.scrollTo(0,0)
     }
@@ -158,7 +150,7 @@ const AdminAreaTypeUpdate = () => {
                 (
                     <>
                     <div className="admin-message d-flex justify-content-center align-items-center">
-                        <div style={{backgroundColor: adminMessage.color}}>{adminMessage.libelle}</div>
+                        <div style={{backgroundColor: displayMessage.color}}>{displayMessage.libelle}</div>
                     </div>
                     <form className="admin-alter" onSubmit={handleSubmit}>
                         <div className="row">
@@ -174,7 +166,7 @@ const AdminAreaTypeUpdate = () => {
                                 <div className="admin-alter-cellule">
                                     <label>
                                         <span className="label-libelle">Nom</span>
-                                        <input type="text" maxLength="50" value={updateName} onChange={(e) => {setUpdateName(e.target.value); setAdminMessage({libelle: "", color: ""}); setFocusName("")}} style={{borderColor: focusName}} />
+                                        <input type="text" maxLength="50" value={updateName} onChange={(e) => {setUpdateName(e.target.value); setDisplayMessage({libelle: "", color: ""}); setFocusName("")}} style={{borderColor: focusName}} />
                                     </label>                       
                                 </div>
                                 <div className="admin-alter-cellule">

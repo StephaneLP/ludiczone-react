@@ -16,9 +16,11 @@ import ModalConfirm from "../../../components/modalconfirm/ModalConfirm"
 import { useEffect, useState } from "react"
 import { Link, useNavigate, useLocation } from "react-router-dom"
 
-/* ------------------------------------- JAVASCRIPT ------------------------------------ */
-
 const AdminAreaType = () => {
+    /* ------------------------------------------------------------------------------------- */
+    /* ------------------------------------- JAVASCRIPT ------------------------------------ */
+    /* ------------------------------------------------------------------------------------- */
+
     const token = localStorage.getItem("jwt")
     const navigate = useNavigate()
     const location = useLocation()
@@ -46,47 +48,39 @@ const AdminAreaType = () => {
         let navParams = {} // Paramètres pour la redirection en cas d'erreur
 
         if (isValidated) {
-            fetch("http://localhost:3001/api/areatype/admin/" + dataDelete.id, {
-                method: "DELETE",
-                headers: {
-                    "Content-Type": "application/json",
-                    authorization: `Bearer ${token}`,
-            }})
+            fetch("http://localhost:3001/api/areatypes/admin/" + dataDelete.id, {
+                    method: "DELETE",
+                    headers: {
+                        "Content-Type": "application/json",
+                        authorization: `Bearer ${token}`,
+                    }
+                })
                 .then((res) => {
-                    /*********************************************************
-                    Vérification du statut de la réponse. Si status <> 200 :
-                    - route de redirection renseignée
-                    - nettoyage du localStorage et redirection
-                    *********************************************************/
-                    // navParams = {...checkStatus(res.status, "/admin-area-type")}
-                    // if(navParams.route !== "") {
-                    //     cleanLocalStorage()
-                    //     navigate(navParams.route,{state: navParams.state})
-                    //     throw new Error("status")
-                    // }
-
-                    if(res.status in [400,401,403,500]) throw new Error("status", {cause: res.status})
-
                     return res.json() 
                 })
                 .then((res) => {
-                    if(res.success) {
-                        setDisplayMessage({libelle: res.message, color: colorMsg.success})
+                    // Token invalide
+                    if(["ERR_AUTHENTICATION"].includes(res.status)) {
+                        cleanLocalStorage()
+                        navigate("/connect", {state: true})
+                        return
                     }
-                    else {
+                    // Token absent - Droits insuffisants - Erreur serveur
+                    if(["ERR_REQUEST","ERR_USER_RIGHTS","ERR_SERVER"].includes(res.status)) {
+                        cleanLocalStorage()
+                        navigate("/erreur", {state: res.message})
+                        return
+                    }
+                    // Erreur de contrainte (intégrité des données)
+                    if(["ERR_CONSTRAINT"].includes(res.status)) {
                         setDisplayMessage({libelle: res.message, color: colorMsg.error})
+                        return
                     }
+
+                    setDisplayMessage({libelle: res.message, color: colorMsg.success})
                 })
                 .catch((error) => {
-                    console.log("NAME : " + error.name, " / MESSAGE : ",error.message, " / CAUSE : ",error.cause, " / STACK : ",error.stack)
-                    // if(error.message === "status") {
-                    //     console.log("ERREUR : ", error.cause)
-                    // }
-
-
-                    if(error.message !== "status") {
-                        setDisplayMessage({libelle: error.message, color: colorMsg.error})
-                    }
+                    setDisplayMessage({libelle: error.message, color: colorMsg.error})
                 })
 
             setDisplayConfirmDelete(false)
@@ -134,46 +128,40 @@ const AdminAreaType = () => {
             "sort=" + filterParam.sort +
             "&name=" + filterParam.name
 
-        fetch("http://localhost:3001/api/areatype/admin?" + requestUrlParams, {
+        fetch("http://localhost:3001/api/areatypes/admin?" + requestUrlParams, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
                 authorization: `Bearer ${token}`,
-            },
-        })
+            }})
             .then((res) => {
-                // Si erreur authentification, droits ou serveur : redirection
-                if([400,401,403,500].includes(res.status)) {
-                    throw new Error("status", {cause: res.status})
-                }
                 return res.json()
             })
             .then((res) => {
+                // Token absent ou invalide
+                if(["ERR_AUTHENTICATION"].includes(res.status)) {
+                    cleanLocalStorage()
+                    navigate("/connect", {state: true})
+                    return
+                }
+                // Token absent - Droits insuffisants - Erreur serveur
+                if(["ERR_REQUEST","ERR_USER_RIGHTS","ERR_SERVER"].includes(res.status)) {
+                    cleanLocalStorage()
+                    navigate("/erreur", {state: res.message})
+                    return
+                }
+
                 setGetAreaType(res.data)
             })
             .catch((error) => {
-console.log("ARRET : ", error.cause)
-                /*********************************************************
-                Vérification du statut de la réponse. Si status <> 200 :
-                - route de redirection renseignée
-                - nettoyage du localStorage et redirection
-                *********************************************************/
-
-                // const navParams = {...checkStatus(res.status)}
-                // if(navParams.route !== "") {
-                //     cleanLocalStorage()
-                //     navigate(navParams.route,{state: navParams.state})
-                //     throw new Error("status")
-                // }
-
-                if(error.message !== "status") {
-                    cleanLocalStorage()
-                    navigate('/erreur',{state: {message: error.message}})
-                }               
+                cleanLocalStorage()
+                navigate('/erreur', {state: error.message})             
             })
     },[displayConfirmDelete, filterParam, token, navigate])
 
-/* ---------------------------------------- JSX ---------------------------------------- */
+    /* ------------------------------------------------------------------------------------- */
+    /* ---------------------------------------- JSX ---------------------------------------- */
+    /* ------------------------------------------------------------------------------------- */
 
     return (
     <main>

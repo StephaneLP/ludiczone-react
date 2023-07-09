@@ -11,9 +11,11 @@ import NoMenu from "../../layout/menu/NoMenu"
 import { useState } from "react"
 import { Link, useLocation, useNavigate } from "react-router-dom"
 
-/* ------------------------------------- JAVASCRIPT ------------------------------------ */
-
 const Connect = () => {
+    /* ------------------------------------------------------------------------------------- */
+    /* ------------------------------------- JAVASCRIPT ------------------------------------ */
+    /* ------------------------------------------------------------------------------------- */
+
     const navigate = useNavigate()
     const location = useLocation()
 
@@ -66,22 +68,22 @@ const Connect = () => {
         })
 
         fetch("http://localhost:3001/api/auth/login", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: requestBody
-        })
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: requestBody
+            })
             .then((res) => {
-                console.log("Res : ", res)
-                if(res.status === 500) throw new Error("Erreur interne au serveur (500).")
                 return res.json()
             })
             .then((res) => {
+                // Erreur identifiant ou mot de passe
                 if(["ERR_REQUEST","ERR_AUTHENTICATION"].includes(res.status)) {
                     setErrorMessage({libelle: res.message, color: colorMsg.error})
                     return
                 }
+                // Erreur serveur
                 if(["ERR_SERVER"].includes(res.status)) {
-                    navigate("/erreur",{state: {message: res.message}})
+                    navigate("/erreur", {state: res.message})
                     return
                 }
 
@@ -96,11 +98,13 @@ const Connect = () => {
             })
             .catch((error) => {
                 cleanLocalStorage()
-                navigate('/erreur',{state: error.message})
+                navigate('/erreur', {state: error.message})
             })
     }
 
-/* ---------------------------------------- JSX ---------------------------------------- */
+    /* ------------------------------------------------------------------------------------- */
+    /* ---------------------------------------- JSX ---------------------------------------- */
+    /* ------------------------------------------------------------------------------------- */
 
     return (
     <main>

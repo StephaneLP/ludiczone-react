@@ -24,14 +24,18 @@ const HomeZoneSortie = () => {
             headers: { "Content-Type": "application/json" },
         }
 
-        fetch("http://localhost:3001/api/areazone", requestOptions)
+        fetch("http://localhost:3001/api/areazones", requestOptions)
             .then((res) => {
                 return res.json()
             })
             .then((res) => {
+                if(["ERR_SERVER"].includes(res.status)) {
+                    navigate("/erreur", {state: res.message})
+                    return
+                }
                 setGetAreaZone(res.data)
             })
-    },[])
+    },[navigate])
 
     /*********************************************************
     Ouverture de la page Recherche avancée

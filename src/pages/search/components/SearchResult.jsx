@@ -8,15 +8,16 @@ import Loader from "../../../components/loader/Loader"
 import { useEffect, useState } from "react"
 import { useNavigate } from 'react-router-dom';
 
-/* ------------------------------------- JAVASCRIPT ------------------------------------ */
-
 const SearchResult = (props) => {
+
+    /* ------------------------------------- JAVASCRIPT ------------------------------------ */
+
     const navigate = useNavigate();
     const [getArea, setGetArea] = useState(null) // Liste des salles
 
     const [filterParam, setFilterParam] = useState({ // Tri & filtre
         sort: "asc",
-        search: "",
+        name: "",
         typeId: props.typeId,
         zoneId: props.zoneId,
     })
@@ -28,11 +29,11 @@ const SearchResult = (props) => {
     useEffect(() => {
         const requestUrlParams =
             "sort=" + filterParam.sort +
-            "&search=" + filterParam.search +
+            "&name=" + filterParam.name +
             "&typeId=" + filterParam.typeId +
             "&zoneId=" + filterParam.zoneId
 
-        fetch("http://localhost:3001/api/area?" + requestUrlParams, {
+        fetch("http://localhost:3001/api/areas?" + requestUrlParams, {
             method: "GET",
             headers: { "Content-Type": "application/json" },
         })
@@ -40,18 +41,14 @@ const SearchResult = (props) => {
                 return res.json()
             })
             .then((res) => {
-                if(!res.success) {
-                    navigate('/erreur',{
-                        state: {message: res.message}
-                    })
-                    return             
+                if(["ERR_SERVER"].includes(res.status)) {
+                    navigate("/erreur", {state: res.message})
+                    return
                 }
                 setGetArea(res.data)
             })
             .catch((error) => {
-                navigate('/erreur',{
-                    state: {erreur: error}
-                })
+                navigate("/erreur", {state: error.message})
             })
     },[filterParam, navigate])
 
