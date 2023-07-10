@@ -18,40 +18,4 @@ const cleanLocalStorage = () => {
     localStorage.removeItem("pseudo")
 }
 
-/*********************************************************
-Fonction pour le contrôle de l'authentification et des droits,
-qui retourne une route et des paramètres selon le statut,
-pour une éventuelle redirection si erreur :
-- 400, 401 : authentification => page reconnexion
-- 403 : droits => page erreur
-- 500 : erreur interne serveur => page erreur
-- default (200, 404, 409) : pas de redirection
-*********************************************************/
-const checkStatus = (status) => {
-    let navParams = {}
-
-    switch(status ) {
-        case 400:
-            navParams.route = "/connect"
-            navParams.state =  false
-            break
-        case 401:
-            navParams.route = "/connect"
-            navParams.state =  true
-            break
-        case 403:
-            navParams.route = "/erreur"
-            navParams.state =  "Vous n'avez pas les droits requis. Veuillez vous reconnecter S.V.P."
-            break
-        case 500:
-            navParams.route = "/erreur"
-            navParams.state =  "Une erreur interne au serveur est survenue (Erreur 500)."
-            break
-        default:
-            navParams.route = ""
-            navParams.state =  ""
-    }
-    return navParams
-}
-
-export { colorMsg, formatDate, cleanLocalStorage, checkStatus }
+export { colorMsg, formatDate, cleanLocalStorage }

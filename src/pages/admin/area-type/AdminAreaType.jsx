@@ -2,7 +2,7 @@
 import "../admin.scss"
 
 /* Import des fonctions, variables & images */
-import { colorMsg, formatDate, cleanLocalStorage, checkStatus } from "../../../js/utils.js"
+import { colorMsg, formatDate, cleanLocalStorage } from "../../../js/utils.js"
 import imgDelete from "../../../assets/images/button/garbage.png"
 import imgUpdate from "../../../assets/images/button/pencil2.png"
 import imgFilter from "../../../assets/images/button/filtre.png"
@@ -45,8 +45,6 @@ const AdminAreaType = () => {
 
     /* L'utilisateur a effectué son choix dans la fenêtre modale : true/false */
     const handleConfirmDeleteClick = (isValidated) => {
-        let navParams = {} // Paramètres pour la redirection en cas d'erreur
-
         if (isValidated) {
             fetch("http://localhost:3001/api/areatypes/admin/" + dataDelete.id, {
                     method: "DELETE",
@@ -71,8 +69,8 @@ const AdminAreaType = () => {
                         navigate("/erreur", {state: res.message})
                         return
                     }
-                    // Erreur de contrainte (intégrité des données)
-                    if(["ERR_CONSTRAINT"].includes(res.status)) {
+                    // Erreur id inconnu - Erreur de contrainte (intégrité des données)
+                    if(["ERR_NOT_FOUND","ERR_CONSTRAINT"].includes(res.status)) {
                         setDisplayMessage({libelle: res.message, color: colorMsg.error})
                         return
                     }
@@ -119,7 +117,7 @@ const AdminAreaType = () => {
     /*********************************************************
     API GET
     - Chargement de la liste des types de loisir
-     et modification du filtre
+      et modification du filtre
     *********************************************************/
     const[getAreaType, setGetAreaType] = useState(null)
     

@@ -1,87 +1,101 @@
+/* Import du style */
 import "../admin.scss"
+
+/* Import des fonctions, variables & images */
+import { colorMsg, formatDate, cleanLocalStorage } from "../../../js/utils.js"
 import imgDelete from "../../../assets/images/button/garbage.png"
 import imgUpdate from "../../../assets/images/button/pencil2.png"
 import imgFilter from "../../../assets/images/button/filtre.png"
 
+/* Import des composants */
 import Loader from "../../../components/loader/Loader"
 import Menu from "../../../layout/menu/Menu"
 import ModalConfirm from "../../../components/modalconfirm/ModalConfirm"
 
-import { colorMsg, formatDate } from "../../../js/utils.js"
-// import { useCheckTokenRole } from "../../js/hooks.js"
+/* Import des Hooks & composants react-rooter */
 import { useEffect, useState } from "react"
 import { Link, useNavigate, useLocation } from "react-router-dom"
 
 const AdminAreaZone = () => {
+    /* ------------------------------------------------------------------------------------- */
+    /* ------------------------------------- JAVASCRIPT ------------------------------------ */
+    /* ------------------------------------------------------------------------------------- */
+
     const token = localStorage.getItem("jwt")
     const navigate = useNavigate()
     const location = useLocation()
-    const[adminMessage, setAdminMessage] = useState({libelle: "", color: ""})
+
+    /* Message optionnel affiché au chargement de la page (location.state) */
+    const[displayMessage, setDisplayMessage] = useState(location.state ? location.state : {libelle: "", color: ""})
     
     useEffect(() => {window.scrollTo(0,0)},[])
 
-    //////////////////////////////////////////////////////////
-    // CONTROLE DE LA VALIDITE DU TOKEN ET DES DROITS
-    //////////////////////////////////////////////////////////
+    /*********************************************************
+    API DELETE
+    - confirmation de l'utilisateur avec le composant modalConfirm
+    *********************************************************/
+    const[displayConfirmDelete, setDisplayConfirmDelete] = useState(false) // Affichage de la fenêtre modale
+    const[dataDelete, setDataDelete] = useState({id: "", name: "", libelle: ""}) // Paramètres de la fenêtre modale
 
-    // useCheckTokenRole(token, "admin", location.pathname)
-
-    //////////////////////////////////////////////////////////
-    // DELETE (confirmation avec le composant modalConfirm)
-    //////////////////////////////////////////////////////////
-
-    const[displayConfirmDelete, setDisplayConfirmDelete] = useState(false)
-    const[dataDelete, setDataDelete] = useState({id: "", name: "", libelle: ""})
-
-    const handleDeleteClick = ((id, name) => {
+    /* Bouton suppression : la fenêtre modale est affichée */
+    const handleDeleteClick = (id, name) => {
         setDataDelete({id: id, name: name, libelle: "Voulez-vous supprimer la zone ?"})       
         setDisplayConfirmDelete(true) 
-    })
+    }
 
+    /* L'utilisateur a effectué son choix dans la fenêtre modale : true/false */
     const handleConfirmDeleteClick = (isValidated) => {
         if (isValidated) {
-            fetch("http://localhost:3001/api/areazone/" + dataDelete.id,{
-                method: "DELETE",
-                headers: {
-                    authorization: `Bearer ${token}`,
-                },
-            })
-            .then((res) => {
-                if(res.status === 401) {
-                    navigate('/connect',{
-                        state: true
-                    })
-                }
-                return res.json() 
-            })
-            .then((res) => {
-                if(res.success) {
-                    setAdminMessage({libelle: res.message, color: colorMsg.success})
-                }
-                else {
-                    setAdminMessage({libelle: res.message, color: colorMsg.error})
-                }
-                setDisplayConfirmDelete(false)
-            })
-            .catch((error) => {
-                setAdminMessage({libelle: error, color: colorMsg.error})
-                setDisplayConfirmDelete(false)
-            })
+            fetch("http://localhost:3001/api/AreaZones/admin/" + dataDelete.id, {
+                    method: "DELETE",
+                    headers: {
+                        "Content-Type": "application/json",
+                        authorization: `Bearer ${token}`,
+                    }
+                })
+                .then((res) => {
+                    return res.json() 
+                })
+                .then((res) => {
+                    // Token invalide
+                    if(["ERR_AUTHENTICATION"].includes(res.status)) {
+                        cleanLocalStorage()
+                        navigate("/connect", {state: true})
+                        return
+                    }
+                    // Token absent - Droits insuffisants - Erreur serveur
+                    if(["ERR_REQUEST","ERR_USER_RIGHTS","ERR_SERVER"].includes(res.status)) {
+                        cleanLocalStorage()
+                        navigate("/erreur", {state: res.message})
+                        return
+                    }
+                    // Erreur id inconnu - Erreur de contrainte (intégrité des données)
+                    if(["ERR_NOT_FOUND","ERR_CONSTRAINT"].includes(res.status)) {
+                        setDisplayMessage({libelle: res.message, color: colorMsg.error})
+                        return
+                    }
+
+                    setDisplayMessage({libelle: res.message, color: colorMsg.success})
+                })
+                .catch((error) => {
+                    setDisplayMessage({libelle: error.message, color: colorMsg.error})
+                })
+
+            setDisplayConfirmDelete(false)
             window.scrollTo(0,0)
         }
         else {
-            setAdminMessage({libelle: "", color: ""})
+            setDisplayMessage({libelle: "", color: ""})
             setDisplayConfirmDelete(false)
         }
     }
 
-    //////////////////////////////////////////////////////////
-    // FILTRE
-    //////////////////////////////////////////////////////////
-
+    /*********************************************************
+    FILTRE
+    *********************************************************/
     const[filterParam, setFilterParam] = useState({
         sort: "asc",
-        search: "",
+        name: "",
     })
     const[filterSort, setFilterSort] = useState("asc")
     const[filterName, setFilterName] = useState("")
@@ -90,9 +104,9 @@ const AdminAreaZone = () => {
         event.preventDefault()
         let newParam = {...filterParam}
         newParam.sort = filterSort
-        newParam.search = filterName.trim()
+        newParam.name = filterName.trim()
         setFilterParam(newParam)
-        setAdminMessage({libelle: "", color: ""})
+        setDisplayMessage({libelle: "", color: ""})
     }
 
     const handleFilterRAZ = () => {
@@ -100,44 +114,52 @@ const AdminAreaZone = () => {
         setFilterName("")
     }
 
-    //////////////////////////////////////////////////////////
-    // GET (chargement de la page et modification du filtre)
-    //////////////////////////////////////////////////////////
-
+    /*********************************************************
+    API GET
+    - Chargement de la liste des zones
+      et modification du filtre
+    *********************************************************/
     const[getAreaZone, setGetAreaZone] = useState(null)
-
+    
     useEffect(() => {
-        fetch("http://localhost:3001/api/areazone?sort=" + filterParam.sort + "&search=" + filterParam.search)
+        const requestUrlParams = 
+            "sort=" + filterParam.sort +
+            "&name=" + filterParam.name
+
+        fetch("http://localhost:3001/api/AreaZones/admin?" + requestUrlParams, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                authorization: `Bearer ${token}`,
+            }})
             .then((res) => {
                 return res.json()
             })
             .then((res) => {
-                if(res.success) {
-                    setGetAreaZone(res.data)
-                    if(location.state !== null) {
-                        if(location.state.alter !== null) {
-                            if(location.state.alter.success) {setAdminMessage({libelle: location.state.alter.message, color: colorMsg.success})}
-                            else {setAdminMessage({libelle: location.state.alter.message, color: colorMsg.error})}
-                            location.state = null
-                        }
-                    }
+                // Token absent ou invalide
+                if(["ERR_AUTHENTICATION"].includes(res.status)) {
+                    cleanLocalStorage()
+                    navigate("/connect", {state: true})
+                    return
                 }
-                else {
-                    navigate('/erreur',{
-                        state: {message: res.message}
-                    })
+                // Token absent - Droits insuffisants - Erreur serveur
+                if(["ERR_REQUEST","ERR_USER_RIGHTS","ERR_SERVER"].includes(res.status)) {
+                    cleanLocalStorage()
+                    navigate("/erreur", {state: res.message})
+                    return
                 }
+
+                setGetAreaZone(res.data)
             })
             .catch((error) => {
-                navigate('/erreur',{
-                    state: {erreur: error}
-                })
+                cleanLocalStorage()
+                navigate('/erreur', {state: error.message})             
             })
-    },[displayConfirmDelete, filterParam, location, navigate])
+    },[displayConfirmDelete, filterParam, token, navigate])
 
-    //////////////////////////////////////////////////////////
-    // JSX
-    //////////////////////////////////////////////////////////
+    /* ------------------------------------------------------------------------------------- */
+    /* ---------------------------------------- JSX ---------------------------------------- */
+    /* ------------------------------------------------------------------------------------- */
 
     return (
     <main>
@@ -150,14 +172,15 @@ const AdminAreaZone = () => {
                 :
                 (
                     <>
-                     {displayConfirmDelete && <ModalConfirm callFunction={handleConfirmDeleteClick} libelle={dataDelete.libelle} name={dataDelete.name}/>}
+                    {displayConfirmDelete && <ModalConfirm callFunction={handleConfirmDeleteClick} libelle={dataDelete.libelle} name={dataDelete.name}/>}
                     <div className="admin-titre d-flex justify-content-between align-items-center">
                         <h2>Table 'area_zone'</h2>
-                        <Link className="btn-admin-add" to={"/admin-area-zone-create"} href="#">Ajouter un élément</Link>                                
+                        <Link className="btn-admin-add" to={"/admin-area-zone-create"} href="#">Ajouter un élément</Link>
                     </div>
                     <div className="admin-message d-flex justify-content-center align-items-center">
-                        <div style={{backgroundColor: adminMessage.color}}>{adminMessage.libelle}</div>
+                        <div style={{backgroundColor: displayMessage.color}}>{displayMessage.libelle}</div>
                     </div>
+                    {/* --------------- Début zone de filtre --------------- */}
                     <div className="admin-filter d-flex justify-content-between align-items-center">
                         <div className="admin-filter-nb">Nombre de résultats : <span>{getAreaZone.length}</span></div>
                         <nav className="navbar bg-body-tertiary">
@@ -196,6 +219,7 @@ const AdminAreaZone = () => {
                             </div>
                         </nav>
                     </div>
+                    {/* --------------- Fin zone de filtre --------------- */}
                     { getAreaZone.length === 0 ?
                     (
                         <div className="d-flex justify-content-center align-items-center admin-no-result">Aucun résultat...</div>

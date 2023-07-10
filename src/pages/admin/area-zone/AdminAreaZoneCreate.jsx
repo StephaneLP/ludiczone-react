@@ -1,95 +1,100 @@
+/* Import du style */
 import "../admin.scss"
 
+/* Import des fonctions, variables & images */
+import { colorMsg, cleanLocalStorage } from "../../../js/utils.js"
+
+/* Import des composants */
 import Menu from "../../../layout/menu/Menu"
 
-import { colorMsg } from "../../../js/utils.js"
-// import { useCheckTokenRole } from "../../js/hooks.js"
+/* Import des Hooks & composants react-rooter */
 import { useState } from "react"
-import { Link, useNavigate, useLocation } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
+import { useCheckIsAdmin } from "../../../js/hooks.js"
 
 const AdminAreaZoneCreate = () => {
+    /* ------------------------------------------------------------------------------------- */
+    /* ------------------------------------- JAVASCRIPT ------------------------------------ */
+    /* ------------------------------------------------------------------------------------- */
+
     const token = localStorage.getItem("jwt")
     const navigate = useNavigate()
-    const location = useLocation()
     
-    const[adminMessage, setAdminMessage] = useState({libelle: "", color: ""})
+    const[displayMessage, setDisplayMessage] = useState({libelle: "", color: ""})
     const[focusName, setFocusName] = useState("")
     const[createName, setCreateName] = useState("")
     const[createDescription, setCreateDescription] = useState("")
     const[createPicture, setCreatePicture] = useState("default.jpg")
 
-    //////////////////////////////////////////////////////////
-    // CONTROLE DE LA VALIDITE DU TOKEN ET DES DROITS
-    //////////////////////////////////////////////////////////
+    /* Contrôle de la validité du token et des droits */
+    useCheckIsAdmin(token)
 
-    // useCheckTokenRole(token, "admin", location.pathname)
-
-    //////////////////////////////////////////////////////////
-    // CREATE
-    //////////////////////////////////////////////////////////
-
+    /*********************************************************
+    API CREATE
+    - création de la zone
+    *********************************************************/
     const handleSubmit = (event) => {
         event.preventDefault()
 
         if(createName === "") {
-            setAdminMessage({libelle: "Veuillez renseigner un nom S.V.P.", color: colorMsg.error})
+            setDisplayMessage({libelle: "Veuillez renseigner un nom S.V.P.", color: colorMsg.error})
             setFocusName(colorMsg.error)
             window.scrollTo(0,0)
             return
         }
 
-        fetch("http://localhost:3001/api/areazone",{
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                authorization: `Bearer ${token}`,
-            },
-            body: JSON.stringify({
-                name: createName,
-                description: createDescription,
-                picture: createPicture,
+        const requestBody = JSON.stringify({
+            name: createName,
+            description: createDescription,
+            picture: createPicture,
+        })
+
+        fetch("http://localhost:3001/api/AreaZones/admin", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    authorization: `Bearer ${token}`,
+                },
+                body: requestBody
             })
-        })
-        .then((res) => {
-            if(res.status === 401) {
-                navigate('/connect',{
-                    state: {
-                        reconnect: true,
-                        route: "/admin-area-zone-create"
-                    }
-                })
-            }
-            else if(res.status === 403) {
-                navigate('/erreur',{
-                    state: {message: "Vous n'avez pas les droits requis pour accéder à cette page."}
-                }) 
-            }
-            return res.json()          
-        })
-        .then((res) => {
-            if(res.success) {
+            .then((res) => {
+                return res.json()          
+            })
+            .then((res) => {
+                // Token invalide
+                if(["ERR_AUTHENTICATION"].includes(res.status)) {
+                    cleanLocalStorage()
+                    navigate("/connect", {state: true})
+                    return
+                }
+                // Token absent - Droits insuffisants - Erreur serveur
+                if(["ERR_REQUEST","ERR_USER_RIGHTS","ERR_SERVER"].includes(res.status)) {
+                    cleanLocalStorage()
+                    navigate("/erreur", {state: res.message})
+                    return
+                }
+                // Erreur de contrainte (intégrité des données)
+                if(["ERR_CONSTRAINT"].includes(res.status)) {
+                    setDisplayMessage({libelle: res.message, color: colorMsg.error})
+                    return
+                }
+
                 navigate('/admin-area-zone',{
                     state: {
-                        alter: {
-                            success: true,
-                            message: res.message                            
-                        }
+                        libelle: res.message,
+                        color: colorMsg.success
                     }
                 })
-            }
-            else {
-                setAdminMessage({libelle: res.message, color: colorMsg.error})
-            }
-        })
-        .catch((error) => {
-            setAdminMessage({libelle: error, color: colorMsg.error})
-        })
+            })
+            .catch((error) => {
+                setDisplayMessage({libelle: error, color: colorMsg.error})
+            })
         window.scrollTo(0,0)
     }
 
-    //////////////////////////////////////////////////////////
-    // JSX
-    //////////////////////////////////////////////////////////
+    /* ------------------------------------------------------------------------------------- */
+    /* ---------------------------------------- JSX ---------------------------------------- */
+    /* ------------------------------------------------------------------------------------- */
 
     return (
     <main>
@@ -98,7 +103,7 @@ const AdminAreaZoneCreate = () => {
             <h1>Ajouter une zone</h1>
             <div className="container">
                 <div className="admin-message d-flex justify-content-center align-items-center">
-                    <div style={{backgroundColor: adminMessage.color}}>{adminMessage.libelle}</div>
+                    <div style={{backgroundColor: displayMessage.color}}>{displayMessage.libelle}</div>
                 </div>
                 <form className="admin-alter" onSubmit={handleSubmit}>
                     <div className="row">
@@ -112,7 +117,7 @@ const AdminAreaZoneCreate = () => {
                             <div className="admin-alter-cellule">
                                 <label>
                                     <span className="label-libelle">Nom</span>
-                                    <input type="text" maxLength="50" value={createName} onChange={(e) => {setCreateName(e.target.value); setAdminMessage({libelle: "", color: ""}); setFocusName("")}} style={{borderColor: focusName}} />
+                                    <input type="text" maxLength="50" value={createName} onChange={(e) => {setCreateName(e.target.value); setDisplayMessage({libelle: "", color: ""}); setFocusName("")}} style={{borderColor: focusName}} />
                                 </label>                       
                             </div>
                             <div className="admin-alter-cellule">

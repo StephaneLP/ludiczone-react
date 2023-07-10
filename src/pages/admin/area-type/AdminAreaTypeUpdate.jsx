@@ -10,7 +10,7 @@ import Menu from "../../../layout/menu/Menu"
 
 /* Import des Hooks & composants react-rooter */
 import { useEffect, useState } from "react"
-import { Link, useNavigate, useLocation, useParams } from "react-router-dom"
+import { Link, useNavigate, useParams } from "react-router-dom"
 
 const AdminAreaTypeUpdate = () => {
     /* ------------------------------------------------------------------------------------- */
@@ -19,7 +19,6 @@ const AdminAreaTypeUpdate = () => {
 
     const token = localStorage.getItem("jwt")
     const navigate = useNavigate()
-    const location = useLocation()
     const { id } = useParams()
 
     const[displayMessage, setDisplayMessage] = useState({libelle: "", color: ""})
@@ -31,7 +30,7 @@ const AdminAreaTypeUpdate = () => {
 
     /*********************************************************
     API GET BY ID
-    - chargement de l'éélment et initialisation du formulaire
+    - chargement de l'élément et initialisation du formulaire
     *********************************************************/
     useEffect(() => {
         fetch("http://localhost:3001/api/areatypes/admin/" + id, {
@@ -56,7 +55,7 @@ const AdminAreaTypeUpdate = () => {
                     navigate("/erreur", {state: res.message})
                     return
                 }
-                // Erreur de contrainte (intégrité des données)
+                // Erreur id inconnu
                 if(["ERR_NOT_FOUND"].includes(res.status)) {
                     setDisplayMessage({libelle: res.message, color: colorMsg.error})
                     return
@@ -93,50 +92,52 @@ const AdminAreaTypeUpdate = () => {
             picture: updatePicture,
         })
 
-        fetch("http://localhost:3001/api/areatype/admin/" + id, {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json",
-                authorization: `Bearer ${token}`,
-            },
-            body: requestBody
-        })
-        .then((res) => {
-            if(res.status === 401) {
-                navigate('/connect',{
-                    state: {
-                        reconnect: true,
-                        route: "/admin-area-type-update/" + id
-                    }
-                })
-            }
-            else if(res.status === 403) {
-                navigate('/erreur',{
-                    state: {message: "Vous n'avez pas les droits requis pour accéder à cette page."}
-                }) 
-            }
-            return res.json()          
-        })
-        .then((res) => {
-            if(res.success) {
+        fetch("http://localhost:3001/api/areatypes/admin/" + id, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                    authorization: `Bearer ${token}`,
+                },
+                body: requestBody
+            })
+            .then((res) => {
+                return res.json()          
+            })
+            .then((res) => {
+                // Token invalide
+                if(["ERR_AUTHENTICATION"].includes(res.status)) {
+                    cleanLocalStorage()
+                    navigate("/connect", {state: true})
+                    return
+                }
+                // Token absent - Droits insuffisants - Erreur serveur
+                if(["ERR_REQUEST","ERR_USER_RIGHTS","ERR_SERVER"].includes(res.status)) {
+                    cleanLocalStorage()
+                    navigate("/erreur", {state: res.message})
+                    return
+                }
+                // Erreur de contrainte (intégrité des données)
+                if(["ERR_CONSTRAINT"].includes(res.status)) {
+                    setDisplayMessage({libelle: res.message, color: colorMsg.error})
+                    return
+                }
+
                 navigate('/admin-area-type',{
                     state: {
-                        success: true,
-                        message: res.message           
+                        libelle: res.message,
+                        color: (res.status === "SUCCESS" ? colorMsg.success : colorMsg.error) // Succès ou Id inconnu
                     }
                 })
-            }
-            else {
-                setDisplayMessage({libelle: res.message, color: colorMsg.error})
-            }
-        })
-        .catch((error) => {
-            setDisplayMessage({libelle: error, color: colorMsg.error})
-        })
+            })
+            .catch((error) => {
+                setDisplayMessage({libelle: error, color: colorMsg.error})
+            })
         window.scrollTo(0,0)
     }
 
-/* ---------------------------------------- JSX ---------------------------------------- */
+    /* ------------------------------------------------------------------------------------- */
+    /* ---------------------------------------- JSX ---------------------------------------- */
+    /* ------------------------------------------------------------------------------------- */
 
     return (
     <main>
