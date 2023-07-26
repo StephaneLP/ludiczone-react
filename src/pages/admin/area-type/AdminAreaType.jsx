@@ -28,7 +28,7 @@ const AdminAreaType = () => {
 
     /*********************************************************
     API DELETE
-    - confirmation de l'utilisateur avec le composant modalConfirm
+    - paramètres passés au composant modalDelete
     *********************************************************/
     const[displayModalDelete, setDisplayModalDelete] = useState(false) // Affichage de la fenêtre modale
     const[dataDelete, setDataDelete] = useState({id: "", urlapi: "", name: "", libelle: ""}) // Paramètres de la fenêtre modale
