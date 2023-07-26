@@ -1,4 +1,4 @@
-import "./modalConfirm.scss"
+import "./modal.scss"
 
 const ModalConfirm = (props) => {
     return (

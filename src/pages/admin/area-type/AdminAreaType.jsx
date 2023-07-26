@@ -10,17 +10,13 @@ import imgFilter from "../../../assets/images/button/filtre.png"
 /* Import des composants */
 import Loader from "../../../components/loader/Loader"
 import Menu from "../../../layout/menu/Menu"
-import ModalConfirm from "../../../components/modalconfirm/ModalConfirm"
+import ModalDelete from "../../../components/modal/ModalDelete"
 
 /* Import des Hooks & composants react-rooter */
 import { useEffect, useState } from "react"
 import { Link, useNavigate, useLocation } from "react-router-dom"
 
 const AdminAreaType = () => {
-    /* ------------------------------------------------------------------------------------- */
-    /* ------------------------------------- JAVASCRIPT ------------------------------------ */
-    /* ------------------------------------------------------------------------------------- */
-
     const token = localStorage.getItem("jwt")
     const navigate = useNavigate()
     const location = useLocation()
@@ -34,14 +30,20 @@ const AdminAreaType = () => {
     API DELETE
     - confirmation de l'utilisateur avec le composant modalConfirm
     *********************************************************/
-    const[displayConfirmDelete, setDisplayConfirmDelete] = useState(false) // Affichage de la fenêtre modale
-    const[dataDelete, setDataDelete] = useState({id: "", name: "", libelle: ""}) // Paramètres de la fenêtre modale
+    const[displayModalDelete, setDisplayModalDelete] = useState(false) // Affichage de la fenêtre modale
+    const[dataDelete, setDataDelete] = useState({id: "", urlapi: "", name: "", libelle: ""}) // Paramètres de la fenêtre modale
 
     /* Bouton suppression : la fenêtre modale est affichée */
     const handleDeleteClick = (id, name) => {
         setDataDelete({id: id, name: name, libelle: "Voulez-vous supprimer le type ?"})       
-        setDisplayConfirmDelete(true) 
+        setDisplayModalDelete(true) 
     }
+
+
+
+
+
+
 
     /* L'utilisateur a effectué son choix dans la fenêtre modale : true/false */
     const handleConfirmDeleteClick = (isValidated) => {
@@ -81,12 +83,12 @@ const AdminAreaType = () => {
                     setDisplayMessage({libelle: error.message, color: colorMsg.error})
                 })
 
-            setDisplayConfirmDelete(false)
+            setDisplayModalDelete(false)
             window.scrollTo(0,0)
         }
         else {
             setDisplayMessage({libelle: "", color: ""})
-            setDisplayConfirmDelete(false)
+            setDisplayModalDelete(false)
         }
     }
 
@@ -155,11 +157,9 @@ const AdminAreaType = () => {
                 cleanLocalStorage()
                 navigate('/erreur', {state: error.message})             
             })
-    },[displayConfirmDelete, filterParam, token, navigate])
+    },[displayModalDelete, filterParam, token, navigate])
 
-    /* ------------------------------------------------------------------------------------- */
-    /* ---------------------------------------- JSX ---------------------------------------- */
-    /* ------------------------------------------------------------------------------------- */
+    /* ---------------------------------------------- JSX ---------------------------------------------- */
 
     return (
     <main>
@@ -172,7 +172,7 @@ const AdminAreaType = () => {
                 :
                 (
                     <>
-                    {displayConfirmDelete && <ModalConfirm callFunction={handleConfirmDeleteClick} libelle={dataDelete.libelle} name={dataDelete.name}/>}
+                    {displayModalDelete && <ModalDelete setDisplayMessage={setDisplayMessage} setDisplayModalDelete={setDisplayModalDelete} libelle={dataDelete.libelle} name={dataDelete.name} urlapi={dataDelete.urlapi} />}
                     <div className="admin-titre d-flex justify-content-between align-items-center">
                         <h2>Table 'area_type'</h2>
                         <Link className="btn-admin-add" to={"/admin-area-type-create"} href="#">Ajouter un élément</Link>
