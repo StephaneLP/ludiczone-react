@@ -2,7 +2,7 @@
 import "../admin.scss"
 
 /* Import des fonctions, variables & images */
-import { colorMsg, formatDate, cleanLocalStorage } from "../../../js/utils.js"
+import { formatDate, cleanLocalStorage } from "../../../js/utils.js"
 import imgDelete from "../../../assets/images/button/garbage.png"
 import imgUpdate from "../../../assets/images/button/pencil2.png"
 import imgFilter from "../../../assets/images/button/filtre.png"
@@ -27,69 +27,27 @@ const AdminAreaType = () => {
     useEffect(() => {window.scrollTo(0,0)},[])
 
     /*********************************************************
-    API DELETE
-    - paramètres passés au composant modalDelete
+    DELETE
     *********************************************************/
     const[displayModalDelete, setDisplayModalDelete] = useState(false) // Affichage de la fenêtre modale
-    const[dataDelete, setDataDelete] = useState({id: "", urlapi: "", name: "", libelle: ""}) // Paramètres de la fenêtre modale
+    const[dataDelete, setDataDelete] = useState({urlapi: "", name: "", libelle: ""}) // Paramètres de la fenêtre modale
 
     /* Bouton suppression : la fenêtre modale est affichée */
     const handleDeleteClick = (id, name) => {
-        setDataDelete({id: id, name: name, libelle: "Voulez-vous supprimer le type ?"})       
+        const url = "http://localhost:3001/api/areatypes/admin/" + id
+        const libelle = "Voulez-vous supprimer le type ?"
+
+        setDataDelete({urlapi: url, name: name, libelle: libelle})       
         setDisplayModalDelete(true) 
     }
 
-
-
-
-
-
-
-    /* L'utilisateur a effectué son choix dans la fenêtre modale : true/false */
-    const handleConfirmDeleteClick = (isValidated) => {
-        if (isValidated) {
-            fetch("http://localhost:3001/api/areatypes/admin/" + dataDelete.id, {
-                    method: "DELETE",
-                    headers: {
-                        "Content-Type": "application/json",
-                        authorization: `Bearer ${token}`,
-                    }
-                })
-                .then((res) => {
-                    return res.json() 
-                })
-                .then((res) => {
-                    // Token invalide
-                    if(["ERR_AUTHENTICATION"].includes(res.status)) {
-                        cleanLocalStorage()
-                        navigate("/connect", {state: true})
-                        return
-                    }
-                    // Token absent - Droits insuffisants - Erreur serveur
-                    if(["ERR_REQUEST","ERR_USER_RIGHTS","ERR_SERVER"].includes(res.status)) {
-                        cleanLocalStorage()
-                        navigate("/erreur", {state: res.message})
-                        return
-                    }
-                    // Erreur id inconnu - Erreur de contrainte (intégrité des données)
-                    if(["ERR_NOT_FOUND","ERR_CONSTRAINT"].includes(res.status)) {
-                        setDisplayMessage({libelle: res.message, color: colorMsg.error})
-                        return
-                    }
-
-                    setDisplayMessage({libelle: res.message, color: colorMsg.success})
-                })
-                .catch((error) => {
-                    setDisplayMessage({libelle: error.message, color: colorMsg.error})
-                })
-
-            setDisplayModalDelete(false)
+    /* L'utilisateur a effectué son choix dans la fenêtre modale */
+    const handleConfirmDeleteClick = (message) => {
+        if(message.libelle !== "") {
+            setDisplayMessage({libelle: message.libelle, color: message.color})
             window.scrollTo(0,0)
         }
-        else {
-            setDisplayMessage({libelle: "", color: ""})
-            setDisplayModalDelete(false)
-        }
+        setDisplayModalDelete(false)
     }
 
     /*********************************************************
@@ -138,7 +96,7 @@ const AdminAreaType = () => {
                 return res.json()
             })
             .then((res) => {
-                // Token absent ou invalide
+                // Token invalide
                 if(["ERR_AUTHENTICATION"].includes(res.status)) {
                     cleanLocalStorage()
                     navigate("/connect", {state: true})
@@ -172,7 +130,7 @@ const AdminAreaType = () => {
                 :
                 (
                     <>
-                    {displayModalDelete && <ModalDelete setDisplayMessage={setDisplayMessage} setDisplayModalDelete={setDisplayModalDelete} libelle={dataDelete.libelle} name={dataDelete.name} urlapi={dataDelete.urlapi} />}
+                    {displayModalDelete && <ModalDelete callFunction={handleConfirmDeleteClick} params={dataDelete} token={token} />}
                     <div className="admin-titre d-flex justify-content-between align-items-center">
                         <h2>Table 'area_type'</h2>
                         <Link className="btn-admin-add" to={"/admin-area-type-create"} href="#">Ajouter un élément</Link>

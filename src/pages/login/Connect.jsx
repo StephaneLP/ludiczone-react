@@ -127,7 +127,7 @@ const Connect = () => {
                         <div className="col-12 col-md-4">
                             <div className="login-cellule">
                                 <label>
-                                    <input type="text" tabIndex="1" placeholder="Pseudo ou Email" maxLength="50" value={login} onChange={(e) => handleLoginChange(e)} style={{borderColor: focusLogin}} />
+                                    <input className="toto" type="text" tabIndex="1" placeholder="Pseudo ou Email" maxLength="50" value={login} onChange={(e) => handleLoginChange(e)} style={{borderColor: focusLogin}} />
                                 </label>
                             </div>
                             <div className="login-cellule">

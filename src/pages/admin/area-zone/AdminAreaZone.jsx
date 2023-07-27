@@ -10,7 +10,7 @@ import imgFilter from "../../../assets/images/button/filtre.png"
 /* Import des composants */
 import Loader from "../../../components/loader/Loader"
 import Menu from "../../../layout/menu/Menu"
-import ModalConfirm from "../../../components/modalconfirm/ModalConfirm"
+import ModalConfirm from "../../../components/modal/ModalConfirm"
 
 /* Import des Hooks & composants react-rooter */
 import { useEffect, useState } from "react"
