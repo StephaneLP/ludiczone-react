@@ -12,6 +12,11 @@ import { useState } from "react"
 import { Link, useLocation, useNavigate } from "react-router-dom"
 
 const Connect = () => {
+
+    /* ------------------------------------------------------------------------------------------------- */
+    /* --------------------------------------- PARTIE JAVASCRIT ---------------------------------------- */
+    /* ------------------------------------------------------------------------------------------------- */
+
     const navigate = useNavigate()
     const location = useLocation()
 
@@ -98,7 +103,9 @@ const Connect = () => {
             })
     }
 
-    /* ---------------------------------------------- JSX ---------------------------------------------- */
+    /* ------------------------------------------------------------------------------------------------- */
+    /* ------------------------------------------ PARTIE JSX ------------------------------------------- */
+    /* ------------------------------------------------------------------------------------------------- */
 
     return (
     <main>
@@ -127,12 +134,12 @@ const Connect = () => {
                         <div className="col-12 col-md-4">
                             <div className="login-cellule">
                                 <label>
-                                    <input className="toto" type="text" tabIndex="1" placeholder="Pseudo ou Email" maxLength="50" value={login} onChange={(e) => handleLoginChange(e)} style={{borderColor: focusLogin}} />
+                                    <input className="logo-user" type="text" tabIndex="1" placeholder="Pseudo ou Email..." maxLength="50" value={login} onChange={(e) => handleLoginChange(e)} style={{borderColor: focusLogin}} />
                                 </label>
                             </div>
                             <div className="login-cellule">
                                 <label>
-                                    <input type="password" tabIndex="2" placeholder="Mot de passe" maxLength="50" value={password} onChange={(e) => handlePasswordChange(e)} style={{borderColor: focusPassword}} />
+                                    <input className="logo-cadenas" type="password" tabIndex="2" placeholder="Mot de passe..." maxLength="50" value={password} onChange={(e) => handlePasswordChange(e)} style={{borderColor: focusPassword}} />
                                     <Link className="btn-lien-connect" to="/en-construction">Mot de passe oublié ?</Link>
                                 </label>
                             </div>

@@ -61,16 +61,35 @@
 
             select, input {
                 width: 100%;
-                padding: 10px 20px;
-                font-size: 0.9rem;
+                padding: 10px 40px;
+                font-size: 1rem;
                 color: $baseFontColorLight1;
                 background-color: $baseBgColorLight5;
                 border: 1px solid $baseBgColorLight3;
                 border-radius: 5px;
             }
 
-            .toto {
-                background-image: url("../../assets/images/button/log.png");
+            input::placeholder {
+                color: $baseFontColorLight3;
+                opacity: 1;
+                font-style: italic;
+                font-size: 0.9rem;
+              }
+
+            .logo-user {
+                background-image: url("../../assets/images/icones/user.png");
+                background-position: left;
+                background-repeat: no-repeat;
+            }
+
+            .logo-cadenas {
+                background-image: url("../../assets/images/icones/cadenas.png");
+                background-position: left;
+                background-repeat: no-repeat;
+            }
+
+            .logo-enveloppe {
+                background-image: url("../../assets/images/icones/enveloppe.png");
                 background-position: left;
                 background-repeat: no-repeat;
             }
