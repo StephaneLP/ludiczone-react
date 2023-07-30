@@ -5,6 +5,8 @@ import "../admin.scss"
 import { colorMsg, cleanLocalStorage } from "../../../js/utils.js"
 
 /* Import des composants */
+import Header from "../../../layout/header/Header";
+import Footer from "../../../layout/footer/Footer";
 import Menu from "../../../layout/menu/Menu"
 
 /* Import des Hooks & composants react-rooter */
@@ -91,73 +93,77 @@ const AdminAreaTypeCreate = () => {
     /* ---------------------------------------------- JSX ---------------------------------------------- */
 
     return (
-    <main>
-        <Menu />
-        <section className="container-fluid admin">
-            <h1>Ajouter un type de loisir</h1>
-            <div className="container">
-                <div className="admin-message d-flex justify-content-center align-items-center">
-                    <div style={{backgroundColor: displayMessage.color}}>{displayMessage.libelle}</div>
+        <>
+        <Header />
+        <main>
+            <Menu />
+            <section className="container-fluid admin">
+                <h1>Ajouter un type de loisir</h1>
+                <div className="container">
+                    <div className="admin-message d-flex justify-content-center align-items-center">
+                        <div style={{backgroundColor: displayMessage.color}}>{displayMessage.libelle}</div>
+                    </div>
+                    <form className="admin-alter" onSubmit={handleSubmit}>
+                        <div className="row">
+                            <div className="col-12 col-md-2"></div>
+                            <div className="col-12 col-md-8 admin-alter-separator-top"></div>
+                            <div className="col-12 col-md-2"></div>
+                        </div>
+                        <div className="row">
+                            <div className="col-12 col-md-2"></div>
+                            <div className="col-12 col-md-4">
+                                <div className="admin-alter-cellule">
+                                    <label>
+                                        <span className="label-libelle">Nom</span>
+                                        <input type="text" maxLength="50" value={createName} onChange={(e) => {setCreateName(e.target.value); setDisplayMessage({libelle: "", color: ""}); setFocusName("")}} style={{borderColor: focusName}} />
+                                    </label>                       
+                                </div>
+                                <div className="admin-alter-cellule">
+                                    <label>
+                                    <span className="label-libelle">Description</span>
+                                        <textarea maxLength="200" value={createDescription} onChange={(e) => setCreateDescription(e.target.value)} />
+                                    </label>                            
+                                </div>
+                            </div>
+                            <div className="col-12 col-md-4">
+                                <div className="admin-alter-cellule">
+                                    <label>
+                                        <span className="label-libelle">Nom de l'image</span>
+                                        <input type="text" maxLength="50" value={createPicture} onChange={(e) => setCreatePicture(e.target.value)} disabled/>
+                                    </label>                       
+                                </div>
+                                <div className="admin-alter-cellule">
+                                    <label>
+                                        <span className="label-libelle">Image</span>
+                                        <div className="admin-alter-img" style={{backgroundImage: `url(${require("../../../assets/images/pages/area-type/" + createPicture)})`}}></div>
+                                    </label>                            
+                                </div>
+                            </div>
+                            <div className="col-12 col-md-2"></div>
+                        </div>
+                        <div className="row">
+                            <div className="col-12 col-md-2"></div>
+                            <div className="col-12 col-md-8 admin-alter-separator-bottom"></div>
+                            <div className="col-12 col-md-2"></div>
+                        </div>
+                        <div className="row">
+                            <div className="col-12">
+                                <div className="form-buttons">
+                                    <div>
+                                        <input className="btn-confirm" type="submit" value="Enregistrer" />
+                                    </div>
+                                    <div>
+                                        <Link className="btn-confirm-no" to="/admin-area-type" aria-current="page" href="#">Annuler</Link>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
                 </div>
-                <form className="admin-alter" onSubmit={handleSubmit}>
-                    <div className="row">
-                        <div className="col-12 col-md-2"></div>
-                        <div className="col-12 col-md-8 admin-alter-separator-top"></div>
-                        <div className="col-12 col-md-2"></div>
-                    </div>
-                    <div className="row">
-                        <div className="col-12 col-md-2"></div>
-                        <div className="col-12 col-md-4">
-                            <div className="admin-alter-cellule">
-                                <label>
-                                    <span className="label-libelle">Nom</span>
-                                    <input type="text" maxLength="50" value={createName} onChange={(e) => {setCreateName(e.target.value); setDisplayMessage({libelle: "", color: ""}); setFocusName("")}} style={{borderColor: focusName}} />
-                                </label>                       
-                            </div>
-                            <div className="admin-alter-cellule">
-                                <label>
-                                <span className="label-libelle">Description</span>
-                                    <textarea maxLength="200" value={createDescription} onChange={(e) => setCreateDescription(e.target.value)} />
-                                </label>                            
-                            </div>
-                        </div>
-                        <div className="col-12 col-md-4">
-                            <div className="admin-alter-cellule">
-                                <label>
-                                    <span className="label-libelle">Nom de l'image</span>
-                                    <input type="text" maxLength="50" value={createPicture} onChange={(e) => setCreatePicture(e.target.value)} disabled/>
-                                </label>                       
-                            </div>
-                            <div className="admin-alter-cellule">
-                                <label>
-                                    <span className="label-libelle">Image</span>
-                                    <div className="admin-alter-img" style={{backgroundImage: `url(${require("../../../assets/images/pages/area-type/" + createPicture)})`}}></div>
-                                </label>                            
-                            </div>
-                        </div>
-                        <div className="col-12 col-md-2"></div>
-                    </div>
-                    <div className="row">
-                        <div className="col-12 col-md-2"></div>
-                        <div className="col-12 col-md-8 admin-alter-separator-bottom"></div>
-                        <div className="col-12 col-md-2"></div>
-                    </div>
-                    <div className="row">
-                        <div className="col-12">
-                            <div className="form-buttons">
-                                <div>
-                                    <input className="btn-confirm" type="submit" value="Enregistrer" />
-                                </div>
-                                <div>
-                                    <Link className="btn-confirm-no" to="/admin-area-type" aria-current="page" href="#">Annuler</Link>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </section>
-    </main>
+            </section>
+        </main>
+        <Footer />
+        </>
     )
 }
 

@@ -9,16 +9,10 @@ import ReactDOM from 'react-dom/client';
 
 /* Import des composants */
 import App from './App';
-import Header from "./layout/header/Header";
-import Footer from "./layout/footer/Footer";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <React.StrictMode>
-        <>
-            <Header />
-            <App />
-            <Footer />
-        </>
+        <App />
     </React.StrictMode>
 )

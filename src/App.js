@@ -21,29 +21,29 @@ import PageUnderConstruction from "./pages/errors/PageUnderConstruction"
 /* Import des Hooks & composants react-rooter */
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 
-function App() {
-  return (
-    <BrowserRouter>
-        <Routes>
-            {/* Pages : Accueil et Recherche avancée */}
-            <Route path="/" element={<Home />} />
-            <Route path="/search" element={<Search />} />
-            {/* Page Login */}
-            <Route path="/connect" element={<Connect />} />
-            {/* Pages d'administration */}
-            <Route path="/admin-area-type" element={<AdminAreaType />} />
-            <Route path="/admin-area-type-create" element={<AdminAreaTypeCreate />} />
-            <Route path="/admin-area-type-update/:id" element={<AdminAreaTypeUpdate />} />
-            <Route path="/admin-area-zone" element={<AdminAreaZone />} />
-            <Route path="/admin-area-zone-create" element={<AdminAreaZoneCreate />} />
-            <Route path="/admin-area-zone-update/:id" element={<AdminAreaZoneUpdate />} />
-            {/* Pages d'erreur */}
-            <Route path="/erreur" element={<PageError />} />
-            <Route path="/en-construction" element={<PageUnderConstruction />} />
-            <Route path="*" element={<PageNotFound />} />
-        </Routes>
-    </BrowserRouter> 
-  );
+const App = () => {
+    return (
+        <BrowserRouter>
+            <Routes>
+                {/* Pages : Accueil et Recherche avancée */}
+                <Route path="/" element={<Home />} />
+                <Route path="/search" element={<Search />} />
+                {/* Page Login */}
+                <Route path="/connect" element={<Connect />} />
+                {/* Pages d'administration */}
+                <Route path="/admin-area-type" element={<AdminAreaType />} />
+                <Route path="/admin-area-type-create" element={<AdminAreaTypeCreate />} />
+                <Route path="/admin-area-type-update/:id" element={<AdminAreaTypeUpdate />} />
+                <Route path="/admin-area-zone" element={<AdminAreaZone />} />
+                <Route path="/admin-area-zone-create" element={<AdminAreaZoneCreate />} />
+                <Route path="/admin-area-zone-update/:id" element={<AdminAreaZoneUpdate />} />
+                {/* Pages d'erreur */}
+                <Route path="/erreur" element={<PageError />} />
+                <Route path="/en-construction" element={<PageUnderConstruction />} />
+                <Route path="*" element={<PageNotFound />} />
+            </Routes>
+        </BrowserRouter> 
+    );
 }
 
 export default App;
