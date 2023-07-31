@@ -10,7 +10,6 @@ import imgFilter from "../../../assets/images/button/filtre.png"
 /* Import des composants */
 import Header from "../../../layout/header/Header";
 import Footer from "../../../layout/footer/Footer";
-import Menu from "../../../layout/menu/Menu"
 import ModalConfirm from "../../../components/modal/ModalConfirm"
 import Loader from "../../../components/loader/Loader"
 
@@ -161,7 +160,6 @@ const AdminAreaZone = () => {
         <>
         <Header />
         <main>
-            <Menu />
             <section className="container-fluid admin">
                 <h1>Administration</h1>
                 <div className="container">

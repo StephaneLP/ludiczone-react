@@ -1,7 +1,6 @@
 /* Import des composants */
 import Header from "../../layout/header/Header";
 import Footer from "../../layout/footer/Footer";
-import Menu from "../../layout/menu/Menu"
 import SearchResult from "./components/SearchResult"
 
 /* Import des Hooks & composants react-rooter */
@@ -24,7 +23,6 @@ const Search = () => {
         <>
         <Header />
         <main>
-            <Menu />
             <SearchResult typeId={typeId} zoneId={zoneId} />
         </main>
         <Footer />

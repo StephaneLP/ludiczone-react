@@ -1,12 +1,10 @@
 import "./errors.scss"
 import imgNotfound from "../../assets/images/errors/404-page-animation.gif"
-import NoMenu from "../../layout/menu/NoMenu"
 import { Link } from "react-router-dom"
 
 const PageNotFound = () => {
     return (
         <main>
-            <NoMenu />
             <section className="container error">
                 <p className="parag">Oups, il semblerait que vous soyez arrivé sur une...</p>
                 <h1>Page inconnue !</h1>

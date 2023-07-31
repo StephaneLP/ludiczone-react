@@ -3,11 +3,11 @@
 header {
     background: linear-gradient(to bottom, $baseBgColor, $baseBgColorLight1);
 
-    .header-bandeau {
+    .bandeau {
         color: white;
         padding: 20px 0;
 
-        .header-logo {
+        .bandeau-logo {
             img {
                 height: 60px;
                 border-radius: 50%;
@@ -15,7 +15,7 @@ header {
                 margin-right: 15px;
             }
 
-            .header-logo-titre {
+            .bandeau-logo-titre {
                 font-size: 3rem;
                 
                 span {
@@ -24,7 +24,7 @@ header {
             }
         }
 
-        .header-titre {
+        .bandeau-titre {
             color: white;
             font-size: 3rem;
             margin: 0;
@@ -34,23 +34,87 @@ header {
             }
         }
     }
+
+    .menu {
+        box-shadow: 0 3px 6px $shadow;
+        background-color: $menuBgColor;
+        position: sticky;
+        top: 0;
+        left: 0;
+        z-index: 1;
+    
+        .menu-navbar {
+            font-size: 1.5rem;
+            padding: 0;
+    
+            .menu-link {
+                color: $baseFontColorLight1;
+                transition: all 0.4s ease-out;
+                padding: 10px;
+            }
+    
+            .menu-link-dropdown {
+                color: $baseFontColorLight1;
+                transition: all 0.4s ease-out;
+                padding: 4px 10px;
+            }
+    
+            .menu-link-button {
+                border: 0 solid grey;
+            }
+    
+            .menu-link:hover, .menu-link-dropdown:hover {
+                color:$secondaryFontColor
+            }
+            
+            .actif {
+                color:$secondaryFontColor
+            }
+        }
+    
+        .menu-logout {
+            font-family: "Poppins", Arial, Helvetica, sans-serif;
+            font-size: 1.1rem;
+            color: $baseFontColorLight2;
+            
+            .btn-connect {
+                border: 0 solid white;
+            }
+        }
+    }    
 }
 
 @media screen and (max-width: 992px){
     header {
-        .header-bandeau {
-            .header-logo {
+        .bandeau {
+            .bandeau-logo {
                 img {
                     height: 50px;
                 }
     
-                .header-logo-titre {
+                .bandeau-logo-titre {
                     font-size: 2.5rem;
                 }
             }
     
-            .header-titre {
+            .bandeau-titre {
                 font-size: 2.5rem;
+            }
+        }
+
+        .menu {
+            .menu-navbar{
+                .menu-navbar-togler {
+                    margin: 5px;
+                }
+    
+                 .menu-link {
+                    padding: 5px 10px;
+                }
+    
+                .dropdown-menu {
+                    margin-bottom: 5px;
+                }
             }
         }
     }
@@ -58,11 +122,11 @@ header {
 
 @media screen and (max-width: 768px){
     header {
-        .header-bandeau {
+        .bandeau {
             div {
                 flex-direction: column;
 
-                .header-logo {
+                .bandeau-logo {
                     flex-direction: row;
                 }
             }
@@ -72,18 +136,18 @@ header {
 
 @media screen and (max-width: 576px){
     header {
-        .header-bandeau {
-            .header-logo {
+        .bandeau {
+            .bandeau-logo {
                 img {
                     height: 40px;
                 }
     
-                .header-logo-titre {
+                .bandeau-logo-titre {
                     font-size: 2.2rem;
                 }
             }
     
-            .header-titre {
+            .bandeau-titre {
                 font-size: 2.2rem;
             }
         }

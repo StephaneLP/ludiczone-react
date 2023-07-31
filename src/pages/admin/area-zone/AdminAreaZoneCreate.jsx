@@ -7,7 +7,6 @@ import { colorMsg, cleanLocalStorage } from "../../../js/utils.js"
 /* Import des composants */
 import Header from "../../../layout/header/Header";
 import Footer from "../../../layout/footer/Footer";
-import Menu from "../../../layout/menu/Menu"
 
 /* Import des Hooks & composants react-rooter */
 import { useState } from "react"
@@ -96,7 +95,6 @@ const AdminAreaZoneCreate = () => {
         <>
         <Header />
         <main>
-            <Menu />
             <section className="container-fluid admin">
                 <h1>Ajouter une zone</h1>
                 <div className="container">

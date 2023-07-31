@@ -7,7 +7,6 @@ import { colorMsg, cleanLocalStorage } from "../../../js/utils.js"
 /* Import des composants */
 import Header from "../../../layout/header/Header";
 import Footer from "../../../layout/footer/Footer";
-import Menu from "../../../layout/menu/Menu"
 import Loader from "../../../components/loader/Loader"
 
 /* Import des Hooks & composants react-rooter */
@@ -139,7 +138,6 @@ const AdminAreaTypeUpdate = () => {
         <>
         <Header />
         <main>
-            <Menu />
             <section className="container-fluid admin">
                 <h1>Modifier un type de loisir</h1>
                 <div className="container">

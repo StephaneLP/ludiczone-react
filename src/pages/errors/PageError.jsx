@@ -1,6 +1,5 @@
 import "./errors.scss"
 import imgError from "../../assets/images/errors/error.gif"
-import NoMenu from "../../layout/menu/NoMenu"
 import { Link, useLocation } from 'react-router-dom'
 
 const PageError = () => {
@@ -11,7 +10,6 @@ const PageError = () => {
     
     return (
         <main>
-            <NoMenu />
             <section className="container d-flex flex-column align-items-center error">
                 <p className="parag">Oups, une erreur est survenue...</p>
                 {message &&

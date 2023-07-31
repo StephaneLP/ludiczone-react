@@ -1,7 +1,6 @@
 /* Import des composants */
 import Header from "../../layout/header/Header";
 import Footer from "../../layout/footer/Footer";
-import Menu from "../../layout/menu/Menu"
 import HomeBandeau from "./components/HomeBandeau"
 import HomeAreaType from "./components/HomeAreaType"
 import HomeAreaZone from "./components/HomeAreaZone"
@@ -16,7 +15,6 @@ const Home = () => {
         <>
         <Header />
         <main>
-            <Menu />
             <HomeBandeau />
             <HomeAreaType />
             <HomeAreaZone />
