@@ -100,7 +100,7 @@ const AdminAreaType = () => {
                 // Token invalide
                 if(["ERR_AUTHENTICATION"].includes(res.status)) {
                     cleanLocalStorage()
-                    navigate("/connect", {state: true})
+                    navigate("/reconnect")
                     return
                 }
                 // Token absent - Droits insuffisants - Erreur serveur

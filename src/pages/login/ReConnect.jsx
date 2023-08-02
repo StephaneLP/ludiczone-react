@@ -9,19 +9,15 @@ import Header from "../../layout/header-no-menu/Header"
 
 /* Import des Hooks & composants react-rooter */
 import { useState } from "react"
-import { Link, useLocation, useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 
-const Connect = () => {
+const ReConnect = () => {
 
     /* ------------------------------------------------------------------------------------------------- */
     /* --------------------------------------- PARTIE JAVASCRIT ---------------------------------------- */
     /* ------------------------------------------------------------------------------------------------- */
 
     const navigate = useNavigate()
-    const location = useLocation()
-
-    // Le composant est-il appélé pour une reconnexion (token expiré) ?
-    const isReconnect = location.state || false
 
     // Messages et focus d'erreur
     const[errorMessage, setErrorMessage] = useState({libelle: "", color: ""})
@@ -90,12 +86,7 @@ const Connect = () => {
 
                 localStorage.setItem("jwt",res.data.token) // Token enregistré dans le localStorage
                 localStorage.setItem("pseudo",res.data.nick_name) // Pseudo enregistré dans le localStorage
-                if(isReconnect) {
-                    navigate(-2) // Si reconnexion, retour au composant appelant
-                }
-                else {
-                    navigate("/")
-                }
+                navigate(-2) // Retour au composant appelant
             })
             .catch((error) => {
                 cleanLocalStorage()
@@ -111,28 +102,17 @@ const Connect = () => {
         <>
         <Header />
         <main>
-            <section className="container-fluid login">
-                {!isReconnect ?
-                (<h1>S'identifier</h1>)
-                :
-                (<>
-                    <h1>Votre session est expirée...</h1>
-                    <h2>Veuillez-vous identifier S.V.P.</h2>
-                </>)}
-                
+            <section className="login">
+                <h1>Session expirée...</h1>
+                <h2>Veuillez-vous identifier S.V.P.</h2>
                 <div className="container">
                     <div className="login-message d-flex justify-content-center align-items-center">
                         <div style={{backgroundColor: errorMessage.color}}>{errorMessage.libelle}</div>
                     </div>
                     <form onSubmit={handleSubmit}>
                         <div className="row">
-                            <div className="col-12 col-md-4"></div>
-                            <div className="col-12 col-md-4 login-separator-top"></div>
-                            <div className="col-12 col-md-4"></div>
-                        </div>
-                        <div className="row">
-                            <div className="col-12 col-md-4"></div>
-                            <div className="col-12 col-md-4">
+                            <div className="col-12"></div>
+                            <div className="col-12">
                                 <div className="login-cellule">
                                     <label>
                                         <input className="logo-user" type="text" tabIndex="1" placeholder="Pseudo ou Email..." maxLength="50" value={login} onChange={(e) => handleLoginChange(e)} style={{borderColor: focusLogin}} />
@@ -141,28 +121,11 @@ const Connect = () => {
                                 <div className="login-cellule">
                                     <label>
                                         <input className="logo-cadenas" type="password" tabIndex="2" placeholder="Mot de passe..." maxLength="50" value={password} onChange={(e) => handlePasswordChange(e)} style={{borderColor: focusPassword}} />
-                                        <Link className="btn-lien-connect" to="/en-construction">Mot de passe oublié ?</Link>
                                     </label>
                                 </div>
                             </div>
-                            <div className="col-12 col-md-2"></div>
+                            <div className="col-12"></div>
                         </div>
-                        <div className="row">
-                            <div className="col-12 col-md-4"></div>
-                            <div className="col-12 col-md-4 login-separator-bottom"></div>
-                            <div className="col-12 col-md-4"></div>
-                        </div>
-                        {!isReconnect && // Lien de création de compte affiché si première authentification
-                        (
-                            <div className="row">
-                                <div className="col-12 col-md-4"></div>
-                                <div className="col-12 col-md-4 login-separator">
-                                    Vous n'avez toujours pas de compte ?<br />
-                                    <Link to="/en-construction" className="btn-lien">Créer un compte</Link>
-                                </div>
-                                <div className="col-12 col-md-4"></div>
-                            </div>  
-                        )}
                         <div className="row">
                             <div className="col-12">
                                 <div className="form-buttons">
@@ -183,4 +146,4 @@ const Connect = () => {
     )
 }
 
-export default Connect
+export default ReConnect
