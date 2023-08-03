@@ -2,7 +2,7 @@
 import "./header.scss"
 
 /* Import des composants */
-import Bandeau from "./components/Bandeau"
+import Bandeau from "./components/BandeauNoMenu"
 
 const Header = () => {
     return (

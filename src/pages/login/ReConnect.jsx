@@ -6,7 +6,7 @@ import { colorMsg, cleanLocalStorage } from "../../js/utils.js"
 import logoUser from "../../assets/images/logo/login.png"
 
 /* Import des composants */
-import Header from "../../layout/header-no-menu/Header"
+import Header from "../../layout/header/HeaderNoMenu"
 
 /* Import des Hooks & composants react-rooter */
 import { useState } from "react"
@@ -97,7 +97,7 @@ const ReConnect = () => {
         <main>
             <section className="login">
                 <h1>Session expirée...</h1>
-                <img className="login-img" src={logoUser} alt="Logo user" />
+                <img className="relogin-img" src={logoUser} alt="Logo user" />
                 <h2>Veuillez-vous identifier S.V.P.</h2>
                 <div className="login-message" style={{color: errorMessage.color, borderColor: errorMessage.color}}>{errorMessage.libelle}</div>
 
