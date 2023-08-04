@@ -1,7 +1,8 @@
 @import "../../styles/utils/utils";
 
 header {
-    background: linear-gradient(to bottom, $baseBgColor, $baseBgColorLight1);
+    // background: linear-gradient(to bottom, $baseBgColor, $baseBgColorLight1);
+    background: linear-gradient(to bottom, #657fac, #657FAC);
 
     .bandeau {
         color: white;

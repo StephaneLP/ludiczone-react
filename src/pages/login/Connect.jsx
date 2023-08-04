@@ -3,7 +3,7 @@ import "./login.scss"
 
 /* Import des fonctions, variables & images */
 import { colorMsg, cleanLocalStorage } from "../../js/utils.js"
-import logoUser from "../../assets/images/logo/login.png"
+import logoUser from "../../assets/images/logo/login-menu.png"
 
 /* Import des composants */
 import Header from "../../layout/header/HeaderNoMenu"
@@ -94,11 +94,11 @@ const Connect = () => {
     return (
         <>
         <Header />
-        <main>
+        <main className="main-login">
             <section className="login">
                 {/* <h1>S'identifier</h1> */}
                 <img className="login-img" src={logoUser} alt="Logo user" />
-                <h2>Veuillez-vous identifier S.V.P.</h2>
+                <h2>S'identifier</h2>
                 <div className="login-message" style={{color: errorMessage.color, borderColor: errorMessage.color}}>{errorMessage.libelle}</div>
 
                 <form onSubmit={handleSubmit}>
@@ -112,11 +112,13 @@ const Connect = () => {
                         <label>
                             <input className="logo-cadenas" type="password" tabIndex="2" placeholder="Mot de passe..." maxLength="50" value={password} onChange={(e) => handlePasswordChange(e)} style={{borderColor: controlPassword.color}} />
                             <div className="login-cellule-message" style={{color: controlPassword.color}}>{controlPassword.libelle}</div>
-                        <Link className="link-forgotten-password " to="/en-construction">Mot de passe oublié ?</Link>
                         </label>
                     </div>
-                   <input className="btn-login" tabIndex="3" type="submit" value="Valider" />
-                    <div className="login-separator">
+                    <div className="d-flex justify-content-center">
+                        <Link className="link-forgotten-password" to="/en-construction">Mot de passe oublié ?</Link>
+                    </div>
+                    <input className="btn-login" tabIndex="3" type="submit" value="Valider" />
+                    <div className="login-signup">
                         Vous n'avez toujours pas de compte ?<br />
                         <Link to="/en-construction" className="btn-lien">Créer un compte</Link>
                     </div>                 

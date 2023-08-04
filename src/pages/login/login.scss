@@ -1,14 +1,25 @@
 @import "../../styles/utils/utils";
 
+.main-login {
+    // background-image: url("../../assets/images/background/bglogin.svg");
+    // background-size: cover;
+    // background-position: center;
+    // height: 100vh;
+}
+
 .login {
     font-family: "Poppins", Arial, Helvetica, sans-serif;
-    max-width: 500px;
-    margin: 120px auto 0;
+    width: 450px;
+    // margin: 120px auto 0;
     padding: 60px 40px 40px;
-    border: 1px solid $baseBgColorLight3;
-    border-radius: 10px;
-    box-shadow: 5px 5px 5px $baseBgColorLight4;
-    position: relative;
+    border: 1px solid white;
+    background-color: #8da4cd;
+    border-radius: 20px;
+    box-shadow: 15px 15px 15px #cccccc;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     display: flex;
     flex-direction: column;
 
@@ -38,12 +49,14 @@
         top: 0;
         left: 50%;
         transform: translate(-50%, -50%);
+        border-radius: 50%;
+        border: 2px solid white;
     }
 
     h2 {
         font-family: "Poppins", Arial, Helvetica, sans-serif;
-        color: $baseFontColorLight2;
-        font-size: 1.5rem;
+        color: white;
+        font-size: 1.8rem;
         margin: 40px 0 0;
     }
 
@@ -53,7 +66,7 @@
         font-size: 0.9rem;
         font-style: italic;
         color: white;
-        border: 1px solid white;
+        border: 1px solid #8DA4CD;
         border-radius: 5px;
     }
 
@@ -67,29 +80,34 @@
                 width: 100%;
                 padding: 10px 40px;
                 font-size: 1rem;
-                color: $baseFontColorLight1;
-                background-color: $baseBgColorLight5;
-                border: 1px solid $baseBgColorLight3;
-                border-radius: 5px;
+                color: white;
+                background-color: #839bc4;
+                border: 1px solid white;
+                border-radius: 10px;
+            }
+
+            input:focus {
+                outline: none;
+                border: 1px solid #ff3c00;
             }
 
             input::placeholder {
-                color: $baseFontColorLight3;
+                color: #f6f6f6;
                 opacity: 1;
                 font-style: italic;
                 font-size: 0.9rem;
               }
 
             .logo-user {
-                background-image: url("../../assets/images/icones/user.png");
-                background-position: left;
-                background-repeat: no-repeat;
+                // background-image: url("../../assets/images/icones/user.png");
+                // background-position: left;
+                // background-repeat: no-repeat;
             }
 
             .logo-cadenas {
-                background-image: url("../../assets/images/icones/cadenas.png");
-                background-position: left;
-                background-repeat: no-repeat;
+                // background-image: url("../../assets/images/icones/cadenas.png");
+                // background-position: left;
+                // background-repeat: no-repeat;
             }
 
             .login-cellule-message {
@@ -106,9 +124,9 @@
         padding: 10px 20px;
         margin-top: 20px;
         color: white;
-        background-color: $secondaryBgColorLight1;
-        border: 1px solid $secondaryBgColorLight1;
-        border-radius: 5px;
+        background-color: rgb(101, 127, 172);
+        border: 0px solid $secondaryBgColorLight1;
+        border-radius: 10px;
         transition: all 0.2s ease-out;
     
         &:hover {
@@ -118,10 +136,9 @@
     }
 
     .link-forgotten-password {
-        padding: 5px;
         font-size: 0.9rem;
         font-style: italic;
-        color: $menuFontColor;
+        color: white;
         text-decoration: none;
     
         &:hover {
@@ -129,10 +146,10 @@
         }
     }
 
-    .login-separator {
+    .login-signup {
+        color: grey;
         padding: 10px;
         margin: 40px 0 0;
-        border: 1px solid $baseBgColorLight4;
         background-color: $baseBgColorLight5;
         border-radius: 10px;
         text-align: center;
