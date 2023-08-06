@@ -1,7 +1,7 @@
 /* Couleurs des messages affichés suite à la réponse d'une requête */
 const colorMsg = {
     success: "#77a366",
-    error: "#c51313",
+    error: "#C14444",
 }
 
 /* Formatage des dates */

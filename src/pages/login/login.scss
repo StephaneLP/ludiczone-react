@@ -1,21 +1,19 @@
 @import "../../styles/utils/utils";
 
 .main-login {
-    // background-image: url("../../assets/images/background/bglogin.svg");
-    // background-size: cover;
-    // background-position: center;
-    // height: 100vh;
+    background-image: url("../../assets/images/background/bglogin.svg");
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    position: relative;
 }
 
 .login {
     font-family: "Poppins", Arial, Helvetica, sans-serif;
-    width: 450px;
-    // margin: 120px auto 0;
+    width: 420px;
     padding: 60px 40px 40px;
-    border: 1px solid white;
     background-color: #8da4cd;
     border-radius: 20px;
-    box-shadow: 15px 15px 15px #cccccc;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -24,51 +22,66 @@
     flex-direction: column;
 
     h1 {
-        width: 80%;
-        margin: 0;
-        padding: 10px;
-        color: $secondaryFontColor;
-        background-color: $baseBgColorLight5;
-        font-size: 2.5rem;
-        border: 1px solid $baseBgColorLight3;
-        border-radius: 5px;
-        position: absolute;
-        top: 0;
-        left: 50%;
-        transform: translate(-50%, -50%);
-    }
-
-    .relogin-img {
-        width: 120px;
-        margin: 0 auto;
+        font-family: "Poppins", Arial, Helvetica, sans-serif;
+        color: white;
+        font-size: 2rem;
+        margin: 40px 0 0;
     }
 
     .login-img {
-        width: 120px;
+        background-image: url("../../assets/images/logo/login-menu.png");
+        background-size: cover;
+        background-position: center;
+        width: 100px;
+        height: 100px;
         position: absolute;
-        top: 0;
+        top: 10px;
         left: 50%;
         transform: translate(-50%, -50%);
         border-radius: 50%;
         border: 2px solid white;
-    }
+        transition: all 0.2s ease-out;
 
-    h2 {
-        font-family: "Poppins", Arial, Helvetica, sans-serif;
-        color: white;
-        font-size: 1.8rem;
-        margin: 40px 0 0;
+        &:hover {
+            background-image: url("../../assets/images/logo/login-menu-hover.png");
+        }        
     }
 
     .login-message {
-        margin-top: 5px;
+        margin-top: 15px;
         padding: 5px 10px;
         font-size: 0.9rem;
         font-style: italic;
         color: white;
-        border: 1px solid #8DA4CD;
-        border-radius: 5px;
+        border-radius: 10px;
     }
+
+    // h1 {
+    //     width: 80%;
+    //     margin: 0;
+    //     padding: 10px;
+    //     color: $secondaryFontColor;
+    //     background-color: $baseBgColorLight5;
+    //     font-size: 2.5rem;
+    //     border: 1px solid $baseBgColorLight3;
+    //     border-radius: 5px;
+    //     position: absolute;
+    //     top: 0;
+    //     left: 50%;
+    //     transform: translate(-50%, -50%);
+    // }
+
+    // h2 {
+    //     font-family: "Poppins", Arial, Helvetica, sans-serif;
+    //     color: white;
+    //     font-size: 1.8rem;
+    //     margin: 40px 0 0;
+    // }
+
+    // .relogin-img {
+    //     width: 120px;
+    //     margin: 0 auto;
+    // }
 
     .login-cellule {
         margin: 20px 0;
@@ -88,7 +101,7 @@
 
             input:focus {
                 outline: none;
-                border: 1px solid #ff3c00;
+                border: 1px solid #8ee8ff;
             }
 
             input::placeholder {
@@ -97,6 +110,13 @@
                 font-style: italic;
                 font-size: 0.9rem;
               }
+
+
+
+
+
+
+
 
             .logo-user {
                 // background-image: url("../../assets/images/icones/user.png");
@@ -111,11 +131,25 @@
             }
 
             .login-cellule-message {
-                padding: 0 5px;
+                margin-top: 2px;
+                padding: 2px 10px;
                 font-size: 0.9rem;
                 font-style: italic;
+                color: white;
+                border-radius: 10px;
             }
         }            
+    }
+
+    .login-link {
+        font-size: 0.9rem;
+        font-style: italic;
+        color: white;
+    
+        &:hover {
+            color: #ffbf9b;
+            transition: all 0.2s ease-out;
+        }
     }
 
     .btn-login {
@@ -124,34 +158,34 @@
         padding: 10px 20px;
         margin-top: 20px;
         color: white;
-        background-color: rgb(101, 127, 172);
-        border: 0px solid $secondaryBgColorLight1;
+        background-color: #657fac;
+        border: 0px solid white;
         border-radius: 10px;
         transition: all 0.2s ease-out;
     
         &:hover {
-            color: $secondaryBgColorLight1;
-            background-color: white;
-        }
-    }
-
-    .link-forgotten-password {
-        font-size: 0.9rem;
-        font-style: italic;
-        color: white;
-        text-decoration: none;
-    
-        &:hover {
-            text-decoration: underline;
+            background-color: #D4623F;
+            color: white;
         }
     }
 
     .login-signup {
-        color: grey;
-        padding: 10px;
+        color: white;
+        font-size: 0.9rem;
         margin: 40px 0 0;
-        background-color: $baseBgColorLight5;
-        border-radius: 10px;
         text-align: center;
     }
+
+
+
+
+
+    // .login-signup {
+    //     color: grey;
+    //     padding: 10px;
+    //     margin: 40px 0 0;
+    //     background-color: $baseBgColorLight5;
+    //     border-radius: 10px;
+    //     text-align: center;
+    // }
 }
