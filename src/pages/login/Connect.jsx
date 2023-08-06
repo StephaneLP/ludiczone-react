@@ -3,7 +3,6 @@ import "./login.scss"
 
 /* Import des fonctions, variables & images */
 import { colorMsg, cleanLocalStorage } from "../../js/utils.js"
-import logoUser from "../../assets/images/logo/login-menu.png"
 
 /* Import des Hooks & composants react-rooter */
 import { useState } from "react"
