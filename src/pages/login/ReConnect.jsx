@@ -3,14 +3,10 @@ import "./login.scss"
 
 /* Import des fonctions, variables & images */
 import { colorMsg, cleanLocalStorage } from "../../js/utils.js"
-import logoUser from "../../assets/images/logo/login.png"
-
-/* Import des composants */
-import Header from "../../layout/header/HeaderNoMenu"
 
 /* Import des Hooks & composants react-rooter */
 import { useState } from "react"
-import { useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 
 const ReConnect = () => {
 
@@ -21,7 +17,7 @@ const ReConnect = () => {
     const navigate = useNavigate()
 
     // Messages et focus d'erreur
-    const[errorMessage, setErrorMessage] = useState({libelle: "", color: ""})
+    const[errorMessage, setErrorMessage] = useState({libelle: "",color: ""})
     const[controlLogin, setControlLogin] = useState({libelle: "", color: ""})
     const[controlPassword, setControlPassword] = useState({libelle: "", color: ""})
 
@@ -93,13 +89,14 @@ const ReConnect = () => {
 
     return (
         <>
-        <Header />
-        <main>
+        <main className="main-login">
             <section className="login">
+                <Link to="/">
+                    <div className="login-img" alt="Logo LudicZone"></div>
+                </Link>
                 <h1>Session expirée...</h1>
-                <img className="relogin-img" src={logoUser} alt="Logo user" />
-                <h2>Veuillez-vous identifier S.V.P.</h2>
-                <div className="login-message" style={{color: errorMessage.color, borderColor: errorMessage.color}}>{errorMessage.libelle}</div>
+                <h2>Veuillez vous identifier S.V.P.</h2>
+                <div className="login-message" style={{backgroundColor: errorMessage.color}}>{errorMessage.libelle}</div>
 
                 <form onSubmit={handleSubmit}>
                     <div className="login-cellule">
@@ -114,7 +111,7 @@ const ReConnect = () => {
                             <div className="login-cellule-message" style={{color: controlPassword.color}}>{controlPassword.libelle}</div>
                         </label>
                     </div>
-                    <input className="btn-login" tabIndex="3" type="submit" value="Valider" />
+                    <input className="btn-login" tabIndex="3" type="submit" value="Valider" />             
                 </form>
             </section>
         </main>
@@ -123,3 +120,6 @@ const ReConnect = () => {
 }
 
 export default ReConnect
+
+
+

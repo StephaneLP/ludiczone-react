@@ -92,7 +92,7 @@ const Connect = () => {
         <main className="main-login">
             <section className="login">
                 <Link to="/">
-                    <div className="login-img" alt="Logo LudicZone"></div>
+                    <div className="login-img" ></div>
                 </Link>
                 <h1>S'identifier</h1>
                 <div className="login-message" style={{backgroundColor: errorMessage.color}}>{errorMessage.libelle}</div>
@@ -101,13 +101,13 @@ const Connect = () => {
                     <div className="login-cellule">
                         <label>
                             <input className="logo-user" type="text" tabIndex="1" placeholder="Pseudo ou Email..." maxLength="50" value={login} onChange={(e) => handleLoginChange(e)} style={{borderColor: controlLogin.color}} />
-                            <div className="login-cellule-message" style={{backgroundColor: controlLogin.color}}>{controlLogin.libelle}</div>
+                            <div className="login-cellule-message" style={{color: controlLogin.color}}>{controlLogin.libelle}</div>
                         </label>
                     </div>
                     <div className="login-cellule">
                         <label>
                             <input className="logo-cadenas" type="password" tabIndex="2" placeholder="Mot de passe..." maxLength="50" value={password} onChange={(e) => handlePasswordChange(e)} style={{borderColor: controlPassword.color}} />
-                            <div className="login-cellule-message" style={{backgroundColor: controlPassword.color}}>{controlPassword.libelle}</div>
+                            <div className="login-cellule-message" style={{color: controlPassword.color}}>{controlPassword.libelle}</div>
                         </label>
                     </div>
                     <div className="d-flex justify-content-center">

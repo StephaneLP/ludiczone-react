@@ -6,179 +6,150 @@
     background-position: center;
     height: 100vh;
     position: relative;
-}
 
-.login {
-    font-family: "Poppins", Arial, Helvetica, sans-serif;
-    width: 420px;
-    padding: 60px 40px 40px;
-    background-color: #8da4cd;
-    border-radius: 20px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    display: flex;
-    flex-direction: column;
-
-    h1 {
+    .login {
         font-family: "Poppins", Arial, Helvetica, sans-serif;
-        color: white;
-        font-size: 2rem;
-        margin: 40px 0 0;
-    }
-
-    .login-img {
-        background-image: url("../../assets/images/logo/login-menu.png");
-        background-size: cover;
-        background-position: center;
-        width: 100px;
-        height: 100px;
+        width: 420px;
+        padding: 60px 40px 40px;
+        background-color: #8da4cd;
+        border-radius: 20px;
         position: absolute;
-        top: 10px;
+        top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        border-radius: 50%;
-        border: 2px solid white;
-        transition: all 0.2s ease-out;
+        display: flex;
+        flex-direction: column;
 
-        &:hover {
-            background-image: url("../../assets/images/logo/login-menu-hover.png");
-        }        
-    }
-
-    .login-message {
-        margin-top: 15px;
-        padding: 5px 10px;
-        font-size: 0.9rem;
-        font-style: italic;
-        color: white;
-        border-radius: 10px;
-    }
-
-    // h1 {
-    //     width: 80%;
-    //     margin: 0;
-    //     padding: 10px;
-    //     color: $secondaryFontColor;
-    //     background-color: $baseBgColorLight5;
-    //     font-size: 2.5rem;
-    //     border: 1px solid $baseBgColorLight3;
-    //     border-radius: 5px;
-    //     position: absolute;
-    //     top: 0;
-    //     left: 50%;
-    //     transform: translate(-50%, -50%);
-    // }
-
-    // h2 {
-    //     font-family: "Poppins", Arial, Helvetica, sans-serif;
-    //     color: white;
-    //     font-size: 1.8rem;
-    //     margin: 40px 0 0;
-    // }
-
-    // .relogin-img {
-    //     width: 120px;
-    //     margin: 0 auto;
-    // }
-
-    .login-cellule {
-        margin: 20px 0;
-
-        label {
-            width: 100%;
-
-            select, input {
-                width: 100%;
-                padding: 10px 40px;
-                font-size: 1rem;
-                color: white;
-                background-color: #839bc4;
-                border: 1px solid white;
-                border-radius: 10px;
-            }
-
-            input:focus {
-                outline: none;
-                border: 1px solid #8ee8ff;
-            }
-
-            input::placeholder {
-                color: #f6f6f6;
-                opacity: 1;
-                font-style: italic;
-                font-size: 0.9rem;
-              }
-
-            .logo-user {
-                // background-image: url("../../assets/images/icones/user.png");
-                // background-position: left;
-                background-repeat: no-repeat;
-            }
-
-            .logo-cadenas {
-                // background-image: url("../../assets/images/icones/cadenas.png");
-                // background-position: left;
-                background-repeat: no-repeat;
-            }
-
-            .login-cellule-message {
-                margin-top: 2px;
-                padding: 2px 10px;
-                font-size: 0.9rem;
-                font-style: italic;
-                color: white;
-                border-radius: 10px;
-            }
-        }            
-    }
-
-    .login-link {
-        font-size: 0.9rem;
-        font-style: italic;
-        color: white;
-    
-        &:hover {
-            color: #ffbf9b;
-            transition: all 0.2s ease-out;
-        }
-    }
-
-    .btn-login {
-        width: 100%;
-        font-size: 1rem;
-        padding: 10px 20px;
-        margin-top: 20px;
-        color: white;
-        background-color: #657fac;
-        border: 0px solid white;
-        border-radius: 10px;
-        transition: all 0.2s ease-out;
-    
-        &:hover {
-            background-color: #D4623F;
+        h1 {
             color: white;
+            font-size: 2.5rem;
+            margin: 40px 0 0;
+        }
+
+        h2 {
+            font-family: "Poppins Regular", Arial, Helvetica, sans-serif;
+            color: white;
+            font-size: 1.2rem;
+            margin: 20px 0 0;
+        }
+
+        .login-img {
+            background-image: url("../../assets/images/logo/login-menu.png");
+            background-size: cover;
+            background-position: center;
+            width: 100px;
+            height: 100px;
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            border: 2px solid white;
+            transition: all 0.2s ease-out;
+
+            &:hover {
+                background-image: url("../../assets/images/logo/login-menu-hover.png");
+            } 
+        }
+
+        .login-message {
+            margin-top: 15px;
+            padding: 5px 10px;
+            font-size: 0.9rem;
+            font-style: italic;
+            color: white;
+            border-radius: 10px;
+        }
+
+        .login-cellule {
+            margin: 20px 0;
+
+            label {
+                width: 100%;
+
+                select, input {
+                    width: 100%;
+                    padding: 10px 10px 10px 50px;
+                    font-size: 0.9rem;
+                    color: white;
+                    background-color: #839bc4;
+                    border: 1px solid white;
+                    border-radius: 10px;
+                }
+
+                input:focus {
+                    outline: none;
+                    border: 1px solid #8ee8ff;
+                }
+
+                input::placeholder {
+                    font-family: "Poppins Light", Arial, Helvetica, sans-serif;
+                    color: white;
+                    opacity: 1;
+                    font-style: italic;
+                    font-size: 0.9rem;
+                }
+
+                .logo-user {
+                    background-image: url("../../assets/images/icones/user.png");
+                    background-position: left;
+                    background-repeat: no-repeat;
+                }
+
+                .logo-cadenas {
+                    background-image: url("../../assets/images/icones/cadenas.png");
+                    background-position: left;
+                    background-repeat: no-repeat;
+                }
+
+                .login-cellule-message {
+                    margin-top: 2px;
+                    padding: 2px 10px;
+                    font-size: 0.9rem;
+                    font-style: italic;
+                    font-weight: 600;
+                    color: white;
+                    border-radius: 10px;
+                }
+            }            
+        }
+
+        .login-link {
+            font-family: "Poppins Regular", Arial, Helvetica, sans-serif;
+            font-size: 0.9rem;
+            font-style: italic;
+            color: white;
+        
+            &:hover {
+                color: #ffbf9b;
+                transition: all 0.2s ease-out;
+            }
+        }
+
+        .btn-login {
+            color: white;
+            width: 100%;
+            font-size: 1rem;
+            padding: 10px 20px;
+            margin-top: 20px;
+            color: white;
+            background-color: #657fac;
+            border: 0px solid white;
+            border-radius: 10px;
+            transition: all 0.2s ease-out;
+        
+            &:hover {
+                background-color: #D4623F;
+                color: white;
+            }
+        }
+
+        .login-signup {
+            font-family: "Poppins Regular", Arial, Helvetica, sans-serif;
+            color: white;
+            font-size: 0.9rem;
+            margin: 40px 0 0;
+            text-align: center;
         }
     }
-
-    .login-signup {
-        color: white;
-        font-size: 0.9rem;
-        margin: 40px 0 0;
-        text-align: center;
-    }
-
-
-
-
-
-    // .login-signup {
-    //     color: grey;
-    //     padding: 10px;
-    //     margin: 40px 0 0;
-    //     background-color: $baseBgColorLight5;
-    //     border-radius: 10px;
-    //     text-align: center;
-    // }
 }

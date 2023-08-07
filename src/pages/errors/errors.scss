@@ -1,36 +1,37 @@
 @import "../../styles/utils/utils";
 
 .error {
-    margin: 50px auto;
+    margin: 100px auto 0;
     text-align: center;
-    color: $baseFontColorLight1;
+    color: #566e97;
 
     .parag {
-        font-size: 2rem;
+        font-family: "Poppins", Arial, Helvetica, sans-serif;
+        font-size: 1.5rem;
+        font-style: italic;
     }
 
     .error-message {
-        display:inline-block;
         font-family: "Poppins", Arial, Helvetica, sans-serif;
+        display: inline-block;
         font-size: 1.2rem;
-        border: 1px solid $secondaryBgColorLight2;
+        background-color: $secondaryBgColorLight2;
+        color: white;
         border-radius: 10px;
         padding: 20px 40px;
-        margin-top: 40px;
     }
 
     h1 {
-        margin: 20px 0;
+        margin: 30px 0;
         color: $secondaryFontColor;
         font-size: 3rem;
     }
 
     img {
         height: 20vw;
-        // max-width: 300px;
     }
 
-    .btn {
-        font-size: 1.5rem;;
-    }
+    // .btn {
+    //     font-size: 1.5rem;;
+    // }
 }
