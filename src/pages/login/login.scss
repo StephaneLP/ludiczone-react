@@ -11,7 +11,7 @@
         font-family: "Poppins", Arial, Helvetica, sans-serif;
         width: 420px;
         padding: 60px 40px 40px;
-        background-color: #8da4cd;
+        background-color: $baseBgMedium3;
         border-radius: 20px;
         position: absolute;
         top: 50%;
@@ -72,14 +72,14 @@
                     padding: 10px 10px 10px 50px;
                     font-size: 0.9rem;
                     color: white;
-                    background-color: #839bc4;
+                    background-color: $baseBgMedium2;
                     border: 1px solid white;
                     border-radius: 10px;
                 }
 
                 input:focus {
                     outline: none;
-                    border: 1px solid #8ee8ff;
+                    border: 1px solid $focus1;
                 }
 
                 input::placeholder {
@@ -121,7 +121,7 @@
             color: white;
         
             &:hover {
-                color: #ffbf9b;
+                color: $linkHover1;
                 transition: all 0.2s ease-out;
             }
         }
@@ -133,13 +133,13 @@
             padding: 10px 20px;
             margin-top: 20px;
             color: white;
-            background-color: #657fac;
+            background-color: $baseBgMedium1;
             border: 0px solid white;
             border-radius: 10px;
             transition: all 0.2s ease-out;
         
             &:hover {
-                background-color: #D4623F;
+                background-color: $secondaryBgMedium1;
                 color: white;
             }
         }

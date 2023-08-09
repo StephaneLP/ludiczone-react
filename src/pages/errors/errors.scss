@@ -3,7 +3,7 @@
 .error {
     margin: 100px auto 0;
     text-align: center;
-    color: #566e97;
+    color: $baseFont1;
 
     .parag {
         font-family: "Poppins", Arial, Helvetica, sans-serif;
@@ -15,7 +15,7 @@
         font-family: "Poppins", Arial, Helvetica, sans-serif;
         display: inline-block;
         font-size: 1.2rem;
-        background-color: $secondaryBgColorLight2;
+        background-color: $secondaryBgMedium2;
         color: white;
         border-radius: 10px;
         padding: 20px 40px;
@@ -23,15 +23,11 @@
 
     h1 {
         margin: 30px 0;
-        color: $secondaryFontColor;
+        color: $secondaryFont1;
         font-size: 3rem;
     }
 
     img {
         height: 20vw;
     }
-
-    // .btn {
-    //     font-size: 1.5rem;;
-    // }
 }
