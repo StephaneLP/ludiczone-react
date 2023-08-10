@@ -16,7 +16,7 @@ const Home = () => {
         <>
         <Header />
         <main>
-            <Menu />
+            <Menu />{/* Menu placé dans <main> pour la propriété CSS position: sticky */}
             <HomeBandeau />
             <HomeAreaType />
             <HomeAreaZone />

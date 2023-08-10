@@ -79,7 +79,8 @@
 
                 input:focus {
                     outline: none;
-                    border: 1px solid $focus1;
+                    border: 1px solid $focusInputLogin;
+                    box-shadow: 0 0 10px $focusInputLogin;
                 }
 
                 input::placeholder {
@@ -116,12 +117,17 @@
 
         .login-link {
             font-family: "Poppins Regular", Arial, Helvetica, sans-serif;
+            text-decoration: none;
             font-size: 0.9rem;
-            font-style: italic;
             color: white;
+
+            img {
+                width: 10px;
+                margin-right: 10px;;
+            }
         
             &:hover {
-                color: $linkHover1;
+                color: $linkHoverLogin;
                 transition: all 0.2s ease-out;
             }
         }
@@ -145,7 +151,7 @@
         }
 
         .login-signup {
-            font-family: "Poppins Regular", Arial, Helvetica, sans-serif;
+            font-family: "Poppins Italic", Arial, Helvetica, sans-serif;
             color: white;
             font-size: 0.9rem;
             margin: 40px 0 0;

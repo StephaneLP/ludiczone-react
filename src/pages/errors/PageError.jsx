@@ -15,12 +15,11 @@ const PageError = () => {
         <main>
             <section className="container d-flex flex-column align-items-center error">
                 <p className="parag">Oups, une erreur est survenue...</p>
-                {/* {message && */}
+                {message &&
                     <div className="error-message">
                         {message}
-                        Il s'est passé une drôle d'erreur par ici !!!
                     </div>
-                {/* } */}
+                }
                 <img src={imgError} alt="Erreur inconnue"></img>
             </section>
         </main>

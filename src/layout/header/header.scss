@@ -1,27 +1,43 @@
 @import "../../styles/utils/utils";
 
 header {
-    background: linear-gradient(to bottom, #657fac, #657FAC);
-    box-shadow: 0 3px 6px $shadow;
+    background-color: $baseBgMedium1;
+    box-shadow: 0 3px 6px $shadow1;
 
     .bandeau {
         color: white;
         padding: 20px 0;
 
         .bandeau-logo {
-            img {
-                height: 60px;
-                border-radius: 50%;
-                border: 4px solid white;
-                margin-right: 15px;
-            }
-
             .bandeau-logo-titre {
                 font-size: 3rem;
-                
-                span {
-                    color: $secondaryFontColor;
+                display: flex;
+                align-items: center;
+
+                .bandeau-img {
+                    background-image: url("../../assets/images/logo/login-menu.png");
+                    background-size: cover;
+                    background-position: center;
+                    width: 60px;
+                    height: 60px;
+                    border-radius: 50%;
+                    border: 4px solid white;
+                    transition: all 0.2s ease-out;
+                    margin-right: 10px;;
                 }
+
+                span {
+                    color: $secondaryBgMedium2;
+                }
+
+                &:hover {
+                    .bandeau-img {
+                        background-image: url("../../assets/images/logo/login-menu-hover.png");
+                    }
+                    span {
+                        color: $secondaryBgMedium1;
+                    }
+                } 
             }
         }
 
@@ -31,31 +47,7 @@ header {
             margin: 0;
 
             span {
-                color: $secondaryFontColor;
-            }
-        }
-    }
-
-    .bandeau-no-menu {
-        color: white;
-        padding: 20px 0;
-
-        .bandeau-logo {
-            .bandeau-logo-titre {
-                font-size: 3rem;
-                display: flex;
-                align-items: center;
-                
-                img {
-                    height: 60px;
-                    border-radius: 50%;
-                    border: 4px solid white;
-                    margin-right: 15px;
-                }
-
-                span {
-                    color: $secondaryFontColor;
-                }
+                color: $secondaryBgMedium2;
             }
         }
     }
@@ -71,23 +63,19 @@ header {
     
                 .bandeau-logo-titre {
                     font-size: 2.5rem;
+
+                    .bandeau-img {
+                        background-image: url("../../assets/images/logo/login-menu.png");
+                        background-size: cover;
+                        background-position: center;
+                        width: 60px;
+                        height: 60px;
+                    
                 }
             }
     
             .bandeau-titre {
                 font-size: 2.5rem;
-            }
-        }
-
-        .bandeau-no-menu {
-            .bandeau-logo {
-                img {
-                    height: 50px;
-                }
-    
-                .bandeau-logo-titre {
-                    font-size: 2.5rem;
-                }
             }
         }
     }
@@ -96,16 +84,6 @@ header {
 @media screen and (max-width: 768px){
     header {
         .bandeau {
-            div {
-                flex-direction: column;
-
-                .bandeau-logo {
-                    flex-direction: row;
-                }
-            }
-        }
-
-        .bandeau-no-menu {
             div {
                 flex-direction: column;
 
@@ -124,7 +102,7 @@ header {
                 img {
                     height: 40px;
                 }
-    
+
                 .bandeau-logo-titre {
                     font-size: 2.2rem;
                 }
@@ -132,18 +110,6 @@ header {
     
             .bandeau-titre {
                 font-size: 2.2rem;
-            }
-        }
-
-        .bandeau-no-menu {
-            .bandeau-logo {
-                img {
-                    height: 40px;
-                }
-    
-                .bandeau-logo-titre {
-                    font-size: 2.2rem;
-                }
             }
         }
     } 
