@@ -9,108 +9,68 @@ header {
         padding: 20px 0;
 
         .bandeau-logo {
-            .bandeau-logo-titre {
-                font-size: 3rem;
-                display: flex;
-                align-items: center;
-
-                .bandeau-img {
-                    background-image: url("../../assets/images/logo/login-menu.png");
-                    background-size: cover;
-                    background-position: center;
-                    width: 60px;
-                    height: 60px;
-                    border-radius: 50%;
-                    border: 4px solid white;
-                    transition: all 0.2s ease-out;
-                    margin-right: 10px;;
-                }
-
-                span {
-                    color: $secondaryBgMedium2;
-                }
-
-                &:hover {
-                    .bandeau-img {
-                        background-image: url("../../assets/images/logo/login-menu-hover.png");
-                    }
-                    span {
-                        color: $secondaryBgMedium1;
-                    }
-                } 
+            font-size: 3rem;
+            display: flex;
+            align-items: center;
+            @media screen and (max-width: 992px){
+                font-size: 2.5rem;
             }
+            @media screen and (max-width: 576px){
+                font-size: 2.2rem;
+            }
+
+            .bandeau-img {
+                background-image: url("../../assets/images/logo/login-menu.png");
+                background-size: cover;
+                background-position: center;
+                width: 60px;
+                height: 60px;
+                border-radius: 50%;
+                border: 4px solid white;
+                transition: all 0.2s ease-out;
+                margin-right: 10px;
+                @media screen and (max-width: 992px){
+                    width: 50px;
+                    height: 50px;
+                }
+                @media screen and (max-width: 576px){
+                    width: 45px;
+                    height: 45px;
+                }
+            }
+
+            span {
+                color: $secondaryBgMedium2;
+            }
+
+            &:hover {
+                .bandeau-img {
+                    background-image: url("../../assets/images/logo/login-menu-hover.png");
+                }
+                span {
+                    color: $secondaryBgMedium1;
+                }
+            } 
         }
 
         .bandeau-titre {
             color: white;
             font-size: 3rem;
             margin: 0;
+            @media screen and (max-width: 992px){
+                font-size: 2.5rem;
+            }
+            @media screen and (max-width: 576px){
+                font-size: 2.2rem;
+            }
 
             span {
                 color: $secondaryBgMedium2;
             }
         }
-    }
-}
 
-@media screen and (max-width: 992px){
-    header {
-        .bandeau {
-            .bandeau-logo {
-                img {
-                    height: 50px;
-                }
-    
-                .bandeau-logo-titre {
-                    font-size: 2.5rem;
-
-                    .bandeau-img {
-                        background-image: url("../../assets/images/logo/login-menu.png");
-                        background-size: cover;
-                        background-position: center;
-                        width: 60px;
-                        height: 60px;
-                    }
-                }
-            }
-    
-            .bandeau-titre {
-                font-size: 2.5rem;
-            }
+        @media screen and (max-width: 768px){
+            flex-direction: column;
         }
     }
-}
-
-@media screen and (max-width: 768px){
-    header {
-        .bandeau {
-            div {
-                flex-direction: column;
-
-                .bandeau-logo {
-                    flex-direction: row;
-                }
-            }
-        }
-    }  
-}
-
-@media screen and (max-width: 576px){
-    header {
-        .bandeau {
-            .bandeau-logo {
-                img {
-                    height: 40px;
-                }
-
-                .bandeau-logo-titre {
-                    font-size: 2.2rem;
-                }
-            }
-    
-            .bandeau-titre {
-                font-size: 2.2rem;
-            }
-        }
-    } 
 }

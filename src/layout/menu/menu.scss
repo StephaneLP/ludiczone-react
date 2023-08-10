@@ -29,11 +29,11 @@
         }
 
         .menu-link:hover, .menu-link-dropdown:hover {
-            color:$secondaryFontColor
+            color: $secondaryFont1;
         }
         
         .actif {
-            color:$secondaryFontColor
+            color: $secondaryFont2;
         }
     }
 

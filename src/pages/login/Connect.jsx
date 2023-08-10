@@ -112,12 +112,12 @@ const Connect = () => {
                         </label>
                     </div>
                     <div className="d-flex justify-content-center">
-                        <Link className="login-link" to="/en-construction"><img src={imgTriangle} />Mot de passe oublié ?</Link>
+                        <Link className="login-link" to="/en-construction"><img src={imgTriangle} alt="Flèche"/>Mot de passe oublié ?</Link>
                     </div>
                     <input className="btn-login" tabIndex="3" type="submit" value="Valider" />
                     <div className="login-signup">
                         Vous n'avez toujours pas de compte ?<br />
-                        <Link className="login-link" to="/en-construction"><img src={imgTriangle} />Créer un compte</Link>
+                        <Link className="login-link" to="/en-construction"><img src={imgTriangle} alt="Flèche" />Créer un compte</Link>
                     </div>                 
                 </form>
             </section>
