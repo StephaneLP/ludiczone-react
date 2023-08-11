@@ -7,7 +7,7 @@ const PageUnderConstruction = () => {
         <>
         <Header />
         <main>
-            <section className="container d-flex flex-column align-items-center error">
+            <section className="container error">
                 <p className="parag">Page en construction...</p>
                 <img src={imgUnderConstruction} alt="En construction"></img>
             </section>

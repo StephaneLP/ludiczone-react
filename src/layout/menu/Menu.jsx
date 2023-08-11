@@ -3,7 +3,6 @@ import "./menu.scss"
 
 /* Import des fonctions, variables & images */
 import imgLogin from "../../assets/images/button/login.png"
-import imgLogout from "../../assets/images/button/logout.png"
 
 /* Import des Hooks & composants react-rooter */
 import { useEffect, useState } from "react"
@@ -56,10 +55,10 @@ const Menu = () => {
     /* ---------------------------------------------- JSX ---------------------------------------------- */
 
     return (
-        <section className="container-fluid d-flex align-items-center menu">
-            <div className="container d-flex d-row justify-content-between align-items-center">
+        <section className="container-fluid menu">
+            <div className="container menu-div">
                 <nav className="navbar navbar-expand-lg menu-navbar">
-                    <button className="navbar-toggler menu-navbar-togler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                    <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>
                     </button>
                     <div className="collapse navbar-collapse" id="navbarNavDropdown">
@@ -77,7 +76,7 @@ const Menu = () => {
                             }
                             {isAdmin &&
                                 <li className="nav-item dropdown">
-                                    <button className={isRouteAdmin ? "nav-link menu-link menu-link-button dropdown-toggle actif" : "nav-link menu-link menu-link-button dropdown-toggle"} data-bs-toggle="dropdown" aria-expanded="false">ADMIN</button>
+                                    <button className={isRouteAdmin ? "nav-link menu-link dropdown-toggle actif" : "nav-link menu-link dropdown-toggle"} data-bs-toggle="dropdown" aria-expanded="false">ADMIN</button>
                                     <ul className="dropdown-menu">
                                         <li>
                                             <Link to="/en-construction" className={isRouteArea ? "nav-link menu-link-dropdown actif" : "nav-link menu-link-dropdown"} aria-current="page" href="#">AREA</Link>
@@ -113,9 +112,9 @@ const Menu = () => {
                 )
                 :
                 ( // L'utilisateur est authentifié
-                    <div className="menu-logout d-flex align-items-center" >
+                    <div className="menu-logout" >
                         <span>{pseudo}</span>
-                        <button className="btn-logout" onClick={handleLogoutClick}><img src={imgLogout} alt="Logout" /></button>
+                        <button className="btn-logout" onClick={handleLogoutClick}></button>
                     </div>
                 )}
             </div>

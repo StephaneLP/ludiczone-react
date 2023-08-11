@@ -3,7 +3,7 @@ import "./login.scss"
 
 /* Import des fonctions, variables & images */
 import { colorMsg, cleanLocalStorage } from "../../js/utils.js"
-import imgTriangle from "../../assets/images/icones/Arrow.png"
+import imgTriangle from "../../assets/images/icones/arrow.png"
 
 /* Import des Hooks & composants react-rooter */
 import { useState } from "react"
@@ -111,7 +111,7 @@ const Connect = () => {
                             <div className="login-cellule-message" style={{color: controlPassword.color}}>{controlPassword.libelle}</div>
                         </label>
                     </div>
-                    <div className="d-flex justify-content-center">
+                    <div className="login-forgotten">
                         <Link className="login-link" to="/en-construction"><img src={imgTriangle} alt="Flèche"/>Mot de passe oublié ?</Link>
                     </div>
                     <input className="btn-login" tabIndex="3" type="submit" value="Valider" />

@@ -69,22 +69,7 @@
     }                    
 }
 
-.btn-logout {
-    border: 0 solid $menuBtnBorderColor;
-    padding: 2px 5px;
-    margin-left: 6px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: all 0.2s ease-out;
 
-    img {
-        height: 25px;
-    }
-
-    &:hover {
-        background-color: $menuBtnBgColorLight;
-    }                    
-}
 
 .btn-confirm {
     font-size: 1rem;

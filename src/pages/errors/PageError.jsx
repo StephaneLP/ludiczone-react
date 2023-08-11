@@ -13,7 +13,7 @@ const PageError = () => {
         <>
         <Header />
         <main>
-            <section className="container d-flex flex-column align-items-center error">
+            <section className="container error">
                 <p className="parag">Oups, une erreur est survenue...</p>
                 {message &&
                     <div className="error-message">

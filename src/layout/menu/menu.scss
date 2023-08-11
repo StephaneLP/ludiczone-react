@@ -8,60 +8,91 @@
     left: 0;
     z-index: 1;
 
-    .menu-navbar {
-        font-size: 1.5rem;
-        padding: 0;
+    .menu-div {
+        display:flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
 
-        .menu-link {
-            color: $baseFontColorLight1;
-            transition: all 0.4s ease-out;
-            padding: 10px;
+        .menu-navbar {
+            font-size: 1.5rem;
+            padding: 0;
+
+            .menu-link {
+                color: $baseFontDark2;
+                background-color: white;
+                transition: all 0.4s ease-out;
+                padding: 10px;
+                border: 0px;
+                @media screen and (max-width: 992px){
+                    padding: 5px 10px;
+                }
+            }
+
+            .menu-link-dropdown {
+                color: $baseFontDark2;
+                transition: all 0.4s ease-out;
+                padding: 4px 10px;
+            }
+
+            .menu-link:hover, .menu-link-dropdown:hover {
+                color: $secondaryFont1;
+            }
+            
+            .actif {
+                color: $secondaryFont2;
+            }
+
+            .navbar-toggler {
+                &:focus {
+                    box-shadow: 0 0 0 transparent;
+                }
+
+                @media screen and (max-width: 992px){
+                    margin: 5px;
+                }
+            }
+
+            .dropdown-menu {
+                @media screen and (max-width: 992px){
+                    margin-bottom: 5px;
+                }
+            }
         }
 
-        .menu-link-dropdown {
-            color: $baseFontColorLight1;
-            transition: all 0.4s ease-out;
-            padding: 4px 10px;
+        .menu-logout {
+            font-family: "Poppins", Arial, Helvetica, sans-serif;
+            color: $baseFontDark1;
+            font-size: 1.1rem;
+            display: flex;
+            flex-direction: row;
+            cursor: pointer;
+            transition: all 0.2s ease-out;
+            
+            .btn-logout {
+                background-image: url("../../assets/images/icones/logout.png");
+                background-size: cover;
+                background-position: center;
+                border: 0 solid $menuBtnBorderColor;
+                background-color: white;
+                width: 25px;
+                height: 25px;
+                margin-left: 6px;
+                transition: all 0.2s ease-out;                  
+            }
+
+            &:hover {
+                color: $secondaryFont1;
+
+                .btn-logout {
+                    background-image: url("../../assets/images/icones/logout-hover.png");
+                }
+            }
         }
 
-        .menu-link-button {
-            border: 0 solid grey;
-        }
-
-        .menu-link:hover, .menu-link-dropdown:hover {
-            color: $secondaryFont1;
-        }
-        
-        .actif {
-            color: $secondaryFont2;
-        }
-    }
-
-    .menu-logout {
-        font-family: "Poppins", Arial, Helvetica, sans-serif;
-        font-size: 1.1rem;
-        color: $baseFontColorLight2;
-        
         .btn-connect {
             border: 0 solid white;
         }
     }
 }    
 
-@media screen and (max-width: 992px){
-    .menu {
-        .menu-navbar{
-            .menu-navbar-togler {
-                margin: 5px;
-            }
-
-                .menu-link {
-                padding: 5px 10px;
-            }
-
-            .dropdown-menu {
-                margin-bottom: 5px;
-            }
-        }
-    }
-}

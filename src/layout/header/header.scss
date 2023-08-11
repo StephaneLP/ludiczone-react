@@ -7,7 +7,11 @@ header {
     .bandeau {
         color: white;
         padding: 20px 0;
-
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        
         .bandeau-logo {
             font-size: 3rem;
             display: flex;
@@ -20,7 +24,7 @@ header {
             }
 
             .bandeau-img {
-                background-image: url("../../assets/images/logo/login-menu.png");
+                background-image: url("../../assets/images/icones/header-bandeau.png");
                 background-size: cover;
                 background-position: center;
                 width: 60px;
@@ -41,11 +45,12 @@ header {
 
             span {
                 color: $secondaryBgMedium2;
+                transition: all 0.2s ease-out;
             }
 
             &:hover {
                 .bandeau-img {
-                    background-image: url("../../assets/images/logo/login-menu-hover.png");
+                    background-image: url("../../assets/images/icones/header-bandeau-hover.png");
                 }
                 span {
                     color: $secondaryBgMedium1;

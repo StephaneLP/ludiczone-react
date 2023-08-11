@@ -27,14 +27,13 @@
         }
 
         h2 {
-            font-family: "Poppins Regular", Arial, Helvetica, sans-serif;
             color: white;
             font-size: 1.2rem;
             margin: 20px 0 0;
         }
 
         .login-img {
-            background-image: url("../../assets/images/logo/login-menu.png");
+            background-image: url("../../assets/images/icones/header-bandeau.png");
             background-size: cover;
             background-position: center;
             width: 100px;
@@ -48,7 +47,7 @@
             transition: all 0.2s ease-out;
 
             &:hover {
-                background-image: url("../../assets/images/logo/login-menu-hover.png");
+                background-image: url("../../assets/images/icones/header-bandeau-hover.png");
             } 
         }
 
@@ -92,13 +91,13 @@
                 }
 
                 .logo-user {
-                    background-image: url("../../assets/images/icones/user.png");
+                    background-image: url("../../assets/images/icones/input-user.png");
                     background-position: left;
                     background-repeat: no-repeat;
                 }
 
                 .logo-cadenas {
-                    background-image: url("../../assets/images/icones/cadenas.png");
+                    background-image: url("../../assets/images/icones/input-cadenas.png");
                     background-position: left;
                     background-repeat: no-repeat;
                 }
@@ -115,21 +114,8 @@
             }            
         }
 
-        .login-link {
-            font-family: "Poppins Regular", Arial, Helvetica, sans-serif;
-            text-decoration: none;
-            font-size: 0.9rem;
-            color: white;
-
-            img {
-                width: 10px;
-                margin-right: 10px;;
-            }
-        
-            &:hover {
-                color: $linkHoverLogin;
-                transition: all 0.2s ease-out;
-            }
+        .login-forgotten{
+            text-align: center;
         }
 
         .btn-login {
@@ -156,6 +142,24 @@
             font-size: 0.9rem;
             margin: 40px 0 0;
             text-align: center;
+        }
+
+        .login-link {
+            font-family: "Poppins Regular", Arial, Helvetica, sans-serif;
+            text-decoration: none;
+            font-size: 0.9rem;
+            color: white;
+            text-align: center;
+
+            img {
+                width: 10px;
+                margin-right: 10px;;
+            }
+        
+            &:hover {
+                color: $linkHoverLogin;
+                transition: all 0.2s ease-out;
+            }
         }
     }
 }

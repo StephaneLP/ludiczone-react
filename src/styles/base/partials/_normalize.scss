@@ -8,15 +8,12 @@
 
 body {
     font-family: "Boogaloo", Arial, Helvetica, sans-serif;
-    // background: linear-gradient(to top, $baseBgColor, $baseBgColorLight1);
-    // background-color: $baseBgColor;
-    color: $baseFontColor;
+    color: $baseFont1;
     position: relative;
     min-height: 100vh;
 }
 
 main {
-    // padding-bottom: 100px;
     animation: fadein 1s;
     background-color: white;
 }
@@ -30,34 +27,15 @@ main {
     }
 }
 
-h1, h2, h3 {
-    margin: 20px 0 20px;
-    text-align: center;
+h1  {
     font-family: "Boogaloo", Arial, Helvetica, sans-serif;
-    // font-size: 3rem;
+    text-align: center;
+    font-size: 3rem;
 }
 
-.navbar-toggler {
-    &:focus {
-        box-shadow: 0 0 0 transparent;
-    }
+h2, h3 {
+    font-family: "Poppins Regular", Arial, Helvetica, sans-serif;
+    text-align: center;
+    font-size: 2rem;
 }
-// h1 {
-//     color: #e0650d;
-// }
-
-// h2 {
-//     margin: 40px 0;
-//     color: #e0650d;
-// }
-
-// h3 {
-//     margin: 20px 0;
-//     text-align: center;
-//     font-size: 2rem;
-//     color: #e0650d;
-// }
-
-
-
 
