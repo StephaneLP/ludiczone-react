@@ -59,44 +59,52 @@ const SearchResult = (props) => {
     /* ---------------------------------------------- JSX ---------------------------------------------- */
 
     return (
+        <>
+        <section className="search-titre">
+             <h1>Recherche Avancée</h1>
+        </section>
         <section className="container-fluid search">
-            <h1>Recherche Avancée</h1>
             <div className="container">
                 {getArea === null ?
-                    (<Loader />)
-                    :
-                    (
+                (
+                    <Loader />
+                )
+                :
+                (
                     <div className="row">
-                        { getArea.length === 0 ?
+                        {getArea.length === 0 ?
                         (
-                            <div className="d-flex justify-content-center align-items-center search-no-result">Aucun résultat...</div>
+                            <div className="search-no-result">Désolé, aucun résultat ne correspond à vos critères de recherche...</div>
                         )
                         :
-                        (<>
+                        (
+                            <>
                             {getArea.map((element) => {
-                                return (
-                                    <div className="col-12 col-md-6 search-box" key={element.id}>
-                                        <div className="col-12 search-box-inner">
-                                            <div className="search-box-recto d-flex justify-content-center align-items-end" style={{backgroundImage: `url(${require("../../../assets/images/pages/area/" + element.picture)})`}}>
+                            return (
+                                <div className="col-12 col-md-6 search-box" key={element.id}>
+                                    <div className="col-12 search-box-inner">
+                                        <div className="search-box-recto d-flex justify-content-center align-items-end" style={{backgroundImage: `url(${require("../../../assets/images/pages/area/" + element.picture)})`}}>
+                                            <h3>{element.name}</h3>
+                                        </div>                              
+                                        <div className="search-box-verso" style={{backgroundImage: `url(${require("../../../assets/images/pages/area/" + element.picture)})`}}>
+                                            <div className="d-flex flex-column justify-content-center align-items-center search-box-verso-filter">
                                                 <h3>{element.name}</h3>
-                                            </div>                              
-                                            <div className="search-box-verso" style={{backgroundImage: `url(${require("../../../assets/images/pages/area/" + element.picture)})`}}>
-                                                <div className="d-flex flex-column justify-content-center align-items-center search-box-verso-filter">
-                                                    <h3>{element.name}</h3>
-                                                    <p>{element.AreaType.name}</p>
-                                                    <p>{element.AreaZone.name}</p>
-                                                    <button className="btn" onClick={handleFicheClick}>Ouvrir la fiche</button>                                    
-                                                </div>
-                                            </div>                            
-                                        </div>
+                                                <p>{element.AreaType.name}</p>
+                                                <p>{element.AreaZone.name}</p>
+                                                <button className="btn" onClick={handleFicheClick}>Ouvrir la fiche</button>                                    
+                                            </div>
+                                        </div>                            
                                     </div>
-                                )
-                            })} 
-                        </>)}
+                                </div>
+                            )})} 
+                            </>
+                        )}
                     </div>
-                    )}
-            </div>            
-        </section>        
+                )}
+            </div>
+        </section>          
+        </>
+      
     )
 }
 

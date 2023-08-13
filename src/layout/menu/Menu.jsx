@@ -2,7 +2,6 @@
 import "./menu.scss"
 
 /* Import des fonctions, variables & images */
-import imgLogin from "../../assets/images/button/login.png"
 
 /* Import des Hooks & composants react-rooter */
 import { useEffect, useState } from "react"
@@ -106,16 +105,17 @@ const Menu = () => {
                 </nav>
                 {!isUser && !isAdmin ?
                 ( // L'utilisateur n'est pas authentifié
-                    <Link className="btn-connect d-flex align-items-center" to="/connect" aria-current="page" href="#">
-                        <img src={imgLogin} alt="Login" /> Connexion
-                    </Link>
+                <Link className="menu-login" to="/connect" aria-current="page" href="#">
+                    <div className="btn-login"></div>
+                    <span>Connexion</span>
+                </Link>
                 )
                 :
                 ( // L'utilisateur est authentifié
-                    <div className="menu-logout" >
-                        <span>{pseudo}</span>
-                        <button className="btn-logout" onClick={handleLogoutClick}></button>
-                    </div>
+                <div className="menu-logout" >
+                    <span>{pseudo}</span>
+                    <button className="btn-logout" onClick={handleLogoutClick}></button>
+                </div>
                 )}
             </div>
         </section>

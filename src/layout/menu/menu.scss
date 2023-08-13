@@ -60,13 +60,45 @@
             }
         }
 
+        .menu-login {
+            font-family: "Poppins", Arial, Helvetica, sans-serif;
+            color: $baseFontDark2;
+            font-size: 1.1rem;
+            padding: 3px 5px 3px 3px;
+            border-radius: 20px;
+            text-decoration: none;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            transition: all 0.2s ease-out;
+
+            .btn-login {
+                background-image: url("../../assets/images/icones/login.png");
+                background-size: cover;
+                background-position: center;
+                background-color: $baseBgMedium1;
+                border-radius: 50%;
+                width: 25px;
+                height: 25px;
+                margin-right: 4px;
+                transition: all 0.2s ease-out;
+            }
+
+            &:hover {
+                color: $secondaryBgMedium1;
+
+                .btn-login {
+                    background-color: $secondaryBgMedium1;
+                }
+            } 
+        }
+
         .menu-logout {
             font-family: "Poppins", Arial, Helvetica, sans-serif;
             color: $baseFontDark1;
             font-size: 1.1rem;
             display: flex;
             flex-direction: row;
-            cursor: pointer;
             transition: all 0.2s ease-out;
             
             .btn-logout {
@@ -74,24 +106,17 @@
                 background-size: cover;
                 background-position: center;
                 border: 0 solid $menuBtnBorderColor;
-                background-color: white;
+                background-color: $baseBgMedium1;
+                border-radius: 50%;
                 width: 25px;
                 height: 25px;
                 margin-left: 6px;
-                transition: all 0.2s ease-out;                  
+                transition: all 0.2s ease-out;
+
+                &:hover {
+                    background-color: $secondaryBgMedium1;
+                }                
             }
-
-            &:hover {
-                color: $secondaryFont1;
-
-                .btn-logout {
-                    background-image: url("../../assets/images/icones/logout-hover.png");
-                }
-            }
-        }
-
-        .btn-connect {
-            border: 0 solid white;
         }
     }
 }    

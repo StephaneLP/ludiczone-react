@@ -76,7 +76,7 @@ const Connect = () => {
 
                 localStorage.setItem("jwt",res.data.token) // Token enregistré dans le localStorage
                 localStorage.setItem("pseudo",res.data.nick_name) // Pseudo enregistré dans le localStorage
-                navigate(-2) // Retour au composant appelant
+                navigate(-1) // Retour au composant appelant
             })
             .catch((error) => {
                 cleanLocalStorage()

@@ -33,9 +33,10 @@
         }
 
         .login-img {
-            background-image: url("../../assets/images/icones/header-bandeau.png");
+            background-image: url("../../assets/images/icones/logo-site.png");
             background-size: cover;
             background-position: center;
+            background-color: $secondaryBgMedium2;
             width: 100px;
             height: 100px;
             position: absolute;
@@ -47,7 +48,7 @@
             transition: all 0.2s ease-out;
 
             &:hover {
-                background-image: url("../../assets/images/icones/header-bandeau-hover.png");
+                background-color: $secondaryBgMedium1;
             } 
         }
 

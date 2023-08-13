@@ -4,7 +4,7 @@
     text-align: center;
     padding: 100px;
     font-size: 2rem;
-    color: $baseFontColorLight1;
+    color: $baseBgMedium1;
     border: 1px solid white;
     border-radius: 20px;;
 
@@ -28,7 +28,7 @@
                 width: 6px;
                 height: 18px;
                 border-radius: 20%;
-                background: $secondaryBgColor;                
+                background: $secondaryFont1;                
             }
 
             &:nth-child(1) {

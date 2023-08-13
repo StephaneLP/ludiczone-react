@@ -1,103 +1,130 @@
 @import "../../../styles/utils/utils";
 
-.search {
-    background-image: url("../../../assets/images/background/bg.svg");
-    background-size: cover;
-    background-position: center;
-    padding-bottom: 50px;
+.search-titre {
+    margin: 80px 0 40px;
+    height: 60px;;
 
-    h1, h2 {
-        margin: 40px 0;
-        color: $secondaryFontColor;
+    h1 {
+        color: $secondaryFont2;
         font-size: 3rem;
     }
-    
+}
+
+.search {
+    // background: linear-gradient(to bottom, white, $baseBgDark2);
+    background-image: url("../../../assets/images/background/bg.svg");
+    background-size: cover;
+    background-position: top;
+    padding-bottom: 120px;
+    min-height: calc(100vh - 448px);
+
     .search-no-result {
-        height: 55vh;
-        color: $baseFontColorLight2;
-        font-size: 2.5rem;
+        font-family: "Poppins", Arial, Helvetica, sans-serif;
+        color: $baseFontDark2;
+        font-size: 1.5rem;
+        text-align: center;
+        width: 500px;
+        margin: 100px auto 0;
+        padding: 20px;
+        border: 1px solid $baseBgMedium2;
+        border-radius: 10px;
+        background-color: white;
+        box-shadow: 5px 5px 10px $shadow1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 
-    .search-box {
-        padding: 20px;
-        transition: all 0.5s ease-out;
-        background-color: transparent;
-        height: 400px;
-        perspective: 1000px;
-
-        .search-box-inner {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            transition: transform 0.8s;
-            transform-style: preserve-3d;
-            box-shadow: 5px 5px 10px #313146;
-
-            .search-box-recto, .search-box-verso {
-                position: absolute;
-                width: 100%;
-                height: 100%;
-                backface-visibility: hidden;
-                background-size: auto 100%;
-                background-position: center;
-                border: 5px solid white;
-                color: white;
-            }
-
-            .search-box-recto {
-                transition: all 0.5s ease-out;
+            .search-box {
                 padding: 20px;
-                cursor: pointer;        
-                
-                h3 {
-                    display: inline-block;
-                    font-size: 4rem;
-                    font-family: "InHouseEdition", Arial, Helvetica, sans-serif;
-                    padding: 0 40px;
-                    border-radius: 20px;
-                    -webkit-backdrop-filter: blur(30px); /* assure la compatibilité avec safari */
-                    backdrop-filter: blur(30px);
+                transition: all 0.5s ease-out;
+                background-color: transparent;
+                height: 400px;
+                perspective: 1000px;
+
+                .search-box-inner {
+                    position: relative;
+                    width: 100%;
+                    height: 100%;
+                    transition: transform 0.8s;
+                    transform-style: preserve-3d;
+                    box-shadow: 5px 5px 10px $shadow2;
+
+                    .search-box-recto, .search-box-verso {
+                        position: absolute;
+                        width: 100%;
+                        height: 100%;
+                        backface-visibility: hidden;
+                        background-size: auto 100%;
+                        background-position: center;
+                        border: 5px solid white;
+                        color: white;
+                    }
+
+                    .search-box-recto {
+                        transition: all 0.5s ease-out;
+                        padding: 20px;
+                        cursor: pointer;        
+                        
+                        h3 {
+                            display: inline-block;
+                            font-size: 4rem;
+                            font-family: "InHouseEdition", Arial, Helvetica, sans-serif;
+                            padding: 0 40px;
+                            border-radius: 20px;
+                            -webkit-backdrop-filter: blur(30px); /* assure la compatibilité avec safari */
+                            backdrop-filter: blur(30px);
+                        }
+
+                        &:hover {
+                            background-size: auto 110%;
+                        }
+                    }
+                    
+                    .search-box-verso {
+                        transform: rotateY(180deg);
+                        padding: 0;
+                        font-size: 1.8rem;
+                        
+                        .search-box-verso-filter {
+                            width: 100%;
+                            height: 100%;
+                            background-image: linear-gradient(to bottom, #313146ff, #5b5b8699);
+
+                            h3 {
+                                font-size: 3rem;
+                                margin-bottom: 40px;
+                            }                
+                            
+                            p {
+                                margin: 0;
+                            }
+
+                            .btn {
+                                margin-top: 40px;
+                            }
+                        }
+                    }
                 }
 
                 &:hover {
-                    background-size: auto 110%;
-                }
-            }
-            
-            .search-box-verso {
-                transform: rotateY(180deg);
-                padding: 0;
-                font-size: 1.8rem;
-                
-                .search-box-verso-filter {
-                    width: 100%;
-                    height: 100%;
-                    background-image: linear-gradient(to bottom, #313146ff, #5b5b8699);
-
-                    h3 {
-                        font-size: 3rem;
-                        margin-bottom: 40px;
-                    }                
-                    
-                    p {
-                        margin: 0;
-                    }
-
-                    .btn {
-                        margin-top: 40px;
+                    .search-box-inner {
+                        transform: rotateY(180deg);
                     }
                 }
-            }
-        }
 
-        &:hover {
-            .search-box-inner {
-                transform: rotateY(180deg);
+                // .active {
+                //     transform: rotateY(180deg);
+                // }
             }
-        }
 
-        // .active {
-        //     transform: rotateY(180deg);
-        // }
-    }
+
+
 }
+
+
+
+
+
+    
+    

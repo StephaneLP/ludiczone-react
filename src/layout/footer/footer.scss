@@ -26,13 +26,14 @@ footer {
             }
 
             .footer-img {
-                background-image: url("../../assets/images/icones/footer-bandeau.png");
+                background-image: url("../../assets/images/icones/logo-site.png");
                 background-size: cover;
                 background-position: center;
+                background-color: $baseBgMedium2;
                 width: 60px;
                 height: 60px;
                 border-radius: 50%;
-                border: 4px solid white;
+                border: 3px solid white;
                 transition: all 0.2s ease-out;
                 margin-right: 10px;
                 @media screen and (max-width: 992px){
@@ -52,7 +53,7 @@ footer {
 
             &:hover {
                 .footer-img {
-                    background-image: url("../../assets/images/icones/footer-bandeau-hover.png");
+                    background-color: $baseBgMedium1;
                 }
                 span {
                     color: $baseFont2;

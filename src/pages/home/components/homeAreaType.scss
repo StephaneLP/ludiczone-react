@@ -3,12 +3,13 @@
 .home-type {
     background-image: url("../../../assets/images/background/bg.svg");
     background-size: cover;
-    background-position: center;
-    padding-bottom: 50px;
+    background-position: top;
+    padding-bottom: 80px;
 
     h2 {
-        margin: 40px 0;
-        color: $secondaryFontColor;
+        font-family: "Boogaloo", Arial, Helvetica, sans-serif;
+        margin-bottom: 40px;
+        color: $secondaryFont2;
         font-size: 3rem;
     }
 
@@ -19,16 +20,23 @@
         cursor: pointer;
         
         .section-all {
-            box-shadow: 5px 5px 10px $baseBgColor;
+            box-shadow: 5px 5px 10px $shadow2;
+            display: flex;
+            flex-direction: row;
 
             .type-section-left {
                 padding: 20px;
                 width: 50%;
-                background: linear-gradient(to right, $baseBgColor, $baseBgColorLight1);
+                background: linear-gradient(to right, $baseBgDark1, $baseBgDark2);
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
                 transition: all 0.5s ease-out;
                 
                 h3 {
                     color: white;
+                    font-size: 1.8rem;
                 }
             }
 
@@ -44,11 +52,7 @@
             transform: scale(1.03);
 
             .type-section-left {
-                background: linear-gradient(to left, $baseBgColor, $baseBgColorLight1);
-
-                // h3 {
-                //     color: #e0650d;
-                // }
+                background: linear-gradient(to left, $baseBgDark1, $baseBgDark2);
             }
         }
     }

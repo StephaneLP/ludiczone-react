@@ -1,11 +1,12 @@
 @import "../../../styles/utils/utils";
 
 .home-zone {
-    background-color: #9191A8;
-    padding: 50px 0;
+    background-color: $baseBgMedium1;
+    padding-bottom: 120px;
 
     h2 {
-        margin: 0 0 40px;
+        font-family: "Boogaloo", Arial, Helvetica, sans-serif;
+        margin-bottom: 40px;
         color: white;
         font-size: 3rem;
     }
@@ -17,8 +18,8 @@
         cursor: pointer;
         
         .section-all {
-            box-shadow: 5px 5px 10px $baseBgColor;
-            border: 5px solid $baseBgColorLight1;
+            box-shadow: 5px 5px 10px $shadow2;
+            border: 5px solid $baseBgDark1;
             background-size: cover;
             background-position: center;
             width: 100%;
@@ -30,6 +31,7 @@
 
                 h3 {
                     color: white;
+                    font-size: 1.8rem;
                     margin: 0;
                     padding: 6px 20px;
                     -webkit-backdrop-filter: blur(30px); /* assure la compatibilité avec safari */
@@ -42,8 +44,7 @@
             }
 
             &:hover {
-                // filter: hue-rotate(50deg);
-                border: 5px solid white;
+                border: 5px solid $baseBgLight1;
             }
         }
     }
