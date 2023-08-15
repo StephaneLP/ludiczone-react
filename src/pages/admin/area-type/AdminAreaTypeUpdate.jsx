@@ -6,6 +6,7 @@ import { colorMsg, cleanLocalStorage } from "../../../js/utils.js"
 
 /* Import des composants */
 import Header from "../../../layout/header/Header";
+import Menu from "../../../layout/menu/Menu"
 import Footer from "../../../layout/footer/Footer";
 import Loader from "../../../components/loader/Loader"
 
@@ -14,6 +15,11 @@ import { useEffect, useState } from "react"
 import { Link, useNavigate, useParams } from "react-router-dom"
 
 const AdminAreaTypeUpdate = () => {
+
+    /* ------------------------------------------------------------------------------------------------- */
+    /* --------------------------------------- PARTIE JAVASCRIT ---------------------------------------- */
+    /* ------------------------------------------------------------------------------------------------- */
+
     const token = localStorage.getItem("jwt")
     const navigate = useNavigate()
     const { id } = useParams()
@@ -132,12 +138,15 @@ const AdminAreaTypeUpdate = () => {
         window.scrollTo(0,0)
     }
 
-    /* ---------------------------------------------- JSX ---------------------------------------------- */
+    /* ------------------------------------------------------------------------------------------------- */
+    /* ------------------------------------------ PARTIE JSX ------------------------------------------- */
+    /* ------------------------------------------------------------------------------------------------- */
 
     return (
         <>
         <Header />
         <main>
+            <Menu />{/* Menu placé dans <main> pour la propriété CSS position: sticky */}
             <section className="container-fluid admin">
                 <h1>Modifier un type de loisir</h1>
                 <div className="container">
@@ -146,7 +155,7 @@ const AdminAreaTypeUpdate = () => {
                     :
                     (
                         <>
-                        <div className="admin-message d-flex justify-content-center align-items-center">
+                        <div className="admin-message">
                             <div style={{backgroundColor: displayMessage.color}}>{displayMessage.libelle}</div>
                         </div>
                         <form className="admin-alter" onSubmit={handleSubmit}>
@@ -162,13 +171,13 @@ const AdminAreaTypeUpdate = () => {
                                 <div className="col-12 col-md-4">
                                     <div className="admin-alter-cellule">
                                         <label>
-                                            <span className="label-libelle">Nom</span>
+                                            <span>Nom</span>
                                             <input type="text" maxLength="50" value={updateName} onChange={(e) => {setUpdateName(e.target.value); setDisplayMessage({libelle: "", color: ""}); setFocusName("")}} style={{borderColor: focusName}} />
                                         </label>                       
                                     </div>
                                     <div className="admin-alter-cellule">
                                         <label>
-                                        <span className="label-libelle">Description</span>
+                                        <span>Description</span>
                                             <textarea maxLength="200" value={updateDescription} onChange={(e) => setUpdateDescription(e.target.value)} />
                                         </label>                            
                                     </div>
@@ -176,13 +185,13 @@ const AdminAreaTypeUpdate = () => {
                                 <div className="col-12 col-md-4">
                                     <div className="admin-alter-cellule">
                                         <label>
-                                            <span className="label-libelle">Nom de l'image</span>
+                                            <span>Nom de l'image</span>
                                             <input type="text" maxLength="50" value={updatePicture} onChange={(e) => setUpdatePicture(e.target.value)} disabled/>
                                         </label>                       
                                     </div>
                                     <div className="admin-alter-cellule">
                                         <label>
-                                            <span className="label-libelle">Image</span>
+                                            <span >Image</span>
                                             <div className="admin-alter-img" style={{backgroundImage: `url(${require("../../../assets/images/pages/area-type/" + updatePicture)})`}}></div>
                                         </label>                            
                                     </div>

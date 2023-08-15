@@ -5,8 +5,9 @@ import "../admin.scss"
 import { colorMsg, cleanLocalStorage } from "../../../js/utils.js"
 
 /* Import des composants */
-import Header from "../../../layout/header/Header";
-import Footer from "../../../layout/footer/Footer";
+import Header from "../../../layout/header/Header"
+import Menu from "../../../layout/menu/Menu"
+import Footer from "../../../layout/footer/Footer"
 
 /* Import des Hooks & composants react-rooter */
 import { useState } from "react"
@@ -14,6 +15,11 @@ import { Link, useNavigate } from "react-router-dom"
 import { useCheckIsAdmin } from "../../../js/hooks.js"
 
 const AdminAreaTypeCreate = () => {
+
+    /* ------------------------------------------------------------------------------------------------- */
+    /* --------------------------------------- PARTIE JAVASCRIT ---------------------------------------- */
+    /* ------------------------------------------------------------------------------------------------- */
+
     const token = localStorage.getItem("jwt")
     const navigate = useNavigate()
     
@@ -89,16 +95,19 @@ const AdminAreaTypeCreate = () => {
         window.scrollTo(0,0)
     }
 
-    /* ---------------------------------------------- JSX ---------------------------------------------- */
+    /* ------------------------------------------------------------------------------------------------- */
+    /* ------------------------------------------ PARTIE JSX ------------------------------------------- */
+    /* ------------------------------------------------------------------------------------------------- */
 
     return (
         <>
         <Header />
         <main>
+            <Menu />{/* Menu placé dans <main> pour la propriété CSS position: sticky */}
             <section className="container-fluid admin">
                 <h1>Ajouter un type de loisir</h1>
                 <div className="container">
-                    <div className="admin-message d-flex justify-content-center align-items-center">
+                    <div className="admin-message">
                         <div style={{backgroundColor: displayMessage.color}}>{displayMessage.libelle}</div>
                     </div>
                     <form className="admin-alter" onSubmit={handleSubmit}>
@@ -112,13 +121,13 @@ const AdminAreaTypeCreate = () => {
                             <div className="col-12 col-md-4">
                                 <div className="admin-alter-cellule">
                                     <label>
-                                        <span className="label-libelle">Nom</span>
+                                        <span>Nom</span>
                                         <input type="text" maxLength="50" value={createName} onChange={(e) => {setCreateName(e.target.value); setDisplayMessage({libelle: "", color: ""}); setFocusName("")}} style={{borderColor: focusName}} />
                                     </label>                       
                                 </div>
                                 <div className="admin-alter-cellule">
                                     <label>
-                                    <span className="label-libelle">Description</span>
+                                    <span>Description</span>
                                         <textarea maxLength="200" value={createDescription} onChange={(e) => setCreateDescription(e.target.value)} />
                                     </label>                            
                                 </div>
@@ -126,13 +135,13 @@ const AdminAreaTypeCreate = () => {
                             <div className="col-12 col-md-4">
                                 <div className="admin-alter-cellule">
                                     <label>
-                                        <span className="label-libelle">Nom de l'image</span>
+                                        <span>Nom de l'image</span>
                                         <input type="text" maxLength="50" value={createPicture} onChange={(e) => setCreatePicture(e.target.value)} disabled/>
                                     </label>                       
                                 </div>
                                 <div className="admin-alter-cellule">
                                     <label>
-                                        <span className="label-libelle">Image</span>
+                                        <span>Image</span>
                                         <div className="admin-alter-img" style={{backgroundImage: `url(${require("../../../assets/images/pages/area-type/" + createPicture)})`}}></div>
                                     </label>                            
                                 </div>

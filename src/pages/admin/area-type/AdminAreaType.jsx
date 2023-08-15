@@ -3,13 +3,11 @@ import "../admin.scss"
 
 /* Import des fonctions, variables & images */
 import { formatDate, cleanLocalStorage } from "../../../js/utils.js"
-import imgDelete from "../../../assets/images/button/garbage.png"
-import imgUpdate from "../../../assets/images/button/pencil2.png"
-import imgFilter from "../../../assets/images/button/filtre.png"
 
 /* Import des composants */
-import Header from "../../../layout/header/Header";
-import Footer from "../../../layout/footer/Footer";
+import Header from "../../../layout/header/Header"
+import Menu from "../../../layout/menu/Menu"
+import Footer from "../../../layout/footer/Footer"
 import ModalDelete from "../../../components/modal/ModalDelete"
 import Loader from "../../../components/loader/Loader"
 
@@ -18,6 +16,11 @@ import { useEffect, useState } from "react"
 import { Link, useNavigate, useLocation } from "react-router-dom"
 
 const AdminAreaType = () => {
+
+    /* ------------------------------------------------------------------------------------------------- */
+    /* --------------------------------------- PARTIE JAVASCRIT ---------------------------------------- */
+    /* ------------------------------------------------------------------------------------------------- */
+
     const token = localStorage.getItem("jwt")
     const navigate = useNavigate()
     const location = useLocation()
@@ -118,42 +121,45 @@ const AdminAreaType = () => {
             })
     },[displayModalDelete, filterParam, token, navigate])
 
-    /* ---------------------------------------------- JSX ---------------------------------------------- */
+    /* ------------------------------------------------------------------------------------------------- */
+    /* ------------------------------------------ PARTIE JSX ------------------------------------------- */
+    /* ------------------------------------------------------------------------------------------------- */
 
     return (
         <>
         <Header />
         <main>
+            <Menu />{/* Menu placé dans <main> pour la propriété CSS position: sticky */}
             <section className="container-fluid admin">
                 <h1>Administration</h1>
                 <div className="container">
                     {getAreaType === null ?
-                    (<Loader />)
+                    (
+                        <Loader />
+                    )
                     :
                     (
                         <>
                         {displayModalDelete && <ModalDelete callFunction={handleConfirmDeleteClick} params={dataDelete} token={token} />}
-                        <div className="admin-titre d-flex justify-content-between align-items-center">
+                        <div className="admin-titre">
                             <h2>Table 'area_type'</h2>
-                            <Link className="btn-admin-add" to={"/admin-area-type-create"} href="#">Ajouter un élément</Link>
+                            <Link className="btn-admin btn-admin-add" to={"/admin-area-type-create"} href="#">Ajouter un élément</Link>
                         </div>
-                        <div className="admin-message d-flex justify-content-center align-items-center">
+                        <div className="admin-message">
                             <div style={{backgroundColor: displayMessage.color}}>{displayMessage.libelle}</div>
                         </div>
                         {/* --------------- Début zone de filtre --------------- */}
-                        <div className="admin-filter d-flex justify-content-between align-items-center">
+                        <div className="admin-filter">
                             <div className="admin-filter-nb">Nombre de résultats : <span>{getAreaType.length}</span></div>
                             <nav className="navbar bg-body-tertiary">
-                                <button className="navbar-toggler btn-admin" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
-                                    <img src={imgFilter} alt="" />
-                                </button>
+                                <button className="navbar-toggler btn-admin btn-admin-filter" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation"></button>
                                 <div className="offcanvas offcanvas-end" tabIndex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
                                     <div className="offcanvas-header">
-                                        <h5 className="offcanvas-title" id="offcanvasNavbarLabel">Zone de Filtre</h5>
-                                        <button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                                        <h3 className="offcanvas-title" id="offcanvasNavbarLabel">Zone de Tri & Filtre</h3>
+                                        <button className="btn-close" type="button" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                                     </div>
                                     <div className="offcanvas-body">
-                                        <form className="d-flex flex-column admin-filter-form" onSubmit={handleFilterSubmit} role="search">
+                                        <form className="admin-filter-form" onSubmit={handleFilterSubmit} role="search">
                                             <label>
                                                 <span className="label-libelle">Tri</span>
                                                 <select value={filterSort}  onChange={(e) => setFilterSort(e.target.value)}>
@@ -182,7 +188,7 @@ const AdminAreaType = () => {
                         {/* --------------- Fin zone de filtre --------------- */}
                         { getAreaType.length === 0 ?
                         (
-                            <div className="d-flex justify-content-center align-items-center admin-no-result">Aucun résultat...</div>
+                            <div className="admin-no-result">Aucun résultat ne correspond aux critères de recherche...</div>
                         )
                         :
                         (<>
@@ -205,8 +211,8 @@ const AdminAreaType = () => {
                                             Id : {element.id}
                                         </div>
                                         <div className="col-12 col-lg-2 justify-content-end">
-                                            <Link className="btn-admin" to={"/admin-area-type-update/" + element.id} href="#"><img src={imgUpdate} alt="" /></Link>
-                                            <Link className="btn-admin" onClick={() => handleDeleteClick(element.id, element.name)}><img src={imgDelete} alt="" /></Link>
+                                            <Link className="btn-admin btn-admin-update" to={"/admin-area-type-update/" + element.id} href="#"></Link>
+                                            <Link className="btn-admin btn-admin-delete" onClick={() => handleDeleteClick(element.id, element.name)}></Link>
                                         </div>
                                     </div>
                                 )

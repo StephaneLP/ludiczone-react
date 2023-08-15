@@ -1,34 +1,52 @@
 @import "../../styles/utils/utils";
-
+    
 .admin {
     font-family: "Poppins", Arial, Helvetica, sans-serif;
-    margin-bottom: 40px;
+    padding: 60px 0 120px;
 
     h1 {
-        margin: 40px 0 20px;
-        color: $secondaryFontColor;
-        font-size: 3rem;
+        color: $secondaryFont2;
+    }
+
+    .btn-admin {
+        color: white;
+        background-color: $baseBgMedium1;
+        text-decoration: none;
+        transition: all 0.2s ease-out;
+        
+        &:hover {
+            background-color: $secondaryBgMedium1;
+        }
     }
 
     .admin-titre {
-        font-size: 1rem;
-        color: $baseFontColorLight2;
-        background-color: $baseBgColorLight4;
-        border: 1px solid $baseBgColorLight3;
-        border-radius: 5px;
-        padding: 5px 15px;
+        background-color: $baseBgLight1;
+        border-radius: 10px;
+        padding: 10px 20px;
         margin-top: 40px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
 
         h2 {
             font-family: "Poppins", Arial, Helvetica, sans-serif;
-            margin: 10px 0;
-            color: $baseFontColorLight1;
-            font-size: 2rem;
+            color: $baseFontDark2;
+        }
+
+        .btn-admin-add {
+            font-size: 1rem;
+            padding: 10px 20px;
+            border-radius: 10px;
         }
     }
-    
+
     .admin-message {
         height: 40px;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
 
         div {
             padding: 4px 20px;
@@ -45,32 +63,51 @@
     
     .admin-filter {
         font-size: 1rem;
-        color: $baseFontColorLight2;
+        color: $baseFontDark2;
         padding: 0 15px;
-        border-bottom: 2px solid $baseBgColorLight3;
+        border-bottom: 2px solid $baseBgLight1;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
 
         .admin-filter-nb {
             font-size: 1.1rem;
         }
 
-        h5 {
-            font-size: 1.5rem;
-        }
-        .btn-admin {
-            img {
-                height: 35px;
+        .btn-admin-filter {
+            background-image: url("../../assets/images/icones/filtre.png");
+            background-size: cover;
+            background-position: center;
+            background-color: $secondaryBgMedium2;
+            border-radius: 5px;
+            width: 35px;
+            height: 35px;
+
+            &:hover {
+                background-color: $secondaryBgMedium1;
             }
+
+            &:focus {
+                box-shadow: 0 0 10px $shadow1;
+            }
+        }
+        
+        h3 {
+            font-size: 1.5rem;
         }
 
         .admin-filter-form {
             margin-top: 20px;
+            display: flex;
+            flex-direction: column;
 
             label {
                 margin: 2px 0;
 
                 .label-libelle {
-                    display: inline-block;
                     width: 25%;
+                    display: inline-block;
                 }
 
                 select, input {
@@ -91,44 +128,81 @@
     }
 
     ////////////////////////////////
-    // LISTE DES RESULATTS
+    // LISTE DES RESULTATS
     ////////////////////////////////
 
     .admin-no-result {
-        height: 300px;
-        color: $baseFontColorLight2;
-        font-size: 1.5rem;
+        font-family: "Poppins", Arial, Helvetica, sans-serif;
+        color: $baseFontDark2;
+        font-size: 1.2rem;
+        text-align: center;
+        width: 450px;
+        margin: 100px auto 0;
+        padding: 30px;
+        border: 1px solid $baseBgLight1;
+        border-radius: 10px;
+        background-color: white;
+        box-shadow: 5px 5px 10px $shadow1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
     
     .admin-row {
         font-size: 1rem;
-        color: $baseFontColorLight2;
+        color: $baseFontDark2;
         padding: 15px 0;
         margin: 4px 0;
-        border-bottom: 1px solid $baseBgColorLight3;
+        border-bottom: 1px solid $baseBgLight1;
 
         div {
             display: flex;
             align-items: center;
         }
 
-        .admin-row-title {
-            font-size: 1.2rem;
-            color: $baseFontColorLight1;
-        }
-
         .admin-row-img {
             width: 40%;
             height: 100%;
             border: 2px solid white;
-            box-shadow: 5px 5px 10px #82829c;
+            box-shadow: 5px 5px 10px $shadow3;
             background-size: cover;
             background-position: center;            
         }
 
-        // &:hover {
-        //     background-color: #efeff3;
-        // }
+        .admin-row-title {
+            font-size: 1.2rem;
+        }
+
+        .btn-admin-update {
+            background-image: url("../../assets/images/icones/update.png");
+            background-size: cover;
+            background-position: center;
+            background-color: rgb(255, 255, 255);
+            border-radius: 5px;
+            width: 30px;
+            height: 30px;
+            transition: all 0.2s ease-out;
+        
+            &:hover {
+                background-color: $baseBgLight2;
+            }
+        }
+
+        .btn-admin-delete {
+            background-image: url("../../assets/images/icones/delete.png");
+            background-size: cover;
+            background-position: center;
+            background-color: rgb(255, 255, 255);
+            border-radius: 5px;
+            margin-left: 5px;
+            width: 30px;
+            height: 30px;
+            transition: all 0.2s ease-out;
+        
+            &:hover {
+                background-color: $baseBgLight2;
+            }
+        }
     }
 
     ////////////////////////////////
@@ -136,36 +210,32 @@
     ////////////////////////////////
     
     .admin-alter {
+        color: $baseFontDark2;
         margin-top: 0;
 
         .admin-alter-separator-top {
             margin: 0 0 10px;
-            border-top: 1px solid $baseBgColorLight3;
+            border-top: 1px solid $baseBgLight1;
         }
             
         .admin-alter-separator-bottom {
             margin: 10px 0 40px;
-            border-bottom: 1px solid $baseBgColorLight3;
+            border-bottom: 1px solid $baseBgLight1;
         }
 
         .admin-alter-cellule {
             margin: 10px 0;
 
             label {
-                // margin: 2px 0;
                 width: 100%;
-
-                .label-libelle {
-                    color: $baseFontColorLight2;
-                }
 
                 select, input, textarea {
                     width: 100%;
                     padding: 5px 10px;
                     font-size: 0.9rem;
-                    color: $baseFontColorLight1;
-                    background-color: $baseBgColorLight5;
-                    border: 1px solid $baseBgColorLight3;
+                    color: $baseFont1;
+                    background-color: $baseBgLight3;
+                    border: 1px solid $baseBgLight1;
                     border-radius: 5px;
                 }
 
@@ -177,7 +247,7 @@
                     width: 100%;
                     height: 200px;
                     border: 5px solid white;
-                    box-shadow: 5px 5px 10px #82829c;
+                    box-shadow: 5px 5px 10px $shadow3;
                     background-size: cover;
                     background-position: center;
                 }

@@ -9,6 +9,11 @@ import { useEffect, useState } from "react"
 import { useNavigate } from 'react-router-dom';
 
 const SearchResult = (props) => {
+
+    /* ------------------------------------------------------------------------------------------------- */
+    /* --------------------------------------- PARTIE JAVASCRIT ---------------------------------------- */
+    /* ------------------------------------------------------------------------------------------------- */
+
     const navigate = useNavigate();
     const [getArea, setGetArea] = useState(null) // Liste des salles
 
@@ -56,7 +61,9 @@ const SearchResult = (props) => {
         navigate("/en-construction")
     }
 
-    /* ---------------------------------------------- JSX ---------------------------------------------- */
+    /* ------------------------------------------------------------------------------------------------- */
+    /* ------------------------------------------ PARTIE JSX ------------------------------------------- */
+    /* ------------------------------------------------------------------------------------------------- */
 
     return (
         <>
@@ -74,7 +81,7 @@ const SearchResult = (props) => {
                     <div className="row">
                         {getArea.length === 0 ?
                         (
-                            <div className="search-no-result">Désolé, aucun résultat ne correspond à vos critères de recherche...</div>
+                            <div className="search-no-result">Aucun résultat ne correspond aux critères de recherche...</div>
                         )
                         :
                         (
@@ -83,15 +90,15 @@ const SearchResult = (props) => {
                             return (
                                 <div className="col-12 col-md-6 search-box" key={element.id}>
                                     <div className="col-12 search-box-inner">
-                                        <div className="search-box-recto d-flex justify-content-center align-items-end" style={{backgroundImage: `url(${require("../../../assets/images/pages/area/" + element.picture)})`}}>
-                                            <h3>{element.name}</h3>
+                                        <div className="search-box-recto" style={{backgroundImage: `url(${require("../../../assets/images/pages/area/" + element.picture)})`}}>
+                                            <h2>{element.name}</h2>
                                         </div>                              
                                         <div className="search-box-verso" style={{backgroundImage: `url(${require("../../../assets/images/pages/area/" + element.picture)})`}}>
-                                            <div className="d-flex flex-column justify-content-center align-items-center search-box-verso-filter">
-                                                <h3>{element.name}</h3>
+                                            <div className="search-box-verso-filter">
+                                                <h2>{element.name}</h2>
                                                 <p>{element.AreaType.name}</p>
                                                 <p>{element.AreaZone.name}</p>
-                                                <button className="btn" onClick={handleFicheClick}>Ouvrir la fiche</button>                                    
+                                                <button className="btn-fiche" onClick={handleFicheClick}>Ouvrir la fiche</button>                                    
                                             </div>
                                         </div>                            
                                     </div>
@@ -107,17 +114,5 @@ const SearchResult = (props) => {
       
     )
 }
-
-// Prévoir pour le responsive :
-//
-// const goBoxVerso = (event) => {
-//     event.currentTarget.classList.add("active")
-// }
-//
-// const backBoxRecto = (event) => {
-//     event.currentTarget.classList.remove("active")
-// }
-//
-// Avec : onClick={() => goBoxVerso('1')} onMouseLeave={() => backBoxRecto('1')}
 
 export default SearchResult
