@@ -19,8 +19,8 @@ const Connect = () => {
 
     // Messages et focus d'erreur
     const[errorMessage, setErrorMessage] = useState({libelle: "", color: ""})
-    const[controlLogin, setControlLogin] = useState({libelle: "", color: ""})
-    const[controlPassword, setControlPassword] = useState({libelle: "", color: ""})
+    const[controlLogin, setControlLogin] = useState({libelle: "Pseudo ou Email...", color: ""})
+    const[controlPassword, setControlPassword] = useState({libelle: "Mot de passe...", color: ""})
 
     // Identifiant & Mot de passe
     const[login, setLogin] = useState("")
@@ -29,13 +29,13 @@ const Connect = () => {
     const handleLoginChange = (event) => {
         setLogin(event.target.value);
         setErrorMessage({libelle: "", color: ""})
-        setControlLogin({libelle: "", color: ""})
+        setControlLogin({libelle: "Pseudo ou Email...", color: ""})
     }
 
     const handlePasswordChange = (event) => {
         setPassword(event.target.value);
         setErrorMessage({libelle: "", color: ""})
-        setControlPassword({libelle: "", color: ""})
+        setControlPassword({libelle: "Mot de passe...", color: ""})
     }
 
     /*********************************************************
@@ -101,14 +101,14 @@ const Connect = () => {
                 <form onSubmit={handleSubmit}>
                     <div className="login-cellule">
                         <label>
-                            <input className="logo-user" type="text" tabIndex="1" placeholder="Pseudo ou Email..." maxLength="50" value={login} onChange={(e) => handleLoginChange(e)} style={{borderColor: controlLogin.color}} />
-                            <div className="login-cellule-message" style={{color: colorMsgForm.error}}>{controlLogin.libelle}</div>
+                            <input className="logo-user" type="text" tabIndex="1" placeholder={controlLogin.libelle} maxLength="50" value={login} onChange={(e) => handleLoginChange(e)} style={{borderColor: controlLogin.color, '--placeholder-color': controlLogin.color}} />
+                            {/* <div className="login-cellule-message">{controlLogin.libelle}</div> */}
                         </label>
                     </div>
                     <div className="login-cellule">
                         <label>
-                            <input className="logo-cadenas" type="password" tabIndex="2" placeholder="Mot de passe..." maxLength="50" value={password} onChange={(e) => handlePasswordChange(e)} style={{borderColor: controlPassword.color}} />
-                            <div className="login-cellule-message" style={{color: colorMsgForm.error}}>{controlPassword.libelle}</div>
+                            <input className="logo-cadenas" type="password" tabIndex="2" placeholder={controlPassword.libelle} maxLength="50" value={password} onChange={(e) => handlePasswordChange(e)} style={{borderColor: controlPassword.color}} />
+                            {/* <div className="login-cellule-message">{controlPassword.libelle}</div> */}
                         </label>
                     </div>
                     <div className="login-forgotten">

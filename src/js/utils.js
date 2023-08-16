@@ -6,7 +6,7 @@ const colorMsg = {
 
 const colorMsgForm = {
     success: "lightgreen",
-    error: "red",
+    error: "#e62d2d",
 }
 
 /* Formatage des dates */

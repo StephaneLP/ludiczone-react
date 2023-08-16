@@ -2,7 +2,7 @@
 import "./login.scss"
 
 /* Import des fonctions, variables & images */
-import { colorMsg, cleanLocalStorage } from "../../js/utils.js"
+import { colorMsg, colorMsgForm, cleanLocalStorage } from "../../js/utils.js"
 
 /* Import des Hooks & composants react-rooter */
 import { useState } from "react"
@@ -44,8 +44,8 @@ const ReConnect = () => {
     const handleSubmit = (event) => {
         event.preventDefault()
 
-        if(login === "") setControlLogin({libelle: "Veuillez renseigner un identifiant S.V.P.", color: colorMsg.error})
-        if(password === "") setControlPassword({libelle: "Veuillez renseigner un mot de passe S.V.P.", color: colorMsg.error})
+        if(login === "") setControlLogin({libelle: "Veuillez renseigner un identifiant S.V.P.", color: colorMsgForm.error})
+        if(password === "") setControlPassword({libelle: "Veuillez renseigner un mot de passe S.V.P.", color: colorMsgForm.error})
         if(login === "" || password === "") return
 
         const requestBody = JSON.stringify({
@@ -102,13 +102,13 @@ const ReConnect = () => {
                     <div className="login-cellule">
                         <label>
                             <input className="logo-user" type="text" tabIndex="1" placeholder="Pseudo ou Email..." maxLength="50" value={login} onChange={(e) => handleLoginChange(e)} style={{borderColor: controlLogin.color}} />
-                            <div className="login-cellule-message" style={{color: controlLogin.color}}>{controlLogin.libelle}</div>
+                            <div className="login-cellule-message">{controlLogin.libelle}</div>
                         </label>
                     </div>
                     <div className="login-cellule">
                         <label>
                             <input className="logo-cadenas" type="password" tabIndex="2" placeholder="Mot de passe..." maxLength="50" value={password} onChange={(e) => handlePasswordChange(e)} style={{borderColor: controlPassword.color}} />
-                            <div className="login-cellule-message" style={{color: controlPassword.color}}>{controlPassword.libelle}</div>
+                            <div className="login-cellule-message">{controlPassword.libelle}</div>
                         </label>
                     </div>
                     <input className="btn-login" tabIndex="3" type="submit" value="Valider" />             

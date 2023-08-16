@@ -2,7 +2,7 @@
 import "./login.scss"
 
 /* Import des fonctions, variables & images */
-import { colorMsg, cleanLocalStorage } from "../../js/utils.js"
+import { colorMsg, colorMsgForm, cleanLocalStorage } from "../../js/utils.js"
 
 /* Import des Hooks & composants react-rooter */
 import { useState } from "react"
@@ -60,10 +60,10 @@ const SignUp = () => {
     const handleSubmit = (event) => {
         event.preventDefault()
 
-        if(nickName === "") setControlNickName({libelle: "Veuillez renseigner un pseudo S.V.P.", color: colorMsg.error})
-        if(email === "") setControlEmail({libelle: "Veuillez renseigner un email S.V.P.", color: colorMsg.error})
-        if(password === "") setControlPassword({libelle: "Veuillez renseigner un mot de passe S.V.P.", color: colorMsg.error})
-        if(confirmPassword === "") setControlConfirmPassword({libelle: "Veuillez confirmer le mot de passe S.V.P.", color: colorMsg.error})
+        if(nickName === "") setControlNickName({libelle: "Veuillez renseigner un pseudo S.V.P.", color: colorMsgForm.error})
+        if(email === "") setControlEmail({libelle: "Veuillez renseigner un email S.V.P.", color: colorMsgForm.error})
+        if(password === "") setControlPassword({libelle: "Veuillez renseigner un mot de passe S.V.P.", color: colorMsgForm.error})
+        if(confirmPassword === "") setControlConfirmPassword({libelle: "Veuillez confirmer le mot de passe S.V.P.", color: colorMsgForm.error})
         if(nickName === "" || email === "" || password === "" || confirmPassword === "") return
 
         const requestBody = JSON.stringify({
@@ -119,25 +119,25 @@ const SignUp = () => {
                     <div className="login-cellule">
                         <label>
                             <input className="logo-user" type="text" tabIndex="1" placeholder="Pseudo..." maxLength="50" value={nickName} onChange={(e) => handleNickNameChange(e)} style={{borderColor: controlNickName.color}} />
-                            <div className="login-cellule-message" style={{color: controlNickName.color}}>{controlNickName.libelle}</div>
+                            <div className="login-cellule-message">{controlNickName.libelle}</div>
                         </label>
                     </div>
                     <div className="login-cellule">
                         <label>
                             <input className="logo-email" type="text" tabIndex="1" placeholder="Email..." maxLength="50" value={email} onChange={(e) => handleEmailChange(e)} style={{borderColor: controlEmail.color}} />
-                            <div className="login-cellule-message" style={{color: controlEmail.color}}>{controlEmail.libelle}</div>
+                            <div className="login-cellule-message">{controlEmail.libelle}</div>
                         </label>
                     </div>
                     <div className="login-cellule">
                         <label>
                             <input className="logo-cadenas" type="password" tabIndex="2" placeholder="Mot de passe..." maxLength="50" value={password} onChange={(e) => handlePasswordChange(e)} style={{borderColor: controlPassword.color}} />
-                            <div className="login-cellule-message" style={{color: controlPassword.color}}>{controlPassword.libelle}</div>
+                            <div className="login-cellule-message">{controlPassword.libelle}</div>
                         </label>
                     </div>
                     <div className="login-cellule">
                         <label>
                             <input className="logo-cadenas" type="password" tabIndex="2" placeholder="Confirmer le mot de passe..." maxLength="50" value={confirmPassword} onChange={(e) => handleConfirmPasswordChange(e)} style={{borderColor: controlConfirmPassword.color}} />
-                            <div className="login-cellule-message" style={{color: controlConfirmPassword.color}}>{controlConfirmPassword.libelle}</div>
+                            <div className="login-cellule-message">{controlConfirmPassword.libelle}</div>
                         </label>
                     </div>
                     <input className="btn-login" tabIndex="3" type="submit" value="Valider" />

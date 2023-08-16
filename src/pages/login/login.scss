@@ -12,6 +12,7 @@
         width: 420px;
         padding: 60px 40px 40px;
         background-color: $baseBgMedium3;
+        box-shadow: 5px 5px 20px $baseFont3;
         border-radius: 20px;
         position: absolute;
         top: 50%;
@@ -110,13 +111,11 @@
                 }
 
                 .login-cellule-message {
-                    font-family: "Poppins Light", Arial, Helvetica, sans-serif;
-                    margin-top: 2px;
+                    font-family: "Poppins Regular", Arial, Helvetica, sans-serif;
+                    margin-top: 3px;
                     padding: 2px 10px;
-                    font-size: 1rem;
-                    color: $secondaryFont2;
-                    // font-style: italic;
-                    font-weight: 600;
+                    font-size: 0.9rem;
+                    color: $error1;
                     border-radius: 10px;
                 }
             }            
