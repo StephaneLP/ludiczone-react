@@ -62,7 +62,7 @@
         }
 
         .login-cellule {
-            margin: 20px 0;
+            margin: 10px 0;
 
             label {
                 width: 100%;
@@ -97,6 +97,12 @@
                     background-repeat: no-repeat;
                 }
 
+                .logo-email {
+                    background-image: url("../../assets/images/icones/input-email.png");
+                    background-position: left;
+                    background-repeat: no-repeat;
+                }
+
                 .logo-cadenas {
                     background-image: url("../../assets/images/icones/input-cadenas.png");
                     background-position: left;
@@ -104,12 +110,13 @@
                 }
 
                 .login-cellule-message {
+                    font-family: "Poppins Light", Arial, Helvetica, sans-serif;
                     margin-top: 2px;
                     padding: 2px 10px;
-                    font-size: 0.9rem;
-                    font-style: italic;
+                    font-size: 1rem;
+                    color: $secondaryFont2;
+                    // font-style: italic;
                     font-weight: 600;
-                    color: white;
                     border-radius: 10px;
                 }
             }            
@@ -117,6 +124,7 @@
 
         .login-forgotten{
             text-align: center;
+            padding: 5px 0;
         }
 
         .btn-login {
@@ -136,14 +144,6 @@
             }
         }
 
-        .login-signup {
-            font-family: "Poppins Italic", Arial, Helvetica, sans-serif;
-            color: white;
-            font-size: 0.9rem;
-            margin: 40px 0 0;
-            text-align: center;
-        }
-
         .login-link {
             font-family: "Poppins Regular", Arial, Helvetica, sans-serif;
             text-decoration: none;
@@ -159,6 +159,24 @@
             &:hover {
                 color: $linkHoverLogin;
                 transition: all 0.2s ease-out;
+            }
+        }     
+
+        .login-signup {
+            font-family: "Poppins Italic", Arial, Helvetica, sans-serif;
+            color: white;
+            font-size: 0.9rem;
+            margin: 30px 0 0;
+            text-align: center;
+        }
+
+        .login-back {
+            margin: 10px 0 0;
+            text-align: center;
+
+            .login-link {
+                font-family: "Poppins", Arial, Helvetica, sans-serif;
+                font-size: 1rem;
             }
         }
     }

@@ -4,6 +4,11 @@ const colorMsg = {
     error: "#CD4B4B",
 }
 
+const colorMsgForm = {
+    success: "lightgreen",
+    error: "red",
+}
+
 /* Formatage des dates */
 const formatDate = (dateString, mode) => {
     const optionsShort = { year: "numeric", month: "long", day: "numeric" }
@@ -18,4 +23,4 @@ const cleanLocalStorage = () => {
     localStorage.removeItem("pseudo")
 }
 
-export { colorMsg, formatDate, cleanLocalStorage }
+export { colorMsg, colorMsgForm, formatDate, cleanLocalStorage }

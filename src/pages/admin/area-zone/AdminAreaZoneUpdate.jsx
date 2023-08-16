@@ -6,6 +6,7 @@ import { colorMsg, cleanLocalStorage } from "../../../js/utils.js"
 
 /* Import des composants */
 import Header from "../../../layout/header/Header";
+import Menu from "../../../layout/menu/Menu"
 import Footer from "../../../layout/footer/Footer";
 import Loader from "../../../components/loader/Loader"
 
@@ -28,14 +29,14 @@ const AdminAreaZoneUpdate = () => {
     const[updateName, setUpdateName] = useState("")
     const[updateDescription, setUpdateDescription] = useState("")
     const[updatePicture, setUpdatePicture] = useState("default.jpg")
-    const[getAreaZone, setGetAreaZone] = useState(null)
+    const[getAreaType, setGetAreaType] = useState(null)
 
     /*********************************************************
     API GET BY ID
     - chargement de l'élément et initialisation du formulaire
     *********************************************************/
     useEffect(() => {
-        fetch("http://localhost:3001/api/AreaZones/admin/" + id, {
+        fetch("http://localhost:3001/api/areazones/admin/" + id, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -66,7 +67,7 @@ const AdminAreaZoneUpdate = () => {
                 setUpdateName(res.data.name)
                 setUpdateDescription(res.data.description)
                 setUpdatePicture(res.data.picture)
-                setGetAreaZone(res.data)
+                setGetAreaType(res.data)
             })
             .catch((error) => {
                 cleanLocalStorage()
@@ -76,7 +77,7 @@ const AdminAreaZoneUpdate = () => {
 
     /*********************************************************
     API UPDATE
-    - modification de la zone
+    - modification du type de loisir
     *********************************************************/
     const handleSubmit = (event) => {
         event.preventDefault()
@@ -94,7 +95,7 @@ const AdminAreaZoneUpdate = () => {
             picture: updatePicture,
         })
 
-        fetch("http://localhost:3001/api/AreaZones/admin/" + id, {
+        fetch("http://localhost:3001/api/areazones/admin/" + id, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
@@ -145,15 +146,16 @@ const AdminAreaZoneUpdate = () => {
         <>
         <Header />
         <main>
+            <Menu />{/* Menu placé dans <main> pour la propriété CSS position: sticky */}
             <section className="container-fluid admin">
-                <h1>Modifier une zone</h1>
+                <h1>Modifier une localisation</h1>
                 <div className="container">
-                    {getAreaZone === null ?
+                    {getAreaType === null ?
                     (<Loader />)
                     :
                     (
                         <>
-                        <div className="admin-message d-flex justify-content-center align-items-center">
+                        <div className="admin-message">
                             <div style={{backgroundColor: displayMessage.color}}>{displayMessage.libelle}</div>
                         </div>
                         <form className="admin-alter" onSubmit={handleSubmit}>
@@ -169,13 +171,13 @@ const AdminAreaZoneUpdate = () => {
                                 <div className="col-12 col-md-4">
                                     <div className="admin-alter-cellule">
                                         <label>
-                                            <span className="label-libelle">Nom</span>
+                                            <span>Nom</span>
                                             <input type="text" maxLength="50" value={updateName} onChange={(e) => {setUpdateName(e.target.value); setDisplayMessage({libelle: "", color: ""}); setFocusName("")}} style={{borderColor: focusName}} />
                                         </label>                       
                                     </div>
                                     <div className="admin-alter-cellule">
                                         <label>
-                                        <span className="label-libelle">Description</span>
+                                        <span>Description</span>
                                             <textarea maxLength="200" value={updateDescription} onChange={(e) => setUpdateDescription(e.target.value)} />
                                         </label>                            
                                     </div>
@@ -183,13 +185,13 @@ const AdminAreaZoneUpdate = () => {
                                 <div className="col-12 col-md-4">
                                     <div className="admin-alter-cellule">
                                         <label>
-                                            <span className="label-libelle">Nom de l'image</span>
+                                            <span>Nom de l'image</span>
                                             <input type="text" maxLength="50" value={updatePicture} onChange={(e) => setUpdatePicture(e.target.value)} disabled/>
                                         </label>                       
                                     </div>
                                     <div className="admin-alter-cellule">
                                         <label>
-                                            <span className="label-libelle">Image</span>
+                                            <span >Image</span>
                                             <div className="admin-alter-img" style={{backgroundImage: `url(${require("../../../assets/images/pages/area-zone/" + updatePicture)})`}}></div>
                                         </label>                            
                                     </div>

@@ -5,6 +5,7 @@ import Search from "./pages/search/Search"
 /* Import des composants : Login */
 import Connect from "./pages/login/Connect"
 import ReConnect from "./pages/login/ReConnect"
+import SignUp from "./pages/login/SignUp"
 
 /* Import des composants : Administration */
 import AdminAreaType from "./pages/admin/area-type/AdminAreaType"
@@ -32,6 +33,7 @@ const App = () => {
                 {/* Page Login */}
                 <Route path="/connect" element={<Connect />} />
                 <Route path="/reconnect" element={<ReConnect />} />
+                <Route path="/inscription" element={<SignUp />} />
                 {/* Pages d'administration */}
                 <Route path="/admin-area-type" element={<AdminAreaType />} />
                 <Route path="/admin-area-type-create" element={<AdminAreaTypeCreate />} />

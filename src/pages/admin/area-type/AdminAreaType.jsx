@@ -39,7 +39,7 @@ const AdminAreaType = () => {
     /* Bouton suppression : la fenêtre modale est affichée */
     const handleDeleteClick = (id, name) => {
         const url = "http://localhost:3001/api/areatypes/admin/" + id
-        const libelle = "Voulez-vous supprimer le type ?"
+        const libelle = "Supprimer la catégorie :"
 
         setDataDelete({urlapi: url, name: name, libelle: libelle})       
         setDisplayModalDelete(true) 

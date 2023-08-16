@@ -60,7 +60,7 @@
     ////////////////////////////////
     // ZONE DE FILTRE
     ////////////////////////////////
-    
+      
     .admin-filter {
         font-size: 1rem;
         color: $baseFontDark2;
@@ -70,6 +70,12 @@
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
+
+        .offcanvas-backdrop.show {
+            opacity: 1;
+            background-color: rgba(101, 127, 172, 0.25);
+            backdrop-filter: blur(8px);
+        }
 
         .admin-filter-nb {
             font-size: 1.1rem;

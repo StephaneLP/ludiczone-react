@@ -2,15 +2,13 @@
 import "../admin.scss"
 
 /* Import des fonctions, variables & images */
-import { colorMsg, formatDate, cleanLocalStorage } from "../../../js/utils.js"
-import imgDelete from "../../../assets/images/button/garbage.png"
-import imgUpdate from "../../../assets/images/button/pencil2.png"
-import imgFilter from "../../../assets/images/button/filtre.png"
+import { formatDate, cleanLocalStorage } from "../../../js/utils.js"
 
 /* Import des composants */
-import Header from "../../../layout/header/Header";
-import Footer from "../../../layout/footer/Footer";
-import ModalConfirm from "../../../components/modal/ModalConfirm"
+import Header from "../../../layout/header/Header"
+import Menu from "../../../layout/menu/Menu"
+import Footer from "../../../layout/footer/Footer"
+import ModalDelete from "../../../components/modal/ModalDelete"
 import Loader from "../../../components/loader/Loader"
 
 /* Import des Hooks & composants react-rooter */
@@ -33,63 +31,27 @@ const AdminAreaZone = () => {
     useEffect(() => {window.scrollTo(0,0)},[])
 
     /*********************************************************
-    API DELETE
-    - confirmation de l'utilisateur avec le composant modalConfirm
+    DELETE
     *********************************************************/
-    const[displayConfirmDelete, setDisplayConfirmDelete] = useState(false) // Affichage de la fenêtre modale
-    const[dataDelete, setDataDelete] = useState({id: "", name: "", libelle: ""}) // Paramètres de la fenêtre modale
+    const[displayModalDelete, setDisplayModalDelete] = useState(false) // Affichage de la fenêtre modale
+    const[dataDelete, setDataDelete] = useState({urlapi: "", name: "", libelle: ""}) // Paramètres de la fenêtre modale
 
     /* Bouton suppression : la fenêtre modale est affichée */
     const handleDeleteClick = (id, name) => {
-        setDataDelete({id: id, name: name, libelle: "Voulez-vous supprimer la zone ?"})       
-        setDisplayConfirmDelete(true) 
+        const url = "http://localhost:3001/api/areazones/admin/" + id
+        const libelle = "Supprimer la localisation :"
+
+        setDataDelete({urlapi: url, name: name, libelle: libelle})       
+        setDisplayModalDelete(true) 
     }
 
-    /* L'utilisateur a effectué son choix dans la fenêtre modale : true/false */
-    const handleConfirmDeleteClick = (isValidated) => {
-        if (isValidated) {
-            fetch("http://localhost:3001/api/AreaZones/admin/" + dataDelete.id, {
-                    method: "DELETE",
-                    headers: {
-                        "Content-Type": "application/json",
-                        authorization: `Bearer ${token}`,
-                    }
-                })
-                .then((res) => {
-                    return res.json() 
-                })
-                .then((res) => {
-                    // Token invalide
-                    if(["ERR_AUTHENTICATION"].includes(res.status)) {
-                        cleanLocalStorage()
-                        navigate("/reconnect")
-                        return
-                    }
-                    // Token absent - Droits insuffisants - Erreur serveur
-                    if(["ERR_REQUEST","ERR_USER_RIGHTS","ERR_SERVER"].includes(res.status)) {
-                        cleanLocalStorage()
-                        navigate("/erreur", {state: res.message})
-                        return
-                    }
-                    // Erreur id inconnu - Erreur de contrainte (intégrité des données)
-                    if(["ERR_NOT_FOUND","ERR_CONSTRAINT"].includes(res.status)) {
-                        setDisplayMessage({libelle: res.message, color: colorMsg.error})
-                        return
-                    }
-
-                    setDisplayMessage({libelle: res.message, color: colorMsg.success})
-                })
-                .catch((error) => {
-                    setDisplayMessage({libelle: error.message, color: colorMsg.error})
-                })
-
-            setDisplayConfirmDelete(false)
+    /* L'utilisateur a effectué son choix dans la fenêtre modale */
+    const handleConfirmDeleteClick = (message) => {
+        if(message.libelle !== "") {
+            setDisplayMessage({libelle: message.libelle, color: message.color})
             window.scrollTo(0,0)
         }
-        else {
-            setDisplayMessage({libelle: "", color: ""})
-            setDisplayConfirmDelete(false)
-        }
+        setDisplayModalDelete(false)
     }
 
     /*********************************************************
@@ -128,7 +90,7 @@ const AdminAreaZone = () => {
             "sort=" + filterParam.sort +
             "&name=" + filterParam.name
 
-        fetch("http://localhost:3001/api/AreaZones/admin?" + requestUrlParams, {
+        fetch("http://localhost:3001/api/areazones/admin?" + requestUrlParams, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -138,10 +100,10 @@ const AdminAreaZone = () => {
                 return res.json()
             })
             .then((res) => {
-                // Token absent ou invalide
+                // Token invalide
                 if(["ERR_AUTHENTICATION"].includes(res.status)) {
                     cleanLocalStorage()
-                    navigate("/connect", {state: true})
+                    navigate("/reconnect")
                     return
                 }
                 // Token absent - Droits insuffisants - Erreur serveur
@@ -157,7 +119,7 @@ const AdminAreaZone = () => {
                 cleanLocalStorage()
                 navigate('/erreur', {state: error.message})             
             })
-    },[displayConfirmDelete, filterParam, token, navigate])
+    },[displayModalDelete, filterParam, token, navigate])
 
     /* ------------------------------------------------------------------------------------------------- */
     /* ------------------------------------------ PARTIE JSX ------------------------------------------- */
@@ -167,36 +129,37 @@ const AdminAreaZone = () => {
         <>
         <Header />
         <main>
+            <Menu />{/* Menu placé dans <main> pour la propriété CSS position: sticky */}
             <section className="container-fluid admin">
                 <h1>Administration</h1>
                 <div className="container">
                     {getAreaZone === null ?
-                    (<Loader />)
+                    (
+                        <Loader />
+                    )
                     :
                     (
                         <>
-                        {displayConfirmDelete && <ModalConfirm callFunction={handleConfirmDeleteClick} libelle={dataDelete.libelle} name={dataDelete.name}/>}
-                        <div className="admin-titre d-flex justify-content-between align-items-center">
+                        {displayModalDelete && <ModalDelete callFunction={handleConfirmDeleteClick} params={dataDelete} token={token} />}
+                        <div className="admin-titre">
                             <h2>Table 'area_zone'</h2>
-                            <Link className="btn-admin-add" to={"/admin-area-zone-create"} href="#">Ajouter un élément</Link>
+                            <Link className="btn-admin btn-admin-add" to={"/admin-area-zone-create"} href="#">Ajouter un élément</Link>
                         </div>
-                        <div className="admin-message d-flex justify-content-center align-items-center">
+                        <div className="admin-message">
                             <div style={{backgroundColor: displayMessage.color}}>{displayMessage.libelle}</div>
                         </div>
                         {/* --------------- Début zone de filtre --------------- */}
-                        <div className="admin-filter d-flex justify-content-between align-items-center">
+                        <div className="admin-filter">
                             <div className="admin-filter-nb">Nombre de résultats : <span>{getAreaZone.length}</span></div>
                             <nav className="navbar bg-body-tertiary">
-                                <button className="navbar-toggler btn-admin" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
-                                    <img src={imgFilter} alt="" />
-                                </button>
+                                <button className="navbar-toggler btn-admin btn-admin-filter" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation"></button>
                                 <div className="offcanvas offcanvas-end" tabIndex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
                                     <div className="offcanvas-header">
-                                        <h5 className="offcanvas-title" id="offcanvasNavbarLabel">Zone de Filtre</h5>
-                                        <button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                                        <h3 className="offcanvas-title" id="offcanvasNavbarLabel">Zone de Tri & Filtre</h3>
+                                        <button className="btn-close" type="button" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                                     </div>
                                     <div className="offcanvas-body">
-                                        <form className="d-flex flex-column admin-filter-form" onSubmit={handleFilterSubmit} role="search">
+                                        <form className="admin-filter-form" onSubmit={handleFilterSubmit} role="search">
                                             <label>
                                                 <span className="label-libelle">Tri</span>
                                                 <select value={filterSort}  onChange={(e) => setFilterSort(e.target.value)}>
@@ -225,7 +188,7 @@ const AdminAreaZone = () => {
                         {/* --------------- Fin zone de filtre --------------- */}
                         { getAreaZone.length === 0 ?
                         (
-                            <div className="d-flex justify-content-center align-items-center admin-no-result">Aucun résultat...</div>
+                            <div className="admin-no-result">Aucun résultat ne correspond aux critères de recherche...</div>
                         )
                         :
                         (<>
@@ -248,8 +211,8 @@ const AdminAreaZone = () => {
                                             Id : {element.id}
                                         </div>
                                         <div className="col-12 col-lg-2 justify-content-end">
-                                            <Link className="btn-admin" to={"/admin-area-zone-update/" + element.id} href="#"><img src={imgUpdate} alt="" /></Link>
-                                            <Link className="btn-admin" onClick={() => handleDeleteClick(element.id, element.name)}><img src={imgDelete} alt="" /></Link>
+                                            <Link className="btn-admin btn-admin-update" to={"/admin-area-zone-update/" + element.id} href="#"></Link>
+                                            <Link className="btn-admin btn-admin-delete" onClick={() => handleDeleteClick(element.id, element.name)}></Link>
                                         </div>
                                     </div>
                                 )

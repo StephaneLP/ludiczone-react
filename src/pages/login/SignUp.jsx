@@ -2,14 +2,13 @@
 import "./login.scss"
 
 /* Import des fonctions, variables & images */
-import { colorMsg, colorMsgForm, cleanLocalStorage } from "../../js/utils.js"
-import imgTriangle from "../../assets/images/icones/arrow.png"
+import { colorMsg, cleanLocalStorage } from "../../js/utils.js"
 
 /* Import des Hooks & composants react-rooter */
 import { useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 
-const Connect = () => {
+const SignUp = () => {
 
     /* ------------------------------------------------------------------------------------------------- */
     /* --------------------------------------- PARTIE JAVASCRIT ---------------------------------------- */
@@ -19,17 +18,27 @@ const Connect = () => {
 
     // Messages et focus d'erreur
     const[errorMessage, setErrorMessage] = useState({libelle: "", color: ""})
-    const[controlLogin, setControlLogin] = useState({libelle: "", color: ""})
+    const[controlNickName, setControlNickName] = useState({libelle: "", color: ""})
+    const[controlEmail, setControlEmail] = useState({libelle: "", color: ""})
     const[controlPassword, setControlPassword] = useState({libelle: "", color: ""})
+    const[controlConfirmPassword, setControlConfirmPassword] = useState({libelle: "", color: ""})
 
     // Identifiant & Mot de passe
-    const[login, setLogin] = useState("")
+    const[nickName, setNickName] = useState("")
+    const[email, setEmail] = useState("")
     const[password, setPassword] = useState("")
+    const[confirmPassword, setConfirmPassword] = useState("")
 
-    const handleLoginChange = (event) => {
-        setLogin(event.target.value);
+    const handleNickNameChange = (event) => {
+        setNickName(event.target.value);
         setErrorMessage({libelle: "", color: ""})
-        setControlLogin({libelle: "", color: ""})
+        setControlNickName({libelle: "", color: ""})
+    }
+
+    const handleEmailChange = (event) => {
+        setEmail(event.target.value);
+        setErrorMessage({libelle: "", color: ""})
+        setControlEmail({libelle: "", color: ""})
     }
 
     const handlePasswordChange = (event) => {
@@ -38,6 +47,12 @@ const Connect = () => {
         setControlPassword({libelle: "", color: ""})
     }
 
+    const handleConfirmPasswordChange = (event) => {
+        setConfirmPassword(event.target.value);
+        setErrorMessage({libelle: "", color: ""})
+        setControlConfirmPassword({libelle: "", color: ""})
+    }
+    
     /*********************************************************
     API POST
     - authentification avec identifiant et mot de passe
@@ -45,12 +60,15 @@ const Connect = () => {
     const handleSubmit = (event) => {
         event.preventDefault()
 
-        if(login === "") setControlLogin({libelle: "Veuillez renseigner un identifiant", color: colorMsgForm.error})
-        if(password === "") setControlPassword({libelle: "Veuillez renseigner un mot de passe", color: colorMsgForm.error})
-        if(login === "" || password === "") return
+        if(nickName === "") setControlNickName({libelle: "Veuillez renseigner un pseudo S.V.P.", color: colorMsg.error})
+        if(email === "") setControlEmail({libelle: "Veuillez renseigner un email S.V.P.", color: colorMsg.error})
+        if(password === "") setControlPassword({libelle: "Veuillez renseigner un mot de passe S.V.P.", color: colorMsg.error})
+        if(confirmPassword === "") setControlConfirmPassword({libelle: "Veuillez confirmer le mot de passe S.V.P.", color: colorMsg.error})
+        if(nickName === "" || email === "" || password === "" || confirmPassword === "") return
 
         const requestBody = JSON.stringify({
-            username: login,
+            nick_name: nickName,
+            email: email,
             password: password,
         })
 
@@ -95,29 +113,36 @@ const Connect = () => {
                 <Link to="/">
                     <div className="login-img" ></div>
                 </Link>
-                <h1>S'identifier</h1>
+                <h1>Créer un compte</h1>
                 <div className="login-message" style={{backgroundColor: errorMessage.color}}>{errorMessage.libelle}</div>
-
                 <form onSubmit={handleSubmit}>
                     <div className="login-cellule">
                         <label>
-                            <input className="logo-user" type="text" tabIndex="1" placeholder="Pseudo ou Email..." maxLength="50" value={login} onChange={(e) => handleLoginChange(e)} style={{borderColor: controlLogin.color}} />
-                            <div className="login-cellule-message" style={{color: colorMsgForm.error}}>{controlLogin.libelle}</div>
+                            <input className="logo-user" type="text" tabIndex="1" placeholder="Pseudo..." maxLength="50" value={nickName} onChange={(e) => handleNickNameChange(e)} style={{borderColor: controlNickName.color}} />
+                            <div className="login-cellule-message" style={{color: controlNickName.color}}>{controlNickName.libelle}</div>
+                        </label>
+                    </div>
+                    <div className="login-cellule">
+                        <label>
+                            <input className="logo-email" type="text" tabIndex="1" placeholder="Email..." maxLength="50" value={email} onChange={(e) => handleEmailChange(e)} style={{borderColor: controlEmail.color}} />
+                            <div className="login-cellule-message" style={{color: controlEmail.color}}>{controlEmail.libelle}</div>
                         </label>
                     </div>
                     <div className="login-cellule">
                         <label>
                             <input className="logo-cadenas" type="password" tabIndex="2" placeholder="Mot de passe..." maxLength="50" value={password} onChange={(e) => handlePasswordChange(e)} style={{borderColor: controlPassword.color}} />
-                            <div className="login-cellule-message" style={{color: colorMsgForm.error}}>{controlPassword.libelle}</div>
+                            <div className="login-cellule-message" style={{color: controlPassword.color}}>{controlPassword.libelle}</div>
                         </label>
                     </div>
-                    <div className="login-forgotten">
-                        <Link className="login-link" to="/en-construction"><img src={imgTriangle} alt="Flèche"/>Mot de passe oublié ?</Link>
+                    <div className="login-cellule">
+                        <label>
+                            <input className="logo-cadenas" type="password" tabIndex="2" placeholder="Confirmer le mot de passe..." maxLength="50" value={confirmPassword} onChange={(e) => handleConfirmPasswordChange(e)} style={{borderColor: controlConfirmPassword.color}} />
+                            <div className="login-cellule-message" style={{color: controlConfirmPassword.color}}>{controlConfirmPassword.libelle}</div>
+                        </label>
                     </div>
                     <input className="btn-login" tabIndex="3" type="submit" value="Valider" />
-                    <div className="login-signup">
-                        Vous n'avez toujours pas de compte ?<br />
-                        <Link className="login-link" to="/inscription"><img src={imgTriangle} alt="Flèche" />Créer un compte</Link>
+                    <div className="login-back">
+                        <Link className="login-link" to="/connect">Retour</Link>
                     </div>                 
                 </form>
             </section>
@@ -126,7 +151,4 @@ const Connect = () => {
     )
 }
 
-export default Connect
-
-
-
+export default SignUp
