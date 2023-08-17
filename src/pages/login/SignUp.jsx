@@ -23,55 +23,69 @@ const SignUp = () => {
     const[controlPassword, setControlPassword] = useState({libelle: "Mot de passe...", color: ""})
     const[controlConfirmPassword, setControlConfirmPassword] = useState({libelle: "Confirmer le mot de passe...", color: ""})
 
-    // Identifiant & Mot de passe
+    // Identifiants & Mot de passe
     const[nickName, setNickName] = useState("")
     const[email, setEmail] = useState("")
     const[password, setPassword] = useState("")
     const[confirmPassword, setConfirmPassword] = useState("")
 
+    // Gestion du champ Pseudo
     const handleNickNameChange = (event) => {
         const val = event.target.value.trim()
-        const exp = /[^a-zA-Z0-9]/
+        const exp = /^(?=.*[a-zA-Z0-9])[a-zA-Z0-9]{5,}$/
         let color = ""
 
-        if(exp.test(val)) color = colorMsgForm.error
-        else if(val.length >= 5) color = colorMsgForm.success
+        if(val.length >= 1) {
+            color = (exp.test(val) ? colorMsgForm.success : colorMsgForm.error)
+        }
 
         setNickName(val);
         setErrorMessage({libelle: "", color: ""})
         setControlNickName({libelle: "Pseudo...", color: color})
     }
 
+    // Gestion du champ Email
     const handleEmailChange = (event) => {
         const val = event.target.value.trim()
         const exp = /([\w-\.]+@[\w\.]+\.{1}[\w]+)/
         let color = ""
 
-        if(exp.test(val)) color = colorMsgForm.success
-        else if(val.length >= 1) color = colorMsgForm.error
+        if(val.length >= 1) {
+            color = (exp.test(val) ? colorMsgForm.success : colorMsgForm.error)
+        }
 
         setEmail(val);
         setErrorMessage({libelle: "", color: ""})
         setControlEmail({libelle: "Email...", color: color})
     }
 
+    // Gestion du champ Mot de passe
     const handlePasswordChange = (event) => {
         const val = event.target.value.trim()
         const exp = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/
         let color = ""
 
-        if(exp.test(val)) color = colorMsgForm.success
-        else if(val.length >= 1) color = colorMsgForm.error
+        if(val.length >= 1) {
+            color = (exp.test(val) ? colorMsgForm.success : colorMsgForm.error)
+        }
 
         setPassword(event.target.value.trim());
         setErrorMessage({libelle: "", color: ""})
         setControlPassword({libelle: "Mot de passe...", color: color})
     }
 
+    // Gestion du champ Confirmation du mot de passe
     const handleConfirmPasswordChange = (event) => {
+        const val = event.target.value.trim()
+        let color = ""
+
+        if(val.length >= 1) {
+            color = (val === password ? colorMsgForm.success : colorMsgForm.error)
+        }
+
         setConfirmPassword(event.target.value.trim());
         setErrorMessage({libelle: "", color: ""})
-        setControlConfirmPassword({libelle: "Confirmer le mot de passe...", color: ""})
+        setControlConfirmPassword({libelle: "Confirmer le mot de passe...", color: color})
     }
     
     /*********************************************************
@@ -85,7 +99,11 @@ const SignUp = () => {
         if(email === "") setControlEmail({libelle: "Veuillez renseigner un email", color: colorMsgForm.error})
         if(password === "") setControlPassword({libelle: "Veuillez renseigner un mot de passe", color: colorMsgForm.error})
         if(confirmPassword === "") setControlConfirmPassword({libelle: "Veuillez confirmer le mot de passe", color: colorMsgForm.error})
-        if(nickName === "" || email === "" || password === "" || confirmPassword === "") return
+
+        if(controlNickName.color !== colorMsgForm.success || controlEmail.color !== colorMsgForm.success || controlPassword.color !== colorMsgForm.success || controlConfirmPassword.color !== colorMsgForm.success) {
+            setErrorMessage({libelle: "Veuillez remplir correctement les champs S.V.P.", color: colorMsg.error})
+            return
+        }
 
         const requestBody = JSON.stringify({
             nick_name: nickName,
@@ -141,7 +159,8 @@ const SignUp = () => {
                         <label>
                             <input className="logo-user" type="text" tabIndex="1" placeholder={controlNickName.libelle} maxLength="50" value={nickName} onChange={(e) => handleNickNameChange(e)} style={{borderColor: controlNickName.color}} />
                             <div className="login-cellule-message">
-                                5 caractères minimum (lettres minuscules, ou majuscules, sans accent - chiffres)
+                                5 caractères minimum, composés de :<br />
+                                - chiffres et lettres (sans accent)
                             </div>
                         </label>
                     </div>
