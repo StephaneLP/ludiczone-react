@@ -5,7 +5,7 @@ const colorMsg = {
 }
 
 const colorMsgForm = {
-    success: "lightgreen",
+    success: "#45ff45",
     error: "#e62d2d",
 }
 

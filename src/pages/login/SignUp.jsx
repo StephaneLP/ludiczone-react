@@ -18,10 +18,10 @@ const SignUp = () => {
 
     // Messages et focus d'erreur
     const[errorMessage, setErrorMessage] = useState({libelle: "", color: ""})
-    const[controlNickName, setControlNickName] = useState({libelle: "", color: ""})
-    const[controlEmail, setControlEmail] = useState({libelle: "", color: ""})
-    const[controlPassword, setControlPassword] = useState({libelle: "", color: ""})
-    const[controlConfirmPassword, setControlConfirmPassword] = useState({libelle: "", color: ""})
+    const[controlNickName, setControlNickName] = useState({libelle: "Pseudo...", color: ""})
+    const[controlEmail, setControlEmail] = useState({libelle: "Email...", color: ""})
+    const[controlPassword, setControlPassword] = useState({libelle: "Mot de passe...", color: ""})
+    const[controlConfirmPassword, setControlConfirmPassword] = useState({libelle: "Confirmer le mot de passe...", color: ""})
 
     // Identifiant & Mot de passe
     const[nickName, setNickName] = useState("")
@@ -30,27 +30,48 @@ const SignUp = () => {
     const[confirmPassword, setConfirmPassword] = useState("")
 
     const handleNickNameChange = (event) => {
-        setNickName(event.target.value);
+        const val = event.target.value.trim()
+        const exp = /[^a-zA-Z0-9]/
+        let color = ""
+
+        if(exp.test(val)) color = colorMsgForm.error
+        else if(val.length >= 5) color = colorMsgForm.success
+
+        setNickName(val);
         setErrorMessage({libelle: "", color: ""})
-        setControlNickName({libelle: "", color: ""})
+        setControlNickName({libelle: "Pseudo...", color: color})
     }
 
     const handleEmailChange = (event) => {
-        setEmail(event.target.value);
+        const val = event.target.value.trim()
+        const exp = /([\w-\.]+@[\w\.]+\.{1}[\w]+)/
+        let color = ""
+
+        if(exp.test(val)) color = colorMsgForm.success
+        else if(val.length >= 1) color = colorMsgForm.error
+
+        setEmail(val);
         setErrorMessage({libelle: "", color: ""})
-        setControlEmail({libelle: "", color: ""})
+        setControlEmail({libelle: "Email...", color: color})
     }
 
     const handlePasswordChange = (event) => {
-        setPassword(event.target.value);
+        const val = event.target.value.trim()
+        const exp = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/
+        let color = ""
+
+        if(exp.test(val)) color = colorMsgForm.success
+        else if(val.length >= 1) color = colorMsgForm.error
+
+        setPassword(event.target.value.trim());
         setErrorMessage({libelle: "", color: ""})
-        setControlPassword({libelle: "", color: ""})
+        setControlPassword({libelle: "Mot de passe...", color: color})
     }
 
     const handleConfirmPasswordChange = (event) => {
-        setConfirmPassword(event.target.value);
+        setConfirmPassword(event.target.value.trim());
         setErrorMessage({libelle: "", color: ""})
-        setControlConfirmPassword({libelle: "", color: ""})
+        setControlConfirmPassword({libelle: "Confirmer le mot de passe...", color: ""})
     }
     
     /*********************************************************
@@ -60,10 +81,10 @@ const SignUp = () => {
     const handleSubmit = (event) => {
         event.preventDefault()
 
-        if(nickName === "") setControlNickName({libelle: "Veuillez renseigner un pseudo S.V.P.", color: colorMsgForm.error})
-        if(email === "") setControlEmail({libelle: "Veuillez renseigner un email S.V.P.", color: colorMsgForm.error})
-        if(password === "") setControlPassword({libelle: "Veuillez renseigner un mot de passe S.V.P.", color: colorMsgForm.error})
-        if(confirmPassword === "") setControlConfirmPassword({libelle: "Veuillez confirmer le mot de passe S.V.P.", color: colorMsgForm.error})
+        if(nickName === "") setControlNickName({libelle: "Veuillez renseigner un pseudo", color: colorMsgForm.error})
+        if(email === "") setControlEmail({libelle: "Veuillez renseigner un email", color: colorMsgForm.error})
+        if(password === "") setControlPassword({libelle: "Veuillez renseigner un mot de passe", color: colorMsgForm.error})
+        if(confirmPassword === "") setControlConfirmPassword({libelle: "Veuillez confirmer le mot de passe", color: colorMsgForm.error})
         if(nickName === "" || email === "" || password === "" || confirmPassword === "") return
 
         const requestBody = JSON.stringify({
@@ -118,26 +139,32 @@ const SignUp = () => {
                 <form onSubmit={handleSubmit}>
                     <div className="login-cellule">
                         <label>
-                            <input className="logo-user" type="text" tabIndex="1" placeholder="Pseudo..." maxLength="50" value={nickName} onChange={(e) => handleNickNameChange(e)} style={{borderColor: controlNickName.color}} />
-                            <div className="login-cellule-message">{controlNickName.libelle}</div>
+                            <input className="logo-user" type="text" tabIndex="1" placeholder={controlNickName.libelle} maxLength="50" value={nickName} onChange={(e) => handleNickNameChange(e)} style={{borderColor: controlNickName.color}} />
+                            <div className="login-cellule-message">
+                                5 caractères minimum (lettres minuscules, ou majuscules, sans accent - chiffres)
+                            </div>
                         </label>
                     </div>
                     <div className="login-cellule">
                         <label>
-                            <input className="logo-email" type="text" tabIndex="1" placeholder="Email..." maxLength="50" value={email} onChange={(e) => handleEmailChange(e)} style={{borderColor: controlEmail.color}} />
-                            <div className="login-cellule-message">{controlEmail.libelle}</div>
+                            <input className="logo-email" type="text" tabIndex="1" placeholder={controlEmail.libelle} maxLength="50" value={email} onChange={(e) => handleEmailChange(e)} style={{borderColor: controlEmail.color}} />
+                            <div className="login-cellule-message">ex : nom@domaine.com</div>
                         </label>
                     </div>
                     <div className="login-cellule">
                         <label>
-                            <input className="logo-cadenas" type="password" tabIndex="2" placeholder="Mot de passe..." maxLength="50" value={password} onChange={(e) => handlePasswordChange(e)} style={{borderColor: controlPassword.color}} />
-                            <div className="login-cellule-message">{controlPassword.libelle}</div>
+                            <input className="logo-cadenas" type="password" tabIndex="2" placeholder={controlPassword.libelle} maxLength="50" value={password} onChange={(e) => handlePasswordChange(e)} style={{borderColor: controlPassword.color}} />
+                            <div className="login-cellule-message">
+                                8 caractères minimum, dont au moins :<br />
+                                - une lettre minuscule<br />
+                                - une lettre majuscule<br />
+                                - un chiffre
+                            </div>
                         </label>
                     </div>
                     <div className="login-cellule">
                         <label>
-                            <input className="logo-cadenas" type="password" tabIndex="2" placeholder="Confirmer le mot de passe..." maxLength="50" value={confirmPassword} onChange={(e) => handleConfirmPasswordChange(e)} style={{borderColor: controlConfirmPassword.color}} />
-                            <div className="login-cellule-message">{controlConfirmPassword.libelle}</div>
+                            <input className="logo-cadenas" type="password" tabIndex="2" placeholder={controlConfirmPassword.libelle} maxLength="50" value={confirmPassword} onChange={(e) => handleConfirmPasswordChange(e)} style={{borderColor: controlConfirmPassword.color}} />
                         </label>
                     </div>
                     <input className="btn-login" tabIndex="3" type="submit" value="Valider" />

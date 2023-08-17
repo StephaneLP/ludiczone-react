@@ -18,8 +18,8 @@ const ReConnect = () => {
 
     // Messages et focus d'erreur
     const[errorMessage, setErrorMessage] = useState({libelle: "",color: ""})
-    const[controlLogin, setControlLogin] = useState({libelle: "", color: ""})
-    const[controlPassword, setControlPassword] = useState({libelle: "", color: ""})
+    const[controlLogin, setControlLogin] = useState({libelle: "Pseudo ou Email...", color: ""})
+    const[controlPassword, setControlPassword] = useState({libelle: "Mot de passe...", color: ""})
 
     // Identifiant & Mot de passe
     const[login, setLogin] = useState("")
@@ -28,13 +28,13 @@ const ReConnect = () => {
     const handleLoginChange = (event) => {
         setLogin(event.target.value);
         setErrorMessage({libelle: "", color: ""})
-        setControlLogin({libelle: "", color: ""})
+        setControlLogin({libelle: "Pseudo ou Email...", color: ""})
     }
 
     const handlePasswordChange = (event) => {
         setPassword(event.target.value);
         setErrorMessage({libelle: "", color: ""})
-        setControlPassword({libelle: "", color: ""})
+        setControlPassword({libelle: "Mot de passe...", color: ""})
     }
 
     /*********************************************************
@@ -44,8 +44,8 @@ const ReConnect = () => {
     const handleSubmit = (event) => {
         event.preventDefault()
 
-        if(login === "") setControlLogin({libelle: "Veuillez renseigner un identifiant S.V.P.", color: colorMsgForm.error})
-        if(password === "") setControlPassword({libelle: "Veuillez renseigner un mot de passe S.V.P.", color: colorMsgForm.error})
+        if(login === "") setControlLogin({libelle: "Veuillez renseigner un identifiant", color: colorMsgForm.error})
+        if(password === "") setControlPassword({libelle: "Veuillez renseigner un mot de passe", color: colorMsgForm.error})
         if(login === "" || password === "") return
 
         const requestBody = JSON.stringify({
@@ -101,14 +101,12 @@ const ReConnect = () => {
                 <form onSubmit={handleSubmit}>
                     <div className="login-cellule">
                         <label>
-                            <input className="logo-user" type="text" tabIndex="1" placeholder="Pseudo ou Email..." maxLength="50" value={login} onChange={(e) => handleLoginChange(e)} style={{borderColor: controlLogin.color}} />
-                            <div className="login-cellule-message">{controlLogin.libelle}</div>
+                            <input className="logo-user" type="text" tabIndex="1" placeholder={controlLogin.libelle} maxLength="50" value={login} onChange={(e) => handleLoginChange(e)} style={{borderColor: controlLogin.color}} />
                         </label>
                     </div>
                     <div className="login-cellule">
                         <label>
-                            <input className="logo-cadenas" type="password" tabIndex="2" placeholder="Mot de passe..." maxLength="50" value={password} onChange={(e) => handlePasswordChange(e)} style={{borderColor: controlPassword.color}} />
-                            <div className="login-cellule-message">{controlPassword.libelle}</div>
+                            <input className="logo-cadenas" type="password" tabIndex="2" placeholder={controlPassword.libelle} maxLength="50" value={password} onChange={(e) => handlePasswordChange(e)} style={{borderColor: controlPassword.color}} />
                         </label>
                     </div>
                     <input className="btn-login" tabIndex="3" type="submit" value="Valider" />             

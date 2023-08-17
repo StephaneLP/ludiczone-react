@@ -63,7 +63,7 @@
         }
 
         .login-cellule {
-            margin: 10px 0;
+            margin: 15px 0;
 
             label {
                 width: 100%;
@@ -80,7 +80,6 @@
 
                 input:focus {
                     outline: none;
-                    border: 1px solid $focusInputLogin;
                     box-shadow: 0 0 10px $focusInputLogin;
                 }
 
@@ -111,12 +110,12 @@
                 }
 
                 .login-cellule-message {
-                    font-family: "Poppins Regular", Arial, Helvetica, sans-serif;
-                    margin-top: 3px;
-                    padding: 2px 10px;
+                    font-family: "Poppins Light", Arial, Helvetica, sans-serif;
+                    margin-top: 4px;
+                    padding-left: 10px;
                     font-size: 0.9rem;
-                    color: $error1;
-                    border-radius: 10px;
+                    color: white;
+                    line-height: 1rem;
                 }
             }            
         }

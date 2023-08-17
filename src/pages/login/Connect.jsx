@@ -101,14 +101,12 @@ const Connect = () => {
                 <form onSubmit={handleSubmit}>
                     <div className="login-cellule">
                         <label>
-                            <input className="logo-user" type="text" tabIndex="1" placeholder={controlLogin.libelle} maxLength="50" value={login} onChange={(e) => handleLoginChange(e)} style={{borderColor: controlLogin.color, '--placeholder-color': controlLogin.color}} />
-                            {/* <div className="login-cellule-message">{controlLogin.libelle}</div> */}
+                            <input className="logo-user" type="text" tabIndex="1" placeholder={controlLogin.libelle} maxLength="50" value={login} onChange={(e) => handleLoginChange(e)} style={{borderColor: controlLogin.color}} />
                         </label>
                     </div>
                     <div className="login-cellule">
                         <label>
                             <input className="logo-cadenas" type="password" tabIndex="2" placeholder={controlPassword.libelle} maxLength="50" value={password} onChange={(e) => handlePasswordChange(e)} style={{borderColor: controlPassword.color}} />
-                            {/* <div className="login-cellule-message">{controlPassword.libelle}</div> */}
                         </label>
                     </div>
                     <div className="login-forgotten">
