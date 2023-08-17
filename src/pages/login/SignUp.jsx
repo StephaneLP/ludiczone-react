@@ -47,7 +47,7 @@ const SignUp = () => {
     // Gestion du champ Email
     const handleEmailChange = (event) => {
         const val = event.target.value.trim()
-        const exp = /([\w-\.]+@[\w\.]+\.{1}[\w]+)/
+        const exp = /([\w-.]+@[\w.]+\.{1}[\w]+)/
         let color = ""
 
         if(val.length >= 1) {
