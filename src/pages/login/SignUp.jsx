@@ -18,16 +18,16 @@ const SignUp = () => {
 
     // Messages et focus d'erreur
     const[errorMessage, setErrorMessage] = useState({libelle: "", color: ""})
-    const[controlNickName, setControlNickName] = useState({libelle: "Pseudo...", color: ""})
-    const[controlEmail, setControlEmail] = useState({libelle: "Email...", color: ""})
-    const[controlPassword, setControlPassword] = useState({libelle: "Mot de passe...", color: ""})
-    const[controlConfirmPassword, setControlConfirmPassword] = useState({libelle: "Confirmer le mot de passe...", color: ""})
+    const[controlNickName, setControlNickName] = useState({libelle: "Pseudo...", color: colorMsgForm.success})
+    const[controlEmail, setControlEmail] = useState({libelle: "Email...", color: colorMsgForm.success})
+    const[controlPassword, setControlPassword] = useState({libelle: "Mot de passe...", color: colorMsgForm.success})
+    const[controlConfirmPassword, setControlConfirmPassword] = useState({libelle: "Confirmer le mot de passe...", color: colorMsgForm.success})
 
     // Identifiants & Mot de passe
-    const[nickName, setNickName] = useState("")
-    const[email, setEmail] = useState("")
-    const[password, setPassword] = useState("")
-    const[confirmPassword, setConfirmPassword] = useState("")
+    const[nickName, setNickName] = useState("aaaaa")
+    const[email, setEmail] = useState("a@a.a")
+    const[password, setPassword] = useState("Egs37000")
+    const[confirmPassword, setConfirmPassword] = useState("Egs37000")
 
     // Gestion du champ Pseudo
     const handleNickNameChange = (event) => {
@@ -111,7 +111,7 @@ const SignUp = () => {
             password: password,
         })
 
-        fetch("http://localhost:3001/api/auth/login", {
+        fetch("http://localhost:3001/api/user/signup", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: requestBody
@@ -121,7 +121,7 @@ const SignUp = () => {
             })
             .then((res) => {
                 // Erreur identifiant ou mot de passe
-                if(["ERR_REQUEST","ERR_AUTHENTICATION"].includes(res.status)) {
+                if(["ERR_CONSTRAINT","ERR_REQUEST","ERR_AUTHENTICATION"].includes(res.status)) {
                     setErrorMessage({libelle: res.message, color: colorMsg.error})
                     return
                 }
@@ -131,8 +131,6 @@ const SignUp = () => {
                     return
                 }
 
-                localStorage.setItem("jwt",res.data.token) // Token enregistré dans le localStorage
-                localStorage.setItem("pseudo",res.data.nick_name) // Pseudo enregistré dans le localStorage
                 navigate(-1) // Retour au composant appelant
             })
             .catch((error) => {
@@ -157,7 +155,7 @@ const SignUp = () => {
                 <form onSubmit={handleSubmit}>
                     <div className="login-cellule">
                         <label>
-                            <input className="logo-user" type="text" tabIndex="1" placeholder={controlNickName.libelle} maxLength="50" value={nickName} onChange={(e) => handleNickNameChange(e)} style={{borderColor: controlNickName.color}} />
+                            <input className="logo-user" type="text" tabIndex="1" placeholder={controlNickName.libelle} maxLength="12" value={nickName} onChange={(e) => handleNickNameChange(e)} style={{borderColor: controlNickName.color}} />
                             <div className="login-cellule-message">
                                 5 caractères minimum, composés de :<br />
                                 - chiffres et lettres (sans accent)
@@ -166,13 +164,13 @@ const SignUp = () => {
                     </div>
                     <div className="login-cellule">
                         <label>
-                            <input className="logo-email" type="text" tabIndex="1" placeholder={controlEmail.libelle} maxLength="50" value={email} onChange={(e) => handleEmailChange(e)} style={{borderColor: controlEmail.color}} />
+                            <input className="logo-email" type="text" tabIndex="1" placeholder={controlEmail.libelle} maxLength="254" value={email} onChange={(e) => handleEmailChange(e)} style={{borderColor: controlEmail.color}} />
                             <div className="login-cellule-message">ex : nom@domaine.com</div>
                         </label>
                     </div>
                     <div className="login-cellule">
                         <label>
-                            <input className="logo-cadenas" type="password" tabIndex="2" placeholder={controlPassword.libelle} maxLength="50" value={password} onChange={(e) => handlePasswordChange(e)} style={{borderColor: controlPassword.color}} />
+                            <input className="logo-cadenas" type="password" tabIndex="2" placeholder={controlPassword.libelle} maxLength="30" value={password} onChange={(e) => handlePasswordChange(e)} style={{borderColor: controlPassword.color}} />
                             <div className="login-cellule-message">
                                 8 caractères minimum, dont au moins :<br />
                                 - une lettre minuscule<br />
