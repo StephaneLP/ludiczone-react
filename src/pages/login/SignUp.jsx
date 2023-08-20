@@ -24,8 +24,8 @@ const SignUp = () => {
     const[controlConfirmPassword, setControlConfirmPassword] = useState({libelle: "Confirmer le mot de passe...", color: colorMsgForm.success})
 
     // Identifiants & Mot de passe
-    const[nickName, setNickName] = useState("aaaaa")
-    const[email, setEmail] = useState("a@a.a")
+    const[nickName, setNickName] = useState("StephaneLP")
+    const[email, setEmail] = useState("ceodren@outlook.com")
     const[password, setPassword] = useState("Egs37000")
     const[confirmPassword, setConfirmPassword] = useState("Egs37000")
 
