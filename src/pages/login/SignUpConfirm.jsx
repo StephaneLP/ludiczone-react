@@ -6,11 +6,14 @@ import imgTriangle from "../../assets/images/icones/arrow.png"
 
 
 /* Import des Hooks & composants react-rooter */
-import { Link, useLocation } from "react-router-dom"
+import { Link, useLocation, useParams } from "react-router-dom"
 
 const Message = () => {
     const location = useLocation()
-    const email = (location.state ? location.state.email : "...")
+
+    const { token } = useParams()
+
+
 
 
 
@@ -29,7 +32,7 @@ const Message = () => {
                 <h1>Finaliser l'inscription</h1>
                 <div className="login-info">
                     <p>Veuillez finaliser votre inscription en cliquant sur le lien qui vous a été envoyé par mail à l'adresse suivant :</p>
-                    <p className="email">{email}</p>
+                    <p className="email">{token}</p>
                     <p className="note">Durée de validité du lien : 5mn</p>
                 </div>
                 <div className="login-forgotten">
