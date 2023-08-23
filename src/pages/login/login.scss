@@ -21,18 +21,6 @@
         display: flex;
         flex-direction: column;
 
-        h1 {
-            color: white;
-            font-size: 2.5rem;
-            margin: 40px 0 0;
-        }
-
-        h2 {
-            color: white;
-            font-size: 1.2rem;
-            margin: 20px 0 0;
-        }
-
         .login-img {
             background-image: url("../../assets/images/icones/logo-site.png");
             background-size: cover;
@@ -51,6 +39,18 @@
             &:hover {
                 background-color: $secondaryBgMedium1;
             } 
+        }
+        
+        h1 {
+            color: white;
+            font-size: 2.5rem;
+            margin: 40px 0 0;
+        }
+
+        h2 {
+            color: white;
+            font-size: 1.2rem;
+            margin: 20px 0 0;
         }
 
         .login-message {
@@ -175,6 +175,35 @@
             .login-link {
                 font-family: "Poppins", Arial, Helvetica, sans-serif;
                 font-size: 1rem;
+            }
+        }
+
+        .login-info {
+            font-family: "Poppins Regular", Arial, Helvetica, sans-serif;
+            font-size: 1rem;
+            color: white;
+            text-align: justify;
+            background-color: $baseBgMedium2;
+            border: 1px solid $baseBgLight2;
+            margin: 20px 0 10px;
+            padding: 15px;
+            border-radius: 10px;
+
+            p {
+                margin: 0;
+            }
+
+            .email {
+                color: $baseFont5;
+                font-size: 1.1rem;
+                margin: 20px 0;
+                text-align: center;
+            }
+
+            .note {
+                font-size: 0.9rem;
+                font-style: italic;
+                text-align: center;
             }
         }
     }

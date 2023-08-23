@@ -6,6 +6,8 @@ import Search from "./pages/search/Search"
 import Connect from "./pages/login/Connect"
 import ReConnect from "./pages/login/ReConnect"
 import SignUp from "./pages/login/SignUp"
+import SignUpInfo from "./pages/login/SignUpInfo"
+import SignUpConfirm from "./pages/login/SignUpConfirm"
 
 /* Import des composants : Administration */
 import AdminAreaType from "./pages/admin/area-type/AdminAreaType"
@@ -34,6 +36,8 @@ const App = () => {
                 <Route path="/connect" element={<Connect />} />
                 <Route path="/reconnect" element={<ReConnect />} />
                 <Route path="/inscription" element={<SignUp />} />
+                <Route path="/inscription-info" element={<SignUpInfo />} />
+                <Route path="/inscription-confirm/:token" element={<SignUpConfirm />} />
                 {/* Pages d'administration */}
                 <Route path="/admin-area-type" element={<AdminAreaType />} />
                 <Route path="/admin-area-type-create" element={<AdminAreaTypeCreate />} />
@@ -47,7 +51,7 @@ const App = () => {
                 <Route path="*" element={<PageNotFound />} />
             </Routes>
         </BrowserRouter> 
-    );
+    )
 }
 
 export default App;

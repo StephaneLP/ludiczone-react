@@ -127,11 +127,15 @@ const SignUp = () => {
                 }
                 // Erreur serveur
                 if(["ERR_SERVER"].includes(res.status)) {
-                    navigate("/erreur", {state: res.message})
+                    navigate("/erreur", { state: res.message })
                     return
                 }
-                console.log("SUCCESS : ", res.message)
-                navigate(-1) // Retour au composant appelant
+
+                navigate('/inscription-info',{
+                    state: {
+                        email: email
+                    }
+                })
             })
             .catch((error) => {
                 cleanLocalStorage()
