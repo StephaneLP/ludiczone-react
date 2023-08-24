@@ -25,7 +25,7 @@ const HomeTypeSortie = () => {
         fetch("http://localhost:3001/api/areatypes", {
             method: "GET",
             headers: { "Content-Type": "application/json" },
-        })
+            })
             .then((res) => {
                 return res.json()
             })

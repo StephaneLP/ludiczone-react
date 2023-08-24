@@ -5,9 +5,9 @@ import "../admin.scss"
 import { colorMsg, cleanLocalStorage } from "../../../js/utils.js"
 
 /* Import des composants */
-import Header from "../../../layout/header/Header";
+import Header from "../../../layout/header/Header"
 import Menu from "../../../layout/menu/Menu"
-import Footer from "../../../layout/footer/Footer";
+import Footer from "../../../layout/footer/Footer"
 import Loader from "../../../components/loader/Loader"
 
 /* Import des Hooks & composants react-rooter */

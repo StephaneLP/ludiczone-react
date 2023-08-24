@@ -207,5 +207,31 @@
                 text-align: center;
             }
         }
+
+        .login-spinner {
+            text-align: center;
+            padding: 50px 0 25px;
+
+            div:after {
+                background: white;
+            }
+        }
+
+        .login-spinner-absolute {
+            // background-color: white;
+            padding: 20px 20px 15px;
+            border-radius: 50%;
+            // opacity: 1;
+            // background-color: rgba(101, 127, 172, 0.25);
+            // backdrop-filter: blur(20px);
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+
+            div:after {
+                background: white;
+            }
+        }    
     }
 }

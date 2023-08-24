@@ -8,7 +8,7 @@ import imgTriangle from "../../assets/images/icones/arrow.png"
 /* Import des Hooks & composants react-rooter */
 import { Link, useLocation } from "react-router-dom"
 
-const Message = () => {
+const SignUpInfo = () => {
     const location = useLocation()
     const email = (location.state ? location.state.email : "...")
 
@@ -34,4 +34,4 @@ const Message = () => {
     )
 }
 
-export default Message
+export default SignUpInfo

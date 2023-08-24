@@ -4,6 +4,9 @@ import "./login.scss"
 /* Import des fonctions, variables & images */
 import { colorMsg, colorMsgForm, cleanLocalStorage } from "../../js/utils.js"
 
+/* Import des composants */
+import Spinner from "../../components/loader/Spinner"
+
 /* Import des Hooks & composants react-rooter */
 import { useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
@@ -22,6 +25,7 @@ const SignUp = () => {
     const[controlEmail, setControlEmail] = useState({libelle: "Email...", color: colorMsgForm.success})
     const[controlPassword, setControlPassword] = useState({libelle: "Mot de passe...", color: colorMsgForm.success})
     const[controlConfirmPassword, setControlConfirmPassword] = useState({libelle: "Confirmer le mot de passe...", color: colorMsgForm.success})
+    const[displaySpinner, setDisplaySpinner] = useState(null)
 
     // Identifiants & Mot de passe
     const[nickName, setNickName] = useState("StephaneLP")
@@ -151,6 +155,11 @@ const SignUp = () => {
         <>
         <main className="main-login">
             <section className="login">
+                {!displaySpinner && 
+                    <div className="login-spinner-absolute">
+                        <Spinner />
+                    </div>
+                }
                 <Link to="/">
                     <div className="login-img" ></div>
                 </Link>
