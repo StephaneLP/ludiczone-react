@@ -8,7 +8,7 @@ import imgTriangle from "../../assets/images/icones/arrow.png"
 import Spinner from "../../components/loader/Spinner"
 
 /* Import des Hooks & composants react-rooter */
-import { Link, useLocation, useParams } from "react-router-dom"
+import { Link, useParams } from "react-router-dom"
 import { useState, useEffect } from "react"
 
 const SignUpConfirm = () => {
@@ -17,9 +17,7 @@ const SignUpConfirm = () => {
     /* --------------------------------------- PARTIE JAVASCRIT ---------------------------------------- */
     /* ------------------------------------------------------------------------------------------------- */
 
-    const location = useLocation()
     const { token } = useParams()
-
     const[getResponse, setGetResponse] = useState(null)
 
     /*********************************************************
@@ -27,6 +25,7 @@ const SignUpConfirm = () => {
     - validation de l'adresse mail du user
     *********************************************************/
     useEffect(() => {
+        console.log("STOP")
         fetch("http://localhost:3001/api/user/signup/" + token, {
             method: "PUT",
             headers: {
@@ -44,7 +43,7 @@ const SignUpConfirm = () => {
                 console.log(res.status)
                 setGetResponse(res.status)
             })
-    })
+    },[token])
 
     /* ------------------------------------------------------------------------------------------------- */
     /* ------------------------------------------ PARTIE JSX ------------------------------------------- */

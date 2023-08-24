@@ -109,6 +109,8 @@ const SignUp = () => {
             return
         }
 
+        setDisplaySpinner(true)
+
         const requestBody = JSON.stringify({
             nick_name: nickName,
             email: email,
@@ -127,6 +129,7 @@ const SignUp = () => {
                 // Erreur identifiant ou mot de passe
                 if(["ERR_CONSTRAINT"].includes(res.status)) {
                     setErrorMessage({libelle: res.message, color: colorMsg.error})
+                    setDisplaySpinner(null)
                     return
                 }
                 // Erreur serveur
@@ -155,7 +158,7 @@ const SignUp = () => {
         <>
         <main className="main-login">
             <section className="login">
-                {!displaySpinner && 
+                {displaySpinner && 
                     <div className="login-spinner-absolute">
                         <Spinner />
                     </div>

@@ -21,7 +21,7 @@ const SignUpInfo = () => {
                 </Link>
                 <h1>Finaliser l'inscription</h1>
                 <div className="login-info">
-                    <p>Veuillez finaliser votre inscription en cliquant sur le lien qui vous a été envoyé par mail à l'adresse suivant :</p>
+                    <p>Veuillez finaliser votre inscription en cliquant sur le lien qui vous a été envoyé par mail à l'adresse suivante :</p>
                     <p className="email">{email}</p>
                     <p className="note">Durée de validité du lien : 5mn</p>
                 </div>

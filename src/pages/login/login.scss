@@ -218,12 +218,11 @@
         }
 
         .login-spinner-absolute {
-            // background-color: white;
-            padding: 20px 20px 15px;
-            border-radius: 50%;
-            // opacity: 1;
-            // background-color: rgba(101, 127, 172, 0.25);
-            // backdrop-filter: blur(20px);
+            padding: 30px;
+            border-radius: 20px;
+            opacity: 1;
+            background-color: #657fac40;
+            backdrop-filter: blur(5px);
             position: absolute;
             top: 50%;
             left: 50%;
