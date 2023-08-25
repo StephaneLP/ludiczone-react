@@ -127,7 +127,7 @@ const SignUp = () => {
             })
             .then((res) => {
                 // Erreur identifiant ou mot de passe
-                if(["ERR_CONSTRAINT"].includes(res.status)) {
+                if(["ERR_CONSTRAINT","ERR_AUTHENTICATION"].includes(res.status)) {
                     setErrorMessage({libelle: res.message, color: colorMsg.error})
                     setDisplaySpinner(null)
                     return
