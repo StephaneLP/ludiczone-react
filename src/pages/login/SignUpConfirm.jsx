@@ -1,14 +1,16 @@
 /* Import du style */
-import "./login.scss"
+import "./signUp.scss"
 
 /* Import des fonctions, variables & images */
-import imgTriangle from "../../assets/images/icones/arrow.png"
+import imgDone from "../../assets/images/icones/done.png"
+import imgWarning from "../../assets/images/icones/failure.png"
+import { colorMsg } from "../../js/utils.js"
 
 /* Import des composants */
 import Spinner from "../../components/loader/Spinner"
 
 /* Import des Hooks & composants react-rooter */
-import { Link, useParams } from "react-router-dom"
+import { Link, useParams, useNavigate } from "react-router-dom"
 import { useState, useEffect } from "react"
 
 const SignUpConfirm = () => {
@@ -17,15 +19,16 @@ const SignUpConfirm = () => {
     /* --------------------------------------- PARTIE JAVASCRIT ---------------------------------------- */
     /* ------------------------------------------------------------------------------------------------- */
 
+    const navigate = useNavigate()
     const { token } = useParams()
     const[getResponse, setGetResponse] = useState(null)
+    const[displayMessage, setDisplayMessage] = useState({libelle: "", color: ""})
 
     /*********************************************************
     API PUT
     - validation de l'adresse mail du user
     *********************************************************/
     useEffect(() => {
-        console.log("STOP")
         fetch("http://localhost:3001/api/user/signup/" + token, {
             method: "PUT",
             headers: {
@@ -35,15 +38,16 @@ const SignUpConfirm = () => {
                 return res.json()
             })
             .then((res) => {
-                // Token invalide
-                if(["ERR_AUTHENTICATION"].includes(res.status)) {
-                    // navigate("/reconnect")
-                    // return
+                
+                if(["ERR_SERVER"].includes(res.status)) { // Erreur serveur
+                    navigate("/erreur", {state: res.message})
+                    return
                 }
-                console.log(res.status)
+
+                setDisplayMessage({libelle: res.message, color: (res.status === "SUCCESS" ? colorMsg.success : colorMsg.error)})
                 setGetResponse(res.status)
             })
-    },[token])
+    },[token, navigate])
 
     /* ------------------------------------------------------------------------------------------------- */
     /* ------------------------------------------ PARTIE JSX ------------------------------------------- */
@@ -51,31 +55,47 @@ const SignUpConfirm = () => {
 
     return (
         <>
-        <main className="main-login">
-            <section className="login">
+        <main className="main-signup">
+            <section className="signup">
                 <Link to="/">
-                    <div className="login-img" alt="Logo LudicZone"></div>
+                    {/* <div className="signup-img" alt="Logo LudicZone"></div> */}
                 </Link>
-                <h1>Finaliser l'inscription</h1>
-
                 {getResponse === null ?
                 (
-                    <div className="login-spinner">
+                    <div className="signup-spinner">
                         <Spinner />
                     </div>
                 )
                 :
-                (
-                    <>
-                    <div className="login-info">
-                        <p>Veuillez finaliser votre inscription en cliquant sur le lien qui vous a été envoyé par mail à l'adresse suivant :</p>
-                        <p className="email">{token}</p>
-                        <p className="note">Durée de validité du lien : 5mn</p>
-                    </div>
-                    <div className="login-forgotten">
-                        <Link className="login-link" to="/"><img src={imgTriangle} alt="Flèche"/>Page d'accueil</Link>
-                    </div> 
-                    </>
+                (getResponse === "SUCCESS" ?
+                    (
+                        <>
+                        <h1>Inscription finalisée</h1>
+                        <div className="signup-image">
+                            <img src={imgDone} alt="logo succès"/>
+                        </div>
+                        
+                            <div className="signup-message">{displayMessage.libelle}</div>
+                        <Link className="btn-signup" to="/">Se connecter</Link>
+                        <div className="signup-back">
+                            <Link className="signup-link" to="/">Page d'accueil</Link>
+                        </div>                     
+                        </>
+                    )
+                    :
+                    (
+                        <>
+                        <h1>Game Over !</h1>
+                        <div className="signup-image">
+                            <img src={imgWarning} alt="Logo échec"/>
+                        </div>
+                        <div style={{backgroundColor: displayMessage.color}} className="signup-message">{displayMessage.libelle}</div>
+                        <Link className="btn-signup" to="/">Renvoyer un mail de confirmation</Link>
+                        <div className="signup-back">
+                            <Link className="signup-link" to="/">Page d'accueil</Link>
+                        </div> 
+                        </>
+                    )
                 )}
             </section>
         </main>

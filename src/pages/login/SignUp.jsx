@@ -1,7 +1,8 @@
 /* Import du style */
-import "./login.scss"
+import "./signUp.scss"
 
 /* Import des fonctions, variables & images */
+import imgSignUp from "../../assets/images/icones/add-user.png"
 import { colorMsg, colorMsgForm, cleanLocalStorage } from "../../js/utils.js"
 
 /* Import des composants */
@@ -156,38 +157,38 @@ const SignUp = () => {
 
     return (
         <>
-        <main className="main-login">
-            <section className="login">
+        <main className="main-signup">
+            <section className="signup">
                 {displaySpinner && 
-                    <div className="login-spinner-absolute">
+                    <div className="signup-spinner-absolute">
                         <Spinner />
                     </div>
                 }
-                <Link to="/">
-                    <div className="login-img" ></div>
-                </Link>
                 <h1>Créer un compte</h1>
-                <div className="login-message" style={{backgroundColor: errorMessage.color}}>{errorMessage.libelle}</div>
+                <div className="signup-image-new">
+                    <img src={imgSignUp} alt="Nouvel utilisateur"/>
+                </div>
+                <div className="signup-message" style={{backgroundColor: errorMessage.color}}>{errorMessage.libelle}</div>
                 <form onSubmit={handleSubmit}>
-                    <div className="login-cellule">
+                    <div className="signup-cellule">
                         <label>
                             <input className="logo-user" type="text" tabIndex="1" placeholder={controlNickName.libelle} maxLength="12" value={nickName} onChange={(e) => handleNickNameChange(e)} style={{borderColor: controlNickName.color}} />
-                            <div className="login-cellule-message">
+                            <div className="signup-cellule-message">
                                 5 caractères minimum, composés de :<br />
                                 - chiffres et lettres (sans accent)
                             </div>
                         </label>
                     </div>
-                    <div className="login-cellule">
+                    <div className="signup-cellule">
                         <label>
                             <input className="logo-email" type="text" tabIndex="1" placeholder={controlEmail.libelle} maxLength="254" value={email} onChange={(e) => handleEmailChange(e)} style={{borderColor: controlEmail.color}} />
-                            <div className="login-cellule-message">ex : nom@domaine.com</div>
+                            <div className="signup-cellule-message">ex : nom@domaine.com</div>
                         </label>
                     </div>
-                    <div className="login-cellule">
+                    <div className="signup-cellule">
                         <label>
                             <input className="logo-cadenas" type="password" tabIndex="2" placeholder={controlPassword.libelle} maxLength="30" value={password} onChange={(e) => handlePasswordChange(e)} style={{borderColor: controlPassword.color}} />
-                            <div className="login-cellule-message">
+                            <div className="signup-cellule-message">
                                 8 caractères minimum, dont au moins :<br />
                                 - une lettre minuscule<br />
                                 - une lettre majuscule<br />
@@ -195,14 +196,14 @@ const SignUp = () => {
                             </div>
                         </label>
                     </div>
-                    <div className="login-cellule">
+                    <div className="signup-cellule">
                         <label>
                             <input className="logo-cadenas" type="password" tabIndex="2" placeholder={controlConfirmPassword.libelle} maxLength="50" value={confirmPassword} onChange={(e) => handleConfirmPasswordChange(e)} style={{borderColor: controlConfirmPassword.color}} />
                         </label>
                     </div>
-                    <input className="btn-login" tabIndex="3" type="submit" value="Valider" />
-                    <div className="login-back">
-                        <Link className="login-link" to="/connect">Retour</Link>
+                    <input className="btn-signup" tabIndex="3" type="submit" value="Valider" />
+                    <div className="signup-back">
+                        <Link className="signup-link" to="/connect">Retour</Link>
                     </div>                 
                 </form>
             </section>
