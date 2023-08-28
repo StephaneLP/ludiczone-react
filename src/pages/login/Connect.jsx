@@ -3,8 +3,9 @@ import "./login.scss"
 
 /* Import des fonctions, variables & images */
 import imglogin from "../../assets/images/icones/signin.png"
-import { colorMsg, colorMsgForm, cleanLocalStorage } from "../../js/utils.js"
 import imgTriangle from "../../assets/images/icones/arrow.png"
+import imgSeparator from "../../assets/images/icones/menu.png"
+import { colorMsg, colorMsgForm, cleanLocalStorage } from "../../js/utils.js"
 
 /* Import des Hooks & composants react-rooter */
 import { useState } from "react"
@@ -108,19 +109,18 @@ const Connect = () => {
                         <label>
                             <input className="logo-cadenas" type="password" tabIndex="2" placeholder={controlPassword.libelle} maxLength="50" value={password} onChange={(e) => handlePasswordChange(e)} style={{borderColor: controlPassword.color}} />
                         </label>
-                    </div>
-                    <div className="login-forgotten">
                         <Link className="login-link" to="/en-construction"><img src={imgTriangle} alt="Flèche"/>Mot de passe oublié ?</Link>
                     </div>
-                    <input className="btn-login" tabIndex="3" type="submit" value="Valider" />
 
-                    <div className="login-signup">
-                        Vous n'avez toujours pas de compte ?<br />
-                        <Link className="login-link" to="/inscription"><img src={imgTriangle} alt="Flèche" />Créer un compte</Link>
-                    </div>                 
+                    <input className="btn-login" tabIndex="3" type="submit" value="Valider" />
                     <div className="login-back">
                         <Link to="/">Page d'accueil</Link>
                     </div>
+                    <img src={imgSeparator} alt="Flèche"/>
+                    <div className="login-signup">
+                        Vous n'avez toujours pas de compte ?<br />
+                        <Link className="login-link" to="/inscription">Créer un compte</Link>
+                    </div>                 
                 </form>
             </section>
         </main>

@@ -132,7 +132,25 @@
                         // width: 15px;
                     }
                 }
+            }
+
+            a {
+                font-family: "Poppins Regular", Arial, Helvetica, sans-serif;
+                color: white;
+                font-size: 0.8rem;
+                text-decoration: none;
+                margin-left: 10px;
+
+                img {
+                    width: 8px;
+                    margin-right: 5px;;
+                }
+
+                &:hover {
+                    color: $linkHoverLogin;  
+                }  
             }            
+            
         }
 
         .btn-login {
@@ -142,8 +160,7 @@
             text-align: center;
             text-decoration: none;
             padding: 10px 20px;
-            margin-top: 20px;
-            color: white;
+            margin-top: 10px;
             background-color: $baseBgMedium1;
             border: 0px solid white;
             border-radius: 10px;
@@ -151,26 +168,6 @@
         
             &:hover {
                 background-color: $secondaryBgMedium1;
-            }
-        }
-
-        .login-forgotten {
-            text-align: center;
-
-            a {
-                font-family: "Poppins Regular", Arial, Helvetica, sans-serif;
-                color: white;
-                font-size: 0.9rem;
-                text-decoration: none;
-
-                img {
-                    width: 10px;
-                    margin-right: 10px;;
-                }
-
-                &:hover {
-                    color: $linkHoverLogin;  
-                }  
             }
         }
 
@@ -183,10 +180,15 @@
                 color: white;
                 font-size: 1rem;
                 text-decoration: none;
+                transition: all 0.2s ease-out;
+            }
 
-                &:hover {
+            &:hover {
+                cursor: pointer;
+                
+                a {
                     color: $linkHoverLogin;
-                }
+                }                
             }
         }
 
@@ -195,14 +197,14 @@
             color: white;
             font-size: 0.9rem;            
             text-align: center;
-            margin-top: 10px;
-            padding: 10px;
-            border-radius: 10px;
-            border: 1px solid $baseBgLight2;
+            margin-top: 30px;
 
             a {
-                color: white;
+                font-family: "Poppins", Arial, Helvetica, sans-serif;
+                color: $baseFont5;
+                font-size: 1rem; 
                 text-decoration: none;
+                transition: all 0.2s ease-out;
 
                 img {
                     width: 10px;
