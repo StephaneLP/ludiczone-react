@@ -1,5 +1,5 @@
 /* Import du style */
-import "./signUp.scss"
+import "./login.scss"
 
 /* Import des fonctions, variables & images */
 import imgDone from "../../assets/images/icones/done.png"
@@ -29,7 +29,7 @@ const SignUpConfirm = () => {
     - validation de l'adresse mail du user
     *********************************************************/
     useEffect(() => {
-        fetch("http://localhost:3001/api/user/signup/" + token, {
+        fetch("http://localhost:3001/api/user/login/" + token, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
@@ -55,14 +55,14 @@ const SignUpConfirm = () => {
 
     return (
         <>
-        <main className="main-signup">
-            <section className="signup">
+        <main className="main-login">
+            <section className="login">
                 <Link to="/">
-                    {/* <div className="signup-img" alt="Logo LudicZone"></div> */}
+                    {/* <div className="login-img" alt="Logo LudicZone"></div> */}
                 </Link>
                 {getResponse === null ?
                 (
-                    <div className="signup-spinner">
+                    <div className="login-spinner">
                         <Spinner />
                     </div>
                 )
@@ -71,14 +71,14 @@ const SignUpConfirm = () => {
                     (
                         <>
                         <h1>Inscription finalisée</h1>
-                        <div className="signup-image">
-                            <img src={imgDone} alt="logo succès"/>
+                        <div className="login-image">
+                            <img src={imgDone} alt="Logo succès"/>
                         </div>
                         
-                            <div className="signup-message">{displayMessage.libelle}</div>
-                        <Link className="btn-signup" to="/">Se connecter</Link>
-                        <div className="signup-back">
-                            <Link className="signup-link" to="/">Page d'accueil</Link>
+                            <div className="login-message">{displayMessage.libelle}</div>
+                        <Link className="btn-login" to="/">Se connecter</Link>
+                        <div className="login-back">
+                            <Link to="/">Page d'accueil</Link>
                         </div>                     
                         </>
                     )
@@ -86,13 +86,13 @@ const SignUpConfirm = () => {
                     (
                         <>
                         <h1>Game Over !</h1>
-                        <div className="signup-image">
+                        <div className="login-image">
                             <img src={imgWarning} alt="Logo échec"/>
                         </div>
-                        <div style={{backgroundColor: displayMessage.color}} className="signup-message">{displayMessage.libelle}</div>
-                        <Link className="btn-signup" to="/">Renvoyer un mail de confirmation</Link>
-                        <div className="signup-back">
-                            <Link className="signup-link" to="/">Page d'accueil</Link>
+                        <div style={{backgroundColor: displayMessage.color}} className="login-message">{displayMessage.libelle}</div>
+                        <Link className="btn-login" to="/">Renvoyer un mail de confirmation</Link>
+                        <div className="login-back">
+                            <Link to="/">Page d'accueil</Link>
                         </div> 
                         </>
                     )
@@ -104,6 +104,3 @@ const SignUpConfirm = () => {
 }
 
 export default SignUpConfirm
-
-
-

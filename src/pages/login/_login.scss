@@ -1,16 +1,16 @@
 @import "../../styles/utils/utils";
 
-.main-signup {
+.main-login {
     background-image: url("../../assets/images/background/bglogin.svg");
     background-size: cover;
     background-position: center;
     height: 100vh;
     position: relative;
 
-    .signup {
+    .login {
         font-family: "Poppins", Arial, Helvetica, sans-serif;
         width: 420px;
-        padding: 40px;
+        padding: 60px 40px 40px;
         background-color: $baseBgMedium3;
         box-shadow: 5px 5px 20px $baseFont3;
         border-radius: 20px;
@@ -21,40 +21,48 @@
         display: flex;
         flex-direction: column;
 
+        .login-img {
+            background-image: url("../../assets/images/icones/logo-site.png");
+            background-size: cover;
+            background-position: center;
+            background-color: $secondaryBgMedium2;
+            width: 100px;
+            height: 100px;
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            border: 2px solid white;
+            transition: all 0.2s ease-out;
+
+            &:hover {
+                background-color: $secondaryBgMedium1;
+            } 
+        }
+        
         h1 {
             color: white;
             font-size: 2.5rem;
+            margin: 40px 0 0;
         }
 
-        .signup-image {
-            text-align: center;
-            margin: 30px 0 10px;
-
-            img {
-                width: 160px;
-            }
+        h2 {
+            color: white;
+            font-size: 1.2rem;
+            margin: 20px 0 0;
         }
 
-        .signup-image-new {
-            text-align: center;
-            margin: 30px 0 0;
-
-            img {
-                width: 180px;
-            }
-        }
-
-        .signup-message {
+        .login-message {
             margin-top: 15px;
             padding: 5px 10px;
             font-size: 0.9rem;
             font-style: italic;
-            text-align: center;
             color: white;
             border-radius: 10px;
         }
 
-        .signup-cellule {
+        .login-cellule {
             margin: 15px 0;
 
             label {
@@ -101,7 +109,7 @@
                     background-repeat: no-repeat;
                 }
 
-                .signup-cellule-message {
+                .login-cellule-message {
                     font-family: "Poppins Light", Arial, Helvetica, sans-serif;
                     margin-top: 4px;
                     padding-left: 10px;
@@ -112,7 +120,12 @@
             }            
         }
 
-        .btn-signup {
+        .login-forgotten{
+            text-align: center;
+            padding: 5px 0;
+        }
+
+        .btn-login {
             color: white;
             width: 100%;
             font-size: 1rem;
@@ -131,30 +144,43 @@
             }
         }
 
-        .signup-back {
+        .login-link {
+            font-family: "Poppins Regular", Arial, Helvetica, sans-serif;
+            text-decoration: none;
+            font-size: 0.9rem;
+            color: white;
+            text-align: center;
+
+            img {
+                width: 10px;
+                margin-right: 10px;;
+            }
+        
+            &:hover {
+                color: $linkHoverLogin;
+                transition: all 0.2s ease-out;
+            }
+        }     
+
+        .login-signup {
+            font-family: "Poppins Italic", Arial, Helvetica, sans-serif;
+            color: white;
+            font-size: 0.9rem;
+            margin: 30px 0 0;
+            text-align: center;
+        }
+
+        .login-back {
             margin: 10px 0 0;
             text-align: center;
 
-            .signup-link {
+            .login-link {
                 font-family: "Poppins", Arial, Helvetica, sans-serif;
-                text-decoration: none;
                 font-size: 1rem;
-                color: white;
-                text-align: center;
-
-                img {
-                    width: 10px;
-                    margin-right: 10px;;
-                }
-            
-                &:hover {
-                    color: $linkHoverLogin;
-                    transition: all 0.2s ease-out;
-                }
-            }     
+            }
         }
 
-        .signup-info {
+        .login-info {
             font-family: "Poppins Regular", Arial, Helvetica, sans-serif;
             font-size: 1rem;
             color: white;
@@ -181,15 +207,24 @@
                 font-size: 0.9rem;
                 font-style: italic;
                 text-align: center;
-
-                img {
-                    // width: 10px;
-                    margin-right: 10px;;
-                }
             }
         }
 
-        .signup-spinner {
+        .login-confirm {
+            text-align: justify;
+            text-align: center;
+            // background-color: $baseBgMedium2;
+            // border: 1px solid $baseBgLight1;
+            margin: 20px 0 0;
+            padding: 15px;
+            border-radius: 10px;
+
+            img {
+                width: 180px;
+            }
+        }
+
+        .login-spinner {
             text-align: center;
             padding: 50px 0 25px;
 
@@ -198,7 +233,7 @@
             }
         }
 
-        .signup-spinner-absolute {
+        .login-spinner-absolute {
             padding: 30px;
             border-radius: 20px;
             opacity: 1;

@@ -1,8 +1,10 @@
 /* Import du style */
-import "./signUp.scss"
+import "./login.scss"
 
 /* Import des fonctions, variables & images */
-import imgSignUp from "../../assets/images/icones/add-user.png"
+import imglogin from "../../assets/images/icones/add-user.png"
+import imgPlus from "../../assets/images/icones/plus.png"
+import imgMinus from "../../assets/images/icones/minus.png"
 import { colorMsg, colorMsgForm, cleanLocalStorage } from "../../js/utils.js"
 
 /* Import des composants */
@@ -118,7 +120,7 @@ const SignUp = () => {
             password: password,
         })
 
-        fetch("http://localhost:3001/api/user/signup", {
+        fetch("http://localhost:3001/api/user/login", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: requestBody
@@ -157,38 +159,43 @@ const SignUp = () => {
 
     return (
         <>
-        <main className="main-signup">
-            <section className="signup">
+        <main className="main-login">
+            <section className="login">
                 {displaySpinner && 
-                    <div className="signup-spinner-absolute">
+                    <div className="login-spinner-absolute">
                         <Spinner />
                     </div>
                 }
                 <h1>Créer un compte</h1>
-                <div className="signup-image-new">
-                    <img src={imgSignUp} alt="Nouvel utilisateur"/>
+                <div className="login-image-new">
+                    <img src={imglogin} alt="Nouvel utilisateur"/>
                 </div>
-                <div className="signup-message" style={{backgroundColor: errorMessage.color}}>{errorMessage.libelle}</div>
+                <div className="login-message" style={{backgroundColor: errorMessage.color}}>{errorMessage.libelle}</div>
                 <form onSubmit={handleSubmit}>
-                    <div className="signup-cellule">
+                    <div className="login-cellule">
                         <label>
                             <input className="logo-user" type="text" tabIndex="1" placeholder={controlNickName.libelle} maxLength="12" value={nickName} onChange={(e) => handleNickNameChange(e)} style={{borderColor: controlNickName.color}} />
-                            <div className="signup-cellule-message">
-                                5 caractères minimum, composés de :<br />
-                                - chiffres et lettres (sans accent)
+                            <div className="login-cellule-message">
+                                <div className="login-cellule-message-link">
+                                    <span className="">+</span>Afficher le modèle
+                                    {/* Afficher le modèle */}
+                                </div>
+                                
+                                {/* 5 caractères minimum, composés de :<br />
+                                - chiffres et lettres (sans accent) */}
                             </div>
                         </label>
                     </div>
-                    <div className="signup-cellule">
+                    <div className="login-cellule">
                         <label>
                             <input className="logo-email" type="text" tabIndex="1" placeholder={controlEmail.libelle} maxLength="254" value={email} onChange={(e) => handleEmailChange(e)} style={{borderColor: controlEmail.color}} />
-                            <div className="signup-cellule-message">ex : nom@domaine.com</div>
+                            <div className="login-cellule-message">ex : nom@domaine.com</div>
                         </label>
                     </div>
-                    <div className="signup-cellule">
+                    <div className="login-cellule">
                         <label>
                             <input className="logo-cadenas" type="password" tabIndex="2" placeholder={controlPassword.libelle} maxLength="30" value={password} onChange={(e) => handlePasswordChange(e)} style={{borderColor: controlPassword.color}} />
-                            <div className="signup-cellule-message">
+                            <div className="login-cellule-message">
                                 8 caractères minimum, dont au moins :<br />
                                 - une lettre minuscule<br />
                                 - une lettre majuscule<br />
@@ -196,14 +203,14 @@ const SignUp = () => {
                             </div>
                         </label>
                     </div>
-                    <div className="signup-cellule">
+                    <div className="login-cellule">
                         <label>
                             <input className="logo-cadenas" type="password" tabIndex="2" placeholder={controlConfirmPassword.libelle} maxLength="50" value={confirmPassword} onChange={(e) => handleConfirmPasswordChange(e)} style={{borderColor: controlConfirmPassword.color}} />
                         </label>
                     </div>
-                    <input className="btn-signup" tabIndex="3" type="submit" value="Valider" />
-                    <div className="signup-back">
-                        <Link className="signup-link" to="/connect">Retour</Link>
+                    <input className="btn-login" tabIndex="3" type="submit" value="Valider" />
+                    <div className="login-back">
+                        <Link to="/connect">Retour</Link>
                     </div>                 
                 </form>
             </section>

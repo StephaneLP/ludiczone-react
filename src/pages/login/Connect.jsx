@@ -2,6 +2,7 @@
 import "./login.scss"
 
 /* Import des fonctions, variables & images */
+import imglogin from "../../assets/images/icones/signin.png"
 import { colorMsg, colorMsgForm, cleanLocalStorage } from "../../js/utils.js"
 import imgTriangle from "../../assets/images/icones/arrow.png"
 
@@ -92,12 +93,11 @@ const Connect = () => {
         <>
         <main className="main-login">
             <section className="login">
-                <Link to="/">
-                    <div className="login-img" ></div>
-                </Link>
                 <h1>S'identifier</h1>
+                <div className="login-image">
+                    <img src={imglogin} alt="Chronomètre"/>
+                </div>
                 <div className="login-message" style={{backgroundColor: errorMessage.color}}>{errorMessage.libelle}</div>
-
                 <form onSubmit={handleSubmit}>
                     <div className="login-cellule">
                         <label>
@@ -113,10 +113,14 @@ const Connect = () => {
                         <Link className="login-link" to="/en-construction"><img src={imgTriangle} alt="Flèche"/>Mot de passe oublié ?</Link>
                     </div>
                     <input className="btn-login" tabIndex="3" type="submit" value="Valider" />
+
                     <div className="login-signup">
                         Vous n'avez toujours pas de compte ?<br />
                         <Link className="login-link" to="/inscription"><img src={imgTriangle} alt="Flèche" />Créer un compte</Link>
                     </div>                 
+                    <div className="login-back">
+                        <Link to="/">Page d'accueil</Link>
+                    </div>
                 </form>
             </section>
         </main>
