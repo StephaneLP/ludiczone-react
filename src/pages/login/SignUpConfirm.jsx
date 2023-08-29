@@ -29,7 +29,7 @@ const SignUpConfirm = () => {
     - validation de l'adresse mail du user
     *********************************************************/
     useEffect(() => {
-        fetch("http://localhost:3001/api/user/login/" + token, {
+        fetch("http://localhost:3001/api/user/signup/" + token, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
@@ -48,6 +48,10 @@ const SignUpConfirm = () => {
                 setGetResponse(res.status)
             })
     },[token, navigate])
+
+    const handleClickSubmit = () => {
+        console.log("ok")
+    }
 
     /* ------------------------------------------------------------------------------------------------- */
     /* ------------------------------------------ PARTIE JSX ------------------------------------------- */
@@ -74,9 +78,8 @@ const SignUpConfirm = () => {
                         <div className="login-image">
                             <img src={imgDone} alt="Logo succès"/>
                         </div>
-                        
-                            <div className="login-message">{displayMessage.libelle}</div>
-                        <Link className="btn-login" to="/">Se connecter</Link>
+                        <div className="login-message">{displayMessage.libelle}</div>
+                        <Link className="btn-login btn-login-confirm" to="/connect/inscription">Se connecter</Link>
                         <div className="login-back">
                             <Link to="/">Page d'accueil</Link>
                         </div>                     
@@ -90,7 +93,7 @@ const SignUpConfirm = () => {
                             <img src={imgWarning} alt="Logo échec"/>
                         </div>
                         <div style={{backgroundColor: displayMessage.color}} className="login-message">{displayMessage.libelle}</div>
-                        <Link className="btn-login" to="/">Renvoyer un mail de confirmation</Link>
+                        <button className="btn-login btn-login-confirm" onClick={handleClickSubmit}>Renvoyer un mail de confirmation</button>
                         <div className="login-back">
                             <Link to="/">Page d'accueil</Link>
                         </div> 

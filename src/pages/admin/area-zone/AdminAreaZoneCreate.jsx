@@ -67,7 +67,7 @@ const AdminAreaZoneCreate = () => {
                 // Token invalide
                 if(["ERR_AUTHENTICATION"].includes(res.status)) {
                     cleanLocalStorage()
-                    navigate("/reconnect")
+                    navigate("/connect/reconnect")
                     return
                 }
                 // Token absent - Droits insuffisants - Erreur serveur

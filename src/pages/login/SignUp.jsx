@@ -3,6 +3,7 @@ import "./login.scss"
 
 /* Import des fonctions, variables & images */
 import imglogin from "../../assets/images/icones/add-user.png"
+import imgQuestionMark from "../../assets/images/icones/question-mark.png"
 import imgPlus from "../../assets/images/icones/plus.png"
 import imgMinus from "../../assets/images/icones/minus.png"
 import { colorMsg, colorMsgForm, cleanLocalStorage } from "../../js/utils.js"
@@ -33,7 +34,7 @@ const SignUp = () => {
     // Identifiants & Mot de passe
     const[nickName, setNickName] = useState("StephaneLP")
     const[email, setEmail] = useState("ceodren@outlook.com")
-    const[password, setPassword] = useState("Egs37000")
+    const[password, setPassword] = useState("Egs33700")
     const[confirmPassword, setConfirmPassword] = useState("Egs37000")
 
     // Gestion du champ Pseudo
@@ -120,7 +121,7 @@ const SignUp = () => {
             password: password,
         })
 
-        fetch("http://localhost:3001/api/user/login", {
+        fetch("http://localhost:3001/api/user/signup", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: requestBody
@@ -175,31 +176,35 @@ const SignUp = () => {
                     <div className="login-cellule">
                         <label>
                             <input className="logo-user" type="text" tabIndex="1" placeholder={controlNickName.libelle} maxLength="12" value={nickName} onChange={(e) => handleNickNameChange(e)} style={{borderColor: controlNickName.color}} />
-                            <div className="login-cellule-message">
-                                <div className="login-cellule-message-link">
-                                    <span className="">+</span>Afficher le modèle
-                                    {/* Afficher le modèle */}
-                                </div>
-                                
-                                {/* 5 caractères minimum, composés de :<br />
-                                - chiffres et lettres (sans accent) */}
+                            <div className="login-instructions">
+                                <img src={imgQuestionMark} alt="Point d'interrogation" />
+                                <div className="login-instructions-message">
+                                    5 caractères minimum, composés de :<br />
+                                    - chiffres et lettres (sans accent)
+                                </div>                                
                             </div>
                         </label>
                     </div>
                     <div className="login-cellule">
                         <label>
                             <input className="logo-email" type="text" tabIndex="1" placeholder={controlEmail.libelle} maxLength="254" value={email} onChange={(e) => handleEmailChange(e)} style={{borderColor: controlEmail.color}} />
-                            <div className="login-cellule-message">ex : nom@domaine.com</div>
+                            <div className="login-instructions">
+                                <img src={imgQuestionMark} alt="Point d'interrogation" />
+                                <div className="login-instructions-message">ex : nom@domaine.com</div>
+                            </div>
                         </label>
                     </div>
                     <div className="login-cellule">
                         <label>
                             <input className="logo-cadenas" type="password" tabIndex="2" placeholder={controlPassword.libelle} maxLength="30" value={password} onChange={(e) => handlePasswordChange(e)} style={{borderColor: controlPassword.color}} />
-                            <div className="login-cellule-message">
-                                8 caractères minimum, dont au moins :<br />
-                                - une lettre minuscule<br />
-                                - une lettre majuscule<br />
-                                - un chiffre
+                            <div className="login-instructions">
+                                <img src={imgQuestionMark} alt="Point d'interrogation" />
+                                <div className="login-instructions-message">
+                                    8 caractères minimum, dont au moins :<br />
+                                    - une lettre minuscule<br />
+                                    - une lettre majuscule<br />
+                                    - un chiffre
+                                </div>
                             </div>
                         </label>
                     </div>

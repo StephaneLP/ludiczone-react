@@ -4,12 +4,12 @@ import "./login.scss"
 /* Import des fonctions, variables & images */
 import imglogin from "../../assets/images/icones/signin.png"
 import imgTriangle from "../../assets/images/icones/arrow.png"
-import imgSeparator from "../../assets/images/icones/menu.png"
+import imgSeparator from "../../assets/images/icones/star.png"
 import { colorMsg, colorMsgForm, cleanLocalStorage } from "../../js/utils.js"
 
 /* Import des Hooks & composants react-rooter */
 import { useState } from "react"
-import { Link, useNavigate } from "react-router-dom"
+import { Link, useNavigate, useParams } from "react-router-dom"
 
 const Connect = () => {
 
@@ -17,6 +17,7 @@ const Connect = () => {
     /* --------------------------------------- PARTIE JAVASCRIT ---------------------------------------- */
     /* ------------------------------------------------------------------------------------------------- */
 
+    const { reason } = useParams()
     const navigate = useNavigate()
 
     // Messages et focus d'erreur
@@ -78,7 +79,20 @@ const Connect = () => {
 
                 localStorage.setItem("jwt",res.data.token) // Token enregistré dans le localStorage
                 localStorage.setItem("pseudo",res.data.nick_name) // Pseudo enregistré dans le localStorage
-                navigate(-1) // Retour au composant appelant
+                
+                switch(reason) {
+                    case "inscription":
+                        console.log("1")
+                        navigate("/") // Retour à la page d'accueil
+                        break
+                    case "reconnect":
+                        console.log("2")
+                        navigate(-2) // Retour au composant appelant
+                        break
+                    default:
+                        console.log("3")
+                        navigate(-1) // Retour au composant appelant
+                }
             })
             .catch((error) => {
                 cleanLocalStorage()
@@ -109,18 +123,24 @@ const Connect = () => {
                         <label>
                             <input className="logo-cadenas" type="password" tabIndex="2" placeholder={controlPassword.libelle} maxLength="50" value={password} onChange={(e) => handlePasswordChange(e)} style={{borderColor: controlPassword.color}} />
                         </label>
-                        <Link className="login-link" to="/en-construction"><img src={imgTriangle} alt="Flèche"/>Mot de passe oublié ?</Link>
+                        {!reason && <Link className="login-link" to="/en-construction"><img src={imgTriangle} alt="Flèche"/>Mot de passe oublié ?</Link>}
                     </div>
 
                     <input className="btn-login" tabIndex="3" type="submit" value="Valider" />
                     <div className="login-back">
                         <Link to="/">Page d'accueil</Link>
                     </div>
-                    <img src={imgSeparator} alt="Flèche"/>
-                    <div className="login-signup">
-                        Vous n'avez toujours pas de compte ?<br />
-                        <Link className="login-link" to="/inscription">Créer un compte</Link>
-                    </div>                 
+                    {!reason &&
+                        <>
+                        <div className="login-separator">
+                            <img src={imgSeparator} alt="Flèche"/>
+                        </div>
+                        <div className="login-signup">
+                            Vous n'avez toujours pas de compte ?<br />
+                            <Link className="login-link" to="/inscription">Créer un compte</Link>
+                        </div>
+                        </>                   
+                    }
                 </form>
             </section>
         </main>

@@ -4,7 +4,6 @@ import Search from "./pages/search/Search"
 
 /* Import des composants : Login */
 import Connect from "./pages/login/Connect"
-import ReConnect from "./pages/login/ReConnect"
 import SignUp from "./pages/login/SignUp"
 import SignUpInfo from "./pages/login/SignUpInfo"
 import SignUpConfirm from "./pages/login/SignUpConfirm"
@@ -34,7 +33,7 @@ const App = () => {
                 <Route path="/search" element={<Search />} />
                 {/* Page Login */}
                 <Route path="/connect" element={<Connect />} />
-                <Route path="/reconnect" element={<ReConnect />} />
+                <Route path="/connect/:reason" element={<Connect />} />
                 <Route path="/inscription" element={<SignUp />} />
                 <Route path="/inscription-info" element={<SignUpInfo />} />
                 <Route path="/inscription-confirm/:token" element={<SignUpConfirm />} />
