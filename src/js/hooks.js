@@ -31,7 +31,7 @@ const useCheckIsAdmin = (token) => {
                 navigate("/connect/reconnect")
             }
             // Token absent - Droits insuffisants - Erreur serveur
-            if(["ERR_REQUEST","ERR_USER_RIGHTS","ERR_SERVER"].includes(res.status)) {
+            if(["ERR_REQUEST","ERR_USER_RIGHTS","ERR_SERVER","ERR_NOT_FOUND"].includes(res.status)) {
                 cleanLocalStorage()
                 navigate("/erreur", {state: res.message})
             }

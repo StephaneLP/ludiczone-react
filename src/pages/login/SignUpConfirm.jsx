@@ -29,16 +29,16 @@ const SignUpConfirm = () => {
     - validation de l'adresse mail du user
     *********************************************************/
     useEffect(() => {
-        fetch("http://localhost:3001/api/user/signup/" + token, {
+        fetch("http://localhost:3001/api/user/signup", {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
+                authorization: `Bearer ${token}`,
             }})
             .then((res) => {
                 return res.json()
             })
             .then((res) => {
-                
                 if(["ERR_SERVER"].includes(res.status)) { // Erreur serveur
                     navigate("/erreur", {state: res.message})
                     return
@@ -49,8 +49,31 @@ const SignUpConfirm = () => {
             })
     },[token, navigate])
 
+    /*********************************************************
+    API GET
+    - Envoi d'un nouveau mail de vérification l'adresse mail du user
+    *********************************************************/
     const handleClickSubmit = () => {
-        console.log("ok")
+        fetch("http://localhost:3001/api/user/sendnewmail", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                authorization: `Bearer ${token}`,
+            }})
+            .then((res) => {
+                return res.json()
+            })
+            .then((res) => {
+                if(["SUCCESS"].includes(res.status)) {
+                    navigate('/inscription-info',{
+                        state: {
+                            email: res.email
+                        }
+                    })
+                    return
+                }
+                navigate("/erreur", {state: res.message})
+            })
     }
 
     /* ------------------------------------------------------------------------------------------------- */
@@ -61,9 +84,6 @@ const SignUpConfirm = () => {
         <>
         <main className="main-login">
             <section className="login">
-                <Link to="/">
-                    {/* <div className="login-img" alt="Logo LudicZone"></div> */}
-                </Link>
                 {getResponse === null ?
                 (
                     <div className="login-spinner">

@@ -4,8 +4,6 @@ import "./login.scss"
 /* Import des fonctions, variables & images */
 import imglogin from "../../assets/images/icones/add-user.png"
 import imgQuestionMark from "../../assets/images/icones/question-mark.png"
-import imgPlus from "../../assets/images/icones/plus.png"
-import imgMinus from "../../assets/images/icones/minus.png"
 import { colorMsg, colorMsgForm, cleanLocalStorage } from "../../js/utils.js"
 
 /* Import des composants */
