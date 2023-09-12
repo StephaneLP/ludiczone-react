@@ -7,6 +7,7 @@ import Connect from "./pages/login/Connect"
 import SignUp from "./pages/login/SignUp"
 import SignUpInfo from "./pages/login/SignUpInfo"
 import SignUpConfirm from "./pages/login/SignUpConfirm"
+import SignUpRetry from "./pages/login/SignUpRetry"
 
 /* Import des composants : Administration */
 import AdminAreaType from "./pages/admin/area-type/AdminAreaType"
@@ -37,6 +38,7 @@ const App = () => {
                 <Route path="/inscription" element={<SignUp />} />
                 <Route path="/inscription-info" element={<SignUpInfo />} />
                 <Route path="/inscription-confirm/:token" element={<SignUpConfirm />} />
+                <Route path="/inscription-relance" element={<SignUpRetry />} />
                 {/* Pages d'administration */}
                 <Route path="/admin-area-type" element={<AdminAreaType />} />
                 <Route path="/admin-area-type-create" element={<AdminAreaTypeCreate />} />
