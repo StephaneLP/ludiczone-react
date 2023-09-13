@@ -8,8 +8,7 @@ const PageError = () => {
 
     // Message d'erreur passé en paramètre
     const message = location.state || null
-    console.log("STATE : ", message)
-    
+
     return (
         <>
         <Header />
