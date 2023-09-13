@@ -15,8 +15,8 @@ const SignUpRetry = () => {
     /* ------------------------------------------------------------------------------------------------- */
 
     const navigate = useNavigate()
-    const location = useLocation
-    const message = (location.state ? location.state.message : "...")
+    const location = useLocation()
+    const message = location.state || null
 
     /*********************************************************
     API GET
@@ -55,7 +55,9 @@ const SignUpRetry = () => {
                 <div className="login-image">
                     <img src={imgWarning} alt="Logo échec"/>
                 </div>
-                <div style={{backgroundColor: colorMsg.error}} className="login-message">{message}</div>
+                {message &&
+                    <div style={{backgroundColor: colorMsg.error}} className="login-message">{message}</div>
+                }
                 <button className="btn-login btn-login-confirm" onClick={handleClickSubmit}>Renvoyer un mail de confirmation</button>
                 <div className="login-back">
                     <Link to="/">Page d'accueil</Link>
