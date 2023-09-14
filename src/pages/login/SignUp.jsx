@@ -107,7 +107,7 @@ const SignUp = () => {
         if(confirmPassword === "") setControlConfirmPassword({libelle: "Veuillez confirmer le mot de passe", color: colorMsgForm.error})
 
         if(controlNickName.color !== colorMsgForm.success || controlEmail.color !== colorMsgForm.success || controlPassword.color !== colorMsgForm.success || controlConfirmPassword.color !== colorMsgForm.success) {
-            setErrorMessage({libelle: "Veuillez remplir correctement les champs S.V.P.", color: colorMsg.error})
+            setErrorMessage({libelle: "Veuillez remplir correctement tous les champs S.V.P.", color: colorMsg.error})
             return
         }
 
