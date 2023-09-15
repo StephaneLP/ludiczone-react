@@ -123,7 +123,7 @@ const Connect = () => {
                         <label>
                             <input className="logo-cadenas" type="password" tabIndex="2" placeholder={controlPassword.libelle} maxLength="50" value={password} onChange={(e) => handlePasswordChange(e)} style={{borderColor: controlPassword.color}} />
                         </label>
-                        {!reason && <Link className="login-link" to="/en-construction"><img src={imgTriangle} alt="Flèche"/>Mot de passe oublié ?</Link>}
+                        {!reason && <Link className="login-link" to="/connect-mdp"><img src={imgTriangle} alt="Flèche"/>Mot de passe oublié ?</Link>}
                     </div>
 
                     <input className="btn-login" tabIndex="3" type="submit" value="Valider" />

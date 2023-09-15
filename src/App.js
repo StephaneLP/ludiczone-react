@@ -4,6 +4,7 @@ import Search from "./pages/search/Search"
 
 /* Import des composants : Login */
 import Connect from "./pages/login/Connect"
+import ForgotPassword from "./pages/login/ForgotPassword"
 import SignUp from "./pages/login/SignUp"
 import SignUpInfo from "./pages/login/SignUpInfo"
 import SignUpConfirm from "./pages/login/SignUpConfirm"
@@ -35,6 +36,7 @@ const App = () => {
                 {/* Page Login */}
                 <Route path="/connect" element={<Connect />} />
                 <Route path="/connect/:reason" element={<Connect />} />
+                <Route path="/connect-mdp" element={<ForgotPassword />} />
                 <Route path="/inscription" element={<SignUp />} />
                 <Route path="/inscription-info" element={<SignUpInfo />} />
                 <Route path="/inscription-confirm/:token" element={<SignUpConfirm />} />

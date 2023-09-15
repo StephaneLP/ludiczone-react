@@ -2,7 +2,7 @@
 import "./login.scss"
 
 /* Import des fonctions, variables & images */
-import imgRetry from "../../assets/images/icones/failure.png"
+import imgForgot from "../../assets/images/icones/forgot.png"
 import { colorMsg, colorMsgForm } from "../../js/utils.js"
 
 /* Import des composants */
@@ -12,15 +12,13 @@ import Spinner from "../../components/loader/Spinner"
 import { Link, useNavigate, useLocation } from "react-router-dom"
 import { useState } from "react"
 
-const SignUpRetry = () => {
+const ForgotPassword = () => {
 
     /* ------------------------------------------------------------------------------------------------- */
     /* --------------------------------------- PARTIE JAVASCRIT ---------------------------------------- */
     /* ------------------------------------------------------------------------------------------------- */
 
     const navigate = useNavigate()
-    const location = useLocation()
-    const message = location.state || null
 
     // Messages et focus d'erreur
     const[errorMessage, setErrorMessage] = useState({libelle: "", color: ""})
@@ -100,13 +98,11 @@ const SignUpRetry = () => {
                         <Spinner />
                     </div>
                 }
-                <h1>Game Over !</h1>
+                <h1>Mot de passe oublié...</h1>
                 <div className="login-image">
-                    <img src={imgRetry} alt="Logo échec"/>
+                    <img src={imgForgot} alt="Logo échec"/>
                 </div>
-                {message &&
-                    <div className="login-message-retry">{message}</div>
-                }
+                <div className="login-message">Nous allons vous envoyer un email pour vous permettre de mettre à jour votre mot de passe.</div>
                 <div className="login-message" style={{backgroundColor: errorMessage.color}}>{errorMessage.libelle}</div>
                 <form onSubmit={handleClickSubmit}>
                     <div className="login-cellule">
@@ -114,7 +110,7 @@ const SignUpRetry = () => {
                             <input className="logo-email" type="text" tabIndex="1" placeholder="Veuillez saisir votre adresse Email S.V.P." maxLength="254" value={email} onChange={(e) => handleEmailChange(e)} style={{borderColor: controlEmail.color}} />
                         </label>
                     </div>
-                    <input className="btn-login btn-login-retry" tabIndex="3" type="submit" value="Renvoyer un email de confirmation" />
+                    <input className="btn-login" tabIndex="3" type="submit" value="Continuer" />
                     <div className="login-back">
                         <Link to="/">Page d'accueil</Link>
                     </div> 
@@ -124,4 +120,4 @@ const SignUpRetry = () => {
     )
 }
 
-export default SignUpRetry
+export default ForgotPassword
