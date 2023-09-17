@@ -9,7 +9,7 @@ import { colorMsg, colorMsgForm } from "../../js/utils.js"
 import Spinner from "../../components/loader/Spinner"
 
 /* Import des Hooks & composants react-rooter */
-import { Link, useNavigate, useLocation } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { useState } from "react"
 
 const ForgotPassword = () => {
@@ -57,7 +57,7 @@ const ForgotPassword = () => {
 
         setDisplaySpinner(true)
 
-        fetch("http://localhost:3001/api/user/sendnewmail", {
+        fetch("http://localhost:3001/api/user/sendmail/forgotpassword", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({email: email})

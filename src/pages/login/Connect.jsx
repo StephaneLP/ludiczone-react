@@ -41,9 +41,6 @@ const Connect = () => {
         setControlPassword({libelle: "Mot de passe...", color: ""})
     }
 
-    // if(objtest !== undefined) {console.log("OK")}
-    // else {console.log("NO")}
-
     /*********************************************************
     API POST
     - authentification avec identifiant et mot de passe

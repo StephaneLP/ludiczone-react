@@ -45,7 +45,7 @@ const SignUpRetry = () => {
         
     /*********************************************************
     API GET
-    - Envoi d'un nouveau mail de vérification l'adresse mail du user
+    - Envoi d'un nouveau mail de vérification de l'adresse mail du user
     *********************************************************/
     const handleClickSubmit = (event) => {
         event.preventDefault()
@@ -59,7 +59,7 @@ const SignUpRetry = () => {
 
         setDisplaySpinner(true)
 
-        fetch("http://localhost:3001/api/user/sendnewmail", {
+        fetch("http://localhost:3001/api/user/sendmail/confirmemail", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({email: email})
