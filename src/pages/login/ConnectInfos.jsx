@@ -9,21 +9,24 @@ import imgWarning from "../../assets/images/icones/warning.png"
 /* Import des Hooks & composants react-rooter */
 import { Link, useLocation } from "react-router-dom"
 
-const SignUpInfo = () => {
+const ConnectInfos = () => {
+    let infos = {title: "...", message: "...", email: "..."}
     const location = useLocation()
-    const email = (location.state ? location.state.email : "...")
+    if(location.state) {
+        infos = {title: location.state.title, message: location.state.message, email: location.state.email}
+    }
 
     return (
         <>
         <main className="main-login">
             <section className="login">
-                <h1>Finaliser l'inscription</h1>
+                <h1>{infos.title}</h1>
                 <div className="login-image">
                     <img src={imglogin} alt="Chronomètre"/>
                 </div>
                 <div className="login-info">
-                    <p>Veuillez finaliser votre inscription en cliquant sur le lien qui vous a été envoyé par mail à l'adresse suivante :</p>
-                    <p className="email">{email}</p>
+                    <p>{infos.message}</p>
+                    <p className="email">{infos.email}</p>
                     <p className="note"><img src={imgWarning} alt="Flèche"/>Durée de validité du lien : 5mn</p>
                 </div>
                 <div className="login-back">
@@ -35,4 +38,4 @@ const SignUpInfo = () => {
     )
 }
 
-export default SignUpInfo
+export default ConnectInfos

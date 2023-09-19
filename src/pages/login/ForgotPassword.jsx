@@ -78,9 +78,11 @@ const ForgotPassword = () => {
                     return
                 }
 
-                navigate('/inscription-info',{
+                navigate('/connect-info',{
                     state: {
-                        email: res.email
+                        title: "Modifier le mot de passe",
+                        message: "Veuillez poursuivre cette procédure en cliquant sur le lien qui vous a été envoyé par mail à l'adresse suivante :",
+                        email: email,
                     }
                 })
             })

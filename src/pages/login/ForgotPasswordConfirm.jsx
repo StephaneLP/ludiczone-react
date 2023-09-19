@@ -2,68 +2,35 @@
 import "./login.scss"
 
 /* Import des fonctions, variables & images */
-import imglogin from "../../assets/images/icones/add-user.png"
+import imgPassword from "../../assets/images/icones/password.png"
 import imgQuestionMark from "../../assets/images/icones/question-mark.png"
-import { colorMsg, colorMsgForm, cleanLocalStorage } from "../../js/utils.js"
+import { colorMsg, colorMsgForm } from "../../js/utils.js"
 
 /* Import des composants */
 import Spinner from "../../components/loader/Spinner"
 
 /* Import des Hooks & composants react-rooter */
-import { useState } from "react"
-import { Link, useNavigate } from "react-router-dom"
+import { Link, useParams, useNavigate } from "react-router-dom"
+import { useState, useEffect } from "react"
 
-const SignUp = () => {
+const ForgotPasswordConfirm = () => {
 
     /* ------------------------------------------------------------------------------------------------- */
     /* --------------------------------------- PARTIE JAVASCRIT ---------------------------------------- */
     /* ------------------------------------------------------------------------------------------------- */
 
     const navigate = useNavigate()
+    const { token } = useParams()
 
     // Messages et focus d'erreur
     const[errorMessage, setErrorMessage] = useState({libelle: "", color: ""})
-    const[controlNickName, setControlNickName] = useState({libelle: "Pseudo...", color: colorMsgForm.success})
-    const[controlEmail, setControlEmail] = useState({libelle: "Email...", color: colorMsgForm.success})
-    const[controlPassword, setControlPassword] = useState({libelle: "Mot de passe...", color: colorMsgForm.success})
-    const[controlConfirmPassword, setControlConfirmPassword] = useState({libelle: "Confirmer le mot de passe...", color: colorMsgForm.success})
+    const[controlPassword, setControlPassword] = useState({libelle: "Mot de passe...", color: ""})
+    const[controlConfirmPassword, setControlConfirmPassword] = useState({libelle: "Confirmer le mot de passe...", color: ""})
     const[displaySpinner, setDisplaySpinner] = useState(null)
 
     // Identifiants & Mot de passe
-    const[nickName, setNickName] = useState("StephaneLP")
-    const[email, setEmail] = useState("ceodren@outlook.com")
-    const[password, setPassword] = useState("Egs33700")
-    const[confirmPassword, setConfirmPassword] = useState("Egs37000")
-
-    // Gestion du champ Pseudo
-    const handleNickNameChange = (event) => {
-        const val = event.target.value.trim()
-        const exp = /^(?=.*[a-zA-Z0-9])[a-zA-Z0-9]{5,}$/
-        let color = ""
-
-        if(val.length >= 1) {
-            color = (exp.test(val) ? colorMsgForm.success : colorMsgForm.error)
-        }
-
-        setNickName(val);
-        setErrorMessage({libelle: "", color: ""})
-        setControlNickName({libelle: "Pseudo...", color: color})
-    }
-
-    // Gestion du champ Email
-    const handleEmailChange = (event) => {
-        const val = event.target.value.trim()
-        const exp = /([\w-.]+@[\w.]+\.{1}[\w]+)/
-        let color = ""
-
-        if(val.length >= 1) {
-            color = (exp.test(val) ? colorMsgForm.success : colorMsgForm.error)
-        }
-
-        setEmail(val);
-        setErrorMessage({libelle: "", color: ""})
-        setControlEmail({libelle: "Email...", color: color})
-    }
+    const[password, setPassword] = useState("")
+    const[confirmPassword, setConfirmPassword] = useState("")
 
     // Gestion du champ Mot de passe
     const handlePasswordChange = (event) => {
@@ -93,20 +60,18 @@ const SignUp = () => {
         setErrorMessage({libelle: "", color: ""})
         setControlConfirmPassword({libelle: "Confirmer le mot de passe...", color: color})
     }
-    
+
     /*********************************************************
-    API POST
-    - authentification avec identifiant et mot de passe
+    API PUT
+    - changement du mot de passe (oublié)
     *********************************************************/
     const handleSubmit = (event) => {
         event.preventDefault()
 
-        if(nickName === "") setControlNickName({libelle: "Veuillez renseigner un pseudo", color: colorMsgForm.error})
-        if(email === "") setControlEmail({libelle: "Veuillez renseigner un email", color: colorMsgForm.error})
         if(password === "") setControlPassword({libelle: "Veuillez renseigner un mot de passe", color: colorMsgForm.error})
         if(confirmPassword === "") setControlConfirmPassword({libelle: "Veuillez confirmer le mot de passe", color: colorMsgForm.error})
 
-        if(controlNickName.color !== colorMsgForm.success || controlEmail.color !== colorMsgForm.success || controlPassword.color !== colorMsgForm.success || controlConfirmPassword.color !== colorMsgForm.success) {
+        if( controlPassword.color !== colorMsgForm.success || controlConfirmPassword.color !== colorMsgForm.success) {
             setErrorMessage({libelle: "Veuillez remplir correctement tous les champs S.V.P.", color: colorMsg.error})
             return
         }
@@ -114,14 +79,15 @@ const SignUp = () => {
         setDisplaySpinner(true)
 
         const requestBody = JSON.stringify({
-            nick_name: nickName,
-            email: email,
             password: password,
         })
 
-        fetch("http://localhost:3001/api/user/signup", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
+        fetch("http://localhost:3001/api/user/forgotpassword", {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                    authorization: `Bearer ${token}`,
+                },
                 body: requestBody
             })
             .then((res) => {
@@ -144,15 +110,44 @@ const SignUp = () => {
                     state: {
                         title: "Finaliser l'inscription",
                         message: "Veuillez finaliser votre inscription en cliquant sur le lien qui vous a été envoyé par mail à l'adresse suivante :",
-                        email: email,
+                        email: "...",
                     }
                 })
             })
             .catch((error) => {
-                cleanLocalStorage()
                 navigate('/erreur', {state: error.message})
             })
+
+
+
+
     }
+    // useEffect(() => {
+    //     fetch("http://localhost:3001/api/user/signup", {
+    //         method: "PUT",
+    //         headers: {
+    //             "Content-Type": "application/json",
+    //             authorization: `Bearer ${token}`,
+    //         }})
+    //         .then((res) => {
+    //             return res.json()
+    //         })
+    //         .then((res) => {
+    //             // Erreur serveur
+    //             if(["ERR_SERVER"].includes(res.status)) {
+    //                 navigate("/erreur", {state: res.message})
+    //                 return
+    //             }
+    //             // Echec de validation de l'adresse mail
+    //             if(res.status !== "SUCCESS") {
+    //                 navigate("/inscription-relance", {state: res.message})
+    //                 return
+    //             }
+
+    //             setDisplayMessage({libelle: res.message, color: colorMsg.success})
+    //             setGetResponse(res.status)
+    //         })
+    // },[token, navigate])
 
     /* ------------------------------------------------------------------------------------------------- */
     /* ------------------------------------------ PARTIE JSX ------------------------------------------- */
@@ -166,33 +161,15 @@ const SignUp = () => {
                         <Spinner />
                     </div>
                 }
-                <h1>Créer un compte</h1>
-                <div className="login-image-new">
-                    <img src={imglogin} alt="Nouvel utilisateur"/>
+                <h1>Mot de passe oublié...</h1>
+                <div className="login-image">
+                    <img src={imgPassword} alt="Logo mot de passe"/>
                 </div>
+                <div className="login-message">Veuillez saisir un nouveau mot de passe S.V.P.</div>
                 <div className="login-message" style={{backgroundColor: errorMessage.color}}>{errorMessage.libelle}</div>
+
+
                 <form onSubmit={handleSubmit}>
-                    <div className="login-cellule">
-                        <label>
-                            <input className="logo-user" type="text" tabIndex="1" placeholder={controlNickName.libelle} maxLength="12" value={nickName} onChange={(e) => handleNickNameChange(e)} style={{borderColor: controlNickName.color}} />
-                            <div className="login-instructions">
-                                <img src={imgQuestionMark} alt="Point d'interrogation" />
-                                <div className="login-instructions-message">
-                                    5 caractères minimum, composés de :<br />
-                                    - chiffres et lettres (sans accent)
-                                </div>                                
-                            </div>
-                        </label>
-                    </div>
-                    <div className="login-cellule">
-                        <label>
-                            <input className="logo-email" type="text" tabIndex="1" placeholder={controlEmail.libelle} maxLength="254" value={email} onChange={(e) => handleEmailChange(e)} style={{borderColor: controlEmail.color}} />
-                            <div className="login-instructions">
-                                <img src={imgQuestionMark} alt="Point d'interrogation" />
-                                <div className="login-instructions-message">ex : nom@domaine.com</div>
-                            </div>
-                        </label>
-                    </div>
                     <div className="login-cellule">
                         <label>
                             <input className="logo-cadenas" type="password" tabIndex="2" placeholder={controlPassword.libelle} maxLength="30" value={password} onChange={(e) => handlePasswordChange(e)} style={{borderColor: controlPassword.color}} />
@@ -214,12 +191,12 @@ const SignUp = () => {
                     </div>
                     <input className="btn-login" tabIndex="3" type="submit" value="Valider" />
                     <div className="login-back">
-                        <Link to="/connect">Retour</Link>
+                        <Link to="/">Page d'accueil</Link>
                     </div>                 
-                </form>
+                </form>                   
             </section>
         </main>
     )
 }
 
-export default SignUp
+export default ForgotPasswordConfirm

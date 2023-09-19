@@ -4,9 +4,10 @@ import Search from "./pages/search/Search"
 
 /* Import des composants : Login */
 import Connect from "./pages/login/Connect"
+import ConnectInfos from "./pages/login/ConnectInfos"
 import ForgotPassword from "./pages/login/ForgotPassword"
+import ForgotPasswordConfirm from "./pages/login/ForgotPasswordConfirm"
 import SignUp from "./pages/login/SignUp"
-import SignUpInfo from "./pages/login/SignUpInfo"
 import SignUpConfirm from "./pages/login/SignUpConfirm"
 import SignUpRetry from "./pages/login/SignUpRetry"
 
@@ -33,14 +34,17 @@ const App = () => {
                 {/* Pages : Accueil et Recherche avancée */}
                 <Route path="/" element={<Home />} />
                 <Route path="/search" element={<Search />} />
-                {/* Page Login */}
+
+                {/* Pages Login & SignUp*/}
                 <Route path="/connect" element={<Connect />} />
                 <Route path="/connect/:reason" element={<Connect />} />
+                <Route path="/connect-info" element={<ConnectInfos />} />
                 <Route path="/connect-mdp" element={<ForgotPassword />} />
+                <Route path="/connect-mdp-confirm/:token" element={<ForgotPasswordConfirm />} />
                 <Route path="/inscription" element={<SignUp />} />
-                <Route path="/inscription-info" element={<SignUpInfo />} />
                 <Route path="/inscription-confirm/:token" element={<SignUpConfirm />} />
                 <Route path="/inscription-relance" element={<SignUpRetry />} />
+
                 {/* Pages d'administration */}
                 <Route path="/admin-area-type" element={<AdminAreaType />} />
                 <Route path="/admin-area-type-create" element={<AdminAreaTypeCreate />} />
@@ -48,6 +52,7 @@ const App = () => {
                 <Route path="/admin-area-zone" element={<AdminAreaZone />} />
                 <Route path="/admin-area-zone-create" element={<AdminAreaZoneCreate />} />
                 <Route path="/admin-area-zone-update/:id" element={<AdminAreaZoneUpdate />} />
+
                 {/* Pages d'erreur */}
                 <Route path="/erreur" element={<PageError />} />
                 <Route path="/en-construction" element={<PageUnderConstruction />} />

@@ -80,9 +80,11 @@ const SignUpRetry = () => {
                     return
                 }
 
-                navigate('/inscription-info',{
+                navigate('/connect-info',{
                     state: {
-                        email: res.email
+                        title: "Finaliser l'inscription",
+                        message: "Veuillez finaliser votre inscription en cliquant sur le lien qui vous a été envoyé par mail à l'adresse suivante :",
+                        email: email,
                     }
                 })
             })
