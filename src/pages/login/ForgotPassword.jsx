@@ -9,8 +9,8 @@ import { colorMsg, colorMsgForm } from "../../js/utils.js"
 import Spinner from "../../components/loader/Spinner"
 
 /* Import des Hooks & composants react-rooter */
-import { Link, useNavigate } from "react-router-dom"
-import { useState } from "react"
+import { Link, useLocation, useNavigate } from "react-router-dom"
+import { useState, useEffect } from "react"
 
 const ForgotPassword = () => {
 
@@ -18,6 +18,7 @@ const ForgotPassword = () => {
     /* --------------------------------------- PARTIE JAVASCRIT ---------------------------------------- */
     /* ------------------------------------------------------------------------------------------------- */
 
+    const location = useLocation()
     const navigate = useNavigate()
 
     // Messages et focus d'erreur
@@ -25,6 +26,13 @@ const ForgotPassword = () => {
     const[controlEmail, setControlEmail] = useState({color: ""})
     const[email, setEmail] = useState("")
     const[displaySpinner, setDisplaySpinner] = useState(null)
+
+    // Message d'erreur passé en paramètre
+    useEffect(() => {
+        if(location.state) {
+            setErrorMessage({libelle: location.state, color: colorMsg.error})
+        }
+    },[location.state])
 
     // Gestion du champ Email
     const handleEmailChange = (event) => {

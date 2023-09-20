@@ -11,7 +11,7 @@ import Spinner from "../../components/loader/Spinner"
 
 /* Import des Hooks & composants react-rooter */
 import { Link, useParams, useNavigate } from "react-router-dom"
-import { useState, useEffect } from "react"
+import { useState } from "react"
 
 const ForgotPasswordConfirm = () => {
 
@@ -94,10 +94,9 @@ const ForgotPasswordConfirm = () => {
                 return res.json()
             })
             .then((res) => {
-                // Erreur identifiant ou mot de passe
-                if(["ERR_CONSTRAINT","ERR_AUTHENTICATION"].includes(res.status)) {
-                    setErrorMessage({libelle: res.message, color: colorMsg.error})
-                    setDisplaySpinner(null)
+                // Erreur de requête ou d'authentification
+                if(["ERR_REQUEST","ERR_AUTHENTICATION"].includes(res.status)) {
+                    navigate("/connect-mdp", { state: res.message })
                     return
                 }
                 // Erreur serveur
@@ -105,49 +104,17 @@ const ForgotPasswordConfirm = () => {
                     navigate("/erreur", { state: res.message })
                     return
                 }
-
-                navigate('/connect-info',{
+                navigate('/connect/inscription',{
                     state: {
-                        title: "Finaliser l'inscription",
-                        message: "Veuillez finaliser votre inscription en cliquant sur le lien qui vous a été envoyé par mail à l'adresse suivante :",
-                        email: "...",
+                        color: colorMsg.success,
+                        libelle: res.message,
                     }
                 })
             })
             .catch((error) => {
                 navigate('/erreur', {state: error.message})
             })
-
-
-
-
     }
-    // useEffect(() => {
-    //     fetch("http://localhost:3001/api/user/signup", {
-    //         method: "PUT",
-    //         headers: {
-    //             "Content-Type": "application/json",
-    //             authorization: `Bearer ${token}`,
-    //         }})
-    //         .then((res) => {
-    //             return res.json()
-    //         })
-    //         .then((res) => {
-    //             // Erreur serveur
-    //             if(["ERR_SERVER"].includes(res.status)) {
-    //                 navigate("/erreur", {state: res.message})
-    //                 return
-    //             }
-    //             // Echec de validation de l'adresse mail
-    //             if(res.status !== "SUCCESS") {
-    //                 navigate("/inscription-relance", {state: res.message})
-    //                 return
-    //             }
-
-    //             setDisplayMessage({libelle: res.message, color: colorMsg.success})
-    //             setGetResponse(res.status)
-    //         })
-    // },[token, navigate])
 
     /* ------------------------------------------------------------------------------------------------- */
     /* ------------------------------------------ PARTIE JSX ------------------------------------------- */

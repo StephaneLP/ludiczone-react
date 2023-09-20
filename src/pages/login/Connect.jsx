@@ -8,8 +8,8 @@ import imgSeparator from "../../assets/images/icones/star.png"
 import { colorMsg, colorMsgForm, cleanLocalStorage } from "../../js/utils.js"
 
 /* Import des Hooks & composants react-rooter */
-import { useState } from "react"
-import { Link, useNavigate, useParams } from "react-router-dom"
+import { useEffect, useState } from "react"
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom"
 
 const Connect = () => {
 
@@ -18,12 +18,19 @@ const Connect = () => {
     /* ------------------------------------------------------------------------------------------------- */
 
     const { reason } = useParams()
+    const location = useLocation()
     const navigate = useNavigate()
 
     // Messages et focus d'erreur
     const[errorMessage, setErrorMessage] = useState({libelle: "", color: ""})
     const[controlLogin, setControlLogin] = useState({libelle: "Pseudo ou Email...", color: ""})
     const[controlPassword, setControlPassword] = useState({libelle: "Mot de passe...", color: ""})
+
+    useEffect(() => {
+        if(location.state) {
+            setErrorMessage({libelle: location.state.libelle, color: location.state.color})
+        }
+    },[location.state])
 
     // Identifiant & Mot de passe
     const[login, setLogin] = useState("")

@@ -11,13 +11,13 @@ import { Link, useLocation } from "react-router-dom"
 
 const ConnectInfos = () => {
     let infos = {title: "...", message: "...", email: "..."}
+
     const location = useLocation()
     if(location.state) {
         infos = {title: location.state.title, message: location.state.message, email: location.state.email}
     }
 
     return (
-        <>
         <main className="main-login">
             <section className="login">
                 <h1>{infos.title}</h1>
@@ -34,7 +34,6 @@ const ConnectInfos = () => {
                 </div>
             </section>
         </main>
-        </>
     )
 }
 
