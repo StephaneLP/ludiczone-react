@@ -100,6 +100,7 @@ const AdminAreaType = () => {
                 return res.json()
             })
             .then((res) => {
+                console.log('RES2-->', res.data[0])
                 // Token invalide
                 if(["ERR_AUTHENTICATION"].includes(res.status)) {
                     cleanLocalStorage()
@@ -198,7 +199,7 @@ const AdminAreaType = () => {
                                         <div className="col-12 col-lg-2">
                                             <div className="admin-row-img" style={{backgroundImage: `url(${require("../../../assets/images/pages/area-type/" + element.picture)})`}}></div>
                                         </div>
-                                        <div className="col-12 col-lg-3 admin-row-title">
+                                        <div className="col-12 col-lg-2 admin-row-title">
                                             {element.name}
                                         </div>
                                         <div className="col-12 col-lg-2 justify-content-center">
@@ -210,7 +211,13 @@ const AdminAreaType = () => {
                                         <div className="col-12 col-lg-1 justify-content-end">
                                             Id : {element.id}
                                         </div>
-                                        <div className="col-12 col-lg-2 justify-content-end">
+                                        <div className="col-12 col-lg-1 justify-content-end">
+                                            Rang : {element.rank}
+                                        </div>
+                                        <div className="col-12 col-lg-1 justify-content-end">
+                                            IsActif : {element.is_active ? 'Oui' : 'Non'}
+                                        </div>
+                                        <div className="col-12 col-lg-1 justify-content-end">
                                             <Link className="btn-admin btn-admin-update" to={"/admin-area-type-update/" + element.id} href="#"></Link>
                                             <Link className="btn-admin btn-admin-delete" onClick={() => handleDeleteClick(element.id, element.name)}></Link>
                                         </div>

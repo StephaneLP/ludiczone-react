@@ -26,7 +26,9 @@ const AdminAreaTypeCreate = () => {
     const[displayMessage, setDisplayMessage] = useState({libelle: "", color: ""})
     const[focusName, setFocusName] = useState("")
     const[createName, setCreateName] = useState("")
-    const[createDescription, setCreateDescription] = useState("")
+    const[createRank, setCreateRank] = useState(0)
+    const[createIsActive, setIsActive] = useState(true)
+    const[createDescription, setCreateDescription] = useState('')
     const[createPicture, setCreatePicture] = useState("default.jpg")
 
     /* Contrôle de la validité du token et des droits */
@@ -49,8 +51,12 @@ const AdminAreaTypeCreate = () => {
         const requestBody = JSON.stringify({
             name: createName,
             description: createDescription,
-            picture: createPicture,
+            rank: createRank,
+            is_active: createIsActive,
+            picture: null,
         })
+
+        console.log('body', requestBody)
 
         fetch("http://localhost:3001/api/areatypes/admin", {
                 method: "POST",
@@ -131,6 +137,18 @@ const AdminAreaTypeCreate = () => {
                                         <textarea maxLength="200" value={createDescription} onChange={(e) => setCreateDescription(e.target.value)} />
                                     </label>                            
                                 </div>
+                                <div className="admin-alter-cellule">
+                                    <label>
+                                    <span>Rang</span>
+                                        <input type="number" value={createRank} onChange={(e) => setCreateRank(e.target.value)} />
+                                    </label>                            
+                                </div>
+                                <div className="admin-alter-cellule">
+                                    <label>
+                                    <span>Actif</span>
+                                        <input type="checkbox" onChange={(e) => setIsActive(e.target.checked)} checked={createIsActive} />
+                                    </label>                            
+                                </div>                             
                             </div>
                             <div className="col-12 col-md-4">
                                 <div className="admin-alter-cellule">
